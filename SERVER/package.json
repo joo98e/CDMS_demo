@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "go": "nodemon ./db/"
+    "client": "cd ../CLIENT && yarn start",
+    "server": "nodemon ./db",
+    "go": "concurrently --kill-others-on-fail \"yarn client\" \"yarn server\""
   },
   "keywords": [],
   "author": "",

@@ -14,7 +14,6 @@ export default class template extends Component {
         // 혹은 생성자(constructor)에서, this.handleClick = this.handleClick.bind(this);
         const { value } = this.state;
 
-        console.log(value)
         this.setState({
             value: value + 1
         });

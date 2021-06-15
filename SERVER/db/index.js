@@ -8,6 +8,5 @@ const users = require('./routes/users');
 app.use('/users', users);
 
 // ────────────────────────────────────────────────────────── 
-// ──────────────────────────────────────────────────────────
 
 app.listen(port, () => console.log(`Listening on PORT ${port}`));
