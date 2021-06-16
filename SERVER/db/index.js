@@ -1,4 +1,5 @@
 // ────────────────────────────────────────────────────────── Require
+const CURRENT_DIR = __dirname;
 const multer = require("multer");
 const connection = require("./db_connection");
 const app = require('./app');
@@ -9,4 +10,6 @@ app.use('/users', users);
 
 // ────────────────────────────────────────────────────────── 
 
-app.listen(port, () => console.log(`Listening on PORT ${port}`));
+const isDev = CURRENT_DIR.indexOf("C:") !== -1 ? 'localhost' : 'service';
+
+app.listen(port, () => console.log(`${isDev}, Listening on PORT ${port}`));

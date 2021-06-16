@@ -6,5 +6,5 @@ module.exports = (() => {
         "password": "EVERYbeok1!2#",
         "database": "myboard"
     }
-})();
+})(); 
 
