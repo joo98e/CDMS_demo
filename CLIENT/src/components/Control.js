@@ -20,19 +20,6 @@ export class Control extends Component {
         return console.log(`${fnName} is not defined`);
     }
 
-    onPlus = () => {
-        this.createWarn('onPlus');
-    }
-
-    onSubtract = () => {
-        this.createWarn('onSubtract');
-    }
-
-    onRandomizeColor = () => {
-        this.createWarn('onRandomizeColor');
-    }
-
-
     render() {
         return (
             <div>

@@ -11,7 +11,6 @@ const store = createStore(reducers);
 
 console.log(store.getState());
 
-// store에 상태 변화가 일어날 때마다 subscribe 의 리스너, 콘솔이 출력된다.
 // store.subscribe(() => console.log(store.getState()));
 
 ReactDOM.render(

@@ -6,7 +6,7 @@ const port = process.env.PORT || 5005;
 const users = require('./routes/users');
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
-const isDev = CURRENT_DIR.indexOf("C:") !== -1 ? `local is ${true}` : `local is ${false}`;
+const isDev = CURRENT_DIR.indexOf("C:") !== -1 ? `Is ${true}` : `Is ${false}`;
 
 app.use('/users', users);
 
