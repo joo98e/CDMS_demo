@@ -1,15 +1,14 @@
 import * as types from '../actions/ActionTypes';
 
 const initialState = {
-    color: [255, 255, 255]
+    color: 'default'
 };
 
 
 const ui = (state = initialState, action) => {
-
     if(action.type === types.SET_COLOR){
         return{
-            color : action.color
+            color : state.color === 'default' ? 'primary' : 'default'
         }
     }
     else return state;

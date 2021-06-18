@@ -12,17 +12,4 @@ app.use('/users', users);
 
 // ────────────────────────────────────────────────────────── 
 
-const password = "12345";
-bcrypt.genSalt(saltRounds, (err, salt) => {
-    bcrypt.hash(password, salt, (err, hash) => {
-        console.log(`hash is ${hash}`);
-    });
-});
-setTimeout(() => {
-    const newPass = "12345";
-    console.log(`compareSync is ${bcrypt.compareSync(password, newPass)}`)    
-}, 3000);
- 
-// ────────────────────────────────────────────────────────── 
-
 app.listen(port, () => console.log(`${isDev}, Listening on PORT ${port}`));
