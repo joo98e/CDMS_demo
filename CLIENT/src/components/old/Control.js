@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { Box, Button } from '@material-ui/core';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import * as actions from '../actions';
+import * as actions from '../../actions';
 
 
 export class Control extends Component {
