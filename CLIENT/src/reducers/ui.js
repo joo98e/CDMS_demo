@@ -2,7 +2,6 @@ import * as types from '../actions/ActionTypes';
 
 const initialState = {
     color: 'default',
-    sawGuide: 'N'
 };
 
 const ui = (state = initialState, action) => {
@@ -15,13 +14,7 @@ const ui = (state = initialState, action) => {
                 ...state,
                 color: state.color === 'default' ? 'primary' : 'default'
             };
-
-        case types.VIEW_SAW_GUIDE:
-            return {
-                ...state,
-                VIEW_SAW_GUIDE : 'Y'
-            };
-
+            
         default:
             return state;
     }

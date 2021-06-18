@@ -1,7 +1,13 @@
 import React, { PureComponent } from 'react'
-import { Stepper, Step, StepLabel, StepContent, Button, Paper, Typography } from '@material-ui/core';
+import { Stepper, Step, StepLabel, StepContent, Button, Paper, Typography, withStyles } from '@material-ui/core';
 
-export default class StepComponent extends PureComponent {
+const styles = theme => ({
+    taewwe: {
+        margin: "0 auto"
+    }
+});
+
+class StepComponent extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -28,6 +34,8 @@ export default class StepComponent extends PureComponent {
     }
 
     render() {
+        // 색깔 고치기
+        
         const steps = [
             '첫번째',
             '두번째',
@@ -40,9 +48,11 @@ export default class StepComponent extends PureComponent {
             '12345667'
         ];
 
+        const { classes } = this.props;
+
         return (
             <div>
-                <Stepper activeStep={this.state.activeStep} orientation={'vertical'}>
+                <Stepper activeStep={this.state.activeStep} orientation={'vertical'} className={classes.taewwe}>
                     {steps.map((name, index) => {
                         return (
                             <Step key={index}>
@@ -73,3 +83,6 @@ export default class StepComponent extends PureComponent {
         )
     }
 }
+
+
+export default withStyles(styles)(StepComponent);

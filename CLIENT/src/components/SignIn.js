@@ -1,40 +1,41 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container } from '@material-ui/core'
-
+import { Container, withStyles } from '@material-ui/core'
 import StepComponent from './StepComponent';
 
-export class SignIn extends Component {
+const styles = theme => ({
+    contain: {
+        color: "#FFF",
+        backgroundColor: '#333333'
+    }
+});
 
-  render() {
+class SignIn extends Component {
 
-    return (
-      <div>
-        {this.props.auth ?
-        // ---------------------------------------- Logged
-          'Logged in '
-          :
-          this.props.sawGuide === 'Y' ?
-          // -------------------------------------- step saw.
-            '123'
-            :
-            // ------------------------------------ Stepper
-            <Container maxWidth="md">
-                <StepComponent />
-            </Container>
-        }
-      </div>
-    )
-  }
+    render() {
+        const { classes } = this.props;
+        return (
+            <div>
+                {this.props.auth ?
+                    // ---------------------------------------- Logged
+                    // 링크를 다른 곳으로 보내기(프로젝트로)
+                    'Logged in'
+                    :
+                    <Container className={this.contain} maxWidth="md">
+                        <StepComponent />
+                    </Container>
+                }
+            </div>
+        )
+    }
 }
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
-  sawGuide: state.ui.sawGuide
+    auth: state.auth
 })
 
 const mapDispatchToProps = {
-
+    
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn)
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SignIn));
