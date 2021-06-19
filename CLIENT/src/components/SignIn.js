@@ -25,13 +25,13 @@ class SignIn extends Component {
                     :
                     <Container>
                         <AppBar>
-                            <Box display="flex" justifyContent="center" alignContent="spaceAround" m={1} p={1}>
-                                <Box p={1}><FaReact size="64"/></Box>
-                                <Box p={1}><FaNode size="64"/></Box>
-                                <Box p={1}><SiMariadb size="64"/></Box>
-                                <Box p={1}><SiMaterialUi size="64"/></Box>
-                                <Box p={1}><SiMysql size="64"/></Box>
-                                <Box p={1}><SiVisualstudiocode size="64"/></Box>
+                            <Box display="flex" justifyContent="center" m={1} p={1}>
+                                <Box p={1}><FaReact size="48"/></Box>
+                                <Box p={1}><FaNode size="48"/></Box>
+                                <Box p={1}><SiMariadb size="48"/></Box>
+                                <Box p={1}><SiMaterialUi size="48"/></Box>
+                                <Box p={1}><SiMysql size="48"/></Box>
+                                <Box p={1}><SiVisualstudiocode size="48"/></Box>
                             </Box>
                         </AppBar>
                         <Box className={classes.contain}>
