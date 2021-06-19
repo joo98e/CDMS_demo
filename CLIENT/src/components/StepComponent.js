@@ -4,8 +4,7 @@ import { Box, Stepper, Step, StepLabel, StepContent, Button, Paper, Typography, 
 
 const styles = theme => ({
     bg: {
-        // color: "#FFF",
-        // backgroundColor: '#888888'
+        borderRadius : theme.spacing(2)
     }
 });
 
