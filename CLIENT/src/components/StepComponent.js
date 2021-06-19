@@ -1,9 +1,11 @@
 import React, { PureComponent } from 'react'
-import { Stepper, Step, StepLabel, StepContent, Button, Paper, Typography, withStyles } from '@material-ui/core';
+import { connect } from 'react-redux';
+import { Box, Stepper, Step, StepLabel, StepContent, Button, Paper, Typography, withStyles } from '@material-ui/core';
 
 const styles = theme => ({
-    taewwe: {
-        margin: "0 auto"
+    bg: {
+        // color: "#FFF",
+        // backgroundColor: '#888888'
     }
 });
 
@@ -35,7 +37,7 @@ class StepComponent extends PureComponent {
 
     render() {
         // 색깔 고치기
-        
+
         const steps = [
             '첫번째',
             '두번째',
@@ -51,38 +53,46 @@ class StepComponent extends PureComponent {
         const { classes } = this.props;
 
         return (
-            <div>
-                <Stepper activeStep={this.state.activeStep} orientation={'vertical'} className={classes.taewwe}>
+            <Box pt={30} pl={20} pr={20}>
+                <Stepper activeStep={this.state.activeStep} orientation={'vertical'} className={classes.bg}>
                     {steps.map((name, index) => {
                         return (
                             <Step key={index}>
                                 <StepLabel>{name}</StepLabel>
                                 <StepContent>
-                                    <Typography>{contents[index]}</Typography>
-                                    <Button onClick={this.handlePrev} disabled={this.state.activeStep === 0} variant="contained" color="default" size="small">PREV</Button>
-                                    <Button onClick={this.handleNext} disabled={this.state.activeStep === steps.length} variant="contained" color="primary" size="small">NEXT</Button>
+                                    <Typography style={{marginBottom:"15px"}}>{contents[index]}</Typography>
+                                    <Button onClick={this.handlePrev} disabled={this.state.activeStep === 0} size="small">PREV</Button>
+                                    <Button onClick={this.handleNext} size="small">NEXT</Button>
                                 </StepContent>
                             </Step>
                         );
                     })}
                 </Stepper>
+
                 {this.state.activeStep === steps.length ?
-                    <Paper square elevation={0} >
+                    <Paper className={classes.bg} square elevation={0} >
                         <Typography>All steps completed - you&apos;re finished</Typography>
-                        <Button onClick={this.handleReset} variant="contained" color="default" size="small">
+                        <Button onClick={this.handleReset} size="small">
                             Reset
                         </Button>
-                        <Button onClick={this.handleReset} variant="contained" color="secondary" size="small">
+                        <Button size="small">
                             출발하기
                         </Button>
                     </Paper>
                     :
                     ''
                 }
-            </div>
+            </Box>
         )
     }
 }
 
+const mapStateToProps = (state) => ({
+    color: state.ui.color
+})
 
-export default withStyles(styles)(StepComponent);
+const mapDispatchToProps = {
+    
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(StepComponent));
