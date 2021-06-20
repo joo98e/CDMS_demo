@@ -20,7 +20,7 @@ export class Back extends Component {
 
         return (
             <Box className={classes.wrapper}>
-                <Button onClick={this.fallBack}>
+                <Button size="large" onClick={this.fallBack}>
                     뒤로 가기
                 </Button>
             </Box>

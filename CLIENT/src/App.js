@@ -25,7 +25,7 @@ class App extends Component {
 
       <ThemeProvider theme={this.props.theme} >
         <BrowserRouter >
-          <Box style={{ position:"relative", width: "100vw", height: "100vh", background: this.props.theme.palette.background.default }}>
+          <Box style={{ position:"relative", minWidth: "100vw", minHeight: "100vh", background: this.props.theme.palette.background.default }}>
 
             <Route exact path="/" component={Landing}></Route>
             <Route exact path="/login" component={Login}></Route>

@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Container, Grid, Paper, Typography, TextField, withStyles } from '@material-ui/core'
+import {
+    Container, Grid, Paper, Typography, TextField, withStyles, IconButton,
+    Box, FormControl, FormHelperText, InputLabel, Select, MenuItem
+} from '@material-ui/core'
+import { Visibility, VisibilityOff } from '@material-ui/icons'
+
 import Back from '../common/Back'
 
 const styles = theme => ({
@@ -14,7 +19,11 @@ const styles = theme => ({
         textAlign: 'center',
         color: theme.palette.text.secondary,
     },
-    
+    formMinWidth: {
+        minWidth: 480,
+        margin: theme.spacing(1),
+    }
+
 });
 
 export class index extends Component {
@@ -34,12 +43,24 @@ export class index extends Component {
                 MEM_EMPNO: null,
                 MEM_HIREDATE: null,
                 MEM_BIRTHDAY: null,
-            }
+            },
+            showPassword: false,
+            departs: "",
+            selected: ''
         }
     }
 
     componentDidMount() {
+        this.callApi()
+            .then(res => this.setState({ departs: res }))
+            .catch(err => console.log(err));
+    }
 
+    callApi = async () => {
+        let response = await fetch('/departments');
+        let departments = await response.json();
+        console.log(departments);
+        return departments;
     }
 
     /*
@@ -65,21 +86,39 @@ export class index extends Component {
         MEM_HIREDATE            입사일
     */
 
+    handleChangeShowPassWord = () => {
+        this.setState({
+            showPassword: !this.state.showPassword ? true : false
+        });
+    }
+
+    handleValueChange = (type) => {
+
+    }
+
+    handleDepartSelect = (e) => {
+        this.setState({
+            selected: e.target.value
+        });
+    }
+
     render() {
+        const classes = this.props;
 
         return (
             <Container width={1280}>
                 <Paper>
-                    <Grid container justify='center' spacing={6}>
+                    <Grid container justify='center' spacing={4}>
 
                         <Grid item xs={12}>
                             <Back history={this.props.history} />
                             <Typography variant="h3" component="h3" align='center'>Sign Up</Typography>
                         </Grid>
 
-                        <Grid item xs={12} sm={4}>
+                        <Grid item xs={12} sm={6}>
                             <Container>
                                 <TextField
+                                    variant="filled"
                                     fullWidth
                                     required
                                     name="MEM_NAME"
@@ -89,25 +128,14 @@ export class index extends Component {
                             </Container>
                         </Grid>
 
-                        <Grid item xs={12} sm={4}>
+                        <Grid item xs={12} sm={6}>
                             <Container>
                                 <TextField
+                                    variant="filled"
                                     fullWidth
                                     required
-                                    name="MEM_USERID"
-                                    label="ID"
-                                    onChange={this.handleValueChange}
-                                />
-                            </Container>
-                        </Grid>
-
-                        <Grid item xs={12} sm={4}>
-                            <Container>
-                                <TextField
-                                    fullWidth
-                                    required
-                                    name="MEM_PASSWORD"
-                                    label="PASSWORD"
+                                    name="MEM_NICKNAME"
+                                    label="닉네임"
                                     onChange={this.handleValueChange}
                                 />
                             </Container>
@@ -116,15 +144,115 @@ export class index extends Component {
                         <Grid item xs={12} sm={6}>
                             <Container>
                                 <TextField
+                                    variant="filled"
                                     fullWidth
                                     required
-                                    name="MEM_PASSWORD"
-                                    label="PASSWORD"
+                                    name="MEM_USERID"
+                                    label="ID"
+                                    helperText="중복 체크 기능 필요"
                                     onChange={this.handleValueChange}
                                 />
                             </Container>
                         </Grid>
-                        
+
+                        <Grid item xs={12} sm={6}>
+                            <Container>
+                                <Box display="flex" justifyContent="flex-start" alignItems="center">
+                                    <TextField
+                                        fullWidth
+                                        variant="filled"
+                                        required
+                                        type={this.state.showPassword ? 'text' : 'password'}
+                                        name="MEM_PASSWORD"
+                                        label="PASSWORD"
+                                        onChange={this.handleValueChange}
+                                    />
+                                    <Box>
+                                        <IconButton
+                                            onClick={this.handleChangeShowPassWord}
+                                        >
+                                            {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
+                                        </IconButton>
+                                    </Box>
+                                </Box>
+                            </Container>
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <Container>
+                                <TextField
+                                    variant="filled"
+                                    fullWidth
+                                    required
+                                    name="MEM_EMAIL"
+                                    label="이메일"
+                                    onChange={this.handleValueChange}
+                                />
+                            </Container>
+                        </Grid>
+
+                        <Grid item xs={12} sm={4}>
+                            <Container>
+                                <TextField
+                                    variant="filled"
+                                    fullWidth
+                                    name="MEM_PHONE"
+                                    label="연락처"
+                                    placeholder="010 - 0000 - 0000"
+                                    onChange={this.handleValueChange}
+                                />
+                            </Container>
+                        </Grid>
+
+                        <Grid item xs={12} sm={4}>
+                            <Container>
+                                <TextField
+                                    variant="filled"
+                                    fullWidth
+                                    name="MEM_BIRTHDAY"
+                                    label="생년월일"
+                                    onChange={this.handleValueChange}
+                                />
+                            </Container>
+                        </Grid>
+
+                        <Grid item xs={12} sm={4}>
+                            <Container>
+                                <TextField
+                                    variant="filled"
+                                    fullWidth
+                                    name="MEM_EMPNO"
+                                    label="사번"
+                                    placeholder="4자리수"
+                                    onChange={this.handleValueChange}
+                                />
+                            </Container>
+                        </Grid>
+
+                        <Grid item xs={12} sm={4}>
+                            <Container>
+                                <FormControl className={classes.formMinWidth} fullWidth>
+                                    <InputLabel id="MEM_DEPART_NO">부서</InputLabel>
+                                    {this.state.departs ?
+                                        <Select
+                                            labelId="DEPART_SELECT"
+                                            id="DEPART_SELECT"
+                                            value={this.state.selected}
+                                            onChange={this.handleDepartSelect}
+                                        >
+                                            {this.state.departs.map((item, index) => {
+                                                return (
+                                                    <MenuItem key={index} value={item.DEPART_PK}>{item.DEPART_NAME}({item.DEPART_PK})</MenuItem>
+                                                )
+                                            })}
+                                        </Select>
+                                        :
+                                        ''
+                                    }
+                                </FormControl>
+                            </Container>
+                        </Grid>
+
                     </Grid>
                 </Paper>
             </Container >
