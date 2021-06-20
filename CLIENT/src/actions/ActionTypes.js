@@ -7,3 +7,7 @@ export const NUMBER_DECREMENT = "NUMBER_DECREMENT";
 
 // ─────────────────────────────────────────────────── 
 export const SET_COLOR = "SET_COLOR";
+
+// ─────────────────────────────────────────────────── 
+export const PAGE_BACK_ROUTE = "PAGE_BACK_ROUTE";
+

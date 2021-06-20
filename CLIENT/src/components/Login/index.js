@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { Box, Paper, Typography, Button } from '@material-ui/core'
+import { Box, Button } from '@material-ui/core'
 
 export class Login extends Component {
     render() {

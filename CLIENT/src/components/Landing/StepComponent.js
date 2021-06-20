@@ -49,7 +49,7 @@ class StepComponent extends PureComponent {
         ];
 
         const contents = [
-            '알아주세요.',
+            '알아주세요알아주세요알아주세요알아주세요알아주세요알아주세요알아주세요알아주세요.',
             '말해주세요.',
             '마지막입니다.'
         ];
@@ -57,7 +57,7 @@ class StepComponent extends PureComponent {
         const { classes } = this.props;
 
         return (
-            <Box pt={30} pl={20} pr={20}>
+            <Box pt={20} pl={10} pr={10}>
                 <Stepper activeStep={this.state.activeStep} orientation={'vertical'} className={classes.bg}>
                     {steps.map((name, index) => {
                         return (
@@ -66,7 +66,7 @@ class StepComponent extends PureComponent {
                                 <StepContent>
                                     <Typography style={{ marginBottom: "15px" }}>{contents[index]}</Typography>
                                     <Button onClick={this.handlePrev} disabled={this.state.activeStep === 0} size="small">PREV</Button>
-                                    <Button onClick={this.handleNext} size="small">{(index + 1) === steps.length ? 'LOGIN' : 'NEXT'}</Button>
+                                    <Button onClick={this.handleNext} size="small">NEXT</Button>
                                 </StepContent>
                             </Step>
                         );
