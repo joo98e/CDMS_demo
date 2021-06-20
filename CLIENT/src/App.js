@@ -6,7 +6,9 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { Box } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 
-import SignIn from './components/SignIn';
+import Landing from './components/Landing';
+import Login from './components/Login';
+import Register from './components/Register';
 
 class App extends Component {
   constructor(props) {
@@ -25,7 +27,9 @@ class App extends Component {
         <BrowserRouter >
           <Box style={{ position:"relative", width: "100vw", height: "100vh", background: this.props.theme.palette.background.default }}>
 
-            <Route exact path="/" component={SignIn}></Route>
+            <Route exact path="/" component={Landing}></Route>
+            <Route exact path="/login" component={Login}></Route>
+            <Route exact path="/register" component={Register}></Route>
 
           </Box>
         </BrowserRouter>
@@ -37,7 +41,6 @@ class App extends Component {
 
 const mapStateToProps = (state) => ({
   theme: state.ui.theme,
-  bgColor: state.ui.bgColor
 });
 
 export default connect(mapStateToProps)(App);

@@ -12,7 +12,7 @@ const theme = {
         }
     }),
     
-    white: createMuiTheme({
+    purple: createMuiTheme({
         palette: {
           primary: {
             main: purple[500],

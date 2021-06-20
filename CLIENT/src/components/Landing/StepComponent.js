@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux';
 import { Box, Stepper, Step, StepLabel, StepContent, Button, Paper, Typography, withStyles } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const styles = theme => ({
     bg: {
-        borderRadius : theme.spacing(2)
+
     }
 });
 
@@ -12,7 +13,11 @@ class StepComponent extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            activeStep: 0
+            activeStep: 0,
+            valueError: {
+                id: false,
+                password: false
+            }
         }
     }
 
@@ -44,9 +49,9 @@ class StepComponent extends PureComponent {
         ];
 
         const contents = [
-            '가나다라마바사',
-            'abcdefg',
-            '12345667'
+            '알아주세요.',
+            '말해주세요.',
+            '마지막입니다.'
         ];
 
         const { classes } = this.props;
@@ -59,9 +64,9 @@ class StepComponent extends PureComponent {
                             <Step key={index}>
                                 <StepLabel>{name}</StepLabel>
                                 <StepContent>
-                                    <Typography style={{marginBottom:"15px"}}>{contents[index]}</Typography>
+                                    <Typography style={{ marginBottom: "15px" }}>{contents[index]}</Typography>
                                     <Button onClick={this.handlePrev} disabled={this.state.activeStep === 0} size="small">PREV</Button>
-                                    <Button onClick={this.handleNext} size="small">NEXT</Button>
+                                    <Button onClick={this.handleNext} size="small">{(index + 1) === steps.length ? 'LOGIN' : 'NEXT'}</Button>
                                 </StepContent>
                             </Step>
                         );
@@ -70,13 +75,17 @@ class StepComponent extends PureComponent {
 
                 {this.state.activeStep === steps.length ?
                     <Paper className={classes.bg} square elevation={0} >
-                        <Typography>All steps completed - you&apos;re finished</Typography>
-                        <Button onClick={this.handleReset} size="small">
-                            Reset
-                        </Button>
-                        <Button size="small">
-                            출발하기
-                        </Button>
+                        <Box display="flex" justifyContent="center" alignItems="space-around" pt={1} pb={4}>
+                            <Button onClick={this.handleReset} size="medium">
+                                처음으로
+                            </Button>
+                            <Button size="medium">
+                                <Link to="/login">로그인하기</Link>
+                            </Button>
+                            <Button size="medium">
+                                <Link to="/register">회원가입</Link>
+                            </Button>
+                        </Box>
                     </Paper>
                     :
                     ''
@@ -91,7 +100,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-    
+
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(StepComponent));
