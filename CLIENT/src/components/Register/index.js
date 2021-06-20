@@ -231,7 +231,7 @@ export class index extends Component {
 
                         <Grid item xs={12} sm={4}>
                             <Container>
-                                <FormControl className={classes.formMinWidth} fullWidth>
+                                <FormControl variant="filled" fullWidth>
                                     <InputLabel id="MEM_DEPART_NO">부서</InputLabel>
                                     {this.state.departs ?
                                         <Select
