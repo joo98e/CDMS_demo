@@ -20,28 +20,28 @@ router.get('/', (req, res) => {
 });
 
 router.post('/register', (req, res) => {
+    return res.status(200).send(req.body)
+    // bcrypt.genSalt(saltRounds, (err, salt) => {
+    //     bcrypt.hash(req.body.password, salt, (err, hash) => {
+    //         let SQL = "INSERT INTO TB_MEMBER_INFO(MEM_USERID, MEM_PASSWORD, MEM_NAME, MEM_EMAIL) VALUES(?, ?, ?, ?)"
+    //         let name = req.body.name;
+    //         let id = req.body.id;
+    //         let password = hash;
+    //         let email = req.body.email;
 
-    bcrypt.genSalt(saltRounds, (err, salt) => {
-        bcrypt.hash(req.body.password, salt, (err, hash) => {
-            let SQL = "INSERT INTO TB_MEMBER_INFO(MEM_USERID, MEM_PASSWORD, MEM_NAME, MEM_EMAIL) VALUES(?, ?, ?, ?)"
-            let name = req.body.name;
-            let id = req.body.id;
-            let password = hash;
-            let email = req.body.email;
+    //         let params = [id, password, name, email];
 
-            let params = [id, password, name, email];
+    //         connection.query(SQL, params,
+    //             (err, rows) => {
+    //                 if (err) console.log(err);
+    //                 console.log(req.body);
+    //                 console.log(rows);
 
-            connection.query(SQL, params,
-                (err, rows) => {
-                    if (err) console.log(err);
-                    console.log(req.body);
-                    console.log(rows);
-
-                    return res.status(200).json(req.body);
-                }
-            );
-        });
-    });
+    //                 return res.status(200).json(req.body);
+    //             }
+    //         );
+    //     });
+    // });
 
 });
 

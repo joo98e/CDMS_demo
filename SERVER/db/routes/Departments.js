@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 
             let result = rows;
 
-            res.status(200).send(rows);
+            res.status(200).send(result);
         }
     )
 

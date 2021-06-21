@@ -9,6 +9,7 @@
     "@material-ui/styles": "^4.11.3",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
+    "http-proxy-middleware": "^2.0.0",
     "react": "^17.0.1",
     "react-app-polyfill": "^2.0.0",
     "react-bootstrap": "^1.5.1",

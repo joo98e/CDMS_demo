@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import axios from 'axios'
 import {
     Container, Grid, Paper, Typography, TextField, withStyles, IconButton,
-    Box, FormControl, FormHelperText, InputLabel, Select, MenuItem
+    Box, FormControl, InputLabel, Select, MenuItem, Button
 } from '@material-ui/core'
 import { Visibility, VisibilityOff } from '@material-ui/icons'
 
@@ -22,6 +23,9 @@ const styles = theme => ({
     formMinWidth: {
         minWidth: 480,
         margin: theme.spacing(1),
+    },
+    hidden: {
+        display: 'none'
     }
 
 });
@@ -30,19 +34,44 @@ export class index extends Component {
     constructor(props) {
         super(props)
 
+        /*
+            TB_MEMBER_INFO / UTF8
+            Column                  Value
+            MEM_PK(*)               PK
+            MEM_USERID(*)           아이디
+            MEM_PASSWORD(*)         비밀번호
+            MEM_TOKEN_EXP           토큰
+            MEM_NAME(*)             성명
+            MEM_NICKNAME            닉네임
+            MEM_EMAIL               이메일 주소
+            MEM_PHONE               연락처
+            MEM_EMPNO               사번
+            MEM_DEPT_NO             부서 코드
+            MEM_RANK                직급
+            MEM_AGE                 나이
+            MEM_ADDRESS             주소
+            MEM_FOLLOWED            팔로워 수
+            MEM_IMAGE               아바타 이미지
+            MEM_BIRTHDAY            생일
+            MEM_REGISTER_DATETIME   가입일
+            MEM_HIREDATE            입사일
+        */
+
         this.state = {
             MEM: {
                 MEM_IMAGE: null,
-                MEM_USERID: null,
-                MEM_PASSWORD: null,
-                MEM_PASSWORD_CHECK: null,
-                MEM_NAME: null,
-                MEM_NICKNAME: null,
-                MEM_EAMIL: null,
-                MEM_PHONE: null,
-                MEM_EMPNO: null,
-                MEM_HIREDATE: null,
-                MEM_BIRTHDAY: null,
+                MEM_IMAGE_NAME: "",
+                MEM_USERID: "",
+                MEM_PASSWORD: "",
+                MEM_PASSWORD_CHECK: "",
+                MEM_NAME: "",
+                MEM_NICKNAME: "",
+                MEM_DEPT_NO: "",
+                MEM_EMAIL: "",
+                MEM_PHONE: "",
+                MEM_EMPNO: "",
+                MEM_HIREDATE: "",
+                MEM_BIRTHDAY: "",
             },
             showPassword: false,
             departs: "",
@@ -59,32 +88,8 @@ export class index extends Component {
     callApi = async () => {
         let response = await fetch('/departments');
         let departments = await response.json();
-        console.log(departments);
         return departments;
     }
-
-    /*
-        TB_MEMBER_INFO / UTF8
-        Column                  Value
-        MEM_PK(*)               PK
-        MEM_USERID(*)           아이디
-        MEM_PASSWORD(*)         비밀번호
-        MEM_TOKEN_EXP           토큰
-        MEM_NAME(*)             성명
-        MEM_NICKNAME            닉네임
-        MEM_EAMIL               이메일 주소
-        MEM_PHONE               연락처
-        MEM_EMPNO               사번
-        MEM_DEPT_NO             부서 코드
-        MEM_RANK                직급
-        MEM_AGE                 나이
-        MEM_ADDRESS             주소
-        MEM_FOLLOWED            팔로워 수
-        MEM_IMAGE               아바타 이미지
-        MEM_BIRTHDAY            생일
-        MEM_REGISTER_DATETIME   가입일
-        MEM_HIREDATE            입사일
-    */
 
     handleChangeShowPassWord = () => {
         this.setState({
@@ -92,19 +97,59 @@ export class index extends Component {
         });
     }
 
-    handleValueChange = (type) => {
+    handleValueChange = (e) => {
+        let nextState = {...this.state.MEM};
+        nextState[e.target.name] = e.target.value;
 
+        this.setState({
+            MEM : nextState
+        });
     }
 
     handleDepartSelect = (e) => {
         this.setState({
-            selected: e.target.value
+            MEM: {
+                ...this.state.MEM,
+                MEM_DEPT_NO: e.target.value
+            }
         });
     }
 
-    render() {
-        const classes = this.props;
+    // handleFileChange = (e) => {
+    //     this.setState({
+    //         MEM: {
+    //             ...this.state.MEM,
+    //             MEM_IMAGE: e.target.files[0],
+    //             MEM_IMAGE_NAME: e.target.value,
+    //         }
+    //     });
+    // }
 
+    SignUp = () => {
+
+        const URL = '/register/signUp'
+        const vars = {
+            // MEM_IMAGE : this.state.MEM.MEM_IMAGE,
+            // MEM_IMAGE_NAME : this.state.MEM.MEM_IMAGE_NAME,
+            MEM_USERID : this.state.MEM.MEM_USERID,
+            MEM_PASSWORD : this.state.MEM.MEM_PASSWORD,
+            MEM_PASSWORD_CHECK : this.state.MEM.MEM_PASSWORD_CHECK,
+            MEM_NAME : this.state.MEM.MEM_NAME,
+            MEM_NICKNAME : this.state.MEM.MEM_NICKNAME,
+            MEM_DEPT_NO : this.state.MEM.MEM_DEPT_NO,
+            MEM_EMAIL : this.state.MEM.MEM_EMAIL,
+            MEM_PHONE : this.state.MEM.MEM_PHONE,
+            MEM_EMPNO : this.state.MEM.MEM_EMPNO,
+            MEM_HIREDATE : this.state.MEM.MEM_HIREDATE,
+            MEM_BIRTHDAY : this.state.MEM.MEM_BIRTHDAY,
+        }
+
+        // console.log(this.state.MEM.MEM_IMAGE);
+        // console.log('vars', vars.MEM_IMAGE);
+        return axios.post(URL, vars);
+    }
+
+    render() {
         return (
             <Container width={1280}>
                 <Paper>
@@ -114,6 +159,25 @@ export class index extends Component {
                             <Back history={this.props.history} />
                             <Typography variant="h3" component="h3" align='center'>Sign Up</Typography>
                         </Grid>
+
+                        {/* <Grid item xs={12}>
+                            <Container>
+                                <Button
+                                    variant={this.state.MEM.MEM_IMAGE_NAME === "" ? "outlined" : "contained"}
+                                    component="label"
+                                >
+                                    {this.state.MEM.MEM_IMAGE_NAME === "" ? "프로필 이미지 선택" : "프로필 선택 완료!"}
+                                    <input
+                                        type="file"
+                                        hidden
+                                        accept="image/*"
+                                        id="imageFile"
+                                        file={this.state.MEM.MEM_IMAGE}
+                                        onChange={this.handleFileChange}
+                                    />
+                                </Button>
+                            </Container>
+                        </Grid> */}
 
                         <Grid item xs={12} sm={6}>
                             <Container>
@@ -186,6 +250,7 @@ export class index extends Component {
                                     required
                                     name="MEM_EMAIL"
                                     label="이메일"
+                                    placeholder="example@example.com"
                                     onChange={this.handleValueChange}
                                 />
                             </Container>
@@ -209,22 +274,13 @@ export class index extends Component {
                                 <TextField
                                     variant="filled"
                                     fullWidth
-                                    name="MEM_BIRTHDAY"
-                                    label="생년월일"
-                                    onChange={this.handleValueChange}
-                                />
-                            </Container>
-                        </Grid>
-
-                        <Grid item xs={12} sm={4}>
-                            <Container>
-                                <TextField
-                                    variant="filled"
-                                    fullWidth
                                     name="MEM_EMPNO"
                                     label="사번"
                                     placeholder="4자리수"
                                     onChange={this.handleValueChange}
+                                    inputProps={{
+                                        maxLength: 4
+                                    }}
                                 />
                             </Container>
                         </Grid>
@@ -237,7 +293,7 @@ export class index extends Component {
                                         <Select
                                             labelId="DEPART_SELECT"
                                             id="DEPART_SELECT"
-                                            value={this.state.selected}
+                                            value={this.state.MEM.MEM_DEPT_NO}
                                             onChange={this.handleDepartSelect}
                                         >
                                             {this.state.departs.map((item, index) => {
@@ -250,6 +306,19 @@ export class index extends Component {
                                         ''
                                     }
                                 </FormControl>
+                            </Container>
+                        </Grid>
+
+                        <Grid item xs={12} sm={4}>
+                            <Container>
+                                <Button
+                                    fullWidth
+                                    variant="contained"
+                                    size="large"
+                                    onClick={this.SignUp}
+                                >
+                                    가입하기
+                                </Button>
                             </Container>
                         </Grid>
 

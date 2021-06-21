@@ -7,5 +7,8 @@ module.exports = (() => {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
 
+    // ────── Users profile
+    app.use('/image', express.static('./Users/UsersProfile'));
+
     return app;
 })(); 
