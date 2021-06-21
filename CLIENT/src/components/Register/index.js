@@ -98,11 +98,11 @@ export class index extends Component {
     }
 
     handleValueChange = (e) => {
-        let nextState = {...this.state.MEM};
+        let nextState = { ...this.state.MEM };
         nextState[e.target.name] = e.target.value;
 
         this.setState({
-            MEM : nextState
+            MEM: nextState
         });
     }
 
@@ -126,34 +126,92 @@ export class index extends Component {
     // }
 
     SignUp = () => {
+        // 정규식
+        const state = this.state.MEM;
 
-        const URL = '/register/signUp'
-        const vars = {
-            // MEM_IMAGE : this.state.MEM.MEM_IMAGE,
-            // MEM_IMAGE_NAME : this.state.MEM.MEM_IMAGE_NAME,
-            MEM_USERID : this.state.MEM.MEM_USERID,
-            MEM_PASSWORD : this.state.MEM.MEM_PASSWORD,
-            MEM_PASSWORD_CHECK : this.state.MEM.MEM_PASSWORD_CHECK,
-            MEM_NAME : this.state.MEM.MEM_NAME,
-            MEM_NICKNAME : this.state.MEM.MEM_NICKNAME,
-            MEM_DEPT_NO : this.state.MEM.MEM_DEPT_NO,
-            MEM_EMAIL : this.state.MEM.MEM_EMAIL,
-            MEM_PHONE : this.state.MEM.MEM_PHONE,
-            MEM_EMPNO : this.state.MEM.MEM_EMPNO,
-            MEM_HIREDATE : this.state.MEM.MEM_HIREDATE,
-            MEM_BIRTHDAY : this.state.MEM.MEM_BIRTHDAY,
+        for (let key in state) {
+            switch (key) {
+
+                case 'MEM_USERID':
+                    if (!/^[a-z0-9]{4,20}$/.test(state[key]) || state[key] === '') {
+                        alert('ID는 영문, 숫자만 사용하여 4 ~ 20글자여야 합니다.');
+                        return false;
+                    }
+                    break;
+
+                case 'MEM_NAME':
+                    if (!/^[가-힣]/.test(state[key]) && state[key].length >= 1) {
+                        alert('성명은 한글만 사용 가능합니다.');
+                        return false;
+                    }
+                    break;
+                case 'MEM_NICKNAME':
+                    if (!/^[가-힣a-zA-Z]+$/.test(state[key])) {
+                        alert('닉네임은 한글 혹은 영문만 사용 가능합니다.');
+                        return false;
+                    }
+                    break;
+
+                case 'MEM_EMAIL':
+                    if (!/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i.test(state[key])) {
+                        alert('이메일 형식이 맞지 않습니다.');
+                        return false;
+                    }
+                    break;
+
+                case 'MEM_PHONE':
+                    if (state[key] !== '') {
+                        if (!/^\d{3}-\d{3,4}-\d{4}$/.test(state[key])) {
+                            alert('연락처 형식이 맞지 않습니다.');
+                            return false;
+                        }
+                    }
+                    break;
+                case 'MEM_EMPNO':
+                    if(state[key] !== ''){
+                        if(state[key].length < 4){
+                            alert('사번은 4자리로 구성됩니다.');
+                            return false;
+                        }
+                    }
+                    break;
+                case 'MEM_DEPT_NO':
+                    if (state[key] === '') {
+                        alert('부서는 반드시 필요합니다.')
+                        return false;
+                    }
+                    break;
+
+                default:
+                    break;
+            }
         }
 
-        // console.log(this.state.MEM.MEM_IMAGE);
-        // console.log('vars', vars.MEM_IMAGE);
-        return axios.post(URL, vars);
+        // const URL = '/register/signUp'
+        // const vars = {
+        //     // MEM_IMAGE : this.state.MEM.MEM_IMAGE,
+        //     // MEM_IMAGE_NAME : this.state.MEM.MEM_IMAGE_NAME,
+        //     MEM_USERID : this.state.MEM.MEM_USERID,
+        //     MEM_PASSWORD : this.state.MEM.MEM_PASSWORD,
+        //     MEM_PASSWORD_CHECK : this.state.MEM.MEM_PASSWORD_CHECK,
+        //     MEM_NAME : this.state.MEM.MEM_NAME,
+        //     MEM_NICKNAME : this.state.MEM.MEM_NICKNAME,
+        //     MEM_DEPT_NO : this.state.MEM.MEM_DEPT_NO,
+        //     MEM_EMAIL : this.state.MEM.MEM_EMAIL,
+        //     MEM_PHONE : this.state.MEM.MEM_PHONE,
+        //     MEM_EMPNO : this.state.MEM.MEM_EMPNO,
+        //     MEM_HIREDATE : this.state.MEM.MEM_HIREDATE,
+        //     MEM_BIRTHDAY : this.state.MEM.MEM_BIRTHDAY,
+        // }
+
+        // return axios.post(URL, vars);
     }
 
     render() {
         return (
             <Container width={1280}>
                 <Paper>
-                    <Grid container justify='center' spacing={4}>
+                    <Grid container justify='center' spacing={4} >
 
                         <Grid item xs={12}>
                             <Back history={this.props.history} />
@@ -214,6 +272,7 @@ export class index extends Component {
                                     name="MEM_USERID"
                                     label="ID"
                                     helperText="중복 체크 기능 필요"
+                                    placeholder="영문, 숫자만 사용하여 4 ~ 20자 이내"
                                     onChange={this.handleValueChange}
                                 />
                             </Container>
@@ -288,7 +347,7 @@ export class index extends Component {
                         <Grid item xs={12} sm={4}>
                             <Container>
                                 <FormControl variant="filled" fullWidth>
-                                    <InputLabel id="MEM_DEPART_NO">부서</InputLabel>
+                                    <InputLabel id="MEM_DEPART_NO">부서 *</InputLabel>
                                     {this.state.departs ?
                                         <Select
                                             labelId="DEPART_SELECT"
