@@ -11,10 +11,6 @@ export class SignIn extends Component {
              password : this.props.password,
         }
     }
-    
-    cls = () => {
-        console.log(this.state);
-    }
 
     render() {
         return (

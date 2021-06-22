@@ -83,6 +83,8 @@ export class index extends Component {
         this.callApi()
             .then(res => this.setState({ departs: res }))
             .catch(err => console.log(err));
+        
+        console.log(this.props.history);
     }
 
     callApi = async () => {

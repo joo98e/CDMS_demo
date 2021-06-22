@@ -1,28 +1,39 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Box, Button, withStyles } from '@material-ui/core'
+import { Box, withStyles, IconButton } from '@material-ui/core'
+import { KeyboardBackspace } from '@material-ui/icons'
 
 const styles = theme => ({
     wrapper: {
-        position : 'relative',
-        display : 'block'
+        position: 'relative',
+        display: 'block'
     }
 });
 
 export class Back extends Component {
 
     fallBack = () => {
-        this.props.history.goBack();
+        try {
+            this.props.history.goBack();
+        } catch (error) {
+            
+        }
+        
+    }
+
+    componentDidMount() {
+        console.log(this.props);
     }
     
+
     render() {
         const classes = this.props;
 
         return (
             <Box className={classes.wrapper}>
-                <Button size="large" onClick={this.fallBack}>
-                    뒤로 가기
-                </Button>
+                <IconButton onClick={this.fallBack}>
+                    <KeyboardBackspace />
+                </IconButton>
             </Box>
         )
     }

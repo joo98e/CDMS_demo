@@ -4,9 +4,7 @@ import { Box, Stepper, Step, StepLabel, StepContent, Button, Paper, Typography, 
 import { Link } from 'react-router-dom';
 
 const styles = theme => ({
-    bg: {
-
-    }
+    
 });
 
 class StepComponent extends PureComponent {
@@ -57,7 +55,7 @@ class StepComponent extends PureComponent {
         const { classes } = this.props;
 
         return (
-            <Box pt={20} pl={10} pr={10}>
+            <Box>
                 <Stepper activeStep={this.state.activeStep} orientation={'vertical'} className={classes.bg}>
                     {steps.map((name, index) => {
                         return (
@@ -74,17 +72,21 @@ class StepComponent extends PureComponent {
                 </Stepper>
 
                 {this.state.activeStep === steps.length ?
-                    <Paper className={classes.bg} square elevation={0} >
+                    <Paper square elevation={0} >
                         <Box display="flex" justifyContent="center" alignItems="space-around" pt={1} pb={4}>
                             <Button onClick={this.handleReset} size="medium">
                                 처음으로
                             </Button>
-                            <Button size="medium">
-                                <Link to="/login">로그인하기</Link>
-                            </Button>
-                            <Button size="medium">
-                                <Link to="/register">회원가입</Link>
-                            </Button>
+                            <Link to="/login">
+                                <Button size="medium">
+                                    로그인하기
+                                </Button>
+                            </Link>
+                            <Link to="/register">
+                                <Button size="medium">
+                                    회원가입
+                                </Button>
+                            </Link>
                         </Box>
                     </Paper>
                     :

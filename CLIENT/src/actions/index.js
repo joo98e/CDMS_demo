@@ -21,3 +21,11 @@ export const setColor = color => {
         color
     };
 };
+
+// ─────────────────────────────────────────────────── 
+export const setTheme = theme => {
+    return {
+        type: types.SET_THEME,
+        theme
+    };
+};
