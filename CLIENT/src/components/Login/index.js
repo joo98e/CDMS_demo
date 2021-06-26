@@ -1,6 +1,39 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Container, Paper, Box, Grid, Button, TextField} from '@material-ui/core'
+
+import logo from '../../_logo/logo.svg'
+
+import { Container, Paper, Box, Grid, Button, TextField, withStyles, Typography } from '@material-ui/core'
+
+
+const styles = theme => ({
+    root: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        height: '100vh'
+    },
+    logoBox: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+        width: '60%',
+        height: '100vh',
+        backgroundColor: theme.palette.background.paper
+    },
+    loginBox: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '40%',
+        height: '100vh'
+    },
+    logo: {
+        width: theme.spacing(36),
+    }
+});
 
 export class Login extends Component {
     constructor(props) {
@@ -13,10 +46,23 @@ export class Login extends Component {
     }
 
     render() {
+        const { classes } = this.props;
         return (
-            <Container fixed>
-                <Box component="div" style={{ height: '100vh' }}>
-                    <Paper variant="outlined" square>
+            <div className={classes.root}>
+                <div className={classes.logoBox}>
+                    <img className={classes.logo} src={logo} alt="logo" />
+                    <Typography variant="h2" component="h2">
+                        Sign In
+                    </Typography>
+                </div>
+                <div className={classes.loginBox}>
+                    2
+                </div>
+
+                {/*<Container fixed>
+                    <Box component="div">
+                        sd
+                         <Paper variant="outlined" square>
                         <Grid container justify='center' alignContent='center' alignItems='center'>
                             <Grid item xs={12}>
                                 <Container width={400}>
@@ -44,9 +90,11 @@ export class Login extends Component {
                                 </Container>
                             </Grid>
                         </Grid>
-                    </Paper>
-                </Box>
-            </Container>
+                    </Paper> 
+                    </Box>
+                </Container>
+                */}
+            </div>
         )
     }
 }
@@ -59,4 +107,4 @@ const mapDispatchToProps = {
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Login))
