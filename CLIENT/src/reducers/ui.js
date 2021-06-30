@@ -27,7 +27,7 @@ const theme = {
     teal: createMuiTheme({
         palette: {
             primary: {
-                main : teal[500]
+                main: teal[500]
             },
             secondary: {
                 main: '#cddc39',
@@ -36,10 +36,26 @@ const theme = {
     })
 }
 
+let temp;
+
+const message = function () {
+    const date = new Date();
+    temp = date.getHours();
+
+    return temp >= 20 ? '편안한 밤 되세요.'
+        : temp >= 18 ? '맛있는 식사 하세요!'
+            : temp >= 13 ? '오후도 힘내세요.'
+                : temp >= 12 ? '식사 맛있게 하세요!'
+                    : temp >= 10 ? '오전 힘내세요!'
+                        : temp >= 9 ? '좋은 아침입니다.'
+                            : temp >= 6 ? '너무 이른데요..' : '굿밤!'
+}
+
 const initialState = {
     color: 'default',
     theme: theme.dark,
-    bgColor: "#424242"
+    bgColor: "#424242",
+    hourlyGreetings: message()
 };
 
 const ui = (state = initialState, action) => {
