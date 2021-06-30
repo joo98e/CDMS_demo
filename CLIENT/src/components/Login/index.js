@@ -122,7 +122,7 @@ export class Login extends Component {
                                 fullWidth
                                 variant="contained"
                             >
-                                <Link to="/login">
+                                <Link to="/register">
                                     회원가입하기
                                 </Link>
                             </Button>
