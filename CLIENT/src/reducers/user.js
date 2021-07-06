@@ -1,7 +1,8 @@
 import * as types from '../actions/ActionTypes';
 
 const initialState = {
-    auth : false
+    auth : false,
+    member : null
 };
 
 const user = (state = initialState, action) => {
@@ -12,7 +13,7 @@ const user = (state = initialState, action) => {
         case types.GET_AUTHENTICATED:
             return {
                 ...state,
-
+                member : JSON.parse(localStorage.getItem('member'))
             };
 
         default:

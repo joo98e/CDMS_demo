@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import CopyRights from '../common/CopyRights'
 import Axios from 'axios';
+import * as actions from '../../actions/UserInfo'
+import CopyRights from '../common/CopyRights'
 import logo from '../../_logo/logo.svg'
 
 import { Box, Button, TextField, withStyles, Typography } from '@material-ui/core'
@@ -81,6 +82,11 @@ export class Login extends Component {
                 } else {
                     // 로그인 성공
                     console.log(res.data, `로그인 성공, 이름이 ${res.data.MEM_NAME} 이시군요?`);
+                    
+                    localStorage.setItem('member', JSON.stringify(res.data));
+                    this.props.getAuthenticated(res.data);
+                    
+                    console.log('member is', this.props.user.member);
                 }
             });
 
@@ -190,11 +196,14 @@ export class Login extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    hourlyGreetings: state.ui.hourlyGreetings
+    hourlyGreetings: state.ui.hourlyGreetings,
+    user : state.user
 })
 
-const mapDispatchToProps = {
-
+const mapDispatchToProps = dispatch => {
+    return{
+        getAuthenticated : (member) => {dispatch(actions.setMemberInfos(member))}
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Login))
