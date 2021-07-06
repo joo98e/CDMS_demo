@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
+import CopyRights from '../common/CopyRights'
+import Axios from 'axios';
 import logo from '../../_logo/logo.svg'
 
-import { Container, Paper, Box, Button, TextField, withStyles, Typography } from '@material-ui/core'
-
+import { Box, Button, TextField, withStyles, Typography } from '@material-ui/core'
 
 const styles = theme => ({
     root: {
@@ -44,14 +44,6 @@ const styles = theme => ({
     }
 });
 
-const copyRight = () => {
-    const date = new Date();
-    return (
-        <Typography variant="h6" component="h6" align="center">
-            2020 - {date.getFullYear()}, TB Co. all rights reserved.
-        </Typography>
-    );
-}
 
 export class Login extends Component {
     constructor(props) {
@@ -65,15 +57,39 @@ export class Login extends Component {
     handleChange = (e) => {
         let nextValue = { ...this.state.info };
         nextValue[e.target.name] = e.target.value;
-        console.log(nextValue)
 
         this.setState({
             info: nextValue
         });
     }
 
+    loginCheck = () => {
+        const URL = '/users/login';
+        const vars = {
+            user_id: this.state.info.user_id,
+            user_password: this.state.info.user_password
+        }
+
+        if (!this.state.info.user_id || !this.state.info.user_password) {
+            return alert('아이디 혹은 비밀번호를 입력해주세요.')
+        }
+
+        Axios.post(URL, vars)
+            .then(res => {
+                if (!res.data) {
+                    return alert('아이디 혹은 비밀번호가 틀렸습니다.');
+                } else {
+                    // 로그인 성공
+                    console.log(res.data, `로그인 성공, 이름이 ${res.data.MEM_NAME} 이시군요?`);
+                }
+            });
+
+    }
+
     render() {
+
         const { classes } = this.props;
+
         return (
             <div className={classes.root}>
                 <div className={classes.logoBox}>
@@ -84,7 +100,6 @@ export class Login extends Component {
                 </div>
                 <div className={classes.loginBox}>
                     <Typography variant="h3" component="h3" align="center">
-                        taebokSyS<br />
                         {this.props.hourlyGreetings}
                     </Typography>
                     <Box>
@@ -114,6 +129,7 @@ export class Login extends Component {
                                 className={classes.buttonMargin}
                                 fullWidth
                                 variant="contained"
+                                onClick={this.loginCheck}
                             >
                                 로그인하기
                             </Button>
@@ -129,7 +145,7 @@ export class Login extends Component {
                         </Box>
                     </Box>
                     <Box>
-                        {copyRight()}
+                        <CopyRights />
                     </Box>
                 </div>
 

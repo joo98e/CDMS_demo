@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import App from './App';
 import './css/init.css';
+import './css/mediaQuery.css';
 
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';

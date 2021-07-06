@@ -1,0 +1,9 @@
+@media (max-width:600px){
+    body{
+        background-color: green;
+    }
+
+    .Login-logoBox-3{
+        display: none;
+    }
+}
