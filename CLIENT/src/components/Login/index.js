@@ -5,6 +5,7 @@ import Axios from 'axios';
 import * as actions from '../../actions/UserInfo'
 import CopyRights from '../common/CopyRights'
 import logo from '../../_logo/logo.svg'
+import { withSnackbar } from 'notistack'
 
 import { Box, Button, TextField, withStyles, Typography } from '@material-ui/core'
 
@@ -72,20 +73,20 @@ export class Login extends Component {
         }
 
         if (!this.state.info.user_id || !this.state.info.user_password) {
-            return alert('아이디 혹은 비밀번호를 입력해주세요.')
+            return this.props.enqueueSnackbar('아이디 혹은 비밀번호를 입력해주세요.', { variant: 'warning' })
         }
 
         Axios.post(URL, vars)
             .then(res => {
                 if (!res.data) {
-                    return alert('아이디 혹은 비밀번호가 틀렸습니다.');
+                    return this.props.enqueueSnackbar('아이디 혹은 비밀번호가 틀렸습니다.', { variant: 'warning' });
                 } else {
                     // 로그인 성공
                     console.log(res.data, `로그인 성공, 이름이 ${res.data.MEM_NAME} 이시군요?`);
-                    
+
                     localStorage.setItem('member', JSON.stringify(res.data));
                     this.props.getAuthenticated(res.data);
-                    
+
                     console.log('member is', this.props.user.member);
                 }
             });
@@ -197,13 +198,13 @@ export class Login extends Component {
 
 const mapStateToProps = (state) => ({
     hourlyGreetings: state.ui.hourlyGreetings,
-    user : state.user
+    user: state.user
 })
 
 const mapDispatchToProps = dispatch => {
-    return{
-        getAuthenticated : (member) => {dispatch(actions.setMemberInfos(member))}
+    return {
+        getAuthenticated: (member) => { dispatch(actions.setMemberInfos(member)) }
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Login))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withSnackbar(Login)))

@@ -37,7 +37,7 @@ class App extends Component {
             }}
           >
 
-            {/* {
+            {
               this.props.auth ?
                 <Redirect
                   to={{
@@ -56,7 +56,7 @@ class App extends Component {
                     },
                   }}
                 />
-            } */}
+            }
 
             <Route exact path="/Landing" component={Landing}></Route>
             <Route exact path="/login" component={Login}></Route>
