@@ -11,7 +11,7 @@ import SettingsMenu from './components/common/SettingsMenu';
 
 import Landing from './components/Landing';
 import Login from './components/Login';
-// import Register from './components/Register';
+import Register from './components/Register';
 
 class App extends Component {
   constructor(props) {
@@ -37,7 +37,7 @@ class App extends Component {
             }}
           >
 
-            {
+            {/* {
               this.props.auth ?
                 <Redirect
                   to={{
@@ -56,10 +56,11 @@ class App extends Component {
                     },
                   }}
                 />
-            }
+            } */}
 
             <Route exact path="/Landing" component={Landing}></Route>
             <Route exact path="/login" component={Login}></Route>
+            <Route exact path="/register" component={Register}></Route>
 
             {/* <MyNav /> */}
 

@@ -98,7 +98,7 @@ export class Login extends Component {
 
         return (
             <div className={classes.root}>
-                <div className={classes.logoBox}>
+                <div className={classes.logoBox + ' sssss'}>
                     <img className={classes.logo} src={logo} alt="logo" />
                     <Typography variant="h2" component="h2">
                         Sign In
