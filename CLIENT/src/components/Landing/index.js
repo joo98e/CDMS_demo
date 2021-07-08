@@ -1,28 +1,57 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Box } from '@material-ui/core';
-import StepComponent from './StepComponent';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { Container, Box, Zoom, withStyles } from '@material-ui/core';
 
-class SignIn extends Component {
+const styles = theme => ({
+    trans: {
+        position: 'absolute;',
+        top: '45%;',
+        left: '50%;',
+        transform: 'translate(-50 %,-50%);',
+    }
+});
 
-    componentDidMount() {
-        
+class Landing extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            awhile: false
+        }
     }
 
+
+    componentDidMount() {
+        setTimeout(() => {
+            this.setState({
+                awhile: true
+            });
+        }, 1500);
+    }
+
+
+
     render() {
+        const { classes } = this.props;
 
         return (
-            <Box flexGrow={1}>
-                {this.props.auth ?
-                    // ---------------------------------------- Logged
-                    // 링크를 다른 곳으로 보내기(프로젝트로)
-                    'Logged in'
-                    :
-                    <Box>
-                        <StepComponent />
-                    </Box>
+            <Container>
+                {
+                    this.state.awhile === false ?
+                        <div className={classes.trans}><CircularProgress disableShrink /></div>
+                        :
+                        <Box>
+                            <Zoom in={this.state.awhile} timeout={1000}>
+                                <Box>
+                                    123
+                                </Box>
+                            </Zoom>
+                        </Box>
                 }
-            </Box>
+
+
+            </Container>
         )
     }
 }
@@ -35,4 +64,4 @@ const mapDispatchToProps = {
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Landing));

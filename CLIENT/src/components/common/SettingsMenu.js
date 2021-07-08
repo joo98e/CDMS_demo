@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { withSnackbar } from 'notistack'
 import * as actions from '../../actions'
 
 import { withStyles } from '@material-ui/core'
@@ -54,6 +55,7 @@ export class SettingsMenu extends Component {
         switch (key) {
             case 'theme':
                 this.props.handleSetTheme();
+                this.props.enqueueSnackbar('테마가 변경되었습니다.', { variant: 'success' });
                 break;
 
             default:
@@ -100,4 +102,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SettingsMenu))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withSnackbar(SettingsMenu)))

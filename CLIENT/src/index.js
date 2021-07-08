@@ -9,7 +9,7 @@ import './css/mediaQuery.css';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducers from './reducers';
-import SnackBarBtn from './components/common/SnackBarBtn';
+import SnackBarUI from './components/common/SnackBarUI';
 
 
 const store = createStore(reducers);
@@ -25,7 +25,7 @@ ReactDOM.render(
       }}
       // preventDuplicate, 중복 허용하지 않음
       action={(key) => (
-        <SnackBarBtn goods={key}/>
+        <SnackBarUI goods={key}/>
       )}
     >
       <App />

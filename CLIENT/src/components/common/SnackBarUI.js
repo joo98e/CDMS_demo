@@ -4,7 +4,7 @@ import { withSnackbar } from 'notistack'
 import { Button } from '@material-ui/core'
 import CancelIcon from '@material-ui/icons/Cancel';
 
-export class SnackBarBtn extends Component {
+export class SnackBarUI extends Component {
     constructor(props) {
         super(props)
     
@@ -14,7 +14,6 @@ export class SnackBarBtn extends Component {
     }
     
     handleCloseSnackBar = () => {
-        console.log(this.props.goods);
         this.props.closeSnackbar(this.props.goods);
     }
 
@@ -37,4 +36,4 @@ const mapDispatchToProps = {
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withSnackbar(SnackBarBtn))
+export default connect(mapStateToProps, mapDispatchToProps)(withSnackbar(SnackBarUI))

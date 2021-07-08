@@ -1,8 +1,16 @@
 import * as types from '../actions/ActionTypes';
 
+const getAuthSessionStorage = () => {
+    return sessionStorage.getItem('member') !== null ? true : false
+}
+
+const getMemberSessionStorage = () => {
+    return sessionStorage.getItem('member') !== null ? sessionStorage.getItem('member') : null
+}
+
 const initialState = {
-    auth : false,
-    member : null
+    auth : getAuthSessionStorage(),
+    member : getMemberSessionStorage()
 };
 
 const user = (state = initialState, action) => {

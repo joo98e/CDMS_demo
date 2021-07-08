@@ -23,7 +23,7 @@ class App extends Component {
   }
 
   render() {
-    
+
     return (
 
       <ThemeProvider theme={this.props.theme} >
@@ -36,6 +36,7 @@ class App extends Component {
               color: this.props.theme.palette.text.primary
             }}
           >
+            
 
             {
               this.props.auth ?
@@ -66,10 +67,6 @@ class App extends Component {
 
           </Box>
           <SettingsMenu />
-
-          {/* <Route exact path="/" component={Landing}></Route>
-            <Route exact path="/login" component={Login}></Route>
-            <Route exact path="/register" component={Register}></Route> */}
 
         </BrowserRouter>
       </ThemeProvider>
