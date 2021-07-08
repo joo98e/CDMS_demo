@@ -79,18 +79,32 @@ export class Login extends Component {
         Axios.post(URL, vars)
             .then(res => {
                 if (!res.data) {
-                    return this.props.enqueueSnackbar('아이디 혹은 비밀번호가 틀렸습니다.', { variant: 'warning' });
+                    return this.props.enqueueSnackbar('아이디 혹은 비밀번호가 틀렸습니다.', { variant: 'error' });
                 } else {
                     // 로그인 성공
-                    console.log(res.data, `로그인 성공, 이름이 ${res.data.MEM_NAME} 이시군요?`);
+                    const storageItem = {
+                        MEM_USERID: res.data.MEM_USERID,
+                        MEM_NAME: res.data.MEM_NAME,
+                        MEM_NICKNAME: res.data.MEM_NICKNAME,
+                        MEM_BIRTHDAY: res.data.MEM_BIRTHDAY,
+                        MEM_DEPT_NO: res.data.MEM_DEPT_NO,
+                        MEM_AGE: res.data.MEM_AGE,
+                        MEM_EMPNO: res.data.MEM_EMPNO,
+                    }
 
-                    localStorage.setItem('member', JSON.stringify(res.data));
-                    this.props.getAuthenticated(res.data);
+                    sessionStorage.setItem('member', JSON.stringify(storageItem));
+                    this.props.getAuthenticated(storageItem);
 
-                    console.log('member is', this.props.user.member);
+                    this.props.enqueueSnackbar('로그인하였습니다.', { variant: 'success' });
+
+
                 }
             });
 
+    }
+
+    handleAppearYet = () => {
+        this.props.closeSnackbar();
     }
 
     render() {
@@ -129,6 +143,11 @@ export class Login extends Component {
                                 label="비밀번호"
                                 type="password"
                                 onChange={this.handleChange}
+                                onKeyUp={(e) => {
+                                    if (e.key === 'Enter') {
+                                        this.loginCheck();
+                                    }
+                                }}
                             />
                         </form>
                         <Box display="flex">
@@ -144,6 +163,7 @@ export class Login extends Component {
                                 className={classes.buttonMargin}
                                 fullWidth
                                 variant="contained"
+                                onClick={this.handleAppearYet}
                             >
                                 <Link to="/register">
                                     회원가입하기

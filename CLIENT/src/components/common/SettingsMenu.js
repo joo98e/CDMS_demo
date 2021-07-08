@@ -36,6 +36,7 @@ export class SettingsMenu extends Component {
             hidden: false
         }
     }
+    
     handleClose = () => {
         this.setState({
             open: false

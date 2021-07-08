@@ -12,7 +12,7 @@ const user = (state = initialState, action) => {
         // ────────────────────────────────────────────────────────────────────────────
         case types.GET_AUTHENTICATED:
             return {
-                ...state,
+                auth : true,
                 member : JSON.parse(localStorage.getItem('member'))
             };
 
