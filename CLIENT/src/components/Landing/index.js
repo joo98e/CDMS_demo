@@ -1,16 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { Container, Box, Zoom, withStyles } from '@material-ui/core';
+import UICircularProgress from '../common/UICircularProgress'
 
-const styles = theme => ({
-    trans: {
-        position: 'absolute;',
-        top: '45%;',
-        left: '50%;',
-        transform: 'translate(-50 %,-50%);',
-    }
-});
+import { Container, Box, Zoom } from '@material-ui/core';
 
 class Landing extends Component {
     constructor(props) {
@@ -33,13 +25,12 @@ class Landing extends Component {
 
 
     render() {
-        const { classes } = this.props;
 
         return (
             <Container>
                 {
                     this.state.awhile === false ?
-                        <div className={classes.trans}><CircularProgress disableShrink /></div>
+                        <UICircularProgress />
                         :
                         <Box>
                             <Zoom in={this.state.awhile} timeout={1000}>
@@ -64,4 +55,4 @@ const mapDispatchToProps = {
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Landing));
+export default connect(mapStateToProps, mapDispatchToProps)(Landing);
