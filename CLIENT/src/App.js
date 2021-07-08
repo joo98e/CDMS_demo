@@ -7,7 +7,7 @@ import { Box } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 
 // import MyNav from './components/common/MyNav';
-import SettingsMenu from './components/common/SettingsMenu';
+import UISettingsMenu from './components/common/UISettingsMenu';
 
 import Landing from './components/Landing';
 import Login from './components/Login';
@@ -36,7 +36,7 @@ class App extends Component {
               color: this.props.theme.palette.text.primary
             }}
           >
-            
+
 
             {
               this.props.auth ?
@@ -66,7 +66,7 @@ class App extends Component {
             {/* <MyNav /> */}
 
           </Box>
-          <SettingsMenu />
+          <UISettingsMenu />
 
         </BrowserRouter>
       </ThemeProvider>

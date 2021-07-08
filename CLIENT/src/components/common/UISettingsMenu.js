@@ -28,7 +28,7 @@ const List = [
     { icon: <ColorLensIcon />, name: 'theme' },
 ];
 
-export class SettingsMenu extends Component {
+export class UISettingsMenu extends Component {
     constructor(props) {
         super(props)
 
@@ -102,4 +102,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withSnackbar(SettingsMenu)))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withSnackbar(UISettingsMenu)))

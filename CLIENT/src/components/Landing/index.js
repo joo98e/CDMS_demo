@@ -33,7 +33,7 @@ class Landing extends Component {
                         <UICircularProgress />
                         :
                         <Box>
-                            <Zoom in={this.state.awhile} timeout={1000}>
+                            <Zoom in={this.state.awhile} timeout={0}>
                                 <Box>
                                     123
                                 </Box>
