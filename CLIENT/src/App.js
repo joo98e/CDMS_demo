@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter, Route, Redirect } from 'react-router-dom';
-
+import { Redirect } from 'react-router-dom';
 // THEME
-import { Box } from '@material-ui/core';
+import { Box, Container } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 
-// import MyNav from './components/common/MyNav';
+import Routes from './routes'
+import MyNav from './components/common/MyNav';
 import UISettingsMenu from './components/common/UISettingsMenu';
-
-import Landing from './components/Landing';
-import Login from './components/Login';
-import Register from './components/Register';
 
 class App extends Component {
   constructor(props) {
@@ -22,53 +18,66 @@ class App extends Component {
     }
   }
 
+  myNav = () => {
+    return (
+      this.props.user.auth && (
+        <Box>
+          {this.props.user.auth &&
+            <MyNav />
+          }
+        </Box>
+      )
+
+    )
+  }
+
+  doRedirect = () => {
+    return (
+      <>
+        {
+          this.props.user.auth ?
+            <Redirect
+              to={{
+                pathname: "/assistant/landing",
+                state: {
+                  from: this.props.location,
+                },
+              }}
+            />
+            :
+            <Redirect
+              to={{
+                pathname: "/login",
+                state: {
+                  from: this.props.location,
+                },
+              }}
+            />
+        }
+      </>
+    )
+  }
+
+
   render() {
 
     return (
 
       <ThemeProvider theme={this.props.theme} >
-        <BrowserRouter >
-          <Box
-            style={{
-              position: "relative",
-              minHeight: "100vh",
-              background: this.props.theme.palette.background.default,
-              color: this.props.theme.palette.text.primary
-            }}
-          >
-
-
-            {
-              this.props.auth ?
-                <Redirect
-                  to={{
-                    pathname: "/Landing",
-                    state: {
-                      from: this.props.location,
-                    },
-                  }}
-                />
-                :
-                <Redirect
-                  to={{
-                    pathname: "/login",
-                    state: {
-                      from: this.props.location,
-                    },
-                  }}
-                />
-            }
-
-            <Route exact path="/Landing" component={Landing}></Route>
-            <Route exact path="/login" component={Login}></Route>
-            <Route exact path="/register" component={Register}></Route>
-
-            {/* <MyNav /> */}
-
-          </Box>
-          <UISettingsMenu />
-
-        </BrowserRouter>
+        {this.myNav()}
+        <Box
+          pt={this.props.user.auth ? 10 : 0}
+          style={{
+            position: "relative",
+            height: "100vh",
+            background: this.props.theme.palette.background.default,
+            color: this.props.theme.palette.text.primary
+          }}
+        >
+          {this.doRedirect()}
+          <Routes />
+        </Box>
+        <UISettingsMenu />
       </ThemeProvider>
 
     )
@@ -77,7 +86,7 @@ class App extends Component {
 
 const mapStateToProps = (state) => ({
   theme: state.ui.theme,
-  auth: state.user.auth
+  user: state.user
 });
 
 export default connect(mapStateToProps)(App);

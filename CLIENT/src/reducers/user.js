@@ -1,5 +1,7 @@
 import * as types from '../actions/ActionTypes';
 
+// DB 살리고 함수형으로 바꾸기
+
 const getAuthSessionStorage = () => {
     return sessionStorage.getItem('member') !== null ? true : false
 }
@@ -9,7 +11,8 @@ const getMemberSessionStorage = () => {
 }
 
 const initialState = {
-    auth : getAuthSessionStorage(),
+    // auth : getAuthSessionStorage(),
+    auth : true,
     member : getMemberSessionStorage()
 };
 

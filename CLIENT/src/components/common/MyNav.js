@@ -26,8 +26,8 @@ const styles = theme => ({
 
 const HomeIconButton = () => {
     return (
-        <Tooltip title="Home">
-            <Link to="/">
+        <Tooltip title="홈">
+            <Link to="/assistant/projects">
                 <IconButton>
                     <HomeIcon color="inherit"/>
                 </IconButton>
@@ -36,12 +36,17 @@ const HomeIconButton = () => {
     )
 };
 
-const LoginIcon = () => {
+const sessionOut = () => {
+    {/* TODO 디스패치로 세션 종료시키기 */}
+    sessionStorage.removeItem('member');
+}
+
+const Logout = () => {
     return (
-        <Tooltip title="Login">
-            <Link to="/login">
-                <IconButton>
-                    <LockOpenIcon />
+        <Tooltip title="로그아웃">
+            <Link to="/">
+                <IconButton onClick={sessionOut}>
+                    <LockOpenIcon color="inherit"/>
                 </IconButton>
             </Link>
         </Tooltip>
@@ -56,11 +61,6 @@ export class MyNav extends Component {
 
         }
     }
-
-    componentDidMount() {
-
-    }
-
 
     render() {
         const { classes } = this.props;
@@ -77,12 +77,12 @@ export class MyNav extends Component {
                             </Typography>
                         </Box>
 
-                        {!this.props.auth ?
+                        {this.props.user ?
                             // auth
-                            LoginIcon()
+                            Logout()
                             :
                             // not auth
-                            'logged in!'
+                            '세션을 종료하세요.'
                         }
 
                     </Toolbar>
@@ -93,7 +93,7 @@ export class MyNav extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    auth: state.user.auth
+    user: state.user
 })
 
 const mapDispatchToProps = {

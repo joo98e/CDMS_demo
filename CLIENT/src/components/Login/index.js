@@ -61,7 +61,7 @@ export class Login extends Component {
         this.setState({
             awhile: true
         })
-        
+
     }
 
 
@@ -105,8 +105,7 @@ export class Login extends Component {
                     sessionStorage.setItem('member', JSON.stringify(storageItem));
                     this.props.getAuthenticated(storageItem);
 
-                    this.props.enqueueSnackbar('로그인하였습니다.', { variant: 'success' });
-
+                    this.props.enqueueSnackbar(`안녕하세요. ${this.props.user.MEM_NAME}님?`, { variant: 'success' });
 
                 }
             });
@@ -114,7 +113,7 @@ export class Login extends Component {
     }
 
     handleAppearYet = () => {
-        this.props.closeSnackbar();
+        this.props.enqueueSnackbar('개발중입니다.', { variant : 'warning'});
     }
 
     render() {
@@ -146,6 +145,11 @@ export class Login extends Component {
                                     label="아이디"
                                     placeholder="example"
                                     onChange={this.handleChange}
+                                    onKeyUp={(e) => {
+                                        if (e.key === 'Enter') {
+                                            this.loginCheck();
+                                        }
+                                    }}
                                 />
                                 <TextField
                                     style={{ marginTop: '20px' }}
@@ -178,9 +182,9 @@ export class Login extends Component {
                                     variant="contained"
                                     onClick={this.handleAppearYet}
                                 >
-                                    <Link to="/register">
+                                    {/* <Link to="/register"> */}
                                         회원가입하기
-                                    </Link>
+                                    {/* </Link> */}
                                 </Button>
                             </Box>
                         </Box>
