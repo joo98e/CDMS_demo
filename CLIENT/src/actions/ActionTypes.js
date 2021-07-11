@@ -17,4 +17,8 @@ export const PAGE_BACK_ROUTE = "PAGE_BACK_ROUTE";
 // ─────────────────────────────────────────────────── 
 export const GET_AUTHENTICATED = "GET_AUTHENTICATED";
 
+// ─────────────────────────────────────────────────── 
+export const OUT_AUTHENTICATED = "OUT_AUTHENTICATED";
 
+// ─────────────────────────────────────────────────── 
+export const DEV_SET_AUTH = "DEV_SET_AUTH";

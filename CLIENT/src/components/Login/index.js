@@ -104,16 +104,21 @@ export class Login extends Component {
 
                     sessionStorage.setItem('member', JSON.stringify(storageItem));
                     this.props.getAuthenticated(storageItem);
-
                     this.props.enqueueSnackbar(`안녕하세요. ${this.props.user.MEM_NAME}님?`, { variant: 'success' });
 
                 }
+            }).catch((err) => {
+                this.props.enqueueSnackbar(`${err}`, { variant: 'error' });
             });
 
     }
 
     handleAppearYet = () => {
-        this.props.enqueueSnackbar('개발중입니다.', { variant : 'warning'});
+        this.props.enqueueSnackbar('준비중입니다.', { variant: 'warning' });
+    }
+
+    devLogin = () => {
+        this.props.devAuth();
     }
 
     render() {
@@ -180,10 +185,10 @@ export class Login extends Component {
                                     className={classes.buttonMargin}
                                     fullWidth
                                     variant="contained"
-                                    onClick={this.handleAppearYet}
+                                    onClick={this.devLogin}
                                 >
                                     {/* <Link to="/register"> */}
-                                        회원가입하기
+                                    개발 환경 로그인
                                     {/* </Link> */}
                                 </Button>
                             </Box>
@@ -206,7 +211,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => {
     return {
-        getAuthenticated: (member) => { dispatch(actions.setMemberInfos(member)) }
+        getAuthenticated: (member) => { dispatch(actions.setMemberInfos(member)) },
+        devAuth: (member) => { dispatch(actions.devAuth(member)) },
     }
 }
 

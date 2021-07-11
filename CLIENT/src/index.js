@@ -15,7 +15,7 @@ import UISnackBar from './components/common/UISnackBar';
 
 
 const store = createStore(reducers);
-// store.subscribe(() => console.log(store.getState()));
+store.subscribe(() => console.log(store.getState()));
 
 ReactDOM.render(
   <Provider store={store}>
