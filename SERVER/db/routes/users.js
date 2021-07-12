@@ -41,15 +41,14 @@ router.post('/login', (req, res) => {
 
 });
 
-router.get('/', (req, res) => {
+router.get('/login/dev', (req, res) => {
     let is = null;
     connection.query(
         "SELECT * FROM TB_MEMBER_INFO where MEM_PK = 1;",
         (err, rows, fields) => {
             if (err) console.log(err);
-            is = bcrypt.compareSync('12345', rows[0].MEM_PASSWORD);
             
-            res.status(200).send(is);
+            res.status(200).send(rows[0]);
         }
     );
 

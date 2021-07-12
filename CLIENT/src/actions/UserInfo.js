@@ -16,8 +16,9 @@ export const outAuthenticated = () => {
 };
 
 // ─────────────────────────────────────────────────── 
-export const devAuth = () => {
+export const devAuth = member => {
     return {
-        type: types.DEV_SET_AUTH,
+        type: types.GET_AUTHENTICATED,
+        member
     };
 };

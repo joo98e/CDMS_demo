@@ -104,7 +104,7 @@ export class Login extends Component {
 
                     sessionStorage.setItem('member', JSON.stringify(storageItem));
                     this.props.getAuthenticated(storageItem);
-                    this.props.enqueueSnackbar(`안녕하세요. ${this.props.user.MEM_NAME}님?`, { variant: 'success' });
+                    this.props.enqueueSnackbar(`안녕하세요. ${this.props.user.member.MEM_NAME}님?`, { variant: 'success' });
 
                 }
             }).catch((err) => {
@@ -118,7 +118,13 @@ export class Login extends Component {
     }
 
     devLogin = () => {
-        this.props.devAuth();
+        Axios.get('/users/login/dev')
+            .then(res => {
+                sessionStorage.setItem('member', JSON.stringify(res.data));
+                this.props.devAuth(res.data);
+                this.props.enqueueSnackbar(`안녕하세요. ${this.props.user.member.MEM_NAME}님?`, { variant: 'success' });
+            })
+
     }
 
     render() {
