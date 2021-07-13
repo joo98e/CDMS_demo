@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core'
 import { Visibility, VisibilityOff } from '@material-ui/icons'
 
-import Back from '../common/Back'
+import Back from '../../common/Back'
 
 const styles = theme => ({
     root: {

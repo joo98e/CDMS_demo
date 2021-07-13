@@ -1,38 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import Axios from 'axios';
 
-import { Grid, Box } from '@material-ui/core'
+import { Container, Grid, Box, Paper, Typography, withStyles } from '@material-ui/core'
+import Card from '../../common/Card'
 
-const exampleList = [
-    {
-        // 1000번대는 팀
-        // 10000번대는 프로젝트 
-        PROJ_ID: '10001',
-
-        PROJ_SUB_CATEGORY: '콘텐츠', // 대학, 공공, 기타 등등
-        PROJ_NAME: '삼육보건대학교_2021',
-
-        PROJ_MANAGER_MEM_ID: 3, // JOIN, MEM_ID
-        PROJ_DATE_START: '2021-07-01',
-        PROJ_DATE_END: '2021-07-11',
-    },
-    {
-        PROJ_ID: '10002',
-        PROJ_SUB_CATEGORY: '대학',
-        PROJ_NAME: '금오공과대학교',
-        PROJ_MANAGER_MEM_ID: 1,
-        PROJ_DATE_START: '2021-01-01',
-        PROJ_DATE_END: '2021-07-11',
-    },
-    {
-        PROJ_ID: '10003',
-        PROJ_SUB_CATEGORY: '공공',
-        PROJ_NAME: '한국사회적기업진흥원',
-        PROJ_MANAGER_MEM_ID: 2,
-        PROJ_DATE_START: '2021-04-01',
-        PROJ_DATE_END: '2021-07-11',
-    },
-];
+const styles = theme => ({
+    root: {
+        marginTop: '30px'
+    }
+});
 
 const personnel = [
     // join 결과
@@ -76,23 +53,24 @@ export class Landing extends Component {
 
         }
     }
-    
+
+    componentDidMount() {
+
+    }
+    // TODO
+    // 프로젝트 리스트
+    // 카드 구현
+    // 그로우 구현
+    // 플러스 버튼 다이얼로그 구현
+    // DB 프로젝트참여자리스트 구현 => 조인으로 함께 불러오기
+
     render() {
-        console.log(exampleList);
+        const { classes } = this.props;
+
         return (
-            <Grid container>
-                {
-                    exampleList.map((item, index) => {
-                        return (
-                            <div key={index}>
-                                {item.PROJ_ID}
-                            </div>
-                        )
-                    })
-                }
-
-            </Grid>
-
+            <Container className={classes.root}>
+                <Card></Card>
+            </Container>
         )
 
     }
@@ -106,4 +84,4 @@ const mapDispatchToProps = {
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Landing)
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Landing))

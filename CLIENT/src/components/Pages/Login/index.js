@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
-import * as actions from '../../actions/UserInfo'
-import CopyRights from '../common/CopyRights'
-import logo from '../../_logo/logo.svg'
+import * as actions from '../../../actions/UserInfo'
+import CopyRights from '../../common/CopyRights'
+import logo from '../../../_logo/logo.svg'
 import { withSnackbar } from 'notistack'
 
 import { Box, Button, TextField, withStyles, Typography, Grow } from '@material-ui/core'

@@ -7,6 +7,7 @@ import {
     Box, AppBar, Toolbar, IconButton, Typography, withStyles, Tooltip
 } from '@material-ui/core';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
+import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import HomeIcon from '@material-ui/icons/Home';
 
 const styles = theme => ({
@@ -47,13 +48,21 @@ export class MyNav extends Component {
                 <AppBar position='fixed'>
                     <Toolbar>
 
-                        <Tooltip title="홈">
-                            <Link to="/assistant/projects">
+                        <Tooltip title="초기 화면으로">
+                            <Link to="/assistant/landing">
                                 <IconButton>
                                     <HomeIcon color="inherit" />
                                 </IconButton>
                             </Link>
                         </Tooltip>
+
+                        {/* <Tooltip title="프로젝트">
+                            <Link to="/assistant/projects">
+                                <IconButton>
+                                    <AccountTreeIcon color="inherit" />
+                                </IconButton>
+                            </Link>
+                        </Tooltip> */}
 
                         <Box flexGrow={1} className={classes.ml}>
                             <Typography variant="h6">

@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { Route } from 'react-router-dom';
 
 // Components
-import Login from '../components/Login';
-import Register from '../components/Register';
+import Login from '../components/Pages/Login';
+import Register from '../components/Pages/Register';
 import Landing from '../components/Pages/Landing'
 import Projects from '../components/Pages/Projects'
 
