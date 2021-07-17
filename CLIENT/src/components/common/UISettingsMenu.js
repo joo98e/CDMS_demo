@@ -31,8 +31,16 @@ const List = [
 ];
 
 export class UISettingsMenu extends Component {
-    handleClick = (key) => {
+    constructor(props) {
+        super(props)
 
+    this.state = {
+            open: false,
+            hidden: false
+        }
+    }
+
+    handleClick = (key) => {
         switch (key) {
             case '테마 변경':
                 this.props.handleSetTheme();
@@ -41,24 +49,17 @@ export class UISettingsMenu extends Component {
 
             case '메뉴 위치 변경':
                 this.props.handleSetMenuAppearPosition();
-                this.props.enqueueSnackbar('메뉴 위치 변경 기능은 개발중입니다.', { variant: 'success' });
+                setTimeout(() => {
+                    this.props.enqueueSnackbar(`메뉴 위치가 변경되었습니다. (${this.props.menuAppearPosition})`, { variant: 'success' });    
+                }, 10);
+                
                 break;
 
             default:
                 break;
         }
-
     }
 
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            open: false,
-            hidden: false
-        }
-    }
-    
     handleClose = () => {
         this.setState({
             open: false
@@ -71,7 +72,7 @@ export class UISettingsMenu extends Component {
         });
     };
 
-    
+
 
     render() {
         const { classes } = this.props;
@@ -103,7 +104,7 @@ export class UISettingsMenu extends Component {
 
 const mapStateToProps = (state) => ({
     theme: state.ui.theme,
-    menuAppearPosition : state.ui.menuAppearPosition
+    menuAppearPosition: state.ui.menuAppearPosition
 })
 
 const mapDispatchToProps = (dispatch) => {

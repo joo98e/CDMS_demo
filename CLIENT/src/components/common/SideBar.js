@@ -2,13 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import Axios from 'axios'
-
 import { makeStyles } from '@material-ui/core/styles';
 import {
-    Drawer,
     Tooltip,
     IconButton,
+    SwipeableDrawer,
     List, Divider, ListItem, ListItemIcon, ListItemText
 } from '@material-ui/core'
 
@@ -27,26 +25,26 @@ const useStyles = makeStyles({
 });
 
 const menuList = [
-    { 
-        MENU_ID : '1',
-        MENU_NAME : '홈으로',
-        MENU_ICON_NAME: <HomeIcon />, 
+    {
+        MENU_ID: '1',
+        MENU_NAME: '홈으로',
+        MENU_ICON_NAME: <HomeIcon />,
         MENU_PUSH_LINK: '/',
-        MENU_PERMISSION : 'U'
+        MENU_PERMISSION: 'U'
     },
-    { 
-        MENU_ID : '2',
-        MENU_NAME : '프로젝트로',
-        MENU_ICON_NAME: <NoteIcon />, 
+    {
+        MENU_ID: '2',
+        MENU_NAME: '프로젝트로',
+        MENU_ICON_NAME: <NoteIcon />,
         MENU_PUSH_LINK: '/projects',
-        MENU_PERMISSION : 'U'
+        MENU_PERMISSION: 'U'
     },
-    { 
-        MENU_ID : '3',
-        MENU_NAME : '대쉬보드로',
-        MENU_ICON_NAME: <VerticalIcon />, 
+    {
+        MENU_ID: '3',
+        MENU_NAME: '대쉬보드로',
+        MENU_ICON_NAME: <VerticalIcon />,
         MENU_PUSH_LINK: '/dashboard',
-        MENU_PERMISSION : 'U'
+        MENU_PERMISSION: 'U'
     },
 ];
 
@@ -54,18 +52,14 @@ function SideBar(props) {
     const { position } = props;
 
     const classes = useStyles();
-    const [positinal, setPositinal] = React.useState({
-        top: false,
-        left: false,
-        bottom: false,
-        right: false,
-    });
+    const [positinal, setPositinal] = React.useState(false);
 
-    const toggleDrawer = (position, open) => (event) => {
+    const toggleDrawer = (open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
         }
-        setPositinal({ ...positinal, [position]: open });
+
+        setPositinal(open);
     };
 
 
@@ -75,13 +69,13 @@ function SideBar(props) {
                 classes.list + (position === 'top' || position === 'bottom' ? classes.fullList : '')
             }
             role="presentation"
-            onClick={toggleDrawer(position, false)}
-            onKeyDown={toggleDrawer(position, false)}
+            onClick={toggleDrawer(false)}
+            onKeyDown={toggleDrawer(false)}
         >
             {console.log(menuList)}
             {menuList.map((item, index) => {
                 return (
-                    <List key={item.MENU_ID}> 
+                    <List key={item.MENU_ID}>
                         <Link to={item.MENU_PUSH_LINK}>
                             <ListItem button key={item.MENU_NAME}>
                                 <ListItemIcon>
@@ -99,15 +93,20 @@ function SideBar(props) {
 
     return (
         <div>
-            <React.Fragment key={position}>
+            <React.Fragment>
                 <Tooltip title={'메뉴'}>
-                    <IconButton onClick={toggleDrawer(position, true)}>
+                    <IconButton onClick={toggleDrawer(true)}>
                         <MenuIcon color="inherit" />
                     </IconButton>
                 </Tooltip>
-                <Drawer position={position} open={positinal[position]} onClose={toggleDrawer(position, false)}>
+                <SwipeableDrawer
+                    anchor={position}
+                    open={positinal}
+                    onClose={toggleDrawer(false)}
+                    onOpen={toggleDrawer(true)}
+                >
                     {list(position)}
-                </Drawer>
+                </SwipeableDrawer>
             </React.Fragment>
         </div>
     );

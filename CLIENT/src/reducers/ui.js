@@ -1,10 +1,6 @@
 import * as types from '../actions/ActionTypes';
 import Themes from '../components/common/Theme'
 
-const getMenuAppearPosition = () => {
-    return sessionStorage.getItem('member') !== null ? JSON.parse(sessionStorage.getItem('member')).MEM_MENU_APPEAR_POSITION : 'left';
-}
-
 const message = function () {
     const date = new Date();
     let temp = date.getHours();
@@ -23,7 +19,7 @@ const initialState = {
     theme: Themes.dark,
     bgColor: "#424242",
     hourlyGreetings: message(),
-    menuAppearPosition: getMenuAppearPosition()
+    menuAppearPosition: 'left'
 };
 
 const ui = (state = initialState, action) => {
