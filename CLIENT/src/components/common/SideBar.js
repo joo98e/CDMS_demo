@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import Axios from 'axios'
 
@@ -12,8 +13,9 @@ import {
 } from '@material-ui/core'
 
 import MenuIcon from '@material-ui/icons/Menu';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import HomeIcon from '@material-ui/icons/Home';
+import NoteIcon from '@material-ui/icons/Note';
+import VerticalIcon from '@material-ui/icons/VerticalSplit';
 
 const useStyles = makeStyles({
     list: {
@@ -24,61 +26,74 @@ const useStyles = makeStyles({
     },
 });
 
+const menuList = [
+    { 
+        MENU_ID : '1',
+        MENU_NAME : '홈으로',
+        MENU_ICON_NAME: <HomeIcon />, 
+        MENU_PUSH_LINK: '/',
+        MENU_PERMISSION : 'U'
+    },
+    { 
+        MENU_ID : '2',
+        MENU_NAME : '프로젝트로',
+        MENU_ICON_NAME: <NoteIcon />, 
+        MENU_PUSH_LINK: '/projects',
+        MENU_PERMISSION : 'U'
+    },
+    { 
+        MENU_ID : '3',
+        MENU_NAME : '대쉬보드로',
+        MENU_ICON_NAME: <VerticalIcon />, 
+        MENU_PUSH_LINK: '/dashboard',
+        MENU_PERMISSION : 'U'
+    },
+];
+
 function SideBar(props) {
     const { position } = props;
 
     const classes = useStyles();
-    const [positinal, setMenuBar] = React.useState({
+    const [positinal, setPositinal] = React.useState({
         top: false,
         left: false,
         bottom: false,
         right: false,
     });
 
-    React.useEffect(() => {
-        Axios.get("https://lq-time-tracking.firebaseio.com/user.json")
-            .then(function (response) {
-                console.log(response);
-            }).catch(function (error) {
-                
-            })
-    }, []);
-
     const toggleDrawer = (position, open) => (event) => {
-        console.log(position);
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
         }
-        setMenuBar({ ...positinal, [position]: open });
+        setPositinal({ ...positinal, [position]: open });
     };
+
 
     const list = position => (
         <div
             className={
                 classes.list + (position === 'top' || position === 'bottom' ? classes.fullList : '')
             }
+            role="presentation"
             onClick={toggleDrawer(position, false)}
             onKeyDown={toggleDrawer(position, false)}
         >
-            {/* ──────────────────────────────────────────────────────────────────────────────────────── */}
-            <List>
-                {['추후에', 'DB로', '관리할'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
-            </List>
+            {console.log(menuList)}
+            {menuList.map((item, index) => {
+                return (
+                    <List key={item.MENU_ID}> 
+                        <Link to={item.MENU_PUSH_LINK}>
+                            <ListItem button key={item.MENU_NAME}>
+                                <ListItemIcon>
+                                    {item.MENU_ICON_NAME}
+                                </ListItemIcon>
+                                <ListItemText primary={item.MENU_NAME} />
+                            </ListItem>
+                        </Link>
+                    </List>
+                )
+            })}
             <Divider />
-            <List>
-                {['예정', '입니다.'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
-            </List>
-            {/* ──────────────────────────────────────────────────────────────────────────────────────── */}
         </div>
     );
 

@@ -5,6 +5,7 @@ import * as actions from '../../actions'
 
 import { withStyles } from '@material-ui/core'
 import ColorLensIcon from '@material-ui/icons/ColorLens';
+import CachedIcon from '@material-ui/icons/Cached';
 import { SpeedDial, SpeedDialIcon, SpeedDialAction } from '@material-ui/lab';
 
 const styles = theme => ({
@@ -25,11 +26,30 @@ const styles = theme => ({
 });
 
 const List = [
-    { icon: <ColorLensIcon />, name: 'theme' },
-    // { icon: <ColorLensIcon />, name: 'position' },
+    { icon: <ColorLensIcon />, name: '테마 변경' },
+    { icon: <CachedIcon />, name: '메뉴 위치 변경' },
 ];
 
 export class UISettingsMenu extends Component {
+    handleClick = (key) => {
+
+        switch (key) {
+            case '테마 변경':
+                this.props.handleSetTheme();
+                this.props.enqueueSnackbar('테마가 변경되었습니다.', { variant: 'success' });
+                break;
+
+            case '메뉴 위치 변경':
+                this.props.handleSetMenuAppearPosition();
+                this.props.enqueueSnackbar('메뉴 위치 변경 기능은 개발중입니다.', { variant: 'success' });
+                break;
+
+            default:
+                break;
+        }
+
+    }
+
     constructor(props) {
         super(props)
 
@@ -51,24 +71,7 @@ export class UISettingsMenu extends Component {
         });
     };
 
-    handleClick = (key) => {
-
-        switch (key) {
-            case 'theme':
-                this.props.handleSetTheme();
-                this.props.enqueueSnackbar('테마가 변경되었습니다.', { variant: 'success' });
-                break;
-
-            case 'position':
-                this.props.handleSetMenuAppearPosition();
-                this.props.enqueueSnackbar('메뉴 등장 위치가 변경되었습니다.', { variant: 'success' });
-                break;
-
-            default:
-                break;
-        }
-
-    }
+    
 
     render() {
         const { classes } = this.props;

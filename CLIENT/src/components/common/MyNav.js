@@ -7,8 +7,8 @@ import {
     Box, AppBar, Toolbar, IconButton, Typography, withStyles, Tooltip
 } from '@material-ui/core';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
-import AccountTreeIcon from '@material-ui/icons/AccountTree';
-import HomeIcon from '@material-ui/icons/Home';
+// import AccountTreeIcon from '@material-ui/icons/AccountTree';
+// import HomeIcon from '@material-ui/icons/Home';
 import Sidebar from './SideBar';
 
 const styles = theme => ({
@@ -48,26 +48,15 @@ export class MyNav extends Component {
             <div className={classes.root}>
                 <AppBar position='fixed'>
                     <Toolbar>
-
                         <Sidebar />
-
 
                         <Box flexGrow={1} className={classes.ml}>
                             <Typography variant="h6">
 
                             </Typography>
                         </Box>
-                        
-                        <Tooltip title="초기 화면으로">
-                            <Link to="/landing">
-                                <IconButton>
-                                    <HomeIcon color="inherit" />
-                                </IconButton>
-                            </Link>
-                        </Tooltip>
 
                         {this.props.user.auth ?
-                            // auth
                             <Tooltip title="로그아웃">
                                 <Link to="/login">
                                     <IconButton onClick={this.handleSessionOut}>
@@ -76,7 +65,6 @@ export class MyNav extends Component {
                                 </Link>
                             </Tooltip>
                             :
-                            // not auth
                             <Typography>
                                 세션을 종료하세요.
                             </Typography>
