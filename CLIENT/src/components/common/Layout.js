@@ -36,7 +36,8 @@ export class Layout extends Component {
                     pt={this.props.user.auth ? 10 : 0}
                     style={{
                         position: "relative",
-                        height: "100vh",
+                        height: "100%",
+                        minHeight : "100vh",
                         color: this.props.theme.palette.text.primary,
                         background: this.props.theme.palette.background.default
                     }}

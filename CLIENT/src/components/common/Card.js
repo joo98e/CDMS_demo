@@ -1,43 +1,80 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-// import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import {
+  Grid, Grow, Paper, 
+  Card, CardActionArea, CardActions, CardContent,
+  Button,
+  Typography,
+  makeStyles,
+} from '@material-ui/core/';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
+    width: '100%',
+    minHeight: '200px',
+    maxHeight: '400px'
   },
+  pr: {
+    position: 'relative'
+  },
+  bold: {
+    fontWeight: 'bold'
+  },
+  boxTop: {
+    height: '170px'
+  },
+  boxBottom: {
+    width: '100%',
+    height: '30px'
+  }
 });
 
-export default function ImgMediaCard() {
+export default function ProjectCard(props) {
   const classes = useStyles();
 
+  const [GrowIn, setGrowIn] = React.useState(false)
+  React.useEffect(() => {
+    setTimeout(() => {
+      setGrowIn(true);
+    }, 150);
+
+  }, []);
+
+  const infos = {
+    ...props.infos
+  }
+
+  // TODO 더보기 버튼으로 다이얼로그 만들기
+  // TODO 마지막 플러스 버튼 만들기
+
   return (
-    <Card className={classes.root}>
-      <CardActionArea>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            Lizard
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-            across all continents except Antarctica
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          <Typography variant="body2" color="textSecondary">Share</Typography>
-        </Button>
-        <Button size="small" color="primary">
-          <Typography variant="body2" color="textSecondary">Learn More</Typography>
-        </Button>
-      </CardActions>
-    </Card>
+    <Grid item xs={12} md={6} lg={4} className={classes.pr}>
+      <Grow
+        in={GrowIn}
+        style={{ transformOrigin: '0 0 0' }}
+        {...(GrowIn ? { timeout: 400 } : {})}
+      >
+        <Paper>
+          <Card className={classes.root}>
+            <CardActionArea>
+              <CardContent className={classes.boxTop}>
+                <Typography gutterBottom variant="h5" component="h2">
+                  {infos.PROJ_TITLE}
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  <span className={classes.bold}>기관명</span> : {infos.PROJ_AGENCY_NAME}
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  <span className={classes.bold}>설명</span> : {infos.PROJ_DESCRIPTION}
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+            <CardActions>
+              <Button className={classes.boxBottom} variant="contained" size="small">세부 페이지로 이동</Button>
+              <Button className={classes.boxBottom} variant="contained" size="small">더 보기</Button>
+            </CardActions>
+          </Card>
+        </Paper>
+      </Grow>
+    </Grid>
   );
 }

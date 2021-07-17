@@ -7,7 +7,6 @@ const connection = require("../db_connection");
 router.post('/login', (req, res) => {
     const item = req.body;
     let result = Boolean;
-
     connection.query(
         `SELECT * FROM TB_MEMBER_INFO WHERE MEM_USERID = '${item.user_id}'`,
         (err, rows, fields) => {

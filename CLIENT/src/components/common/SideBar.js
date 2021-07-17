@@ -41,7 +41,7 @@ const menuList = [
     },
     {
         MENU_ID: '3',
-        MENU_NAME: '대쉬보드로',
+        MENU_NAME: '대시보드로',
         MENU_ICON_NAME: <VerticalIcon />,
         MENU_PUSH_LINK: '/dashboard',
         MENU_PERMISSION: 'U'
@@ -72,7 +72,6 @@ function SideBar(props) {
             onClick={toggleDrawer(false)}
             onKeyDown={toggleDrawer(false)}
         >
-            {console.log(menuList)}
             {menuList.map((item, index) => {
                 return (
                     <List key={item.MENU_ID}>
