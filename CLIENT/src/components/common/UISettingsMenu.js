@@ -4,8 +4,8 @@ import { withSnackbar } from 'notistack'
 import * as actions from '../../actions'
 
 import { withStyles } from '@material-ui/core'
-import { SpeedDial, SpeedDialIcon, SpeedDialAction } from '@material-ui/lab';
 import ColorLensIcon from '@material-ui/icons/ColorLens';
+import { SpeedDial, SpeedDialIcon, SpeedDialAction } from '@material-ui/lab';
 
 const styles = theme => ({
     exampleWrapper: {
@@ -26,6 +26,7 @@ const styles = theme => ({
 
 const List = [
     { icon: <ColorLensIcon />, name: 'theme' },
+    // { icon: <ColorLensIcon />, name: 'position' },
 ];
 
 export class UISettingsMenu extends Component {
@@ -56,6 +57,11 @@ export class UISettingsMenu extends Component {
             case 'theme':
                 this.props.handleSetTheme();
                 this.props.enqueueSnackbar('테마가 변경되었습니다.', { variant: 'success' });
+                break;
+
+            case 'position':
+                this.props.handleSetMenuAppearPosition();
+                this.props.enqueueSnackbar('메뉴 등장 위치가 변경되었습니다.', { variant: 'success' });
                 break;
 
             default:
@@ -93,12 +99,14 @@ export class UISettingsMenu extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    theme: state.ui.theme
+    theme: state.ui.theme,
+    menuAppearPosition : state.ui.menuAppearPosition
 })
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        handleSetTheme: theme => { dispatch(actions.setTheme(theme)) }
+        handleSetTheme: theme => { dispatch(actions.setTheme(theme)) },
+        handleSetMenuAppearPosition: position => { dispatch(actions.setMenuAppearPosition(position)) },
     }
 }
 

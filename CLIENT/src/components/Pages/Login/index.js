@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import Axios from 'axios';
 import * as actions from '../../../actions/UserInfo'
 import CopyRights from '../../common/CopyRights'
@@ -32,7 +32,7 @@ const styles = theme => ({
         alignItems: 'center',
         flexDirection: 'column',
         width: '40%',
-        height: '100vh'
+        height: '100vh',
     },
     logo: {
         width: theme.spacing(36),
@@ -58,10 +58,11 @@ export class Login extends Component {
     }
 
     componentDidMount() {
+        if (this.props.user.auth) this.props.history.push('/');
+
         this.setState({
             awhile: true
-        })
-
+        });
     }
 
 
@@ -86,6 +87,7 @@ export class Login extends Component {
             return this.props.enqueueSnackbar('아이디 혹은 비밀번호를 입력해주세요.', { variant: 'warning' })
         }
 
+
         Axios.post(URL, vars)
             .then(res => {
                 if (!res.data) {
@@ -100,12 +102,13 @@ export class Login extends Component {
                         MEM_DEPT_NO: res.data.MEM_DEPT_NO,
                         MEM_AGE: res.data.MEM_AGE,
                         MEM_EMPNO: res.data.MEM_EMPNO,
+                        MEM_MENU_APPEAR_POSITION: res.data.MEM_MENU_APPEAR_POSITION,
                     }
 
                     sessionStorage.setItem('member', JSON.stringify(storageItem));
                     this.props.getAuthenticated(storageItem);
                     this.props.enqueueSnackbar(`안녕하세요. ${this.props.user.member.MEM_NAME}님?`, { variant: 'success' });
-
+                    this.props.history.push('/landing');
                 }
             }).catch((err) => {
                 this.props.enqueueSnackbar(`${err}`, { variant: 'error' });
@@ -123,8 +126,11 @@ export class Login extends Component {
                 sessionStorage.setItem('member', JSON.stringify(res.data));
                 this.props.devAuth(res.data);
                 this.props.enqueueSnackbar(`안녕하세요. ${this.props.user.member.MEM_NAME}님?`, { variant: 'success' });
-            })
-
+                this.props.history.push('/landing');
+            }).catch((err) => {
+                this.props.enqueueSnackbar(`${err}`, { variant: 'error' });
+            });
+        
     }
 
     render() {
@@ -132,17 +138,17 @@ export class Login extends Component {
         const { classes } = this.props;
 
         return (
-            <div className={classes.root}>
+            <Box className={classes.root}>
                 <Grow in={this.state.awhile} >
-                    <div className={classes.logoBox + ' sssss'}>
+                    <Box className={classes.logoBox + ' mobile-logo'}>
                         <img className={classes.logo} src={logo} alt="logo" />
                         <Typography variant="h2" component="h2">
                             Sign In
                         </Typography>
-                    </div>
+                    </Box>
                 </Grow>
                 <Grow in={this.state.awhile} style={{ transformOrigin: '0 0 0' }} timeout={this.state.awhile ? 1000 : 0}>
-                    <div className={classes.loginBox}>
+                    <Box className={classes.loginBox}>
                         <Typography variant="h3" component="h3" align="center">
                             {this.props.hourlyGreetings}
                         </Typography>
@@ -202,10 +208,10 @@ export class Login extends Component {
                         <Box>
                             <CopyRights />
                         </Box>
-                    </div>
+                    </Box>
                 </Grow>
 
-            </div>
+            </Box>
         )
     }
 }
@@ -222,4 +228,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withSnackbar(Login)))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withSnackbar(withRouter(Login))))

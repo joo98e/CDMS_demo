@@ -9,6 +9,7 @@ import {
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import HomeIcon from '@material-ui/icons/Home';
+import Sidebar from './SideBar';
 
 const styles = theme => ({
     root: {
@@ -35,7 +36,7 @@ export class MyNav extends Component {
         }
     }
 
-    sessionOut = () => {
+    handleSessionOut = () => {
         sessionStorage.removeItem('member');
         this.props.handleSessionQuit();
     }
@@ -48,33 +49,28 @@ export class MyNav extends Component {
                 <AppBar position='fixed'>
                     <Toolbar>
 
+                        <Sidebar />
+
+
+                        <Box flexGrow={1} className={classes.ml}>
+                            <Typography variant="h6">
+
+                            </Typography>
+                        </Box>
+                        
                         <Tooltip title="초기 화면으로">
-                            <Link to="/assistant/landing">
+                            <Link to="/landing">
                                 <IconButton>
                                     <HomeIcon color="inherit" />
                                 </IconButton>
                             </Link>
                         </Tooltip>
 
-                        {/* <Tooltip title="프로젝트">
-                            <Link to="/assistant/projects">
-                                <IconButton>
-                                    <AccountTreeIcon color="inherit" />
-                                </IconButton>
-                            </Link>
-                        </Tooltip> */}
-
-                        <Box flexGrow={1} className={classes.ml}>
-                            <Typography variant="h6">
-                                
-                            </Typography>
-                        </Box>
-
                         {this.props.user.auth ?
                             // auth
                             <Tooltip title="로그아웃">
                                 <Link to="/login">
-                                    <IconButton onClick={this.sessionOut}>
+                                    <IconButton onClick={this.handleSessionOut}>
                                         <LockOpenIcon color="inherit" />
                                     </IconButton>
                                 </Link>

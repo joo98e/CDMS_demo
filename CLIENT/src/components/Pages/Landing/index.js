@@ -62,14 +62,14 @@ export class Landing extends Component {
     // 카드 구현
     // 그로우 구현
     // 플러스 버튼 다이얼로그 구현
-    // DB 프로젝트참여자리스트 구현 => 조인으로 함께 불러오기
+    // DB 프로젝트참여자리스트 구현 
 
     render() {
         const { classes } = this.props;
-
+        // https://api.github.com/repos/joo98e/CDMS_DEMO/commits
         return (
             <Container className={classes.root}>
-                <Card></Card>
+                임시
             </Container>
         )
 

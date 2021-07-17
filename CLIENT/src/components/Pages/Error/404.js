@@ -1,24 +1,22 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import Card from '../../common/Card'
-
-export class index extends Component {
+export class Error_404 extends Component {
     render() {
         return (
             <div>
-                <Card></Card>
+                Error_404
             </div>
         )
     }
 }
 
 const mapStateToProps = (state) => ({
-
+    
 })
 
 const mapDispatchToProps = {
-
+    
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(index)
+export default connect(mapStateToProps, mapDispatchToProps)(Error_404)

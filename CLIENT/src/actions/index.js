@@ -1,4 +1,4 @@
-import * as types from './ActionTypes';
+import * as types from '../actions/ActionTypes';
 
 // ─────────────────────────────────────────────────── 
 export const numIncrement = () => {
@@ -19,6 +19,14 @@ export const setColor = color => {
     return {
         type : types.SET_COLOR,
         color
+    };
+};
+
+// ─────────────────────────────────────────────────── 
+export const setMenuAppearPosition = menuAppearPosition => {
+    return {
+        type : types.SET_MENU_APPEAR_POSITION,
+        menuAppearPosition
     };
 };
 
