@@ -59,7 +59,6 @@ export class Login extends Component {
 
     componentDidMount() {
         if (this.props.user.auth) this.props.history.push('/');
-        console.log(this.props.theme);
 
         this.setState({
             awhile: true
@@ -183,6 +182,7 @@ export class Login extends Component {
                                     name="user_password"
                                     label="비밀번호"
                                     type="password"
+                                    autoComplete="off"
                                     onChange={this.handleChange}
                                     onKeyUp={(e) => {
                                         if (e.key === 'Enter') {

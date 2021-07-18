@@ -26,7 +26,7 @@ export class index extends Component {
                 MEM_EMPNO: "",
                 MEM_HIREDATE: "",
                 MEM_BIRTHDAY: "",
-                MEM_ID_CHECK : false,
+                MEM_ID_CHECK: false,
             },
             showPassword: false,
             departs: "",
@@ -39,9 +39,9 @@ export class index extends Component {
             .catch(err => console.log(err));
     }
 
-    componentWillUnmount () {
+    componentWillUnmount() {
         this.setState({
-            MEM : {
+            MEM: {
                 MEM_IMAGE: null,
                 MEM_IMAGE_NAME: "",
                 MEM_USERID: "",
@@ -55,7 +55,7 @@ export class index extends Component {
                 MEM_EMPNO: "",
                 MEM_HIREDATE: "",
                 MEM_BIRTHDAY: "",
-                MEM_ID_CHECK : false,
+                MEM_ID_CHECK: false,
             },
             ...this.state
         });
@@ -110,7 +110,7 @@ export class index extends Component {
     }
 
     SignUp = () => {
-        
+
         const state = this.state.MEM;
 
         for (let key in state) {
@@ -275,15 +275,18 @@ export class index extends Component {
                         <Grid item xs={12}>
                             <Container>
                                 <Box display="flex" justifyContent="flex-start" alignItems="center">
-                                    <TextField
-                                        fullWidth
-                                        variant="filled"
-                                        required
-                                        type={this.state.showPassword ? 'text' : 'password'}
-                                        name="MEM_PASSWORD"
-                                        label="PASSWORD"
-                                        onChange={this.handleValueChange}
-                                    />
+                                    <form>
+                                        <TextField
+                                            fullWidth
+                                            variant="filled"
+                                            required
+                                            type={this.state.showPassword ? 'text' : 'password'}
+                                            name="MEM_PASSWORD"
+                                            label="PASSWORD"
+                                            autoComplete="off"
+                                            onChange={this.handleValueChange}
+                                        />
+                                    </form>
                                     <Box>
                                         <IconButton
                                             onClick={this.handleChangeShowPassWord}
