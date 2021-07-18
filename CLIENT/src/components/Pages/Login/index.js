@@ -15,7 +15,7 @@ const styles = theme => ({
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        height: '100vh'
+        minHeight: '100vh'
     },
     logoBox: {
         display: 'flex',
@@ -105,6 +105,8 @@ export class Login extends Component {
                         MEM_MENU_APPEAR_POSITION: res.data.MEM_MENU_APPEAR_POSITION,
                     }
 
+                    // SessionStorage에서는 객체 형태의 저장을 지원하지 않는다.
+                    // 따라서, String 형태로 저장해두었다가, store에서 사용할 때 파싱한다.
                     sessionStorage.setItem('member', JSON.stringify(storageItem));
                     this.props.getAuthenticated(storageItem);
                     this.props.enqueueSnackbar(`안녕하세요. ${this.props.user.member.MEM_NAME}님?`, { variant: 'success' });
@@ -123,6 +125,8 @@ export class Login extends Component {
     devLogin = () => {
         Axios.get('/users/login/dev')
             .then(res => {
+                // SessionStorage에서는 객체 형태의 저장을 지원하지 않는다.
+                // 따라서, String 형태로 저장해두었다가, store에서 사용할 때 파싱한다.
                 sessionStorage.setItem('member', JSON.stringify(res.data));
                 this.props.devAuth(res.data);
                 this.props.enqueueSnackbar(`안녕하세요. ${this.props.user.member.MEM_NAME}님?`, { variant: 'success' });
@@ -130,7 +134,7 @@ export class Login extends Component {
             }).catch((err) => {
                 this.props.enqueueSnackbar(`${err}`, { variant: 'error' });
             });
-        
+
     }
 
     render() {
@@ -188,7 +192,7 @@ export class Login extends Component {
                                 <Button
                                     className={classes.buttonMargin}
                                     fullWidth
-                                    variant="contained"
+                                    variant="outlined"
                                     onClick={this.loginCheck}
                                 >
                                     로그인하기
@@ -196,7 +200,18 @@ export class Login extends Component {
                                 <Button
                                     className={classes.buttonMargin}
                                     fullWidth
-                                    variant="contained"
+                                    variant="outlined"
+                                >
+                                    <Link to="/register">
+                                        회원가입
+                                    </Link>
+                                </Button>
+                            </Box>
+                            <Box display="flex">
+                                <Button
+                                    className={classes.buttonMargin}
+                                    fullWidth
+                                    variant="outlined"
                                     onClick={this.devLogin}
                                 >
                                     {/* <Link to="/register"> */}

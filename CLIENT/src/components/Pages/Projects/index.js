@@ -4,12 +4,14 @@ import axios from 'axios'
 
 import {
     Container, Grid, Grow, Paper, Box,
-
+    IconButton,
     withStyles,
 } from '@material-ui/core';
 
 import UICircularProgress from '../../common/UICircularProgress'
-import Card from '../../common/Card'
+import ProjectCard from './ProjectCard'
+import ProjectAddDialog from './ProjectAddDialog'
+import { SatelliteTwoTone } from '@material-ui/icons';
 
 const styles = theme => ({
     root: {
@@ -19,24 +21,29 @@ const styles = theme => ({
     m2: {
         display: "inline-block",
         margin: theme.spacing(2)
-    }
+    },
+    relative: {
+        position: 'relative',
+        height: '272px',
+    },
 });
 
-export class index extends Component {
+export class Projects extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            awhile: false,
-            projects: null
+            projects: null,
+            awhile : false
         }
     }
 
     componentDidMount() {
         this.setState({
-            awhile: true
+            ...this.state,
+            awhile : true
         });
-
+        
         this.getProjectList();
     }
 
@@ -44,8 +51,7 @@ export class index extends Component {
 
     getProjectList = () => {
         const URL = '/projects';
-        const params = JSON.parse(this.props.member);
-
+        const params = this.props.member;
         axios.get(URL, {
             params: {
                 ...params
@@ -70,15 +76,28 @@ export class index extends Component {
                         :
                         <Grid container>
                             <Grid container item xs={12} spacing={3}>
+
                                 {this.state.projects.map((item, index) => {
                                     return (
-                                        <Card
+                                        <ProjectCard
                                             key={index}
                                             infos={item}
                                         />
                                     )
                                 })
                                 }
+                                
+                                <Grid item xs={12} md={6} lg={4} >
+                                    <Grow
+                                        in={this.state.awhile}
+                                        style={{ transformOrigin: '0 0 0' }}
+                                        {...(this.state.awhile ? { timeout: 800 } : {})}
+                                    >
+                                        <Paper elevation={4} className={classes.relative}>
+                                            <ProjectAddDialog />
+                                        </Paper>
+                                    </Grow>
+                                </Grid>
                             </Grid>
                         </Grid>
                 }
@@ -95,4 +114,4 @@ const mapDispatchToProps = {
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(index))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Projects))

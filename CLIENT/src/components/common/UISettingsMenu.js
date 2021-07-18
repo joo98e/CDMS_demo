@@ -6,7 +6,8 @@ import * as actions from '../../actions'
 import { withStyles } from '@material-ui/core'
 import ColorLensIcon from '@material-ui/icons/ColorLens';
 import CachedIcon from '@material-ui/icons/Cached';
-import { SpeedDial, SpeedDialIcon, SpeedDialAction } from '@material-ui/lab';
+import TouchAppTwoToneIcon from '@material-ui/icons/TouchAppTwoTone';
+import { SpeedDial, SpeedDialAction } from '@material-ui/lab';
 
 const styles = theme => ({
     exampleWrapper: {
@@ -82,7 +83,7 @@ export class UISettingsMenu extends Component {
                     ariaLabel="SpeedDial example"
                     className={classes.speedDial}
                     hidden={this.state.hidden}
-                    icon={<SpeedDialIcon />}
+                    icon={<TouchAppTwoToneIcon />}
                     open={this.state.open}
                     onOpen={this.handleOpen}
                     onClose={this.handleClose}

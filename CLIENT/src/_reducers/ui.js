@@ -3,20 +3,21 @@ import Themes from '../components/common/Theme'
 
 const message = function () {
     const date = new Date();
-    let temp = date.getHours();
+    let greeting = date.getHours();
 
-    return temp >= 20 ? '편안한 밤 되세요.'
-        : temp >= 18 ? '맛있는 식사 하세요!'
-            : temp >= 13 ? '오후도 힘내세요.'
-                : temp >= 12 ? '식사 맛있게 하세요!'
-                    : temp >= 10 ? '오전 힘내세요!'
-                        : temp >= 9 ? '좋은 아침입니다.'
-                            : temp >= 6 ? '너무 이른데요..' : '굿밤!'
+    return greeting >= 20 ? '편안한 밤 되세요.'
+        : greeting >= 18 ? '맛있는 식사 하세요!'
+            : greeting >= 13 ? '오후도 힘내세요.'
+                : greeting >= 12 ? '식사 맛있게 하세요!'
+                    : greeting >= 10 ? '오전 힘내세요!'
+                        : greeting >= 9 ? '좋은 아침입니다.'
+                            : greeting >= 6 ? '너무 이른데요..' : '굿밤!'
 }
 
 const initialState = {
     color: 'default',
-    theme: Themes.dark,
+    theme: Themes[Object.keys(Themes)[0]],
+    nowThemeNum : 0,
     bgColor: "#424242",
     hourlyGreetings: message(),
     menuAppearPosition: 'left'
@@ -43,13 +44,19 @@ const ui = (state = initialState, action) => {
             };
 
         case types.SET_THEME:
-            return {
-                ...state,
-                theme:
-                    (state.theme === Themes.dark) ? Themes.purple :
-                        (state.theme === Themes.teal) ? Themes.dark :
-                            (state.theme === Themes.purple) ? Themes.teal : Themes.dark
-            };
+            if(state.nowThemeNum === Object.keys(Themes).length - 1){
+                return {
+                    ...state,
+                    nowThemeNum : 0,
+                    theme: Themes[Object.keys(Themes)[0]]
+                }
+            }else{
+                return {
+                    ...state,
+                    nowThemeNum : state.nowThemeNum + 1,
+                    theme: Themes[Object.keys(Themes)[state.nowThemeNum + 1]]
+                };
+            }
 
         default:
             return state;

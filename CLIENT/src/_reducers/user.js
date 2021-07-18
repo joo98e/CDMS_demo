@@ -7,7 +7,8 @@ const getAuthSessionStorage = () => {
 }
 
 const getMemberSessionStorage = () => {
-    return sessionStorage.getItem('member') !== null ? sessionStorage.getItem('member') : null
+    // 초기 상태
+    return sessionStorage.getItem('member') !== null ? JSON.parse(sessionStorage.getItem('member')) : null
 }
 
 const initialState = {
@@ -23,6 +24,7 @@ const user = (state = initialState, action) => {
         case types.GET_AUTHENTICATED:
             return {
                 auth : true,
+                // 로그인
                 member : JSON.parse(sessionStorage.getItem('member'))
             };
 
@@ -35,6 +37,7 @@ const user = (state = initialState, action) => {
         case types.DEV_SET_AUTH:
             return {
                 auth: true,
+                // 개발 로그인
                 member: JSON.parse(sessionStorage.getItem('member'))
             };
 

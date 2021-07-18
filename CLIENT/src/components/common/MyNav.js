@@ -36,11 +36,6 @@ export class MyNav extends Component {
         }
     }
 
-    handleSessionOut = () => {
-        sessionStorage.removeItem('member');
-        this.props.handleSessionQuit();
-    }
-
     render() {
         const { classes } = this.props;
 
@@ -59,7 +54,7 @@ export class MyNav extends Component {
                         {this.props.user.auth ?
                             <Tooltip title="로그아웃">
                                 <Link to="/login">
-                                    <IconButton onClick={this.handleSessionOut}>
+                                    <IconButton onClick={this.props.handleSessionQuit}>
                                         <LockOpenIcon color="inherit" />
                                     </IconButton>
                                 </Link>

@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Axios from 'axios';
 
-import { Container, Grid, Box, Paper, Typography, withStyles } from '@material-ui/core'
-import Card from '../../common/Card'
+import { Container, withStyles } from '@material-ui/core'
 
 const styles = theme => ({
     root: {

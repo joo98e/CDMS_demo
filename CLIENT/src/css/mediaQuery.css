@@ -4,5 +4,12 @@
     }
     .mobile-logo {
         display: none !important;
+        width : 100% !important;
     }
+
+    .mobile-column{
+        width : 100% !important;
+        flex-direction : column !important;
+    }
+    
 }

@@ -10,6 +10,7 @@ export const setMemberInfos = member => {
 
 // ─────────────────────────────────────────────────── 
 export const outAuthenticated = () => {
+    sessionStorage.removeItem('member');
     return {
         type: types.OUT_AUTHENTICATED,
     };
@@ -18,7 +19,7 @@ export const outAuthenticated = () => {
 // ─────────────────────────────────────────────────── 
 export const devAuth = member => {
     return {
-        type: types.GET_AUTHENTICATED,
+        type: types.DEV_SET_AUTH,
         member
     };
 };
