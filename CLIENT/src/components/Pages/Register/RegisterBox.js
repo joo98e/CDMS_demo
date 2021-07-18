@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import {
-    Container, Grid, Paper, Typography, TextField, IconButton,
+    Container, Grid, TextField, IconButton,
     Box, FormControl, InputLabel, Select, MenuItem, Button
 } from '@material-ui/core'
 import { Visibility, VisibilityOff } from '@material-ui/icons'
+import { withSnackbar } from 'notistack'
 
 export class index extends Component {
     constructor(props) {
@@ -25,10 +26,10 @@ export class index extends Component {
                 MEM_EMPNO: "",
                 MEM_HIREDATE: "",
                 MEM_BIRTHDAY: "",
+                MEM_ID_CHECK : false,
             },
             showPassword: false,
             departs: "",
-            selected: ''
         }
     }
 
@@ -36,6 +37,28 @@ export class index extends Component {
         this.callApi()
             .then(res => this.setState({ departs: res }))
             .catch(err => console.log(err));
+    }
+
+    componentWillUnmount () {
+        this.setState({
+            MEM : {
+                MEM_IMAGE: null,
+                MEM_IMAGE_NAME: "",
+                MEM_USERID: "",
+                MEM_PASSWORD: "",
+                MEM_PASSWORD_CHECK: "",
+                MEM_NAME: "",
+                MEM_NICKNAME: "",
+                MEM_DEPT_NO: "",
+                MEM_EMAIL: "",
+                MEM_PHONE: "",
+                MEM_EMPNO: "",
+                MEM_HIREDATE: "",
+                MEM_BIRTHDAY: "",
+                MEM_ID_CHECK : false,
+            },
+            ...this.state
+        });
     }
 
     callApi = async () => {
@@ -69,6 +92,7 @@ export class index extends Component {
     }
 
     handleFileChange = (e) => {
+        console.log(e.target.files[0]);
         this.setState({
             MEM: {
                 ...this.state.MEM,
@@ -76,10 +100,17 @@ export class index extends Component {
                 MEM_IMAGE_NAME: e.target.value,
             }
         });
+        setTimeout(() => {
+            console.log(this.state.MEM);
+        }, 1000);
+    }
+
+    handleEnqueueSnackbar = (msg, type) => {
+        this.props.enqueueSnackbar(msg, type);
     }
 
     SignUp = () => {
-        // 정규식
+        
         const state = this.state.MEM;
 
         for (let key in state) {
@@ -87,27 +118,27 @@ export class index extends Component {
 
                 case 'MEM_USERID':
                     if (!/^[a-z0-9]{4,20}$/.test(state[key]) || state[key] === '') {
-                        alert('ID는 영문, 숫자만 사용하여 4 ~ 20글자여야 합니다.');
+                        alert('ID는 영문, 숫자만 사용하여 4 ~ 20글자여야 합니다.', 'warning');
                         return false;
                     }
                     break;
 
                 case 'MEM_NAME':
                     if (!/^[가-힣]/.test(state[key]) && state[key].length >= 1) {
-                        alert('성명은 한글만 사용 가능합니다.');
+                        alert('성명은 한글만 사용 가능합니다.', 'warning');
                         return false;
                     }
                     break;
                 case 'MEM_NICKNAME':
                     if (!/^[가-힣a-zA-Z]+$/.test(state[key])) {
-                        alert('닉네임은 한글 혹은 영문만 사용 가능합니다.');
+                        alert('닉네임은 한글 혹은 영문만 사용 가능합니다.', 'warning');
                         return false;
                     }
                     break;
 
                 case 'MEM_EMAIL':
                     if (!/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i.test(state[key])) {
-                        alert('이메일 형식이 맞지 않습니다.');
+                        alert('이메일 형식이 맞지 않습니다.', 'warning');
                         return false;
                     }
                     break;
@@ -115,7 +146,7 @@ export class index extends Component {
                 case 'MEM_PHONE':
                     if (state[key] !== '') {
                         if (!/^\d{3}-\d{3,4}-\d{4}$/.test(state[key])) {
-                            alert('연락처 형식이 맞지 않습니다.');
+                            alert('연락처 형식이 맞지 않습니다.', 'warning');
                             return false;
                         }
                     }
@@ -123,14 +154,21 @@ export class index extends Component {
                 case 'MEM_EMPNO':
                     if (state[key] !== '') {
                         if (state[key].length < 4) {
-                            alert('사번은 4자리로 구성됩니다.');
+                            alert('사번은 4자리로 구성됩니다.', 'warning');
                             return false;
                         }
                     }
                     break;
                 case 'MEM_DEPT_NO':
                     if (state[key] === '') {
-                        alert('부서는 반드시 필요합니다.')
+                        alert('부서는 반드시 필요합니다.', 'warning');
+                        return false;
+                    }
+                    break;
+
+                case 'MEM_ID_CHECK':
+                    if (state[key] === false) {
+                        alert('ID 중복 체크가 필요합니다.', 'warning');
                         return false;
                     }
                     break;
@@ -140,24 +178,34 @@ export class index extends Component {
             }
         }
 
-        const URL = '/register/signUp'
-        const vars = {
-            // MEM_IMAGE : this.state.MEM.MEM_IMAGE,
-            // MEM_IMAGE_NAME : this.state.MEM.MEM_IMAGE_NAME,
-            MEM_USERID: this.state.MEM.MEM_USERID,
-            MEM_PASSWORD: this.state.MEM.MEM_PASSWORD,
-            MEM_PASSWORD_CHECK: this.state.MEM.MEM_PASSWORD_CHECK,
-            MEM_NAME: this.state.MEM.MEM_NAME,
-            MEM_NICKNAME: this.state.MEM.MEM_NICKNAME,
-            MEM_DEPT_NO: this.state.MEM.MEM_DEPT_NO,
-            MEM_EMAIL: this.state.MEM.MEM_EMAIL,
-            MEM_PHONE: this.state.MEM.MEM_PHONE,
-            MEM_EMPNO: this.state.MEM.MEM_EMPNO,
-            MEM_HIREDATE: this.state.MEM.MEM_HIREDATE,
-            MEM_BIRTHDAY: this.state.MEM.MEM_BIRTHDAY,
+        const URL = "/register/signUp"
+        const config = {
+            headers: {
+                "content-type": "multipart/form-data"
+            }
         }
+        const formData = new FormData();
+        formData.append('MEM_IMAGE', this.state.MEM.MEM_IMAGE);
+        formData.append('MEM_IMAGE_NAME', this.state.MEM.MEM_IMAGE_NAME);
+        formData.append('MEM_USERID', this.state.MEM.MEM_USERID);
+        formData.append('MEM_PASSWORD', this.state.MEM.MEM_PASSWORD);
+        formData.append('MEM_PASSWORD_CHECK', this.state.MEM.MEM_PASSWORD_CHECK);
+        formData.append('MEM_NAME', this.state.MEM.MEM_NAME);
+        formData.append('MEM_NICKNAME', this.state.MEM.MEM_NICKNAME);
+        formData.append('MEM_DEPT_NO', this.state.MEM.MEM_DEPT_NO);
+        formData.append('MEM_EMAIL', this.state.MEM.MEM_EMAIL);
+        formData.append('MEM_PHONE', this.state.MEM.MEM_PHONE);
+        formData.append('MEM_EMPNO', this.state.MEM.MEM_EMPNO);
+        formData.append('MEM_HIREDATE', this.state.MEM.MEM_HIREDATE);
+        formData.append('MEM_BIRTHDAY', this.state.MEM.MEM_BIRTHDAY);
 
-        return axios.post(URL, vars);
+        return axios.post(URL, formData, config)
+            .then((res, req) => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     render() {
@@ -176,7 +224,6 @@ export class index extends Component {
                                         type="file"
                                         hidden
                                         accept="image/*"
-                                        id="imageFile"
                                         file={this.state.MEM.MEM_IMAGE}
                                         onChange={this.handleFileChange}
                                     />
@@ -343,4 +390,4 @@ const mapDispatchToProps = {
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)((index))
+export default connect(mapStateToProps, mapDispatchToProps)((withSnackbar(index)))

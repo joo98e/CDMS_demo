@@ -8,7 +8,7 @@ import {
   Avatar,
   makeStyles,
 } from '@material-ui/core/';
-import { StyledButton } from '../../common/StyledButton';
+// import StyledButton from '../../common/StyledButton';
 import { AvatarGroup } from '@material-ui/lab'
 
 const useStyles = makeStyles(theme => ({

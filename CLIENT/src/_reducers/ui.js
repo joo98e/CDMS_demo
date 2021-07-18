@@ -16,15 +16,15 @@ const message = function () {
 
 const initialState = {
     color: 'default',
-    theme: Themes[Object.keys(Themes)[0]],
     nowThemeNum : 0,
+    theme: Themes.dark,
     bgColor: "#424242",
     hourlyGreetings: message(),
     menuAppearPosition: 'left'
 };
 
 const ui = (state = initialState, action) => {
-
+    
     switch (action.type) {
 
         // ────────────────────────────────────────────────────────────────────────────

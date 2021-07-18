@@ -21,11 +21,6 @@ export class Back extends Component {
         
     }
 
-    componentDidMount() {
-        console.log(this.props);
-    }
-    
-
     render() {
         const classes = this.props;
 

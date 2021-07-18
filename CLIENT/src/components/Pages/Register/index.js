@@ -204,9 +204,7 @@ export class index extends Component {
                     <Box className={classes.policyBox + ' mobile-column'}>
                         <Box className={classes.policyContent}>
                             <Container>
-                                <Typography variant="body1">
-                                    <Policy />
-                                </Typography>
+                                <Policy />
                             </Container>
                         </Box>
                     </Box>

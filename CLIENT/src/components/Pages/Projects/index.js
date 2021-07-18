@@ -3,15 +3,14 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 
 import {
-    Container, Grid, Grow, Paper, Box,
-    IconButton,
+    Container, Grid, Grow, Paper,
     withStyles,
 } from '@material-ui/core';
 
 import UICircularProgress from '../../common/UICircularProgress'
 import ProjectCard from './ProjectCard'
 import ProjectAddDialog from './ProjectAddDialog'
-import { SatelliteTwoTone } from '@material-ui/icons';
+// import { SatelliteTwoTone } from '@material-ui/icons';
 
 const styles = theme => ({
     root: {
@@ -43,7 +42,7 @@ export class Projects extends Component {
             ...this.state,
             awhile : true
         });
-        
+
         this.getProjectList();
     }
 

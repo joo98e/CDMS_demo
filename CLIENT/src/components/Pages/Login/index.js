@@ -59,6 +59,7 @@ export class Login extends Component {
 
     componentDidMount() {
         if (this.props.user.auth) this.props.history.push('/');
+        console.log(this.props.theme);
 
         this.setState({
             awhile: true
@@ -76,6 +77,8 @@ export class Login extends Component {
     }
 
     loginCheck = () => {
+        // TODO
+        // redux UI가 이상해지는 오류 있음
 
         const URL = '/users/login';
         const vars = {
@@ -233,7 +236,8 @@ export class Login extends Component {
 
 const mapStateToProps = (state) => ({
     hourlyGreetings: state.ui.hourlyGreetings,
-    user: state.user
+    user: state.user,
+    theme : state.ui.theme
 })
 
 const mapDispatchToProps = dispatch => {
@@ -243,4 +247,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withSnackbar(withRouter(Login))))
+export default connect(mapStateToProps, mapDispatchToProps)(withSnackbar(withRouter(withStyles(styles)(Login))))

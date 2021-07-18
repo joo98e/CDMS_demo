@@ -51,7 +51,7 @@ const theme = {
         }
     }),
 
-    defaultTheme: createMuiTheme({
+    blue: createMuiTheme({
         palette: {
             primary: blue,
             secondary: blueGrey,
@@ -63,9 +63,6 @@ const theme = {
             text : {
                 primary : blue[900]
             }
-        },
-        status: {
-            danger: "orange",
         },
     })
 }
