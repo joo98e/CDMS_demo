@@ -13,11 +13,11 @@ class App extends Component {
   render() {
     return (
       <Switch>
-        <CustomRoute exact path="/" component={Redirection} />
         <CustomRoute exact path="/login" component={Login} />
         <CustomRoute exact path="/register" component={Register} />
         <CustomRoute exact path="/landing" component={Landing} />
         <CustomRoute exact path="/projects" component={Projects} />
+        <CustomRoute component={Redirection} />
         <CustomRoute path="*" component={PageNotFound} />
       </Switch>
     )

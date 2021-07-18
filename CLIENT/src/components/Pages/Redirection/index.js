@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 
 export class Redirection extends Component {
     doRedirection = () => {
-        
+        console.log('redirecting...');
         return (
             this.props.user.auth ?
                 <Redirect

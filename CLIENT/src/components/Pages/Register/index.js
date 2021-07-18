@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { Container, Grow, Typography, withStyles, Box, Divider } from '@material-ui/core'
 
@@ -37,20 +37,21 @@ const styles = theme => ({
     },
 });
 
-export class index extends Component {
+export class index extends PureComponent {
     constructor(props) {
         super(props)
         this.state = {
             awhile: false
         }
     }
-
+    
     componentDidMount() {
         this.setState({
             ...this.state,
             awhile: true
         });
     }
+    
     render() {
         const { classes } = this.props;
         return (

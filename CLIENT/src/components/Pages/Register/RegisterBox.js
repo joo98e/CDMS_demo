@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import {
@@ -8,7 +8,7 @@ import {
 import { Visibility, VisibilityOff } from '@material-ui/icons'
 import { withSnackbar } from 'notistack'
 
-export class index extends Component {
+export class index extends PureComponent {
     constructor(props) {
         super(props)
         this.state = {
@@ -37,28 +37,6 @@ export class index extends Component {
         this.callApi()
             .then(res => this.setState({ departs: res }))
             .catch(err => console.log(err));
-    }
-
-    componentWillUnmount() {
-        this.setState({
-            MEM: {
-                MEM_IMAGE: null,
-                MEM_IMAGE_NAME: "",
-                MEM_USERID: "",
-                MEM_PASSWORD: "",
-                MEM_PASSWORD_CHECK: "",
-                MEM_NAME: "",
-                MEM_NICKNAME: "",
-                MEM_DEPT_NO: "",
-                MEM_EMAIL: "",
-                MEM_PHONE: "",
-                MEM_EMPNO: "",
-                MEM_HIREDATE: "",
-                MEM_BIRTHDAY: "",
-                MEM_ID_CHECK: false,
-            },
-            ...this.state
-        });
     }
 
     callApi = async () => {
@@ -92,7 +70,6 @@ export class index extends Component {
     }
 
     handleFileChange = (e) => {
-        console.log(e.target.files[0]);
         this.setState({
             MEM: {
                 ...this.state.MEM,
@@ -100,16 +77,44 @@ export class index extends Component {
                 MEM_IMAGE_NAME: e.target.value,
             }
         });
-        setTimeout(() => {
-            console.log(this.state.MEM);
-        }, 1000);
     }
 
     handleEnqueueSnackbar = (msg, type) => {
         this.props.enqueueSnackbar(msg, type);
     }
 
-    SignUp = () => {
+    hasConfirmed = () => {
+        const URL = "/register/signUp"
+        const config = {
+            headers: {
+                "content-type": "multipart/form-data"
+            }
+        }
+        const formData = new FormData();
+        formData.append('MEM_IMAGE', this.state.MEM.MEM_IMAGE);
+        formData.append('MEM_IMAGE_NAME', this.state.MEM.MEM_IMAGE_NAME);
+        formData.append('MEM_USERID', this.state.MEM.MEM_USERID);
+        formData.append('MEM_PASSWORD', this.state.MEM.MEM_PASSWORD);
+        formData.append('MEM_PASSWORD_CHECK', this.state.MEM.MEM_PASSWORD_CHECK);
+        formData.append('MEM_NAME', this.state.MEM.MEM_NAME);
+        formData.append('MEM_NICKNAME', this.state.MEM.MEM_NICKNAME);
+        formData.append('MEM_DEPT_NO', this.state.MEM.MEM_DEPT_NO);
+        formData.append('MEM_EMAIL', this.state.MEM.MEM_EMAIL);
+        formData.append('MEM_PHONE', this.state.MEM.MEM_PHONE);
+        formData.append('MEM_EMPNO', this.state.MEM.MEM_EMPNO);
+        formData.append('MEM_HIREDATE', this.state.MEM.MEM_HIREDATE);
+        formData.append('MEM_BIRTHDAY', this.state.MEM.MEM_BIRTHDAY);
+
+        return axios.post(URL, formData, config)
+            .then((res, req) => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
+    valueChecking = () => {
 
         const state = this.state.MEM;
 
@@ -166,46 +171,20 @@ export class index extends Component {
                     }
                     break;
 
-                case 'MEM_ID_CHECK':
-                    if (state[key] === false) {
-                        alert('ID 중복 체크가 필요합니다.', 'warning');
-                        return false;
-                    }
-                    break;
+                // TODO 
+                // case 'MEM_ID_CHECK':
+                //     if (state[key] === false) {
+                //         alert('ID 중복 체크가 필요합니다.', 'warning');
+                //         return false;
+                //     }
+                //     break;
 
                 default:
                     break;
             }
         }
 
-        const URL = "/register/signUp"
-        const config = {
-            headers: {
-                "content-type": "multipart/form-data"
-            }
-        }
-        const formData = new FormData();
-        formData.append('MEM_IMAGE', this.state.MEM.MEM_IMAGE);
-        formData.append('MEM_IMAGE_NAME', this.state.MEM.MEM_IMAGE_NAME);
-        formData.append('MEM_USERID', this.state.MEM.MEM_USERID);
-        formData.append('MEM_PASSWORD', this.state.MEM.MEM_PASSWORD);
-        formData.append('MEM_PASSWORD_CHECK', this.state.MEM.MEM_PASSWORD_CHECK);
-        formData.append('MEM_NAME', this.state.MEM.MEM_NAME);
-        formData.append('MEM_NICKNAME', this.state.MEM.MEM_NICKNAME);
-        formData.append('MEM_DEPT_NO', this.state.MEM.MEM_DEPT_NO);
-        formData.append('MEM_EMAIL', this.state.MEM.MEM_EMAIL);
-        formData.append('MEM_PHONE', this.state.MEM.MEM_PHONE);
-        formData.append('MEM_EMPNO', this.state.MEM.MEM_EMPNO);
-        formData.append('MEM_HIREDATE', this.state.MEM.MEM_HIREDATE);
-        formData.append('MEM_BIRTHDAY', this.state.MEM.MEM_BIRTHDAY);
-
-        return axios.post(URL, formData, config)
-            .then((res, req) => {
-                console.log(res);
-            })
-            .catch(err => {
-                console.log(err);
-            });
+        this.hasConfirmed();
     }
 
     render() {
@@ -371,7 +350,7 @@ export class index extends Component {
                                     fullWidth
                                     variant="contained"
                                     size="large"
-                                    onClick={this.SignUp}
+                                    onClick={this.valueChecking}
                                 >
                                     가입하기
                                 </Button>
