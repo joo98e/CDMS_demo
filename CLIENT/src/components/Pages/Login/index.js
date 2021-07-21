@@ -105,6 +105,7 @@ export class Login extends Component {
                         MEM_AGE: res.data.MEM_AGE,
                         MEM_EMPNO: res.data.MEM_EMPNO,
                         MEM_MENU_APPEAR_POSITION: res.data.MEM_MENU_APPEAR_POSITION,
+                        MEM_IMAGE : res.data.MEM_IMAGE
                     }
 
                     // SessionStorage에서는 객체 형태의 저장을 지원하지 않는다.

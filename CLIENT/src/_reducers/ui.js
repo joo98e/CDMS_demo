@@ -14,10 +14,14 @@ const message = function () {
                             : greeting >= 6 ? '너무 이른데요..' : '굿밤!'
 }
 
+const doGetTheme = () => {
+    return Themes.dark;
+}
+
 const initialState = {
     color: 'default',
     nowThemeNum : 0,
-    theme: Themes.dark,
+    theme: doGetTheme(),
     bgColor: "#424242",
     hourlyGreetings: message(),
     menuAppearPosition: 'left'
