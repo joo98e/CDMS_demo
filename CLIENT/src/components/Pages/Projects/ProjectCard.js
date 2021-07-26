@@ -84,9 +84,6 @@ function ProjectCard(props) {
               <AvatarGroup max={6}>
                 <Avatar className={classes.avatar} alt="Remy Sharp">R</Avatar>
                 <Avatar className={classes.avatar} alt="Travis Howard">T</Avatar>
-                <Avatar className={classes.avatar} alt="Cindy Baker">C</Avatar>
-                <Avatar className={classes.avatar} alt="Agnes Walker">A</Avatar>
-                <Avatar className={classes.avatar} alt="Trevor Henderson">T</Avatar>
               </AvatarGroup>
             </CardActions>
             <CardActions>
