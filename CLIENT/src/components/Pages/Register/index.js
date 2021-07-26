@@ -44,14 +44,14 @@ export class index extends PureComponent {
             awhile: false
         }
     }
-    
+
     componentDidMount() {
         this.setState({
             ...this.state,
             awhile: true
         });
     }
-    
+
     render() {
         const { classes } = this.props;
         return (
@@ -73,7 +73,7 @@ export class index extends PureComponent {
                             </Typography>
                         </Box>
                         <Divider />
-                        <RegisterBox />
+                        {this.state.awhile && <RegisterBox />}
                     </Box>
                 </Grow>
             </Box >

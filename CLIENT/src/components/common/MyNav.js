@@ -7,6 +7,7 @@ import {
     Box, AppBar, Toolbar, IconButton, Typography, withStyles, Tooltip
 } from '@material-ui/core';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
+import { Avatar } from '@material-ui/core';
 // import AccountTreeIcon from '@material-ui/icons/AccountTree';
 // import HomeIcon from '@material-ui/icons/Home';
 import Sidebar from './SideBar';
@@ -65,6 +66,7 @@ export class MyNav extends Component {
                             </Typography>
                         }
 
+                        {/* <Avatar alt="1" src={`http://localhost:5005/${this.props.user.member.MEM_IMAGE}`} /> */}
                     </Toolbar>
                 </AppBar>
             </div>

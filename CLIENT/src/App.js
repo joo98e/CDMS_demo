@@ -18,7 +18,6 @@ class App extends Component {
         <CustomRoute exact path="/landing" component={Landing} />
         <CustomRoute exact path="/projects" component={Projects} />
         <CustomRoute component={Redirection} />
-        <CustomRoute path="*" component={PageNotFound} />
       </Switch>
     )
   }

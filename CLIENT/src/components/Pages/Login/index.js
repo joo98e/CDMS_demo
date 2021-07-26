@@ -132,7 +132,7 @@ export class Login extends Component {
                 // 따라서, String 형태로 저장해두었다가, store에서 사용할 때 파싱한다.
                 sessionStorage.setItem('member', JSON.stringify(res.data));
                 this.props.devAuth(res.data);
-                this.props.enqueueSnackbar(`안녕하세요. ${this.props.user.member.MEM_NAME}님?`, { variant: 'success' });
+                this.props.enqueueSnackbar(`안녕하세요. ${this.props.user.member.MEM_NICKNAME}님?`, { variant: 'success' });
                 this.props.history.push('/landing');
             }).catch((err) => {
                 this.props.enqueueSnackbar(`${err}`, { variant: 'error' });
