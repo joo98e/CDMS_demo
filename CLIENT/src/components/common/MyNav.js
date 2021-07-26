@@ -66,6 +66,7 @@ export class MyNav extends Component {
                             </Typography>
                         }
 
+                        {/* TODO */}
                         {/* <Avatar alt="1" src={`http://localhost:5005/${this.props.user.member.MEM_IMAGE}`} /> */}
                     </Toolbar>
                 </AppBar>
