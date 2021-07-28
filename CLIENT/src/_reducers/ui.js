@@ -18,7 +18,6 @@ const initialState = {
     color: 'default',
     nowThemeNum : 0,
     theme: Themes.dark,
-    bgColor: "#424242",
     hourlyGreetings: message(),
     menuAppearPosition: 'left'
 };

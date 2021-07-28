@@ -73,7 +73,9 @@ export class index extends PureComponent {
                             </Typography>
                         </Box>
                         <Divider />
-                        <RegisterBox />
+                        {
+                            this.state.awhile && <RegisterBox />
+                        }
                     </Box>
                 </Grow>
             </Box >

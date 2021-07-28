@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import Axios from 'axios';
 import * as actions from '../../../actions/UserInfo'
 import CopyRights from '../../common/CopyRights'
@@ -59,7 +59,7 @@ export class Login extends Component {
 
     componentDidMount() {
         if (this.props.user.auth) this.props.history.push('/');
-
+        console.log(this.props.theme);
         this.setState({
             awhile: true
         });
@@ -120,10 +120,6 @@ export class Login extends Component {
 
     }
 
-    handleAppearYet = () => {
-        this.props.enqueueSnackbar('준비중입니다.', { variant: 'warning' });
-    }
-
     devLogin = () => {
         Axios.get('/users/login/dev')
             .then(res => {
@@ -137,6 +133,10 @@ export class Login extends Component {
                 this.props.enqueueSnackbar(`${err}`, { variant: 'error' });
             });
 
+    }
+
+    pushRegister = () => {
+        this.props.history.push('/register');
     }
 
     render() {
@@ -204,10 +204,9 @@ export class Login extends Component {
                                     className={classes.buttonMargin}
                                     fullWidth
                                     variant="outlined"
+                                    onClick={this.pushRegister}
                                 >
-                                    <Link to="/register">
-                                        회원가입
-                                    </Link>
+                                    회원가입
                                 </Button>
                             </Box>
                             <Box display="flex">
@@ -217,9 +216,7 @@ export class Login extends Component {
                                     variant="outlined"
                                     onClick={this.devLogin}
                                 >
-                                    {/* <Link to="/register"> */}
                                     개발 환경 로그인
-                                    {/* </Link> */}
                                 </Button>
                             </Box>
                         </Box>
@@ -237,7 +234,7 @@ export class Login extends Component {
 const mapStateToProps = (state) => ({
     hourlyGreetings: state.ui.hourlyGreetings,
     user: state.user,
-    theme : state.ui.theme
+    theme: state.ui.theme
 })
 
 const mapDispatchToProps = dispatch => {
