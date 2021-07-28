@@ -33,14 +33,14 @@ export class Projects extends Component {
 
         this.state = {
             projects: null,
-            awhile : false
+            awhile: false
         }
     }
 
     componentDidMount() {
         this.setState({
             ...this.state,
-            awhile : true
+            awhile: true
         });
 
         this.getProjectList();
@@ -79,7 +79,7 @@ export class Projects extends Component {
                         <UICircularProgress />
                         :
                         <Grid container>
-                            <Grid container item xs={12} spacing={3}>
+                            <Grid container xs={12} spacing={3}>
 
                                 {this.state.projects.map((item, index) => {
                                     return (
@@ -90,7 +90,7 @@ export class Projects extends Component {
                                     )
                                 })
                                 }
-                                
+
                                 <Grid item xs={12} md={6} lg={4} >
                                     <Grow
                                         in={this.state.awhile}
