@@ -11,14 +11,23 @@ const saltRounds = 10;
 const fs = require('fs');
 const CURRENT_DIR = __dirname;
 const multer = require('multer');
-const avatarTargetDIR = `${CURRENT_DIR}\\uploads\\avatars\\items\\`;
+const path = require('path');
+const avatarTargetDIR = `uploads\\avatars\\items\\`;
 // dest : 목적지 데스티네이션 
 const avatarDIR = multer({ dest: avatarTargetDIR });
 
-router.get('/test', (req, res) => {
+const avatarStorage = multer({
+    storage : multer.diskStorage({
+        destination : `uploads/avatars/items/`,
+        filename : function(req, file, cb){
+            cb(null, `avatar_${Date.now()}_${file.originalname}`);
+        }
+    })
+})
 
+router.get('/test', (req, res) => {
     console.log(avatarTargetDIR);
-    res.status(200).send('123')
+    res.status(200).send('123');
 });
 
 const checkDirectory = (dir) => {
@@ -32,14 +41,14 @@ const checkDirectory = (dir) => {
     }
 }
 
-router.post('/signUp', avatarDIR.single('MEM_IMAGE'), (req, res) => {
+router.post('/signUp', avatarStorage.single('MEM_IMAGE'), (req, res) => {
     bcrypt.genSalt(saltRounds, (err, salt) => {
         bcrypt.hash(req.body.MEM_PASSWORD, salt, (err, hash) => {
             if(err) console.log(err);
 
             let SQL = "INSERT INTO TB_MEMBER_INFO(MEM_IMAGE, MEM_IMAGE_NAME, MEM_USERID, MEM_PASSWORD, MEM_NAME, MEM_NICKNAME, MEM_DEPT_NO, MEM_EMAIL, MEM_PHONE, MEM_EMPNO, MEM_HIREDATE, MEM_BIRTHDAY) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             let params = [
-                `${avatarTargetDIR}\\items\\` + req.file.filename,
+                req.file.filename === undefined ? `${avatarTargetDIR}/items/default.png` : `${avatarTargetDIR}` + req.file.filename,
                 req.body.MEM_IMAGE_NAME,
                 req.body.MEM_USERID,
                 hash,

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { Container, withStyles } from '@material-ui/core'
+import UICharts from '../../common/UICharts'
 
 const styles = theme => ({
     root: {
@@ -51,20 +52,13 @@ export class Landing extends Component {
 
         }
     }
-    
-    // TODO
-    // 프로젝트 리스트
-    // 카드 구현
-    // 그로우 구현
-    // 플러스 버튼 다이얼로그 구현
-    // DB 프로젝트참여자리스트 구현 
 
     render() {
         const { classes } = this.props;
-        // https://api.github.com/repos/joo98e/CDMS_DEMO/commits
         return (
             <Container className={classes.root}>
-                임시
+                <UICharts />
+                
             </Container>
         )
 

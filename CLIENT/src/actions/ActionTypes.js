@@ -25,3 +25,6 @@ export const OUT_AUTHENTICATED = "OUT_AUTHENTICATED";
 
 // ─────────────────────────────────────────────────── 
 export const DEV_SET_AUTH = "DEV_SET_AUTH";
+
+// ─────────────────────────────────────────────────── 
+export const ENV_IS_DEV = "ENV_IS_DEV";

@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom';
 import axios from 'axios'
 import {
     Container, Grid, TextField, IconButton,
@@ -81,7 +82,7 @@ export class index extends PureComponent {
 
     handleEnqueueSnackbar = (msg, type) => {
         this.props.enqueueSnackbar(msg, type);
-    }
+}
 
     hasConfirmed = () => {
         const URL = "/register/signUp"
@@ -107,7 +108,26 @@ export class index extends PureComponent {
 
         return axios.post(URL, formData, config)
             .then((res, req) => {
-                console.log(res);
+                this.setState({
+                    MEM_IMAGE: null,
+                    MEM_IMAGE_NAME: "",
+                    MEM_USERID: "",
+                    MEM_PASSWORD: "",
+                    MEM_PASSWORD_CHECK: "",
+                    MEM_NAME: "",
+                    MEM_NICKNAME: "",
+                    MEM_DEPT_NO: "",
+                    MEM_EMAIL: "",
+                    MEM_PHONE: "",
+                    MEM_EMPNO: "",
+                    MEM_HIREDATE: "",
+                    MEM_BIRTHDAY: "",
+                    MEM_ID_CHECK: false,
+                });
+                this.props.enqueueSnackbar('회원가입이 완료되었습니다.', 'success');
+                setTimeout(() => {
+                    this.props.history.push('/login');
+                }, 1000);
             })
             .catch(err => {
                 console.log(err);
@@ -123,27 +143,27 @@ export class index extends PureComponent {
 
                 case 'MEM_USERID':
                     if (!/^[a-z0-9]{4,20}$/.test(state[key]) || state[key] === '') {
-                        alert('ID는 영문, 숫자만 사용하여 4 ~ 20글자여야 합니다.', 'warning');
+                        this.props.enqueueSnackbar('ID는 영문, 숫자만 사용하여 4 ~ 20글자여야 합니다.', 'warning');
                         return false;
                     }
                     break;
 
                 case 'MEM_NAME':
                     if (!/^[가-힣]/.test(state[key]) && state[key].length >= 1) {
-                        alert('성명은 한글만 사용 가능합니다.', 'warning');
+                        this.props.enqueueSnackbar('성명은 한글만 사용 가능합니다.', 'warning');
                         return false;
                     }
                     break;
                 case 'MEM_NICKNAME':
                     if (!/^[가-힣a-zA-Z]+$/.test(state[key])) {
-                        alert('닉네임은 한글 혹은 영문만 사용 가능합니다.', 'warning');
+                        this.props.enqueueSnackbar('닉네임은 한글 혹은 영문만 사용 가능합니다.', 'warning');
                         return false;
                     }
                     break;
 
                 case 'MEM_EMAIL':
                     if (!/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i.test(state[key])) {
-                        alert('이메일 형식이 맞지 않습니다.', 'warning');
+                        this.props.enqueueSnackbar('이메일 형식이 맞지 않습니다.', 'warning');
                         return false;
                     }
                     break;
@@ -151,7 +171,7 @@ export class index extends PureComponent {
                 case 'MEM_PHONE':
                     if (state[key] !== '') {
                         if (!/^\d{3}-\d{3,4}-\d{4}$/.test(state[key])) {
-                            alert('연락처 형식이 맞지 않습니다.', 'warning');
+                            this.props.enqueueSnackbar('연락처 형식이 맞지 않습니다.', 'warning');
                             return false;
                         }
                     }
@@ -159,14 +179,14 @@ export class index extends PureComponent {
                 case 'MEM_EMPNO':
                     if (state[key] !== '') {
                         if (state[key].length < 4) {
-                            alert('사번은 4자리로 구성됩니다.', 'warning');
+                            this.props.enqueueSnackbar('사번은 4자리로 구성됩니다.', 'warning');
                             return false;
                         }
                     }
                     break;
                 case 'MEM_DEPT_NO':
                     if (state[key] === '') {
-                        alert('부서는 반드시 필요합니다.', 'warning');
+                        this.props.enqueueSnackbar('부서는 반드시 필요합니다.', 'warning');
                         return false;
                     }
                     break;
@@ -373,4 +393,4 @@ const mapDispatchToProps = {
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)((withSnackbar(index)))
+export default connect(mapStateToProps, mapDispatchToProps)((withRouter(withSnackbar(index))))
