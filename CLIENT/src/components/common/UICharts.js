@@ -43,9 +43,7 @@ class Chart extends PureComponent {
     // $ npm run build
     render() {
         return (
-            <ResponsiveContainer 
-            width={450}
-            height={500}>
+            <ResponsiveContainer width="99%" aspect={3}>
                 <LineChart
                     width={500}
                     height={300}

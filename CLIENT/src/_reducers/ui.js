@@ -21,12 +21,8 @@ const doGetTheme = () => {
 const initialState = {
     color: 'default',
     nowThemeNum : 0,
-<<<<<<< HEAD
-    theme: Themes.dark,
-=======
     theme: doGetTheme(),
     bgColor: "#424242",
->>>>>>> a51b829f21cefe31ceb4f4838e99459a10915e4f
     hourlyGreetings: message(),
     menuAppearPosition: 'left'
 };
