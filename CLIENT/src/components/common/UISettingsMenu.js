@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withSnackbar } from 'notistack'
 import * as actions from '../../actions'
-
 import { withStyles } from '@material-ui/core'
 import ColorLensIcon from '@material-ui/icons/ColorLens';
 import CachedIcon from '@material-ui/icons/Cached';
@@ -35,7 +34,7 @@ export class UISettingsMenu extends Component {
     constructor(props) {
         super(props)
 
-    this.state = {
+        this.state = {
             open: false,
             hidden: false
         }
@@ -51,9 +50,9 @@ export class UISettingsMenu extends Component {
             case '메뉴 위치 변경':
                 this.props.handleSetMenuAppearPosition();
                 setTimeout(() => {
-                    this.props.enqueueSnackbar(`메뉴 위치가 변경되었습니다. (${this.props.menuAppearPosition})`, { variant: 'success' });    
+                    this.props.enqueueSnackbar(`메뉴 위치가 변경되었습니다. (${this.props.menuAppearPosition})`, { variant: 'success' });
                 }, 10);
-                
+
                 break;
 
             default:
@@ -83,7 +82,7 @@ export class UISettingsMenu extends Component {
                     ariaLabel="SpeedDial example"
                     className={classes.speedDial}
                     hidden={this.state.hidden}
-                    icon={<TouchAppTwoToneIcon />}
+                    icon={<TouchAppTwoToneIcon style={{ color: this.props.theme.palette.text.primary }} />}
                     open={this.state.open}
                     onOpen={this.handleOpen}
                     onClose={this.handleClose}
