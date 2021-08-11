@@ -48,8 +48,7 @@ export default function FullScreenDialog() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [categoryList, setCategoryList] = React.useState(null);
-    const [currentCategory, setCurrentCategory] = React.useState(0);
-    const [infos, setInfos] = React.useState(null);
+    const [infos, setInfos] = React.useState(Object);
 
     React.useEffect(() => {
 
@@ -116,12 +115,12 @@ export default function FullScreenDialog() {
                         <ListItemText primary="사업 구분" />
                         <FormControl className={classes.textFieldStyle} variant="outlined">
                             {/* TODO 사업 구분 해야함 */}
-                            {/* {categoryList ?
+                            {categoryList ?
                                 <Select
                                     labelId="PROJ_CATEGORY"
                                     id="PROJ_CATEGORY"
                                     name="PROJ_CATEGORY"
-                                    value={infos.PROJ_CATEGORY === null ? '' : infos.PROJ_CATEGORY}
+                                    value={infos.PROJ_CATEGORY ? infos.PROJ_CATEGORY : ''}
                                     onChange={handleChangeProjectInfos}
                                 >
                                     {categoryList.map((item, index) => {
@@ -132,8 +131,13 @@ export default function FullScreenDialog() {
                                 </Select>
                                 :
                                 ''
-                            } */}
+                            }
                         </FormControl>
+                    </ListItem>
+                    <Divider />
+                    <ListItem>
+                        <ListItemText primary="프로젝트 설명" />
+                        <TextField className={classes.textFieldStyle} variant="outlined" placeholder="프로젝트 설명" inputProps={TextFieldInputProps} name="PROJ_DESCRIPTION" onChange={handleChangeProjectInfos} />
                     </ListItem>
                     <Divider />
                 </List>
