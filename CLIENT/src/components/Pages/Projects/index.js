@@ -79,7 +79,7 @@ export class Projects extends Component {
                         <UICircularProgress />
                         :
                         <Grid container>
-                            <Grid container xs={12} spacing={3}>
+                            <Grid container spacing={3}>
 
                                 {this.state.projects.map((item, index) => {
                                     return (

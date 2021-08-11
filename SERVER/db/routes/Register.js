@@ -17,13 +17,16 @@ const avatarTargetDIR = `uploads\\avatars\\items\\`;
 const avatarDIR = multer({ dest: avatarTargetDIR });
 
 const avatarStorage = multer({
-    storage : multer.diskStorage({
-        destination : `uploads/avatars/items/`,
-        filename : function(req, file, cb){
+    storage: multer.diskStorage({
+        destination: `../CLIENT/src/_images/_avatars/users/`,
+        filename: function (req, file, cb) {
             cb(null, `avatar_${Date.now()}_${file.originalname}`);
         }
     })
-})
+});
+
+// TODO 경로 맞춰 이미지 보이게 하기
+// console.log(avatarStorage.storage.destination);
 
 router.get('/test', (req, res) => {
     console.log(avatarTargetDIR);

@@ -1,15 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItem from '@material-ui/core/ListItem';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
+import axios from 'axios'
+import {
+    TextField, FormControl, Select, Button, Dialog, Typography,
+    ListItemText, ListItem, List, Divider, AppBar, Toolbar, IconButton, MenuItem
+} from '@material-ui/core';
+
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
@@ -27,6 +23,13 @@ const useStyles = makeStyles((theme) => ({
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)'
+    },
+    flexBox: {
+        display: 'flex',
+    },
+    textFieldStyle: {
+        width: '30vw',
+        textAlign: 'right'
     }
 }));
 
@@ -34,9 +37,35 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
+const TextFieldInputProps = {
+    min: 0,
+    style: {
+        textAlign: 'right'
+    }
+}
+
 export default function FullScreenDialog() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
+    const [categoryList, setCategoryList] = React.useState(null);
+    const [currentCategory, setCurrentCategory] = React.useState(0);
+    const [infos, setInfos] = React.useState(null);
+
+    React.useEffect(() => {
+
+        const fetchCategory = async () => {
+            await axios.get('/projects/category')
+                .then(res => {
+                    setCategoryList(res.data);
+                });
+        }
+
+        fetchCategory();
+
+        return () => {
+
+        }
+    }, []);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -46,8 +75,15 @@ export default function FullScreenDialog() {
         setOpen(false);
     };
 
+    const handleChangeProjectInfos = (e) => {
+        let nextValue = { ...infos }
+        nextValue[e.target.name] = e.target.value;
+        setInfos({ ...nextValue });
+        console.log(infos);
+    }
+    
     return (
-        <div>
+        <React.Fragment>
             <IconButton className={classes.trans} onClick={handleClickOpen}>
                 <AddCircleIcon fontSize="large" />
             </IconButton>
@@ -66,15 +102,42 @@ export default function FullScreenDialog() {
                     </Toolbar>
                 </AppBar>
                 <List>
-                    <ListItem button>
-                        <ListItemText primary="Phone ringtone" secondary="Titania" />
+                    <ListItem>
+                        <ListItemText primary="프로젝트명" />
+                        <TextField className={classes.textFieldStyle} variant="outlined" placeholder="프로젝트명" inputProps={TextFieldInputProps} name="PROJ_TITLE" onChange={handleChangeProjectInfos} />
                     </ListItem>
                     <Divider />
-                    <ListItem button>
-                        <ListItemText primary="Default notification ringtone" secondary="Tethys" />
+                    <ListItem>
+                        <ListItemText primary="기관명" />
+                        <TextField className={classes.textFieldStyle} variant="outlined" placeholder="기관명" inputProps={TextFieldInputProps} name="PROJ_AGENCY_NAME" onChange={handleChangeProjectInfos} />
                     </ListItem>
+                    <Divider />
+                    <ListItem>
+                        <ListItemText primary="사업 구분" />
+                        <FormControl className={classes.textFieldStyle} variant="outlined">
+                            {/* TODO 사업 구분 해야함 */}
+                            {/* {categoryList ?
+                                <Select
+                                    labelId="PROJ_CATEGORY"
+                                    id="PROJ_CATEGORY"
+                                    name="PROJ_CATEGORY"
+                                    value={infos.PROJ_CATEGORY === null ? '' : infos.PROJ_CATEGORY}
+                                    onChange={handleChangeProjectInfos}
+                                >
+                                    {categoryList.map((item, index) => {
+                                        return (
+                                            <MenuItem key={index} value={item.PROJECT_CATEGORY_PK}>{item.PROJECT_CATEGORY_NAME}</MenuItem>
+                                        )
+                                    })}
+                                </Select>
+                                :
+                                ''
+                            } */}
+                        </FormControl>
+                    </ListItem>
+                    <Divider />
                 </List>
             </Dialog>
-        </div>
+        </React.Fragment>
     );
 }

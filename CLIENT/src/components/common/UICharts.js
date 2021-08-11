@@ -17,32 +17,37 @@ const styles = theme => ({
 
 const getGoneDate = days => {
     let tmp = new Date();
-    let result = new Date(Date.parse(tmp) - days * 1000 * 60 * 60 * 24);
-    console.log(result);
+    
+    let years = tmp.getFullYear();
+    let month = tmp.getMonth();
+    let day = tmp.getDate() - days;
+
+    const result = `${String(years)}-${String(month)}-${String(day)}`;
+    
     return result;
 }
  
 const data = [
     {
-        name: getGoneDate(30), uv: 10040, pv: 2400, amt: 7000,
+        name: getGoneDate(20), uv: 10040, pv: 2400, amt: 7000,
     },
     {
-        name: getGoneDate(30), uv: 3000, pv: 1398, amt: 2210,
+        name: getGoneDate(15), uv: 3000, pv: 1398, amt: 2210,
     },
     {
-        name: getGoneDate(30), uv: 2000, pv: 9800, amt: 2290,
+        name: getGoneDate(7), uv: 2000, pv: 9800, amt: 2290,
     },
     {
-        name: getGoneDate(30), uv: 2780, pv: 12000, amt: 2000,
+        name: getGoneDate(5), uv: 2780, pv: 12000, amt: 2000,
     },
     {
-        name: getGoneDate(30), uv: 1890, pv: 4800, amt: 2181,
+        name: getGoneDate(3), uv: 1890, pv: 4800, amt: 2181,
     },
     {
-        name: getGoneDate(30), uv: 2390, pv: 3800, amt: 2500,
+        name: getGoneDate(2), uv: 2390, pv: 3800, amt: 2500,
     },
     {
-        name: getGoneDate(30), uv: 3490, pv: 4300, amt: 2100,
+        name: getGoneDate(1), uv: 3490, pv: 4300, amt: 2100,
     },
 ];
 

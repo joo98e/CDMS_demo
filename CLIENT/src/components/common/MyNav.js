@@ -6,11 +6,14 @@ import * as actions from '../../actions/UserInfo'
 import {
     Box, AppBar, Toolbar, IconButton, Typography, withStyles, Tooltip
 } from '@material-ui/core';
+
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import { Avatar } from '@material-ui/core';
 // import AccountTreeIcon from '@material-ui/icons/AccountTree';
 // import HomeIcon from '@material-ui/icons/Home';
 import Sidebar from './SideBar';
+
+import avatars from '../../_images/_avatars/users/ohyes.png';
 
 const styles = theme => ({
     root: {
@@ -36,6 +39,7 @@ export class MyNav extends Component {
 
         }
     }
+    
 
     render() {
         const { classes } = this.props;
@@ -68,6 +72,8 @@ export class MyNav extends Component {
 
                         {/* TODO */}
                         {/* <Avatar alt="1" src={`http://localhost:5005/${this.props.user.member.MEM_IMAGE}`} /> */}
+                        {/* <Avatar alt="아바타" src={avatars} /> */}
+                        
                     </Toolbar>
                 </AppBar>
             </div>
