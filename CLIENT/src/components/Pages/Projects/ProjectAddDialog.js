@@ -122,6 +122,9 @@ export default function FullScreenDialog() {
                 </AppBar>
                 <Container>
                     <Typography className={classes.stepperTitleStyle} variant="h4" align="center">
+                        <Typography variant="h4" align="right">
+                            {`${steps + 1}/${stepNames.length}`}
+                        </Typography>
                         <IconButton color="inherit"><NotificationImportantIcon fontSize="large" /></IconButton>
                         프로젝트를 알려주세요!
                     </Typography>
