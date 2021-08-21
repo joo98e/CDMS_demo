@@ -82,7 +82,7 @@ export class index extends PureComponent {
 
     handleEnqueueSnackbar = (msg, type) => {
         this.props.enqueueSnackbar(msg, type);
-}
+    }
 
     hasConfirmed = () => {
         const URL = "/register/signUp"
@@ -289,6 +289,7 @@ export class index extends PureComponent {
                                     </form>
                                     <Box>
                                         <IconButton
+                                            color="inherit"
                                             onClick={this.handleChangeShowPassWord}
                                         >
                                             {this.state.showPassword ? <Visibility /> : <VisibilityOff />}

@@ -26,7 +26,7 @@ export class Back extends Component {
 
         return (
             <Box className={classes.wrapper}>
-                <IconButton onClick={this.fallBack}>
+                <IconButton color="inherit" onClick={this.fallBack}>
                     <KeyboardBackspace />
                 </IconButton>
             </Box>

@@ -59,7 +59,7 @@ export class MyNav extends Component {
                         {this.props.user.auth ?
                             <Tooltip title="로그아웃">
                                 <Link to="/login">
-                                    <IconButton onClick={this.props.handleSessionQuit}>
+                                    <IconButton color="inherit" onClick={this.props.handleSessionQuit}>
                                         <LockOpenIcon color="inherit" />
                                     </IconButton>
                                 </Link>

@@ -94,7 +94,7 @@ function SideBar(props) {
         <div>
             <React.Fragment>
                 <Tooltip title={'메뉴'}>
-                    <IconButton onClick={toggleDrawer(true)}>
+                    <IconButton  color="inherit" onClick={toggleDrawer(true)}>
                         <MenuIcon color="inherit" />
                     </IconButton>
                 </Tooltip>

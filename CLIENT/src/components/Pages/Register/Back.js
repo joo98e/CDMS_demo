@@ -169,8 +169,8 @@ export class index extends Component {
                     }
                     break;
                 case 'MEM_EMPNO':
-                    if(state[key] !== ''){
-                        if(state[key].length < 4){
+                    if (state[key] !== '') {
+                        if (state[key].length < 4) {
                             alert('사번은 4자리로 구성됩니다.');
                             return false;
                         }
@@ -192,17 +192,17 @@ export class index extends Component {
         const vars = {
             // MEM_IMAGE : this.state.MEM.MEM_IMAGE,
             // MEM_IMAGE_NAME : this.state.MEM.MEM_IMAGE_NAME,
-            MEM_USERID : this.state.MEM.MEM_USERID,
-            MEM_PASSWORD : this.state.MEM.MEM_PASSWORD,
-            MEM_PASSWORD_CHECK : this.state.MEM.MEM_PASSWORD_CHECK,
-            MEM_NAME : this.state.MEM.MEM_NAME,
-            MEM_NICKNAME : this.state.MEM.MEM_NICKNAME,
-            MEM_DEPT_NO : this.state.MEM.MEM_DEPT_NO,
-            MEM_EMAIL : this.state.MEM.MEM_EMAIL,
-            MEM_PHONE : this.state.MEM.MEM_PHONE,
-            MEM_EMPNO : this.state.MEM.MEM_EMPNO,
-            MEM_HIREDATE : this.state.MEM.MEM_HIREDATE,
-            MEM_BIRTHDAY : this.state.MEM.MEM_BIRTHDAY,
+            MEM_USERID: this.state.MEM.MEM_USERID,
+            MEM_PASSWORD: this.state.MEM.MEM_PASSWORD,
+            MEM_PASSWORD_CHECK: this.state.MEM.MEM_PASSWORD_CHECK,
+            MEM_NAME: this.state.MEM.MEM_NAME,
+            MEM_NICKNAME: this.state.MEM.MEM_NICKNAME,
+            MEM_DEPT_NO: this.state.MEM.MEM_DEPT_NO,
+            MEM_EMAIL: this.state.MEM.MEM_EMAIL,
+            MEM_PHONE: this.state.MEM.MEM_PHONE,
+            MEM_EMPNO: this.state.MEM.MEM_EMPNO,
+            MEM_HIREDATE: this.state.MEM.MEM_HIREDATE,
+            MEM_BIRTHDAY: this.state.MEM.MEM_BIRTHDAY,
         }
 
         return axios.post(URL, vars);
@@ -293,6 +293,7 @@ export class index extends Component {
                                     />
                                     <Box>
                                         <IconButton
+                                            color="inherit"
                                             onClick={this.handleChangeShowPassWord}
                                         >
                                             {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
