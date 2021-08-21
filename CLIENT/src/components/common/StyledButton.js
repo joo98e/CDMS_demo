@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button, withStyles } from '@material-ui/core'
 
-// TODO => 클래시즈 적용하기
-
 const styles = theme => ({
     sssss: {
         color: theme.palette.text.primary,

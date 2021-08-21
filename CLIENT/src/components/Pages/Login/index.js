@@ -77,7 +77,7 @@ export class Login extends Component {
 
     loginCheck = () => {
         // TODO
-        // redux UI가 이상해지는 오류 있음
+        // TODO redux UI가 이상해지는 오류 있음
 
         const URL = '/users/login';
         const vars = {

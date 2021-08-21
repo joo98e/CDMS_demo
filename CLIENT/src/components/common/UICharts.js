@@ -74,11 +74,6 @@ class Chart extends PureComponent {
     // https://recharts.org/en-US/guide/customize
     // theme 가져와서 입히기
     // git 이력으로 그래프 그리기
-    // Grid로 묶기(상위에서)
-    // $ git clone https://github.com/recharts/recharts.git
-    // $ cd recharts
-    // $ npm install
-    // $ npm run build
 
     render() {
         const { classes } = this.props;
