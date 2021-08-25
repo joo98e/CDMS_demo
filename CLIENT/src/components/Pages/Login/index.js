@@ -198,6 +198,7 @@ export class Login extends Component {
                                     fullWidth
                                     variant="outlined"
                                     onClick={this.loginCheck}
+                                    color="inherit"
                                 >
                                     로그인하기
                                 </Button>
@@ -206,6 +207,7 @@ export class Login extends Component {
                                     fullWidth
                                     variant="outlined"
                                     onClick={this.pushRegister}
+                                    color="inherit"
                                 >
                                     회원가입
                                 </Button>
@@ -216,6 +218,7 @@ export class Login extends Component {
                                     fullWidth
                                     variant="outlined"
                                     onClick={this.devLogin}
+                                    color="inherit"
                                 >
                                     개발 환경 로그인
                                 </Button>

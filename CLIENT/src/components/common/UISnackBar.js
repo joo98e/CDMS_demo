@@ -20,6 +20,7 @@ export class UISnackBar extends Component {
     render() {
         return (
             <Button
+                color="inherit"
                 onClick={this.handleCloseSnackBar}
             >
                 <CancelIcon />

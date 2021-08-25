@@ -12,6 +12,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
+import ProjectPersonList from './ProjectPersonList';
+
 const useStyles = makeStyles((theme) => ({
     appBar: {
         position: 'relative',
@@ -41,9 +43,9 @@ const useStyles = makeStyles((theme) => ({
     buttonStyle: {
         margin: '0 10px'
     },
-    alignBox : {
-        display : 'flex',
-        justifyContent : 'space-between',
+    alignBox: {
+        display: 'flex',
+        justifyContent: 'space-between',
     }
 }));
 
@@ -71,26 +73,20 @@ export default function FullScreenDialog() {
             await axios.get('/projects/category')
                 .then(res => {
                     setCategoryList(res.data);
+                    console.log(res.data);
                 });
         }
 
         fetchCategory();
 
         return () => {
-            
+
         }
     }, []);
 
     const stepNames = [
         '프로젝트',
-        '기관',
-        '사업기간'
-    ];
-
-    const contents = [
-        '',
-        '말해주세요.',
-        '마지막입니다.'
+        '기관'
     ];
 
     const handleClickOpen = () => {
@@ -130,7 +126,7 @@ export default function FullScreenDialog() {
     }
 
     return (
-        <React.Fragment>
+        <div>
             <IconButton color="inherit" className={classes.trans} onClick={handleClickOpen}>
                 <AddCircleIcon fontSize="large" />
             </IconButton>
@@ -143,9 +139,9 @@ export default function FullScreenDialog() {
                         <Typography variant="h6" className={classes.title}>
                             프로젝트 생성
                         </Typography>
-                        <Button autoFocus color="inherit" onClick={handleClose}>
+                        {/* <Button autoFocus color="inherit" onClick={handleClose}>
                             save
-                        </Button>
+                        </Button> */}
                     </Toolbar>
                 </AppBar>
                 <Container>
@@ -174,65 +170,85 @@ export default function FullScreenDialog() {
                             {
                                 steps !== stepNames.length
                                 &&
-                                <React.Fragment className={classes.alignBox}>
+                                <div className={classes.alignBox}>
                                     <Button className={classes.buttonStyle} variant="outlined" onClick={() => { handleClickSteps("PREV") }} disabled={steps === 0} size="large">이전</Button>
                                     <Button className={classes.buttonStyle} variant="outlined" onClick={() => { handleClickSteps(steps === stepNames.length - 1 ? "FINISH" : "NEXT") }} size="large">
                                         {steps === stepNames.length - 1 ? "제출" : "다음"}
                                     </Button>
-                                </React.Fragment>
+                                </div>
                             }
                         </Grid>
-                        <Grid item xs={12} md={9} lg={9}>
-                            <List>
-                                <ListItem>
-                                    <ListItemText primary="프로젝트명" />
-                                    <TextField className={classes.textFieldStyle} variant="outlined" placeholder="프로젝트명" inputProps={TextFieldInputProps} name="PROJ_TITLE" onChange={handleChangeProjectInfos} />
-                                </ListItem>
-                                <Divider />
+
+                        {
+                            steps === 0 &&
+
+                            <Grid item xs={12} md={9} lg={9}>
+                                <List>
+                                    <ListItem>
+                                        <ListItemText primary="프로젝트명" />
+                                        <TextField className={classes.textFieldStyle} variant="outlined" placeholder="프로젝트명" inputProps={TextFieldInputProps} name="PROJ_TITLE" onChange={handleChangeProjectInfos} />
+                                    </ListItem>
+                                    <Divider />
+                                    <ListItem>
+                                        <ListItemText primary="사업 구분" />
+                                        <FormControl className={classes.textFieldStyle} variant="outlined">
+                                            {/* TODO 사업 구분 해야함 */}
+                                            {categoryList ?
+                                                <Select
+                                                    labelId="PROJ_CATEGORY"
+                                                    id="PROJ_CATEGORY"
+                                                    name="PROJ_CATEGORY"
+                                                    value={infos.PROJ_CATEGORY ? infos.PROJ_CATEGORY : ''}
+                                                    onChange={handleChangeProjectInfos}
+                                                >
+                                                    {categoryList.map((item, index) => {
+                                                        return (
+                                                            <MenuItem key={index} value={item.PROJECT_CATEGORY_PK}>{item.PROJECT_CATEGORY_NAME}</MenuItem>
+                                                        )
+                                                    })}
+                                                </Select>
+                                                :
+                                                ''
+                                            }
+                                        </FormControl>
+                                    </ListItem>
+                                    <Divider />
+                                    <ListItem>
+                                        <ListItemText primary="프로젝트 설명" />
+                                        <TextField className={classes.textFieldStyle} variant="outlined" placeholder="프로젝트 설명" inputProps={TextFieldInputProps} name="PROJ_DESCRIPTION" onChange={handleChangeProjectInfos} />
+                                    </ListItem>
+                                    <Divider />
+                                    <ListItem>
+                                        <ListItemText primary="프로젝트 담당자" />
+                                        <TextField className={classes.textFieldStyle} variant="outlined" placeholder="프로젝트 담당자" inputProps={TextFieldInputProps} name="PROJ_DESCRIPTION" onChange={handleChangeProjectInfos} />
+                                    </ListItem>
+                                    <Divider />
+                                    <ListItem>
+                                        <ListItemText primary="프로젝트 참여 인원 구성" />
+                                        <ProjectPersonList />
+                                    </ListItem>
+                                    <Divider />
+                                </List>
+                            </Grid>
+
+                        }
+
+                        {
+                            steps === 1 &&
+
+                            <Grid item xs={12} md={9} lg={9}>
                                 <ListItem>
                                     <ListItemText primary="기관명" />
                                     <TextField className={classes.textFieldStyle} variant="outlined" placeholder="기관명" inputProps={TextFieldInputProps} name="PROJ_AGENCY_NAME" onChange={handleChangeProjectInfos} />
                                 </ListItem>
                                 <Divider />
-                                <ListItem>
-                                    <ListItemText primary="사업 구분" />
-                                    <FormControl className={classes.textFieldStyle} variant="outlined">
-                                        {/* TODO 사업 구분 해야함 */}
-                                        {categoryList ?
-                                            <Select
-                                                labelId="PROJ_CATEGORY"
-                                                id="PROJ_CATEGORY"
-                                                name="PROJ_CATEGORY"
-                                                value={infos.PROJ_CATEGORY ? infos.PROJ_CATEGORY : ''}
-                                                onChange={handleChangeProjectInfos}
-                                            >
-                                                {categoryList.map((item, index) => {
-                                                    return (
-                                                        <MenuItem key={index} value={item.PROJECT_CATEGORY_PK}>{item.PROJECT_CATEGORY_NAME}</MenuItem>
-                                                    )
-                                                })}
-                                            </Select>
-                                            :
-                                            ''
-                                        }
-                                    </FormControl>
-                                </ListItem>
-                                <Divider />
-                                <ListItem>
-                                    <ListItemText primary="프로젝트 설명" />
-                                    <TextField className={classes.textFieldStyle} variant="outlined" placeholder="프로젝트 설명" inputProps={TextFieldInputProps} name="PROJ_DESCRIPTION" onChange={handleChangeProjectInfos} />
-                                </ListItem>
-                                <Divider />
-                                <ListItem>
-                                    <ListItemText primary="프로젝트 기관 담당자" />
-                                    <TextField className={classes.textFieldStyle} variant="outlined" placeholder="프로젝트 설명" inputProps={TextFieldInputProps} name="PROJ_DESCRIPTION" onChange={handleChangeProjectInfos} />
-                                </ListItem>
-                                <Divider />
-                            </List>
-                        </Grid>
+                            </Grid>
+                        }
+
+                        
                     </Grid>
                 </Container>
             </Dialog>
-        </React.Fragment>
+        </div>
     );
 }

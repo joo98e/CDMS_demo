@@ -9,7 +9,7 @@ router.get('/category', (req, res) => {
 
     connection.query(sql, (err, rows, fields) => {
         if (err) console.error(err);
-        
+        console.log(rows);
         res.status(200).send(rows);
     });
 });
