@@ -192,7 +192,6 @@ export default function FullScreenDialog() {
                                     <ListItem>
                                         <ListItemText primary="사업 구분" />
                                         <FormControl className={classes.textFieldStyle} variant="outlined">
-                                            {/* TODO 사업 구분 해야함 */}
                                             {categoryList ?
                                                 <Select
                                                     labelId="PROJ_CATEGORY"
@@ -203,7 +202,7 @@ export default function FullScreenDialog() {
                                                 >
                                                     {categoryList.map((item, index) => {
                                                         return (
-                                                            <MenuItem key={index} value={item.PROJECT_CATEGORY_PK}>{item.PROJECT_CATEGORY_NAME}</MenuItem>
+                                                            <MenuItem key={index} value={item.CATEGORY_PK}>{item.CATEGORY_NAME}</MenuItem>
                                                         )
                                                     })}
                                                 </Select>
