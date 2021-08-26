@@ -20,9 +20,8 @@ const checkDirectory = (dir) => {
 
 router.get('/:userName/avatars', (req, res) => {
     
+    // TODO 아바타 변경 / 폴더 만들 필요 없을 수도 있음
     checkDirectory(req.params.userName);
-
-
     
     res.status(200).send('일단 성공')
 });

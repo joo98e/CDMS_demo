@@ -12,7 +12,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
-import ProjectPersonList from './ProjectPersonList';
+import PersonList from '../../common/PersonList';
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -224,7 +224,7 @@ export default function FullScreenDialog() {
                                     <Divider />
                                     <ListItem>
                                         <ListItemText primary="프로젝트 참여 인원 구성" />
-                                        <ProjectPersonList />
+                                        <PersonList />
                                     </ListItem>
                                     <Divider />
                                 </List>
