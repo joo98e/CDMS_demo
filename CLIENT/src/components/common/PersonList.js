@@ -75,6 +75,10 @@ export class PersonList extends Component {
                                 <List>
                                     <ListItem>
                                         {/* TODO 검색란 / onchange로 준비된 리스트에서 filter */}
+                                        {/* Chip */}
+                                        {/* Chip array */}
+                                        {/* search 박스 오른쪽 위로 올리기 */}
+                                        {/* https://material-ui.com/components/chips/ */}
                                         <TextField className={classes.textFieldStyle} variant="outlined" placeholder="#닉네임" fullWidth />
                                     </ListItem>
 
