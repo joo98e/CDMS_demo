@@ -12,7 +12,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
-import PersonList from '../../common/PersonList';
+import PersonList from './PersonList';
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
