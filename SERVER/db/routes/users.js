@@ -52,4 +52,26 @@ router.get('/login/dev', (req, res) => {
 
 });
 
+router.get('/project/work', (req, res) => {
+    const SQL =
+        `SELECT
+    TB_MEMBER_INFO.MEM_PK AS id,
+    TB_MEMBER_INFO.MEM_DEPT_NO,
+    TB_DEPART_LIST.DEPART_NAME,
+    TB_MEMBER_INFO.MEM_USERID,
+    TB_MEMBER_INFO.MEM_NAME,
+    TB_MEMBER_INFO.MEM_EMAIL,
+    TB_MEMBER_INFO.MEM_IMAGE,
+    TB_MEMBER_INFO.MEM_INSIDE_YN
+    FROM TB_DEPART_LIST
+    INNER JOIN TB_MEMBER_INFO
+    ON TB_MEMBER_INFO.MEM_DEPT_NO = TB_DEPART_LIST.DEPART_PK
+    WHERE TB_MEMBER_INFO.MEM_DEL_YN = 'N';`
+    connection.query(SQL, (err, rows, fields) => {
+        if (err) console.log(err);
+
+        res.status(200).send(rows);
+    });
+});
+
 module.exports = router;
