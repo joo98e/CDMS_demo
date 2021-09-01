@@ -49,9 +49,7 @@ export class UISettingsMenu extends Component {
 
             case '메뉴 위치 변경':
                 this.props.handleSetMenuAppearPosition();
-                setTimeout(() => {
-                    this.props.enqueueSnackbar(`메뉴 위치가 변경되었습니다. (${this.props.menuAppearPosition})`, { variant: 'success' });
-                }, 10);
+                this.props.enqueueSnackbar(`메뉴 위치가 변경되었습니다. (${this.props.menuAppearPosition})`, { variant: 'success' });
 
                 break;
 

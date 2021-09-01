@@ -70,12 +70,12 @@ function ProjectCard(props) {
                 <Typography gutterBottom variant="h5" component="h2">
                   {infos.PROJ_TITLE}
                 </Typography>
-                <Typography variant="body1" color="textPrimary">기관명</Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
+                <Typography variant="body1" color="inherit">기관명</Typography>
+                <Typography variant="body2" color="inherit" component="p">
                   {infos.PROJ_AGENCY_NAME}
                 </Typography>
-                <Typography variant="body1" color="textPrimary">설명</Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
+                <Typography variant="body1" color="inherit">설명</Typography>
+                <Typography variant="body2" color="inherit" component="p" noWrap>
                   {infos.PROJ_DESCRIPTION}
                 </Typography>
               </CardContent>

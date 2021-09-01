@@ -23,3 +23,19 @@ export const devAuth = member => {
         member
     };
 };
+
+// ─────────────────────────────────────────────────── 
+export const setProjectInOutPutPerson = payload => {
+    return {
+        type: types.SET_PROJECT_INOUTPUT_PERSON,
+        payload
+    };
+};
+
+// ─────────────────────────────────────────────────── 
+export const setProjectPersonInit = payload => {
+    return {
+        type: types.SET_PROJECT_INOUTPUT_PERSON,
+        payload
+    };
+};

@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withSnackbar } from 'notistack';
+import * as actions from '../../../actions/UserInfo';
+
 
 import {
     Button, withStyles, Box,
     Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
-    Divider, Paper,
+    Divider, Paper, 
     TableContainer, Table, TableHead, TableBody, TableRow, TableCell
 } from '@material-ui/core'
 
-import PersonRow from '../../common/PersonRow'
+import PersonRow from '../../common/PersonRow';
+import UICircularProgress from '../../common/UICircularProgress';
 
 const styles = theme => ({
     textFieldStyle: {
@@ -50,10 +54,19 @@ export class PersonList extends Component {
         return workForce;
     }
 
-    handleChangeStatus = () => {
+    handleChangeStatus = (type) => {
         this.setState({
             isOpen: !this.state.isOpen ? true : false
         });
+
+        if(type === "SUBMIT"){
+            this.props.enqueueSnackbar('내부 인력 구성이 반영되었습니다.', { variant: 'success' });
+        }else if (type === "CANCLE"){
+            this.props.enqueueSnackbar('내부 인력 구성이 취소되었습니다.', { variant: 'warning' });
+
+            let _init = [];
+            this.props.setProjectPersonInit(_init);
+        }
     }
 
     render() {
@@ -84,14 +97,6 @@ export class PersonList extends Component {
                                 {/* Chip array */}
                                 {/* search 박스 오른쪽 위로 올리기 */}
                                 {/* https://material-ui.com/components/chips/ */}
-                                {/* <List>
-                                    <ListItem>
-                                        <TextField className={classes.textFieldStyle} variant="outlined" placeholder="#닉네임" fullWidth />
-                                    </ListItem>
-                                    <ListItem>
-
-                                    </ListItem>
-                                </List> */}
 
                                 {
                                     this.state.workForce ?
@@ -99,24 +104,25 @@ export class PersonList extends Component {
                                             <Table>
                                                 <TableHead>
                                                     <TableRow>
-                                                        <TableCell align="left" size="small"></TableCell>
+                                                        <TableCell align="center"></TableCell>
+                                                        <TableCell align="left">성명</TableCell>
                                                         <TableCell align="left">부서</TableCell>
                                                         <TableCell align="left">ID</TableCell>
-                                                        <TableCell align="left">성명</TableCell>
                                                         <TableCell align="left">이메일</TableCell>
+                                                        <TableCell align="left">구성</TableCell>
                                                     </TableRow>
                                                 </TableHead>
                                                 <TableBody>
                                                     {
                                                         this.state.workForce.map((item, index) => {
-                                                            return <PersonRow key={index} data={item} datad={4545} />
+                                                            return <PersonRow key={index} data={item} />
                                                         })
                                                     }
                                                 </TableBody>
                                             </Table>
                                         </TableContainer>
                                         :
-                                        <div>circullator</div>
+                                        <UICircularProgress />
                                 }
 
                             </Box>
@@ -128,10 +134,10 @@ export class PersonList extends Component {
                             </Box> */}
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick={this.handleChangeStatus} color="inherit" variant="outlined">
+                            <Button onClick={() => {this.handleChangeStatus("CANCLE")}} color="inherit" variant="outlined">
                                 앗, 취소예요!
                             </Button>
-                            <Button onClick={this.handleChangeStatus} color="inherit" variant="outlined">
+                            <Button onClick={() => {this.handleChangeStatus("SUBMIT")}} color="inherit" variant="outlined">
                                 완료!
                             </Button>
                         </DialogActions>
@@ -145,10 +151,12 @@ export class PersonList extends Component {
 
 const mapStateToProps = (state) => ({
 
-})
+});
 
-const mapDispatchToProps = {
-
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setProjectPersonInit : payload => { dispatch(actions.setProjectInOutPutPerson(payload)) }
+    }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(PersonList))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withSnackbar(PersonList)));

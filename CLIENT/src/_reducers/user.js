@@ -12,8 +12,9 @@ const getMemberSessionStorage = () => {
 }
 
 const initialState = {
-    auth : getAuthSessionStorage(),
-    member : getMemberSessionStorage()
+    auth: getAuthSessionStorage(),
+    member: getMemberSessionStorage(),
+    projectMember: []
 };
 
 const user = (state = initialState, action) => {
@@ -23,23 +24,42 @@ const user = (state = initialState, action) => {
         // ────────────────────────────────────────────────────────────────────────────
         case types.GET_AUTHENTICATED:
             return {
-                auth : true,
+                ...state,
+                auth: true,
                 // 로그인
-                member : JSON.parse(sessionStorage.getItem('member'))
+                member: JSON.parse(sessionStorage.getItem('member'))
             };
 
         case types.OUT_AUTHENTICATED:
             return {
-                auth : false,
-                member : null
+                ...state,
+                auth: false,
+                member: null
             };
 
         case types.DEV_SET_AUTH:
             return {
+                ...state,
                 auth: true,
                 // 개발 로그인
                 member: JSON.parse(sessionStorage.getItem('member'))
             };
+
+        case types.SET_PROJECT_INOUTPUT_PERSON:
+            return {
+                ...state,
+                projectMember : [
+                    ...state.projectMember,
+                    action.payload
+                ]
+            }
+
+        case types.SET_PROJECT_INOUTPUT_PERSON_INIT:
+            
+            return {
+                ...state,
+                projectMember : []
+            }
 
         default:
             return state;
