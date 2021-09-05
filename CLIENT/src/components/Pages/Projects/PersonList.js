@@ -7,7 +7,7 @@ import * as actions from '../../../actions/UserInfo';
 import {
     Button, withStyles, Box,
     Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
-    Divider, Paper, 
+    Divider, Paper,
     TableContainer, Table, TableHead, TableBody, TableRow, TableCell
 } from '@material-ui/core'
 
@@ -59,12 +59,12 @@ export class PersonList extends Component {
             isOpen: !this.state.isOpen ? true : false
         });
 
-        if(type === "SUBMIT"){
+        if (type === "SUBMIT") {
             this.props.enqueueSnackbar('내부 인력 구성이 반영되었습니다.', { variant: 'success' });
-        }else if (type === "CANCLE"){
+        } else if (type === "CANCLE") {
             this.props.enqueueSnackbar('내부 인력 구성이 취소되었습니다.', { variant: 'warning' });
 
-            let _init = [];
+            let _init = [1, 2, 3];
             this.props.setProjectPersonInit(_init);
         }
     }
@@ -134,10 +134,10 @@ export class PersonList extends Component {
                             </Box> */}
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick={() => {this.handleChangeStatus("CANCLE")}} color="inherit" variant="outlined">
+                            <Button onClick={() => { this.handleChangeStatus("CANCLE") }} color="inherit" variant="outlined">
                                 앗, 취소예요!
                             </Button>
-                            <Button onClick={() => {this.handleChangeStatus("SUBMIT")}} color="inherit" variant="outlined">
+                            <Button onClick={() => { this.handleChangeStatus("SUBMIT") }} color="inherit" variant="outlined">
                                 완료!
                             </Button>
                         </DialogActions>
@@ -155,8 +155,11 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setProjectPersonInit : payload => { dispatch(actions.setProjectInOutPutPerson(payload)) }
+        setProjectPersonInit: payload => { dispatch(actions.setProjectPersonInit(payload)) }
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withSnackbar(PersonList)));
+export default connect(mapStateToProps, mapDispatchToProps)
+    (withStyles(styles)
+    (withSnackbar(PersonList))
+);

@@ -58,7 +58,7 @@ const user = (state = initialState, action) => {
             
             return {
                 ...state,
-                projectMember : []
+                projectMember : action.payload
             }
 
         default:
