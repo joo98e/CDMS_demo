@@ -113,12 +113,12 @@ export default function FullScreenDialog() {
     };
 
     const handleValidateValue = () => {
-        let base = "PROJ_";
+        let _base = "PROJ_";
         
         for (let idx in infos) {
             
             switch (idx) {
-                case base + "TITLE":
+                case _base + "TITLE":
                     console.log("here i am111");
                     if (infos[idx] === "" || infos[idx] === undefined) {
                         enqueueSnackbar('제목 없는 프로젝트는 없어요.', {variant:'warning'});
@@ -126,14 +126,14 @@ export default function FullScreenDialog() {
                     }
                     break;
 
-                case base + "CATEGORY":
+                case _base + "CATEGORY":
                     if (infos[idx] === "" || infos[idx] === undefined) {
                         enqueueSnackbar('사업 구분이 필요합니다.', {variant:'warning'});
                         return false;
                     }
                     break;
 
-                case base + "DESCRIPTION":
+                case _base + "DESCRIPTION":
                     if (infos[idx] === "" || infos[idx] === undefined) {
                         enqueueSnackbar('간단한 설명이라도 추가해주세요!', {variant:'warning'});
                         return false;
@@ -143,33 +143,33 @@ export default function FullScreenDialog() {
                     }
                     break;
 
-                case base + "MANAGER":
+                case _base + "MANAGER":
                     if (infos[idx] === "" || infos[idx] === undefined) {
                         enqueueSnackbar('프로젝트 담당자이 필요합니다.', { variant: 'warning' });
                         return false;
                     }
                     break;
 
-                case base + "AGENCY_NAME":
+                case _base + "AGENCY_NAME":
                     if (infos[idx] === "" || infos[idx] === undefined) {
                         enqueueSnackbar('기관명이 필요합니다.', { variant: 'warning' });
                         return false;
                     }
                     break;
 
-                case base + "AGENCY_MANAGER":
+                case _base + "AGENCY_MANAGER":
 
                     break;
 
-                case base + "AGENCY_MANAGER_PHONE":
+                case _base + "AGENCY_MANAGER_PHONE":
 
                     break;
 
-                case base + "AGENCY_MANAGER_EMAIL":
+                case _base + "AGENCY_MANAGER_EMAIL":
 
                     break;
 
-                case base + "MAX_TASK":
+                case _base + "MAX_TASK":
 
                     break;
 
