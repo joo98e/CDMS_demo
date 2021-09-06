@@ -9,6 +9,8 @@ import {
 import { Visibility, VisibilityOff } from '@material-ui/icons'
 import { withSnackbar } from 'notistack'
 
+import FNValidator from '../../common/FNValidator';
+
 export class index extends PureComponent {
     constructor(props) {
         super(props)
@@ -137,74 +139,97 @@ export class index extends PureComponent {
     valueChecking = () => {
 
         const state = this.state.MEM;
+        let status = true;
 
         for (let key in state) {
             switch (key) {
+                case "MEM_IMAGE":
 
-                case 'MEM_USERID':
-                    if (!/^[a-z0-9]{4,20}$/.test(state[key]) || state[key] === '') {
+                    break;
+                case "MEM_IMAGE_NAME":
+
+                    break;
+
+                case "MEM_PASSWORD":
+
+                    break;
+                case "MEM_PASSWORD_CHECK":
+
+                    break;
+                case "MEM_HIREDATE":
+
+                    break;
+                case "MEM_BIRTHDAY":
+
+                    break;
+                case "MEM_ID_CHECK":
+                    //     if (state[key] === false) {
+                    //         alert('ID 중복 체크가 필요합니다.', 'warning');
+                    //         return false;
+                    //     }
+
+                    break;
+
+                case "MEM_USERID":
+                    if (!FNValidator("id", state[key])) {
                         this.props.enqueueSnackbar('ID는 영문, 숫자만 사용하여 4 ~ 20글자여야 합니다.', 'warning');
                         return false;
                     }
                     break;
 
-                case 'MEM_NAME':
-                    if (!/^[가-힣]/.test(state[key]) && state[key].length >= 1) {
+                case "MEM_NAME":
+                    if (!FNValidator('name', state[key])) {
                         this.props.enqueueSnackbar('성명은 한글만 사용 가능합니다.', 'warning');
                         return false;
                     }
                     break;
-                case 'MEM_NICKNAME':
-                    if (!/^[가-힣a-zA-Z]+$/.test(state[key])) {
+                case "MEM_NICKNAME":
+                    if (!FNValidator('nickname', state[key])) {
                         this.props.enqueueSnackbar('닉네임은 한글 혹은 영문만 사용 가능합니다.', 'warning');
                         return false;
                     }
                     break;
 
-                case 'MEM_EMAIL':
-                    if (!/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i.test(state[key])) {
+                case "MEM_EMAIL":
+                    if (!FNValidator('email', state[key])) {
                         this.props.enqueueSnackbar('이메일 형식이 맞지 않습니다.', 'warning');
                         return false;
                     }
                     break;
 
-                case 'MEM_PHONE':
+                case "MEM_PHONE":
                     if (state[key] !== '') {
-                        if (!/^\d{3}-\d{3,4}-\d{4}$/.test(state[key])) {
+                        if (!FNValidator('phone', state[key])) {
                             this.props.enqueueSnackbar('연락처 형식이 맞지 않습니다.', 'warning');
                             return false;
                         }
                     }
                     break;
-                case 'MEM_EMPNO':
+                case "MEM_EMPNO":
                     if (state[key] !== '') {
-                        if (state[key].length < 4) {
+                        if (!FNValidator('empno', state[key])) {
                             this.props.enqueueSnackbar('사번은 4자리로 구성됩니다.', 'warning');
                             return false;
                         }
                     }
                     break;
-                case 'MEM_DEPT_NO':
+
+                case "MEM_DEPT_NO":
                     if (state[key] === '') {
                         this.props.enqueueSnackbar('부서는 반드시 필요합니다.', 'warning');
                         return false;
                     }
                     break;
 
-                // TODO 
-                // case 'MEM_ID_CHECK':
-                //     if (state[key] === false) {
-                //         alert('ID 중복 체크가 필요합니다.', 'warning');
-                //         return false;
-                //     }
-                //     break;
 
                 default:
+
                     break;
             }
         }
 
         this.hasConfirmed();
+
     }
 
     render() {
@@ -217,6 +242,7 @@ export class index extends PureComponent {
                                 <Button
                                     variant={this.state.MEM.MEM_IMAGE_NAME === "" ? "outlined" : "contained"}
                                     component="label"
+                                    color="inherit"
                                 >
                                     {this.state.MEM.MEM_IMAGE_NAME === "" ? "프로필 이미지 선택" : "프로필 선택 완료!"}
                                     <input

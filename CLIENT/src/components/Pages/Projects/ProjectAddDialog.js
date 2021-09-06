@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios'
+import { useSnackbar } from 'notistack';
 import {
     Container, TextField, FormControl, Select, Button, Dialog, Typography,
     ListItemText, ListItem, List, Divider, AppBar, Toolbar, IconButton, MenuItem,
@@ -41,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: theme.spacing(4)
     },
     buttonStyle: {
-        display : 'block',
+        display: 'block',
         margin: '0 auto'
     },
     alignBox: {
@@ -65,12 +66,25 @@ const TextFieldInputProps = {
     }
 }
 
+const defaultState = {
+    PROJ_TITLE: "",
+    PROJ_CATEGORY : "",
+    PROJ_DESCRIPTION : "",
+    PROJ_MANAGER : "",
+    PROJ_AGENCY_NAME : "",
+    PROJ_AGENCY_MANAGER : "",
+    PROJ_AGENCY_MANAGER_PHONE : "",
+    PROJ_AGENCY_MANAGER_EMAIL : "",
+    PROJ_MAX_TASK : ""
+}
+
 export default function FullScreenDialog() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [categoryList, setCategoryList] = React.useState(null);
-    const [infos, setInfos] = React.useState(Object);
+    const [infos, setInfos] = React.useState(defaultState);
     const [steps, setSteps] = React.useState(0);
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
     React.useEffect(() => {
 
@@ -78,7 +92,6 @@ export default function FullScreenDialog() {
             await axios.get('/projects/category')
                 .then(res => {
                     setCategoryList(res.data);
-                    console.log(res.data);
                 });
         }
 
@@ -89,19 +102,82 @@ export default function FullScreenDialog() {
         }
     }, []);
 
-    const stepNames = [
-        '프로젝트',
-        '기관'
-    ];
-
     const handleClickOpen = () => {
         setOpen(true);
     };
 
     const handleClose = () => {
         setOpen(false);
-        setSteps(0);
+
+
     };
+
+    const handleValidateValue = () => {
+        let base = "PROJ_";
+        
+        for (let idx in infos) {
+            
+            switch (idx) {
+                case base + "TITLE":
+                    console.log("here i am111");
+                    if (infos[idx] === "" || infos[idx] === undefined) {
+                        enqueueSnackbar('제목 없는 프로젝트는 없어요.', {variant:'warning'});
+                        return false;
+                    }
+                    break;
+
+                case base + "CATEGORY":
+                    if (infos[idx] === "" || infos[idx] === undefined) {
+                        enqueueSnackbar('사업 구분이 필요합니다.', {variant:'warning'});
+                        return false;
+                    }
+                    break;
+
+                case base + "DESCRIPTION":
+                    if (infos[idx] === "" || infos[idx] === undefined) {
+                        enqueueSnackbar('간단한 설명이라도 추가해주세요!', {variant:'warning'});
+                        return false;
+                    } else if (infos[idx].length < 10) {
+                        enqueueSnackbar("짧아도 너무 짧은데요!", {variant:'error'});
+                        return false;
+                    }
+                    break;
+
+                case base + "MANAGER":
+                    if (infos[idx] === "" || infos[idx] === undefined) {
+                        enqueueSnackbar('프로젝트 담당자이 필요합니다.', { variant: 'warning' });
+                        return false;
+                    }
+                    break;
+
+                case base + "AGENCY_NAME":
+                    if (infos[idx] === "" || infos[idx] === undefined) {
+                        enqueueSnackbar('기관명이 필요합니다.', { variant: 'warning' });
+                        return false;
+                    }
+                    break;
+
+                case base + "AGENCY_MANAGER":
+
+                    break;
+
+                case base + "AGENCY_MANAGER_PHONE":
+
+                    break;
+
+                case base + "AGENCY_MANAGER_EMAIL":
+
+                    break;
+
+                case base + "MAX_TASK":
+
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }
 
     const handleChangeProjectInfos = (e) => {
         let nextValue = { ...infos }
@@ -110,33 +186,13 @@ export default function FullScreenDialog() {
         console.log(infos);
     }
 
-    const handleClickSteps = (type) => {
-        switch (type) {
-            case "NEXT":
-                setSteps(steps + 1);
-                break;
-
-            case "PREV":
-                setSteps(steps - 1);
-                break;
-
-            case "FINISH":
-                console.log("Finish");
-                setSteps(steps + 1);
-                break;
-
-            default:
-                break;
-        }
-    }
-
     return (
         <div>
             <IconButton color="inherit" className={classes.trans} onClick={handleClickOpen}>
                 <AddCircleIcon fontSize="large" />
             </IconButton>
             <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
-                <AppBar className={classes.appBar}>
+                <AppBar className={classes.appBar} position="fixed">
                     <Toolbar>
                         <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
                             <CloseIcon />
@@ -144,9 +200,9 @@ export default function FullScreenDialog() {
                         <Typography variant="h6" className={classes.title}>
                             프로젝트 생성
                         </Typography>
-                        {/* <Button autoFocus color="inherit" onClick={handleClose}>
+                        <Button autoFocus color="inherit" onClick={handleValidateValue}>
                             save
-                        </Button> */}
+                        </Button>
                     </Toolbar>
                 </AppBar>
                 <Container>
@@ -197,7 +253,7 @@ export default function FullScreenDialog() {
                                 <Divider />
                                 <ListItem>
                                     <ListItemText primary="프로젝트 담당자" />
-                                    <TextField className={classes.textFieldStyle} variant="outlined" placeholder="프로젝트 담당자" inputProps={TextFieldInputProps} name="PROJ_DESCRIPTION" onChange={handleChangeProjectInfos} />
+                                    <TextField className={classes.textFieldStyle} variant="outlined" placeholder="프로젝트 담당자" inputProps={TextFieldInputProps} name="PROJ_MANAGER" onChange={handleChangeProjectInfos} />
                                 </ListItem>
                                 <Divider />
                                 <ListItem>
@@ -227,21 +283,54 @@ export default function FullScreenDialog() {
                                 <TextField className={classes.textFieldStyle} variant="outlined" placeholder="기관 담당자 이메일 주소" inputProps={TextFieldInputProps} name="PROJ_AGENCY_MANAGER_EMAIL" onChange={handleChangeProjectInfos} />
                             </ListItem>
                             <Divider />
+                            <ListItem>
+                                <ListItemText primary="프로젝트 과업 수" />
+                                <TextField className={classes.textFieldStyle} variant="outlined" placeholder="프로젝트 과업 수" inputProps={TextFieldInputProps} name="PROJ_MAX_TASK" onChange={handleChangeProjectInfos} />
+                            </ListItem>
+                            <Divider />
                         </Grid>
-                        <Box className={classes.center}>
+                        {/* <Box className={classes.center}>
                             <Button
                                 className={classes.buttonStyle}
                                 variant="outlined"
                                 color="inherit"
-                                onClick={() => { }}
+                                onClick={() => {}}
                                 size="large"
                             >
                                 제출
                             </Button>
-                        </Box>
+                        </Box> */}
                     </Grid>
                 </Container>
             </Dialog>
         </div>
     );
 }
+
+
+
+
+// const stepNames = [
+//     '프로젝트',
+//     '기관'
+// ];
+
+// const handleClickSteps = (type) => {
+//     switch (type) {
+//         case "NEXT":
+//             setSteps(steps + 1);
+//             break;
+
+//         case "PREV":
+//             setSteps(steps - 1);
+//             break;
+
+//         case "FINISH":
+//             console.log("Finish");
+//             setSteps(steps + 1);
+//             break;
+
+//         default:
+//             break;
+//     }
+// }
