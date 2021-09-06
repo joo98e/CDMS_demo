@@ -55,11 +55,11 @@ const user = (state = initialState, action) => {
             }
 
         case types.SET_PROJECT_INOUTPUT_PERSON_INIT:
-            
+            console.log(123123213);
             return {
                 ...state,
-                projectMember : action.payload
-            }
+                projectMember : []
+            };
 
         default:
             return state;

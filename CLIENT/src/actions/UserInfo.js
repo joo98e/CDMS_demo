@@ -33,9 +33,8 @@ export const setProjectInOutPutPerson = payload => {
 };
 
 // ─────────────────────────────────────────────────── 
-export const setProjectPersonInit = payload => {
+export const setProjectPersonInit = () => {
     return {
-        type: types.SET_PROJECT_INOUTPUT_PERSON,
-        payload
+        type: types.SET_PROJECT_INOUTPUT_PERSON_INIT
     };
 };

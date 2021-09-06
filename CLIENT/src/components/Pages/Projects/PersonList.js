@@ -64,8 +64,7 @@ export class PersonList extends Component {
         } else if (type === "CANCLE") {
             this.props.enqueueSnackbar('내부 인력 구성이 취소되었습니다.', { variant: 'warning' });
 
-            let _init = [1, 2, 3];
-            this.props.setProjectPersonInit(_init);
+            this.props.setProjectPersonInit();
         }
     }
 
@@ -155,7 +154,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setProjectPersonInit: payload => { dispatch(actions.setProjectPersonInit(payload)) }
+        setProjectPersonInit: () => { dispatch(actions.setProjectPersonInit()) }
     }
 }
 
