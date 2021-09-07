@@ -7,7 +7,7 @@ import * as actions from '../../../actions/UserInfo';
 import {
     Button, withStyles, Box,
     Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
-    Divider, Paper,
+    Divider, Paper, Chip,
     TableContainer, Table, TableHead, TableBody, TableRow, TableCell
 } from '@material-ui/core'
 
@@ -91,6 +91,12 @@ export class PersonList extends Component {
                                 </DialogContentText>
                                 <Divider />
 
+                                {
+                                    this.props.projectMember.map((item, idx) => {
+                                        return <Chip key={idx} variant="outlined" size="small" label="Basic" />
+                                    })
+                                }
+
                                 {/* TODO 검색란 / onchange로 준비된 리스트에서 filter */}
                                 {/* Chip */}
                                 {/* Chip array */}
@@ -131,6 +137,7 @@ export class PersonList extends Component {
                                     외부 인력 구성
                                 </DialogContentText>
                             </Box> */}
+                            
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={() => { this.handleChangeStatus("CANCLE") }} color="inherit" variant="outlined">
@@ -149,7 +156,7 @@ export class PersonList extends Component {
 }
 
 const mapStateToProps = (state) => ({
-
+    projectMember : state.user.projectMember
 });
 
 const mapDispatchToProps = (dispatch) => {

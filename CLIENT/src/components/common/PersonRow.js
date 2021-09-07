@@ -67,8 +67,6 @@ export class PersonRow extends Component {
                     <Switch
                         checked={this.state.checked}
                         onChange={() => { this.handleSwitchChecked(this.props.data) }}
-                        name="checkedA"
-                        inputProps={{ 'aria-label': 'secondary checkbox' }}
                     />
                 </TableCell>
             </TableRow>

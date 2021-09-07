@@ -27,7 +27,7 @@ export const devAuth = member => {
 // ─────────────────────────────────────────────────── 
 export const setProjectInOutPutPerson = payload => {
     return {
-        type: types.SET_PROJECT_INOUTPUT_PERSON,
+        type: types.SET_PROJECT_PERSON_LIST,
         payload
     };
 };
@@ -35,6 +35,6 @@ export const setProjectInOutPutPerson = payload => {
 // ─────────────────────────────────────────────────── 
 export const setProjectPersonInit = () => {
     return {
-        type: types.SET_PROJECT_INOUTPUT_PERSON_INIT
+        type: types.SET_PROJECT_PERSON_LIST_INIT
     };
 };

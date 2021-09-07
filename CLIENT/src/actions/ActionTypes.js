@@ -30,7 +30,7 @@ export const DEV_SET_AUTH = "DEV_SET_AUTH";
 export const ENV_IS_DEV = "ENV_IS_DEV";
 
 // ─────────────────────────────────────────────────── 
-export const SET_PROJECT_INOUTPUT_PERSON = "SET_PROJECT_INOUTPUT_PERSON";
+export const SET_PROJECT_PERSON_LIST = "SET_PROJECT_PERSON_LIST";
 
 // ─────────────────────────────────────────────────── 
-export const SET_PROJECT_INOUTPUT_PERSON_INIT = "SET_PROJECT_INOUTPUT_PERSON_INIT";
+export const SET_PROJECT_PERSON_LIST_INIT = "SET_PROJECT_PERSON_LIST_INIT";

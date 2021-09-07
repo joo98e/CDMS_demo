@@ -108,11 +108,11 @@ export default function FullScreenDialog() {
 
     const handleClose = () => {
         setOpen(false);
-
-
+        setInfos(defaultState);
     };
 
     const handleValidateValue = () => {
+        console.log(12312);
         let _base = "PROJ_";
         
         for (let idx in infos) {

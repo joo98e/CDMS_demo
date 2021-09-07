@@ -45,7 +45,19 @@ const user = (state = initialState, action) => {
                 member: JSON.parse(sessionStorage.getItem('member'))
             };
 
-        case types.SET_PROJECT_INOUTPUT_PERSON:
+        case types.SET_PROJECT_PERSON_LIST:
+            
+            let _temp = { ...state.projectMember };
+
+            for (let idx in _temp) {
+                if (_temp[idx].id === action.payload.id) {
+                    // TODO 흐름 끊겼다리!! 이미 있던 id는 pop 해야돼
+                    _temp = [
+                        
+                    ]
+                }
+            }
+
             return {
                 ...state,
                 projectMember : [
@@ -54,8 +66,8 @@ const user = (state = initialState, action) => {
                 ]
             }
 
-        case types.SET_PROJECT_INOUTPUT_PERSON_INIT:
-            console.log(123123213);
+        case types.SET_PROJECT_PERSON_LIST_INIT:
+            
             return {
                 ...state,
                 projectMember : []
