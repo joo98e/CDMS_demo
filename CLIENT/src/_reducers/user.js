@@ -47,20 +47,21 @@ const user = (state = initialState, action) => {
 
         case types.SET_PROJECT_PERSON_LIST:
             
-            let _temp = { ...state.projectMember };
-
+            let _temp = state.projectMember;
+            
             for (let idx in _temp) {
                 if (_temp[idx].id === action.payload.id) {
-                    // TODO 흐름 끊겼다리!! 이미 있던 id는 pop 해야돼
-                    _temp = [
-                        
-                    ]
+                    _temp.splice(idx, 1);
+                    return {
+                        ...state,
+                        projectMember: _temp
+                    }
                 }
             }
 
             return {
                 ...state,
-                projectMember : [
+                projectMember: [
                     ...state.projectMember,
                     action.payload
                 ]
