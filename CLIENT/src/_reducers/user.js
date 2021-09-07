@@ -48,18 +48,17 @@ const user = (state = initialState, action) => {
         case types.SET_PROJECT_PERSON_LIST:
             
             let _temp = state.projectMember;
-            
+            let status = false;
+
             for (let idx in _temp) {
                 if (_temp[idx].id === action.payload.id) {
                     _temp.splice(idx, 1);
-                    return {
-                        ...state,
-                        projectMember: _temp
-                    }
+                    status = true;
                 }
             }
 
-            return {
+            if (status) return { ...state, projectMember: _temp }
+            else return {
                 ...state,
                 projectMember: [
                     ...state.projectMember,
