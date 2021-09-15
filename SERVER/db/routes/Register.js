@@ -44,7 +44,7 @@ const checkDirectory = (dir) => {
     }
 }
 
-router.post('/signUp', avatarStorage.single('MEM_IMAGE'), (req, res) => {
+router.post('/signUp', avatarDIR.single('MEM_IMAGE'), (req, res) => {
     bcrypt.genSalt(saltRounds, (err, salt) => {
         bcrypt.hash(req.body.MEM_PASSWORD, salt, (err, hash) => {
             if(err) console.log(err);

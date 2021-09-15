@@ -16,7 +16,6 @@ module.exports = (() => {
             console.log(`${data.database} is Connected`);
         }
     });
-    console.log(12312312)
 
     return connection;
 })();

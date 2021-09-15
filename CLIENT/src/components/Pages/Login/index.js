@@ -76,8 +76,8 @@ export class Login extends Component {
     }
 
     loginCheck = () => {
-
-        const URL = '/users/login';
+        
+        const URL = '/api/users/login';
         const vars = {
             user_id: this.state.info.user_id,
             user_password: this.state.info.user_password

@@ -48,7 +48,7 @@ export class PersonList extends Component {
     }
 
     callApi = async () => {
-        let response = await fetch('/users/project/work');
+        let response = await fetch('/api/users/project/work');
         let workForce = await response.json();
 
         return workForce;

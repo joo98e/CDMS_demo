@@ -43,7 +43,7 @@ export class index extends PureComponent {
     }
 
     callApi = async () => {
-        let response = await fetch('/departments');
+        let response = await fetch('/api/departments');
         let departments = await response.json();
         return departments;
     }
@@ -87,7 +87,7 @@ export class index extends PureComponent {
     }
 
     hasConfirmed = () => {
-        const URL = "/register/signUp"
+        const URL = "/api/register/signUp"
         const config = {
             headers: {
                 "content-type": "multipart/form-data"

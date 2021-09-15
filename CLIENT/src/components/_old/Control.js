@@ -22,19 +22,6 @@ export class Control extends Component {
         return console.log(`${fnName} is not defined`);
     }
 
-    createUser = () => {
-        const vars = {
-            name : 'tb',
-            age : '28',
-            id : 'taebok',
-            password : '12345',
-            email : 'blackishhood@mirimmedialab.co.kr'
-        }
-        const url = '/users/register';
-
-        return axios.post(url, vars);
-    }
-
     render() {
         return (
             <div>

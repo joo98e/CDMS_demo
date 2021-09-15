@@ -13,8 +13,6 @@ import { Avatar } from '@material-ui/core';
 // import HomeIcon from '@material-ui/icons/Home';
 import Sidebar from './SideBar';
 
-import avatars from '../../_images/_avatars/users/ohyes.png';
-
 const styles = theme => ({
     root: {
         flewGrow: 1
