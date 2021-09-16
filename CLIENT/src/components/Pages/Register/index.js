@@ -8,6 +8,7 @@ import {
 import Policy from './Policy'
 import RegisterBox from './RegisterBox'
 import StepComponent from '../../common/StepComponent'
+import StepperButtonGroup from '../../common/StepperButtonGroup'
 
 
 
@@ -59,7 +60,7 @@ const stepInfo = {
         ""
     ],
     sortBy: "horizontal",
-    resultComponent: <div>123</div>
+    resultComponent: ""
 }
 
 const StepByComponent = [
@@ -97,12 +98,11 @@ export class index extends PureComponent {
         this.setState({
             stepNum: this.state.stepNum + (param)
         });
-        console.log(this.state.stepNum);
     }
 
     handleClickResetStep = () => {
         this.setState({
-            stepNum: 1
+            stepNum: 0
         });
     }
 
@@ -111,7 +111,7 @@ export class index extends PureComponent {
         return (
             <Container className={classes.columnBox} maxWidth="lg">
 
-                <StepComponent stepInfo={stepInfo} stepNum={this.state.stepNum} />
+                <StepComponent stepInfo={stepInfo} stepNum={this.state.stepNum} stepMaxNum={StepByComponent.length - 1 }/>
 
                 {
                     StepByComponent.map((item, idx) => {
@@ -131,23 +131,13 @@ export class index extends PureComponent {
                         )
                     })
                 }
-
-                <ButtonGroup>
-                    <Button variant="contained" disabled={this.state.stepNum === 0} onClick={() => { this.handleClickMoveStep(-1) }}>이전</Button>
-                    <Button variant="contained" disabled={this.state.stepNum === StepByComponent.length - 1} onClick={() => { this.handleClickMoveStep(1) }}>다음</Button>
-                </ButtonGroup>
+                
+                <StepperButtonGroup stepNum={this.state.stepNum} stepMaxNum={StepByComponent.length - 1} handleClickMoveStep={this.handleClickMoveStep} />
 
             </Container>
         )
     }
 }
 
-const mapStateToProps = (state) => ({
 
-})
-
-const mapDispatchToProps = {
-
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(index))
+export default withStyles(styles)(index)

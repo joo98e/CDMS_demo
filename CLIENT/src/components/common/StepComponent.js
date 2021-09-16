@@ -1,30 +1,38 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux';
-import { Box, Stepper, Step, StepLabel, StepContent, Button, Paper, Typography, withStyles } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import {
+    Box, Stepper, Step, StepLabel, StepContent, Typography,
+} from '@material-ui/core';
 
-const styles = theme => ({
-    
-});
-
-
-    // horizontal , Vertical
+/**
+ * @param {stepInfo}             : Object, 
+ *                                 const stepInfo = {
+ *                                     stepsTitle: [
+ *                                         "타이틀명1",
+ *                                         "타이틀명2",
+ *                                         "타이틀명3",
+ *                                     ],
+ *                                     stepsDesc: [
+ *                                         "데스크립션1",
+ *                                         "데스크립션2",
+ *                                         "데스크립션3"
+ *                                     ],
+ *                                     sortBy: "vertical" || "horizontal",
+ *                                     resultComponent: <컴포넌트 /> || ""
+ *                                 }
+ * 
+ * @param {stepNum}              : 현재 스텝 단계 수
+ * @param {stepMaxNum}           : 총 스텝 단계 수
+ * 
+ * @returns {<StepComponent />}
+ */
 
 class StepComponent extends PureComponent {
-    constructor(props) {
-        super(props);
-        this.state = {
-            activeStep: 0,
-            valueError: {
-                id: false,
-                password: false
-            }
-        }
-    }
 
     componentDidMount() {
-        console.log(this.props.stepInfo);
+        console.log(this.props.stepMaxNum);
     }
+    
 
     render() {
         // 색깔 고치기
@@ -32,11 +40,10 @@ class StepComponent extends PureComponent {
         const steps = this.props.stepInfo.stepsTitle;
         const contents = this.props.stepInfo.stepsDesc;
         const resultComponent = this.props.stepInfo.resultComponent;
-        const { classes } = this.props;
 
         return (
             <Box>
-                <Stepper activeStep={this.props.stepNum} orientation={this.props.stepInfo.sortBy} className={classes.bg}>
+                <Stepper activeStep={this.props.stepNum} orientation={this.props.stepInfo.sortBy} >
                     {steps.map((name, index) => {
                         return (
                             <Step key={index}>
@@ -48,7 +55,7 @@ class StepComponent extends PureComponent {
                         );
                     })}
                 </Stepper>
-                {this.state.activeStep === steps.length - 1 ?
+                {this.props.stepMaxNum === this.props.stepNum ?
                     resultComponent
                     :
                     ''
@@ -60,10 +67,6 @@ class StepComponent extends PureComponent {
 
 const mapStateToProps = (state) => ({
     color: state.ui.color
-})
+});
 
-const mapDispatchToProps = {
-
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(StepComponent));
+export default connect(mapStateToProps)(StepComponent);
