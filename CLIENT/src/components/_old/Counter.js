@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Value from './Value';
 import Control from './Control';
 import { connect } from 'react-redux';
-import * as actions from '../actions'
+import * as actions from '../_actions'
 
 export class Counter extends Component {
 

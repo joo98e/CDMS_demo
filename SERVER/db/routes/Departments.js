@@ -6,7 +6,11 @@ const connection = require("../db_connection");
 
 router.get('/', (req, res) => {
 
-    const sql = "SELECT * FROM TB_DEPART_LIST WHERE DEPART_DELETE_YN = 'N';"
+    const sql = `
+    SELECT
+        *
+    FROM tb_depart_list 
+    WHERE delete_yn = 'N';`
 
     connection.query(sql,
         (err, rows, fields) => {

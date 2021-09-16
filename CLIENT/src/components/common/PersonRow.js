@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../actions/UserInfo';
+import * as actions from '../../_actions/UserInfo';
 
 import {
     Avatar, withStyles, TableRow, TableCell, Switch,

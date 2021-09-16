@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Axios from 'axios';
-import * as actions from '../../../actions/UserInfo'
+import * as actions from '../../../_actions/UserInfo'
 import CopyRights from '../../common/CopyRights'
 import logo from '../../../_logo/logo.svg'
 import { withSnackbar } from 'notistack'

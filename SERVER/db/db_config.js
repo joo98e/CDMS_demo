@@ -4,7 +4,7 @@ module.exports = (() => {
         "port": "3307",
         "user": "myboard",
         "password": "EVERYbeok1!2#",
-        "database": "CDMS_DEMO"
+        "database": "CDMS"
     }
 })(); 
 

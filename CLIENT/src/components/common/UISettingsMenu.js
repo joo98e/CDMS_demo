@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withSnackbar } from 'notistack'
-import * as actions from '../../actions'
+import * as actions from '../../_actions'
 import { withStyles } from '@material-ui/core'
 import ColorLensIcon from '@material-ui/icons/ColorLens';
 import CachedIcon from '@material-ui/icons/Cached';

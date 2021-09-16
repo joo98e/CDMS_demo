@@ -54,7 +54,7 @@ export class Projects extends Component {
     // TODO DB 프로젝트참여자리스트 구현 
 
     getProjectList = () => {
-        const URL = '/projects';
+        const URL = 'api/projects';
         const params = this.props.member;
         axios.get(URL, {
             params: {
@@ -81,14 +81,15 @@ export class Projects extends Component {
                         <Grid container>
                             <Grid container spacing={3}>
 
-                                {this.state.projects.map((item, index) => {
-                                    return (
-                                        <ProjectCard
-                                            key={index}
-                                            infos={item}
-                                        />
-                                    )
-                                })
+                                {
+                                    this.state.projects.map((item, index) => {
+                                        return (
+                                            <ProjectCard
+                                                key={index}
+                                                infos={item}
+                                            />
+                                        )
+                                    })
                                 }
 
                                 <Grid item xs={12} md={6} lg={4} >

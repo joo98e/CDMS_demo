@@ -1,9 +1,15 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { Container, Grow, Typography, withStyles, Box, Divider } from '@material-ui/core'
+import {
+    Container, Grow, Typography, withStyles,
+    Box, Divider, Button, ButtonGroup
+} from '@material-ui/core'
 
 import Policy from './Policy'
 import RegisterBox from './RegisterBox'
+import StepComponent from '../../common/StepComponent'
+
+
 
 const styles = theme => ({
     root: {
@@ -11,19 +17,12 @@ const styles = theme => ({
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        minHeight: '100vh'
     },
-    policyBox: {
-        display: 'flex',
-        width: '60%',
-        height: '100vh',
-        flexDirection: 'column',
-        justifyContent: 'space-around',
-        overflowY: 'scroll',
-        backgroundColor: theme.palette.background.paper
+    maximumHorizon: {
+        minWidth: '100%'
     },
-    title: {
-        minHeight: '10%'
+    maximumVertical: {
+        minHeight: '100%'
     },
     policyContent: {
         minHeight: '65%'
@@ -35,13 +34,55 @@ const styles = theme => ({
         height: '100vh',
         overflowY: 'scroll'
     },
+    columnBox: {
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: theme.palette.background.paper
+    },
+    show: {
+        display : 'block'
+    },
+    hide: {
+        display: 'none'
+    }
 });
+
+const stepInfo = {
+    stepsTitle: [
+        "이용 약관",
+        "회원 정보 입력",
+        "가입 완료",
+    ],
+    stepsDesc: [
+        "",
+        "",
+        ""
+    ],
+    sortBy: "horizontal",
+    resultComponent: <div>123</div>
+}
+
+const StepByComponent = [
+    {
+        StepNum: 1,
+        Component: <Policy />
+    },
+    {
+        StepNum: 2,
+        Component: <RegisterBox />
+    },
+    {
+        StepNum: 3,
+        Component: <div>3</div>
+    },
+];
 
 export class index extends PureComponent {
     constructor(props) {
         super(props)
         this.state = {
-            awhile: false
+            awhile: false,
+            stepNum: 1
         }
     }
 
@@ -52,31 +93,51 @@ export class index extends PureComponent {
         });
     }
 
+    handleClickMoveStep = param => {
+        this.setState({
+            stepNum: this.state.stepNum + (param)
+        });
+        console.log(this.state.stepNum);
+    }
+
+    handleClickResetStep = () => {
+        this.setState({
+            stepNum: 1
+        });
+    }
+
     render() {
         const { classes } = this.props;
         return (
-            <Box className={classes.root + ' mobile-column'}>
-                <Grow in={this.state.awhile} >
-                    <Box className={classes.policyBox + ' mobile-column'}>
-                        <Box className={classes.policyContent}>
-                            <Container>
-                                <Policy />
-                            </Container>
-                        </Box>
-                    </Box>
-                </Grow>
-                <Grow in={this.state.awhile} style={{ transformOrigin: '0 0 0' }} timeout={this.state.awhile ? 1000 : 0}>
-                    <Box className={classes.registerBox + ' mobile-column'}>
-                        <Box mt={4} mb={4}>
-                            <Typography variant="h4" align="center">
-                                회원가입
-                            </Typography>
-                        </Box>
-                        <Divider />
-                        {this.state.awhile && <RegisterBox />}
-                    </Box>
-                </Grow>
-            </Box >
+            <Container className={classes.columnBox} maxWidth="lg">
+
+                <StepComponent stepInfo={stepInfo} />
+
+                {
+                    StepByComponent.map((item, idx) => {
+                        return (
+                            <Grow
+                                key={idx}
+                                in={this.state.stepNum === (idx + 1)}
+                                {...(this.state.stepNum === (idx + 1) ? { timeout: 1000 } : {})}
+                                className={this.state.stepNum === (idx + 1) ? classes.show : classes.hide}
+                            >
+                                <Box>
+                                    <Container>
+                                        {item.Component}
+                                    </Container>
+                                </Box>
+                            </Grow>
+                        )
+                    })
+                }
+
+                <ButtonGroup>
+                    <Button variant="contained" disabled={this.state.stepNum === 1} onClick={() => { this.handleClickMoveStep(-1) }}>이전</Button>
+                    <Button variant="contained" disabled={this.state.stepNum === StepByComponent.length} onClick={() => { this.handleClickMoveStep(1) }}>다음</Button>
+                </ButtonGroup>
+
+            </Container>
         )
     }
 }

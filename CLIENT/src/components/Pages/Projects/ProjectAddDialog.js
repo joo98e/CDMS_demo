@@ -89,7 +89,7 @@ export default function FullScreenDialog() {
     React.useEffect(() => {
 
         const fetchCategory = async () => {
-            await axios.get('/projects/category')
+            await axios.get('api/projects/category')
                 .then(res => {
                     setCategoryList(res.data);
                 });

@@ -7,6 +7,9 @@ const styles = theme => ({
     
 });
 
+
+    // horizontal , Vertical
+
 class StepComponent extends PureComponent {
     constructor(props) {
         super(props);
@@ -19,76 +22,34 @@ class StepComponent extends PureComponent {
         }
     }
 
-    handlePrev = () => {
-        this.setState({
-            activeStep: this.state.activeStep - 1
-        });
-    }
-
-    handleNext = () => {
-        this.setState({
-            activeStep: this.state.activeStep + 1
-        });
-    }
-
-    handleReset = () => {
-        this.setState({
-            activeStep: 0
-        });
+    componentDidMount() {
+        console.log(this.props.stepInfo);
     }
 
     render() {
         // 색깔 고치기
 
-        const steps = [
-            '첫번째',
-            '두번째',
-            '세번째'
-        ];
-
-        const contents = [
-            '알아주세요알아주세요알아주세요알아주세요알아주세요알아주세요알아주세요알아주세요.',
-            '말해주세요.',
-            '마지막입니다.'
-        ];
-
+        const steps = this.props.stepInfo.stepsTitle;
+        const contents = this.props.stepInfo.stepsDesc;
+        const resultComponent = this.props.stepInfo.resultComponent;
         const { classes } = this.props;
 
         return (
             <Box>
-                <Stepper activeStep={this.state.activeStep} orientation={'vertical'} className={classes.bg}>
+                <Stepper activeStep={this.state.activeStep} orientation={this.props.stepInfo.sortBy} className={classes.bg}>
                     {steps.map((name, index) => {
                         return (
                             <Step key={index}>
                                 <StepLabel>{name}</StepLabel>
                                 <StepContent>
-                                    <Typography style={{ marginBottom: "15px" }}>{contents[index]}</Typography>
-                                    <Button onClick={this.handlePrev} disabled={this.state.activeStep === 0} size="small">PREV</Button>
-                                    <Button onClick={this.handleNext} size="small">NEXT</Button>
+                                    <Typography>{contents[index]}</Typography>
                                 </StepContent>
-                            </Step>
+                            </Step>    
                         );
                     })}
                 </Stepper>
-
-                {this.state.activeStep === steps.length ?
-                    <Paper square elevation={0} >
-                        <Box display="flex" justifyContent="center" alignItems="space-around" pt={1} pb={4}>
-                            <Button onClick={this.handleReset} size="medium">
-                                처음으로
-                            </Button>
-                            <Link to="/login">
-                                <Button size="medium">
-                                    로그인하기
-                                </Button>
-                            </Link>
-                            <Link to="/register">
-                                <Button size="medium">
-                                    회원가입
-                                </Button>
-                            </Link>
-                        </Box>
-                    </Paper>
+                {this.state.activeStep === steps.length - 1 ?
+                    resultComponent
                     :
                     ''
                 }

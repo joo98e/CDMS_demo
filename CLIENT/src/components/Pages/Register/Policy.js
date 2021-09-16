@@ -22,8 +22,6 @@ export default function Policy() {
                 </Box>
             </Container>
 
-            <Divider />
-
             <Container>
                 <Box mt={4} mb={4}>
                     <Typography variant="h6">
@@ -47,9 +45,7 @@ export default function Policy() {
                     </Typography>
                 </Box>
 
-                <Divider />
-
-                <Box mt={4} mb={4}>
+                {/* <Box mt={4} mb={4}>
                     <Typography variant="h6">
                         제 3조
                     </Typography>
@@ -69,7 +65,7 @@ export default function Policy() {
                         제 3조 [코드비 정보 등의 제공]<br />
                         코드비는 상호, 대표자 성명, 주소, 전화번호(소비자의 불만을 처리하는 곳의 연락처 포함), FAX번호, 전자우편주소, 사업자등록번호, 통신판매업 신고번호 및 개인정보관리책임자 등을 이용자가 쉽게 알 수 있도록 온라인 서비스 초기화면에 게시합니다.<br />
                     </Typography>
-                </Box>
+                </Box> */}
             </Container>
         </Box>
     )

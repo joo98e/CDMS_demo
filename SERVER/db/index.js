@@ -1,3 +1,9 @@
+
+
+// ────────────────────────────────────────────────────────── 개발 환경 확인
+const status = process.env.NODE_ENV = (process.env.NODE_ENV && (process.env.NODE_ENV).trim().toLowerCase() == 'production') ? 'prod' : 'dev';
+console.log(status);
+
 // ────────────────────────────────────────────────────────── Require
 const CURRENT_DIR = __dirname;
 const app = require('./app');
@@ -15,9 +21,6 @@ const projects = require('./routes/projects');
 const policy = require('./routes/policy');
 const avatarsChange = require('./routes/uploads/avatars/avatarsChange');
 
-// ────────────────────────────────────────────────────────── etc
-const isDev = CURRENT_DIR.indexOf("C:") !== -1 ? `Dev is ${true}` : `Dev is ${false}`;
-
 // ────────────────────────────────────────────────────────── 
 
 // 라우터 회원 
@@ -33,13 +36,15 @@ app.use('/api/uploads', avatarsChange);
 app.use('/api/menu', menu);
 app.use('/api/policy', policy);
 
-// BUILD 제공
-app.use(express.static("client/build"));
-app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
-});
 
+if (status === "prod") {
+    // BUILD 제공
+    app.use(express.static("client/build"));
+    app.get("*", (req, res) => {
+        res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
+    });
+}
 
 // ────────────────────────────────────────────────────────── 
 
-app.listen(port, () => console.log(`${isDev}, Listening on PORT ${port}`));
+app.listen(port, () => console.log(`Listening on PORT ${port}`));

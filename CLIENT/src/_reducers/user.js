@@ -1,4 +1,4 @@
-import * as types from '../actions/ActionTypes';
+import * as types from '../_actions/ActionTypes';
 
 // DB 살리고 함수형으로 바꾸기
 

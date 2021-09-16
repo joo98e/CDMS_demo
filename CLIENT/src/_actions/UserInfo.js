@@ -1,4 +1,4 @@
-import * as types from '../actions/ActionTypes';
+import * as types from '../_actions/ActionTypes';
 
 // ─────────────────────────────────────────────────── 
 export const setMemberInfos = member => {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
-import * as actions from '../../actions/UserInfo'
+import * as actions from '../../_actions/UserInfo'
 
 import {
     Box, AppBar, Toolbar, IconButton, Typography, withStyles, Tooltip
