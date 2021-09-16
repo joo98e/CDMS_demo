@@ -5,7 +5,7 @@ const copyRight = () => {
     const date = new Date();
     return (
         <Typography variant="h6" component="h6" align="center">
-            2020 - {date.getFullYear()}, Mirim Co. all rights reserved.
+            2020 - {date.getFullYear()}, TB Co. all rights reserved.
         </Typography>
     );
 }

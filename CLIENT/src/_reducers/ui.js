@@ -44,28 +44,19 @@ const ui = (state = initialState, action) => {
             };
 
         case types.SET_THEME:
-            // either
-            return {
-                ...state,
-                theme: state.nowThemeNum === 0 ? Themes.white : Themes.dark,
-                nowThemeNum: state.nowThemeNum === 0 ? 1 : 0
+            if(state.nowThemeNum === Object.keys(Themes).length - 1){
+                return {
+                    ...state,
+                    nowThemeNum : 0,
+                    theme: Themes[Object.keys(Themes)[0]]
+                }
+            }else{
+                return {
+                    ...state,
+                    nowThemeNum : state.nowThemeNum + 1,
+                    theme: Themes[Object.keys(Themes)[state.nowThemeNum + 1]]
+                };
             }
-        
-            // multiple
-            // if(state.nowThemeNum === Object.keys(Themes).length - 1){
-            //     return {
-            //         ...state,
-            //         nowThemeNum : 0,
-            //         theme: Themes[Object.keys(Themes)[0]]
-            //     }
-            // }else{
-            //     return {
-            //         ...state,
-            //         nowThemeNum : state.nowThemeNum + 1,
-            //         theme: Themes[Object.keys(Themes)[state.nowThemeNum + 1]]
-            //     };
-            // }
-            
 
         default:
             return state;

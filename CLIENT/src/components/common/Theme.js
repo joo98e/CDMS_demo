@@ -1,17 +1,5 @@
 import { createMuiTheme } from '@material-ui/core';
-import { purple, teal, blue, blueGrey, orange, lime, brown, amber } from "@material-ui/core/colors";
-// import WhiteTheme from './WhiteTheme'
-
-// TODO
-/*
- * 타입스크립트 적용하기
- * 
- * 
- * 만들 테마 목록
- * https://www.rapidtables.com/web/color/white-color.html
- * mintcream
- * 
-*/
+import { purple, teal, blue, blueGrey, orange } from "@material-ui/core/colors";
 
 const theme = {
     dark: createMuiTheme({
@@ -28,36 +16,6 @@ const theme = {
                 secondary: "#FFF",
             },
         },
-    }),
-    
-    // white: WhiteTheme,
-
-    brown: createMuiTheme({
-        palette: {
-            primary: brown,
-            background: {
-                default: brown[100],
-                paper: brown[200],
-                button: brown[300]
-            },
-            text: {
-                primary: "#a04500"
-            }
-        }
-    }),
-
-    lime: createMuiTheme({
-        palette: {
-            primary: lime,
-            background: {
-                default: lime[100],
-                paper: lime[200],
-                button: lime[300]
-            },
-            text: {
-                primary: "#a04500"
-            }
-        }
     }),
 
     purple: createMuiTheme({
@@ -125,7 +83,7 @@ const theme = {
                 primary: "#a04500"
             }
         }
-    }),
+    })
 }
 
 export default theme;

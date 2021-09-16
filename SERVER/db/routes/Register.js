@@ -13,19 +13,38 @@ const CURRENT_DIR = __dirname;
 const multer = require('multer');
 const path = require('path');
 const avatarTargetDIR = `uploads\\avatars\\items\\`;
-
+// dest : 목적지 데스티네이션 
 const avatarDIR = multer({ dest: avatarTargetDIR });
 
 const avatarStorage = multer({
     storage: multer.diskStorage({
-        destination: `./uploads/avatars/items/`,
+        destination: `../CLIENT/src/_images/_avatars/users/`,
         filename: function (req, file, cb) {
             cb(null, `avatar_${Date.now()}_${file.originalname}`);
         }
     })
 });
 
-router.post('/signUp', avatarStorage.single('MEM_IMAGE'), (req, res) => {
+// TODO 경로 맞춰 이미지 보이게 하기
+// console.log(avatarStorage.storage.destination);
+
+router.get('/test', (req, res) => {
+    console.log(avatarTargetDIR);
+    res.status(200).send('123');
+});
+
+const checkDirectory = (dir) => {
+    const _target = `${avatarTargetDIR}\\${dir}`;
+
+    if (!fs.existsSync(_target)) {
+        fs.mkdirSync(_target);
+        console.log(`folder created, ${dir}`);
+    } else {
+        console.log(`폴더가 이미 존재하여 다음 차례를 진행합니다, ${avatarTargetDIR}\\items\\${dir}`);
+    }
+}
+
+router.post('/signUp', avatarDIR.single('MEM_IMAGE'), (req, res) => {
     bcrypt.genSalt(saltRounds, (err, salt) => {
         bcrypt.hash(req.body.MEM_PASSWORD, salt, (err, hash) => {
             if(err) console.log(err);
@@ -55,17 +74,3 @@ router.post('/signUp', avatarStorage.single('MEM_IMAGE'), (req, res) => {
 });
 
 module.exports = router;
-
-
-// ────────────────────────────────────────────────────────────── 쓰이지 않음
-
-const checkDirectory = (dir) => {
-    const _target = `${avatarTargetDIR}\\${dir}`;
-
-    if (!fs.existsSync(_target)) {
-        fs.mkdirSync(_target);
-        console.log(`folder created, ${dir}`);
-    } else {
-        console.log(`폴더가 이미 존재하여 다음 차례를 진행합니다, ${avatarTargetDIR}\\items\\${dir}`);
-    }
-}

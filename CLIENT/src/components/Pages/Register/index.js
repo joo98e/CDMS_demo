@@ -60,15 +60,12 @@ export class index extends PureComponent {
                     <Box className={classes.policyBox + ' mobile-column'}>
                         <Box className={classes.policyContent}>
                             <Container>
-
                                 <Policy />
                             </Container>
                         </Box>
                     </Box>
                 </Grow>
-                
-                {/* TODO 스텝 컴포넌트 */}
-                {/* <Grow in={this.state.awhile} style={{ transformOrigin: '0 0 0' }} timeout={this.state.awhile ? 1000 : 0}>
+                <Grow in={this.state.awhile} style={{ transformOrigin: '0 0 0' }} timeout={this.state.awhile ? 1000 : 0}>
                     <Box className={classes.registerBox + ' mobile-column'}>
                         <Box mt={4} mb={4}>
                             <Typography variant="h4" align="center">
@@ -76,9 +73,9 @@ export class index extends PureComponent {
                             </Typography>
                         </Box>
                         <Divider />
-                        {this.state.awhile && }
+                        {this.state.awhile && <RegisterBox />}
                     </Box>
-                </Grow> */}
+                </Grow>
             </Box >
         )
     }
