@@ -80,7 +80,7 @@ export class UISettingsMenu extends Component {
                     ariaLabel="SpeedDial example"
                     className={classes.speedDial}
                     hidden={this.state.hidden}
-                    icon={<TouchAppTwoToneIcon style={{ color: this.props.theme.palette.text.primary }} />}
+                    icon={<TouchAppTwoToneIcon style={{ color: this.props.theme.palette.background.button }} />}
                     open={this.state.open}
                     onOpen={this.handleOpen}
                     onClose={this.handleClose}

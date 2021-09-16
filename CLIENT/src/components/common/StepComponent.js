@@ -36,7 +36,7 @@ class StepComponent extends PureComponent {
 
         return (
             <Box>
-                <Stepper activeStep={this.state.activeStep} orientation={this.props.stepInfo.sortBy} className={classes.bg}>
+                <Stepper activeStep={this.props.stepNum} orientation={this.props.stepInfo.sortBy} className={classes.bg}>
                     {steps.map((name, index) => {
                         return (
                             <Step key={index}>

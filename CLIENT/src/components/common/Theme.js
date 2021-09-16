@@ -1,8 +1,8 @@
-import { createMuiTheme } from '@material-ui/core';
+import { createTheme } from '@material-ui/core';
 import { purple, teal, blue, blueGrey, orange } from "@material-ui/core/colors";
 
 const theme = {
-    dark: createMuiTheme({
+    dark: createTheme({
         palette: {
             type: 'dark',
             primary: {
@@ -18,7 +18,26 @@ const theme = {
         },
     }),
 
-    purple: createMuiTheme({
+    white: createTheme({
+        palette: {
+            primary: {
+                main: "#000",
+            },
+            secondary: {
+                main: '#000000',
+            },
+            background: {
+                default: "#FFF",
+                paper: "#EEE",
+                button: "#FFFFFF",
+            },
+            text: {
+                primary: "#000000",
+            }
+        },
+    }),
+
+    purple: createTheme({
         palette: {
             primary: {
                 main: purple[500],
@@ -37,7 +56,7 @@ const theme = {
         },
     }),
 
-    teal: createMuiTheme({
+    teal: createTheme({
         palette: {
             primary: {
                 main: teal[500]
@@ -56,7 +75,7 @@ const theme = {
         }
     }),
 
-    blue: createMuiTheme({
+    blue: createTheme({
         palette: {
             primary: blue,
             secondary: blueGrey,
@@ -71,7 +90,7 @@ const theme = {
         },
     }),
 
-    orange: createMuiTheme({
+    orange: createTheme({
         palette: {
             primary: orange,
             background: {

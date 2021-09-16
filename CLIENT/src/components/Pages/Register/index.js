@@ -40,7 +40,7 @@ const styles = theme => ({
         backgroundColor: theme.palette.background.paper
     },
     show: {
-        display : 'block'
+        display: 'block'
     },
     hide: {
         display: 'none'
@@ -82,7 +82,7 @@ export class index extends PureComponent {
         super(props)
         this.state = {
             awhile: false,
-            stepNum: 1
+            stepNum: 0
         }
     }
 
@@ -111,16 +111,16 @@ export class index extends PureComponent {
         return (
             <Container className={classes.columnBox} maxWidth="lg">
 
-                <StepComponent stepInfo={stepInfo} />
+                <StepComponent stepInfo={stepInfo} stepNum={this.state.stepNum} />
 
                 {
                     StepByComponent.map((item, idx) => {
                         return (
                             <Grow
                                 key={idx}
-                                in={this.state.stepNum === (idx + 1)}
-                                {...(this.state.stepNum === (idx + 1) ? { timeout: 1000 } : {})}
-                                className={this.state.stepNum === (idx + 1) ? classes.show : classes.hide}
+                                in={this.state.stepNum === idx}
+                                {...(this.state.stepNum === idx ? { timeout: 1000 } : {})}
+                                className={this.state.stepNum === idx ? classes.show : classes.hide}
                             >
                                 <Box>
                                     <Container>
@@ -133,8 +133,8 @@ export class index extends PureComponent {
                 }
 
                 <ButtonGroup>
-                    <Button variant="contained" disabled={this.state.stepNum === 1} onClick={() => { this.handleClickMoveStep(-1) }}>이전</Button>
-                    <Button variant="contained" disabled={this.state.stepNum === StepByComponent.length} onClick={() => { this.handleClickMoveStep(1) }}>다음</Button>
+                    <Button variant="contained" disabled={this.state.stepNum === 0} onClick={() => { this.handleClickMoveStep(-1) }}>이전</Button>
+                    <Button variant="contained" disabled={this.state.stepNum === StepByComponent.length - 1} onClick={() => { this.handleClickMoveStep(1) }}>다음</Button>
                 </ButtonGroup>
 
             </Container>
