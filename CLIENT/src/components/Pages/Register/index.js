@@ -5,6 +5,7 @@ import {
 } from '@material-ui/core'
 import { withSnackbar } from 'notistack';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import StepComponent from '../../common/StepComponent'
 import Policy from './Policy'
@@ -12,8 +13,8 @@ import InputAccount from './InputAccount'
 import InputJobs from './InputJobs';
 import Success from './Success';
 
+import * as actions from '../../../_actions/UserInfo'
 import FNValidator from '../../common/FNValidator';
-import { ContactSupportOutlined } from '@material-ui/icons';
 
 const styles = theme => ({
     columnBox: {
@@ -50,7 +51,15 @@ export class index extends PureComponent {
         super(props)
         this.state = {
             awhile: false,
-            stepNum: 0
+            stepNum: 0,
+            errorTextField : {
+                id : false,
+                password : false,
+                first_name : false,
+                last_name : false,
+                nickName : false,
+                phone : false,
+            }
         }
     }
 
@@ -62,7 +71,9 @@ export class index extends PureComponent {
     }
 
     handleClickMoveStep = param => {
+        const _obj = this.props.registerMember;
         let result = Boolean;
+
         if (param > 0) {
             switch (this.state.stepNum) {
                 case 0:
@@ -72,12 +83,68 @@ export class index extends PureComponent {
 
                 case 1:
                     // TODO Validator, result true, false
-                    console.log(this.props.store.state.user.registerMember)
 
-                    // if(FNValidator()){
-                    //     this.props.enqueueSnackbar(`멋진 분이시군요!`, { variant: 'success' });
-                    //     result = true;
-                    // }
+                    for(let item in _obj){
+                        console.log(item)
+
+                        switch (item) {
+                            case "id":
+                                if(!FNValidator("ID", _obj[item])){
+                                    this.props.enqueueSnackbar("ID는 이메일 형식이에요!", {variant : "warning"});
+                                    return result = false;
+                                }
+                                break;
+
+                            case "password":
+                                if(!FNValidator("PASSWORD", _obj[item])){
+                                    this.props.enqueueSnackbar("비밀번호를 확인해주세요!", {variant : "warning"});
+                                    return result = false;
+                                }
+                                break;
+
+                            case "first_name":
+                                if(!FNValidator("FIRST_NAME", _obj[item])){
+                                    this.props.enqueueSnackbar("first_name", {variant : "warning"});
+                                    return result = false;
+                                }
+                                break;
+                            
+                            case "last_name":
+                                if(!FNValidator("LAST_NAME", _obj[item])){
+                                    this.props.enqueueSnackbar("last_name", {variant : "warning"});
+                                    return result = false;
+                                }
+                                break;
+
+                            case "nickName":
+                                if(!FNValidator("NICKNAME", _obj[item])){
+                                    this.props.enqueueSnackbar("nickName", {variant : "warning"});
+                                    return result = false;
+                                }
+                                break;
+
+                            case "phone":
+                                if(!FNValidator("PHONE", _obj[item])){
+                                    this.props.enqueueSnackbar("phone", {variant : "warning"});
+                                    return result = false;
+                                }
+                                break;
+                        
+                            default:
+                                console.log("에러");
+                                break;
+                        }
+                    }
+
+                    // if(FNValidator(this.props.registerMember)){
+                        //     result = true;
+                        // }
+
+                    if(result){
+                        this.props.enqueueSnackbar(`멋진 분이시군요!`, { variant: 'success' });
+                    }else{
+                        
+                    }
                     break;
                     
                 case 2:
@@ -91,6 +158,7 @@ export class index extends PureComponent {
                     break;
 
                 default:
+                    console.log("error");
                     break;
             }
         }else{
@@ -128,7 +196,7 @@ export class index extends PureComponent {
             },
             {
                 StepNum: 2,
-                Component: <InputAccount handleClickMoveStep={this.handleClickMoveStep} />
+                Component: <InputAccount handleClickMoveStep={this.handleClickMoveStep} errorTextField={this.state.errorTextField}/>
             },
             {
                 StepNum: 3,
@@ -188,4 +256,7 @@ export class index extends PureComponent {
     }
 }
 
-export default withSnackbar(withStyles(styles)(withRouter(index)))
+const mapStateToProps = state => ({
+    registerMember : state.user.registerMember
+});
+export default connect(mapStateToProps)(withSnackbar(withStyles(styles)(withRouter(index))))

@@ -5,7 +5,7 @@ export default function Policy() {
     return (
         <Box display="block">
             <Box mt={4} mb={4}>
-                <Typography variant="h5" align='center'>
+                <Typography variant="h4" align='center'>
                     이용약관
                 </Typography>
             </Box>

@@ -7,15 +7,23 @@ const getAuthSessionStorage = () => {
 }
 
 const getMemberSessionStorage = () => {
-    // 초기 상태
     return sessionStorage.getItem('member') !== null ? JSON.parse(sessionStorage.getItem('member')) : null
+}
+
+const initRegisterValue = {
+    id : '',
+    password : '',
+    first_name : '',
+    last_name : '',
+    nickName : '',
+    phone : '',
 }
 
 const initialState = {
     auth: getAuthSessionStorage(),
     member: getMemberSessionStorage(),
     projectMember: [],
-    registerMember: {}
+    registerMember: initRegisterValue
 };
 
 const user = (state = initialState, action) => {
@@ -82,6 +90,13 @@ const user = (state = initialState, action) => {
                     ...state.registerMember,
                     ...action.payload
                 }
+            }
+
+        case types.SET_REGISTER_MEMBER_INFO_INIT:
+            
+            return {
+                ...state,
+                registerMember: {}
             }
         
         default:

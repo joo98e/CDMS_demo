@@ -32,10 +32,11 @@ export class InputAccount extends PureComponent {
             unboot: false
         }
     }
+    
     handleValueChange = (e) => {
         let nextState = { ...this.props.registerMember };
         nextState[e.target.name] = e.target.value;
-        console.log(nextState);
+        
         this.props.setRegisterMemberInfo(nextState);
     }
 
@@ -44,23 +45,10 @@ export class InputAccount extends PureComponent {
             showPassword: !this.state.showPassword ? true : false
         });
     }
-
-    handleFileChange = (e) => {
-
-    }
-
-    hasConfirmed = () => {
-
-    }
-
-    valueChecking = () => {
-
-    }
-
+    
     componentDidMount() {
-        console.log(this.props.registerMember);
+        this.props.setRegisterMemberInfoInit();
     }
-
 
     render() {
         const { classes } = this.props;
@@ -103,6 +91,48 @@ export class InputAccount extends PureComponent {
                                     variant="filled"
                                     fullWidth
                                     required
+                                    name="id"
+                                    label="ID"
+                                    helperText="example@example.com과 같은 형식이어야 해요!"
+                                    onChange={this.handleValueChange}
+                                />
+                            </Container>
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <Container>
+                                <Box display="flex" justifyContent="flex-start" alignItems="center">
+                                    <form className={classes.fullWidth}>
+                                        <TextField
+                                            error={this.state.showPassword ? true : false}
+                                            fullWidth
+                                            variant="filled"
+                                            required
+                                            type={this.state.showPassword ? 'text' : 'password'}
+                                            name="password"
+                                            label="PASSWORD"
+                                            autoComplete="off"
+                                            helperText="영문자, 숫자, 특수문자(!, @, #, $, %, &, *)를 각 1자 이상 포함하여 8 ~ 16자로 구성해주세요!"
+                                            onChange={this.handleValueChange}
+                                        />
+                                    </form>
+                                    <Box>
+                                        <IconButton
+                                            color="inherit"
+                                            onClick={this.handleChangeShowPassWord}
+                                        >
+                                            {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
+                                        </IconButton>
+                                    </Box>
+                                </Box>
+                            </Container>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Container>
+                                <TextField
+                                    variant="filled"
+                                    fullWidth
+                                    required
                                     name="first_name"
                                     label="성"
                                     onChange={this.handleValueChange}
@@ -129,76 +159,20 @@ export class InputAccount extends PureComponent {
                                     variant="filled"
                                     fullWidth
                                     required
-                                    name="nickname"
+                                    name="nickName"
                                     label="닉네임"
                                     onChange={this.handleValueChange}
                                 />
                             </Container>
                         </Grid>
-
+                        
                         <Grid item xs={12}>
                             <Container>
                                 <TextField
                                     variant="filled"
                                     fullWidth
                                     required
-                                    name="MEM_USERID"
-                                    label="ID"
-                                    helperText="영문, 숫자만 사용하여 4 ~ 20자 이내 / 중복 체크 필요해"
-                                    onChange={this.handleValueChange}
-                                />
-                            </Container>
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <Container>
-                                <Box display="flex" justifyContent="flex-start" alignItems="center">
-                                    <form className={classes.fullWidth}>
-                                        <TextField
-                                            error={this.state.showPassword ? true : false}
-                                            fullWidth
-                                            variant="filled"
-                                            required
-                                            type={this.state.showPassword ? 'text' : 'password'}
-                                            name="MEM_PASSWORD"
-                                            label="PASSWORD"
-                                            autoComplete="off"
-                                            helperText="정규식 다시 해야돼"
-                                            onChange={this.handleValueChange}
-                                        />
-                                    </form>
-                                    <Box>
-                                        <IconButton
-                                            color="inherit"
-                                            onClick={this.handleChangeShowPassWord}
-                                        >
-                                            {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
-                                        </IconButton>
-                                    </Box>
-                                </Box>
-                            </Container>
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <Container>
-                                <TextField
-                                    variant="filled"
-                                    fullWidth
-                                    required
-                                    name="MEM_EMAIL"
-                                    label="이메일"
-                                    helperText="example@example.com와 같은 형식이어야 해요!"
-                                    onChange={this.handleValueChange}
-                                />
-                            </Container>
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <Container>
-                                <TextField
-                                    variant="filled"
-                                    fullWidth
-                                    name="MEM_PHONE"
+                                    name="phone"
                                     label="연락처"
                                     helperText="- 없이 입력하셔야 해요!"
                                     onChange={this.handleValueChange}
@@ -219,7 +193,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => {
     return {
-        setRegisterMemberInfo: payload => { dispatch(actions.setRegisterMemberInfo(payload)) }
+        setRegisterMemberInfo: payload => { dispatch(actions.setRegisterMemberInfo(payload)) },
+        setRegisterMemberInfoInit: () => { dispatch(actions.setRegisterMemberInfoInit())}
     }
 };
 

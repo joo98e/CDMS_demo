@@ -37,3 +37,6 @@ export const SET_PROJECT_PERSON_LIST_INIT = "SET_PROJECT_PERSON_LIST_INIT";
 
 // ─────────────────────────────────────────────────── 
 export const SET_REGISTER_MEMBER_INFO = "SET_REGISTER_MEMBER_INFO";
+
+// ─────────────────────────────────────────────────── 
+export const SET_REGISTER_MEMBER_INFO_INIT = "SET_REGISTER_MEMBER_INFO_INIT";

@@ -47,3 +47,10 @@ export const setRegisterMemberInfo = payload => {
     };
 };
 
+// ─────────────────────────────────────────────────── 
+export const setRegisterMemberInfoInit = () => {
+    return {
+        type: types.SET_REGISTER_MEMBER_INFO_INIT
+    };
+};
+
