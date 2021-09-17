@@ -40,9 +40,10 @@ export const setProjectPersonInit = () => {
 };
 
 // ─────────────────────────────────────────────────── 
-export const setRegisterMemberInfo = () => {
+export const setRegisterMemberInfo = payload => {
     return {
-        type: types.SET_PROJECT_PERSON_LIST_INIT
+        type: types.SET_REGISTER_MEMBER_INFO,
+        payload
     };
 };
 

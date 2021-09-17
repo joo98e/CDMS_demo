@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom';
 import axios from 'axios'
 import {
-    Container, Grid, TextField, IconButton,
+    Container, Grid, TextField, IconButton, Typography,
     Box, FormControl, InputLabel, Select, MenuItem, Button,
     withStyles
 } from '@material-ui/core'
@@ -17,7 +17,7 @@ const styles = theme => ({
         width: "100%"
     },
     center: {
-        margin : "0 auto"
+        margin: "0 auto"
     }
 });
 
@@ -179,7 +179,7 @@ export class index extends PureComponent {
                     break;
                 case "MEM_ID_CHECK":
                     //     if (state[key] === false) {
-                    
+
                     //         return false;
                     //     }
 
@@ -251,6 +251,14 @@ export class index extends PureComponent {
         const { classes } = this.props;
         return (
             <Box mt={8} mb={12}>
+
+                <Box mt={4} mb={4}>
+                    <Typography variant="h5" align='center'>
+                        개인정보 입력
+                    </Typography>
+                </Box>
+
+
                 <Container>
                     <Grid container justifyContent='center' spacing={4}>
                         <Grid item xs={12}>

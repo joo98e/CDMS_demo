@@ -78,7 +78,10 @@ const user = (state = initialState, action) => {
             
             return {
                 ...state,
-                registerMember: {}
+                registerMember: {
+                    ...state.registerMember,
+                    ...action.payload
+                }
             }
         
         default:

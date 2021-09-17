@@ -3,11 +3,17 @@ import {
     Container, Grow, Typography, withStyles,
     Box, Divider, Button, ButtonGroup
 } from '@material-ui/core'
+import { withSnackbar } from 'notistack';
 import { withRouter } from 'react-router-dom';
 
-import Policy from './Policy'
-import RegisterBox from './RegisterBox'
 import StepComponent from '../../common/StepComponent'
+import Policy from './Policy'
+import InputAccount from './InputAccount'
+import InputJobs from './InputJobs';
+import Success from './Success';
+
+import FNValidator from '../../common/FNValidator';
+import { ContactSupportOutlined } from '@material-ui/icons';
 
 const styles = theme => ({
     columnBox: {
@@ -30,8 +36,9 @@ const styles = theme => ({
 const stepInfo = {
     stepsTitle: [
         "이용 약관",
-        "회원 정보 입력",
-        "가입 완료",
+        "어떤 분이신가요?",
+        "어떤 업무를 하시나요?",
+        "완료",
     ],
     sortBy: "horizontal",
     resultComponent: ""
@@ -55,9 +62,50 @@ export class index extends PureComponent {
     }
 
     handleClickMoveStep = param => {
-        this.setState({
-            stepNum: this.state.stepNum + (param)
-        });
+        let result = Boolean;
+        if (param > 0) {
+            switch (this.state.stepNum) {
+                case 0:
+                    this.props.enqueueSnackbar(`이용 약관 확인이 되었어요.`, { variant: 'info' });
+                    result = true;
+                    break;
+
+                case 1:
+                    // TODO Validator, result true, false
+                    console.log(this.props.store.state.user.registerMember)
+
+                    // if(FNValidator()){
+                    //     this.props.enqueueSnackbar(`멋진 분이시군요!`, { variant: 'success' });
+                    //     result = true;
+                    // }
+                    break;
+                    
+                case 2:
+                    // TODO Validator, result true, false
+                    this.props.enqueueSnackbar(`정말 멋진 업무에요!`, { variant: 'success' });
+                    break;
+                    
+                case 3:
+                    // TODO Validator, result true, false
+                    this.props.enqueueSnackbar(`회원가입이 성공했어요!`, { variant: 'success' });
+                    break;
+
+                default:
+                    break;
+            }
+        }else{
+            this.setState({
+                stepNum: this.state.stepNum + (param)
+            });
+        }
+
+        if (result === true) {
+            window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+            this.setState({
+                stepNum: this.state.stepNum + (param)
+            });
+
+        }
     }
 
     handleClickResetStep = () => {
@@ -69,6 +117,7 @@ export class index extends PureComponent {
     handleClickMoveLoginPage = () => {
         this.props.history.push('/');
     }
+
     render() {
         const { classes } = this.props;
 
@@ -79,11 +128,15 @@ export class index extends PureComponent {
             },
             {
                 StepNum: 2,
-                Component: <RegisterBox handleClickMoveStep={this.handleClickMoveStep} />
+                Component: <InputAccount handleClickMoveStep={this.handleClickMoveStep} />
             },
             {
                 StepNum: 3,
-                Component: <div>3</div>
+                Component: <InputJobs />
+            },
+            {
+                StepNum: 4,
+                Component: <Success />
             },
         ];
 
@@ -120,14 +173,10 @@ export class index extends PureComponent {
                             <Button color="inherit" variant="outlined" disabled={this.state.stepNum === 0} onClick={() => { this.handleClickMoveStep(-1) }}>
                                 <Typography>이전</Typography>
                             </Button>
-                            {this.state.stepNum !== 1 ?
-                                <Button color="inherit" variant="outlined" onClick={this.handleClickMoveLoginPage}>
-                                    <Typography>메인으로 돌아가기</Typography>
-                                </Button>
-                                :
-                                ""
-                            }
-                            <Button color="inherit" variant="outlined" onClick={() => { this.handleClickMoveStep(1) }}>
+                            <Button color="inherit" variant="outlined" onClick={this.handleClickMoveLoginPage}>
+                                <Typography>메인으로 돌아가기</Typography>
+                            </Button>
+                            <Button color="inherit" variant="outlined" disabled={this.state.stepNum === stepInfo.stepsTitle.length - 1} onClick={() => { this.handleClickMoveStep(1) }}>
                                 <Typography>다음</Typography>
                             </Button>
                         </ButtonGroup>
@@ -139,5 +188,4 @@ export class index extends PureComponent {
     }
 }
 
-
-export default withStyles(styles)(withRouter(index))
+export default withSnackbar(withStyles(styles)(withRouter(index)))
