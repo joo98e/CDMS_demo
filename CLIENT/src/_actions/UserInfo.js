@@ -38,3 +38,11 @@ export const setProjectPersonInit = () => {
         type: types.SET_PROJECT_PERSON_LIST_INIT
     };
 };
+
+// ─────────────────────────────────────────────────── 
+export const setRegisterMemberInfo = () => {
+    return {
+        type: types.SET_PROJECT_PERSON_LIST_INIT
+    };
+};
+

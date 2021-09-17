@@ -8,7 +8,9 @@ router.get('/', (req, res) => {
 
     const sql = `
     SELECT
-        *
+        id,
+        name,
+        code
     FROM tb_depart_list 
     WHERE delete_yn = 'N';`
 

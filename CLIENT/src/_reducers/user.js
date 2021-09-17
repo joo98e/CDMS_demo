@@ -14,7 +14,8 @@ const getMemberSessionStorage = () => {
 const initialState = {
     auth: getAuthSessionStorage(),
     member: getMemberSessionStorage(),
-    projectMember: []
+    projectMember: [],
+    registerMember: {}
 };
 
 const user = (state = initialState, action) => {
@@ -72,7 +73,14 @@ const user = (state = initialState, action) => {
                 ...state,
                 projectMember : []
             };
-
+        
+        case types.SET_REGISTER_MEMBER_INFO:
+            
+            return {
+                ...state,
+                registerMember: {}
+            }
+        
         default:
             return state;
     }

@@ -1,5 +1,7 @@
 
 /**
+ * @Ex    <StepperButtonGroup stepNum={this.state.stepNum} stepMaxNum={StepByComponent.length - 1} handleClickMoveStep={this.handleClickMoveStep} />
+ * 
  * @param {props.stepNum}               : 현재 스텝
  * @param {props.stepMaxNum  }          : 총 스텝 수
  * @param {handleClickMoveStep}         : 스텝 증감 함수

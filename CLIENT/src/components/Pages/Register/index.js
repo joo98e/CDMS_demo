@@ -1,16 +1,13 @@
 import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
 import {
     Container, Grow, Typography, withStyles,
     Box, Divider, Button, ButtonGroup
 } from '@material-ui/core'
+import { withRouter } from 'react-router-dom';
 
 import Policy from './Policy'
 import RegisterBox from './RegisterBox'
 import StepComponent from '../../common/StepComponent'
-import StepperButtonGroup from '../../common/StepperButtonGroup'
-
-
 
 const styles = theme => ({
     columnBox: {
@@ -26,10 +23,9 @@ const styles = theme => ({
         display: 'none'
     },
     center: {
-        minWidth : theme.spacing(48),
-        margin : "0 auto"
+        margin: "0 auto"
     }
-}); 
+});
 
 const stepInfo = {
     stepsTitle: [
@@ -41,20 +37,6 @@ const stepInfo = {
     resultComponent: ""
 }
 
-const StepByComponent = [
-    {
-        StepNum: 1,
-        Component: <Policy />
-    },
-    {
-        StepNum: 2,
-        Component: <RegisterBox />
-    },
-    {
-        StepNum: 3,
-        Component: <div>3</div>
-    },
-];
 
 export class index extends PureComponent {
     constructor(props) {
@@ -84,12 +66,31 @@ export class index extends PureComponent {
         });
     }
 
+    handleClickMoveLoginPage = () => {
+        this.props.history.push('/');
+    }
     render() {
         const { classes } = this.props;
+
+        const StepByComponent = [
+            {
+                StepNum: 1,
+                Component: <Policy />
+            },
+            {
+                StepNum: 2,
+                Component: <RegisterBox handleClickMoveStep={this.handleClickMoveStep} />
+            },
+            {
+                StepNum: 3,
+                Component: <div>3</div>
+            },
+        ];
+
         return (
             <Container className={classes.columnBox} maxWidth="lg">
 
-                <StepComponent stepInfo={stepInfo} stepNum={this.state.stepNum} stepMaxNum={StepByComponent.length - 1 }/>
+                <StepComponent stepInfo={stepInfo} stepNum={this.state.stepNum} stepMaxNum={StepByComponent.length - 1} />
 
                 {
                     StepByComponent.map((item, idx) => {
@@ -100,7 +101,7 @@ export class index extends PureComponent {
                                 {...(this.state.stepNum === idx ? { timeout: 1000 } : {})}
                                 className={this.state.stepNum === idx ? classes.show : classes.hide}
                             >
-                                <Box>
+                                <Box className={classes.maxHeight}>
                                     <Container>
                                         {item.Component}
                                     </Container>
@@ -115,7 +116,21 @@ export class index extends PureComponent {
                     {...({ timeout: 1000 })}
                 >
                     <Box className={classes.center}>
-                        <StepperButtonGroup stepNum={this.state.stepNum} stepMaxNum={StepByComponent.length - 1} handleClickMoveStep={this.handleClickMoveStep} />
+                        <ButtonGroup variant="contained" color="inherit">
+                            <Button color="inherit" variant="outlined" disabled={this.state.stepNum === 0} onClick={() => { this.handleClickMoveStep(-1) }}>
+                                <Typography>이전</Typography>
+                            </Button>
+                            {this.state.stepNum !== 1 ?
+                                <Button color="inherit" variant="outlined" onClick={this.handleClickMoveLoginPage}>
+                                    <Typography>메인으로 돌아가기</Typography>
+                                </Button>
+                                :
+                                ""
+                            }
+                            <Button color="inherit" variant="outlined" onClick={() => { this.handleClickMoveStep(1) }}>
+                                <Typography>다음</Typography>
+                            </Button>
+                        </ButtonGroup>
                     </Box>
                 </Grow>
 
@@ -125,4 +140,4 @@ export class index extends PureComponent {
 }
 
 
-export default withStyles(styles)(index)
+export default withStyles(styles)(withRouter(index))
