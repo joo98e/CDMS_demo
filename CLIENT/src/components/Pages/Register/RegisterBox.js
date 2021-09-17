@@ -33,7 +33,12 @@ export class index extends PureComponent {
             },
             showPassword: false,
             departs: "",
+            unboot: false
         }
+    }
+
+    componentWillUnmount() {
+        this.setState({ unboot: true });
     }
 
     componentDidMount() {
@@ -139,7 +144,6 @@ export class index extends PureComponent {
     valueChecking = () => {
 
         const state = this.state.MEM;
-        let status = true;
 
         for (let key in state) {
             switch (key) {
@@ -235,178 +239,181 @@ export class index extends PureComponent {
     render() {
         return (
             <Box mt={8} mb={12}>
-                <Container>
-                    <Grid container justify='center' spacing={4}>
-                        <Grid item xs={12}>
-                            <Container>
-                                <Button
-                                    variant={this.state.MEM.MEM_IMAGE_NAME === "" ? "outlined" : "contained"}
-                                    component="label"
-                                    color="inherit"
-                                >
-                                    {this.state.MEM.MEM_IMAGE_NAME === "" ? "프로필 이미지 선택" : "프로필 선택 완료!"}
-                                    <input
-                                        type="file"
-                                        hidden
-                                        accept="image/*"
-                                        file={this.state.MEM.MEM_IMAGE}
-                                        onChange={this.handleFileChange}
-                                    />
-                                </Button>
-                            </Container>
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <Container>
-                                <TextField
-                                    variant="filled"
-                                    fullWidth
-                                    required
-                                    name="MEM_NAME"
-                                    label="성명"
-                                    onChange={this.handleValueChange}
-                                />
-                            </Container>
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <Container>
-                                <TextField
-                                    variant="filled"
-                                    fullWidth
-                                    required
-                                    name="MEM_NICKNAME"
-                                    label="닉네임"
-                                    onChange={this.handleValueChange}
-                                />
-                            </Container>
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <Container>
-                                <TextField
-                                    variant="filled"
-                                    fullWidth
-                                    required
-                                    name="MEM_USERID"
-                                    label="ID"
-                                    helperText="중복 체크 기능 필요"
-                                    placeholder="영문, 숫자만 사용하여 4 ~ 20자 이내"
-                                    onChange={this.handleValueChange}
-                                />
-                            </Container>
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <Container>
-                                <Box display="flex" justifyContent="flex-start" alignItems="center">
-                                    {/* TODO  가로 100%*/}
-                                    <form>
-                                        <TextField
-                                            fullWidth
-                                            variant="filled"
-                                            required
-                                            type={this.state.showPassword ? 'text' : 'password'}
-                                            name="MEM_PASSWORD"
-                                            label="PASSWORD"
-                                            autoComplete="off"
-                                            onChange={this.handleValueChange}
+                {
+                    !this.state.unboot &&
+                    <Container>
+                        <Grid container justifyContent='center' spacing={4}>
+                            <Grid item xs={12}>
+                                <Container>
+                                    <Button
+                                        variant={this.state.MEM.MEM_IMAGE_NAME === "" ? "outlined" : "contained"}
+                                        component="label"
+                                        color="inherit"
+                                    >
+                                        {this.state.MEM.MEM_IMAGE_NAME === "" ? "프로필 이미지 선택" : "프로필 선택 완료!"}
+                                        <input
+                                            type="file"
+                                            hidden
+                                            accept="image/*"
+                                            file={this.state.MEM.MEM_IMAGE}
+                                            onChange={this.handleFileChange}
                                         />
-                                    </form>
-                                    <Box>
-                                        <IconButton
-                                            color="inherit"
-                                            onClick={this.handleChangeShowPassWord}
-                                        >
-                                            {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
-                                        </IconButton>
+                                    </Button>
+                                </Container>
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <Container>
+                                    <TextField
+                                        variant="filled"
+                                        fullWidth
+                                        required
+                                        name="MEM_NAME"
+                                        label="성명"
+                                        onChange={this.handleValueChange}
+                                    />
+                                </Container>
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <Container>
+                                    <TextField
+                                        variant="filled"
+                                        fullWidth
+                                        required
+                                        name="MEM_NICKNAME"
+                                        label="닉네임"
+                                        onChange={this.handleValueChange}
+                                    />
+                                </Container>
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <Container>
+                                    <TextField
+                                        variant="filled"
+                                        fullWidth
+                                        required
+                                        name="MEM_USERID"
+                                        label="ID"
+                                        helperText="중복 체크 기능 필요"
+                                        placeholder="영문, 숫자만 사용하여 4 ~ 20자 이내"
+                                        onChange={this.handleValueChange}
+                                    />
+                                </Container>
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <Container>
+                                    <Box display="flex" justifyContent="flex-start" alignItems="center">
+                                        {/* TODO  가로 100%*/}
+                                        <form>
+                                            <TextField
+                                                fullWidth
+                                                variant="filled"
+                                                required
+                                                type={this.state.showPassword ? 'text' : 'password'}
+                                                name="MEM_PASSWORD"
+                                                label="PASSWORD"
+                                                autoComplete="off"
+                                                onChange={this.handleValueChange}
+                                            />
+                                        </form>
+                                        <Box>
+                                            <IconButton
+                                                color="inherit"
+                                                onClick={this.handleChangeShowPassWord}
+                                            >
+                                                {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
+                                            </IconButton>
+                                        </Box>
                                     </Box>
-                                </Box>
-                            </Container>
-                        </Grid>
+                                </Container>
+                            </Grid>
 
-                        <Grid item xs={12}>
-                            <Container>
-                                <TextField
-                                    variant="filled"
-                                    fullWidth
-                                    required
-                                    name="MEM_EMAIL"
-                                    label="이메일"
-                                    placeholder="example@example.com"
-                                    onChange={this.handleValueChange}
-                                />
-                            </Container>
-                        </Grid>
+                            <Grid item xs={12}>
+                                <Container>
+                                    <TextField
+                                        variant="filled"
+                                        fullWidth
+                                        required
+                                        name="MEM_EMAIL"
+                                        label="이메일"
+                                        placeholder="example@example.com"
+                                        onChange={this.handleValueChange}
+                                    />
+                                </Container>
+                            </Grid>
 
-                        <Grid item xs={12}>
-                            <Container>
-                                <TextField
-                                    variant="filled"
-                                    fullWidth
-                                    name="MEM_PHONE"
-                                    label="연락처"
-                                    placeholder="010 - 0000 - 0000"
-                                    onChange={this.handleValueChange}
-                                />
-                            </Container>
-                        </Grid>
+                            <Grid item xs={12}>
+                                <Container>
+                                    <TextField
+                                        variant="filled"
+                                        fullWidth
+                                        name="MEM_PHONE"
+                                        label="연락처"
+                                        placeholder="010 - 0000 - 0000"
+                                        onChange={this.handleValueChange}
+                                    />
+                                </Container>
+                            </Grid>
 
-                        <Grid item xs={12}>
-                            <Container>
-                                <TextField
-                                    variant="filled"
-                                    fullWidth
-                                    name="MEM_EMPNO"
-                                    label="사번"
-                                    placeholder="4자리수"
-                                    onChange={this.handleValueChange}
-                                    inputProps={{
-                                        maxLength: 4
-                                    }}
-                                />
-                            </Container>
-                        </Grid>
+                            <Grid item xs={12}>
+                                <Container>
+                                    <TextField
+                                        variant="filled"
+                                        fullWidth
+                                        name="MEM_EMPNO"
+                                        label="사번"
+                                        placeholder="4자리수"
+                                        onChange={this.handleValueChange}
+                                        inputProps={{
+                                            maxLength: 4
+                                        }}
+                                    />
+                                </Container>
+                            </Grid>
 
-                        <Grid item xs={12}>
-                            <Container>
-                                <FormControl variant="filled" fullWidth>
-                                    <InputLabel id="MEM_DEPART_NO">부서 *</InputLabel>
-                                    {this.state.departs ?
-                                        <Select
-                                            labelId="DEPART_SELECT"
-                                            id="DEPART_SELECT"
-                                            value={this.state.MEM.MEM_DEPT_NO}
-                                            onChange={this.handleDepartSelect}
-                                        >
-                                            {this.state.departs.map((item, index) => {
-                                                return (
-                                                    <MenuItem key={index} value={item.DEPART_PK}>{item.DEPART_NAME}({item.DEPART_PK})</MenuItem>
-                                                )
-                                            })}
-                                        </Select>
-                                        :
-                                        ''
-                                    }
-                                </FormControl>
-                            </Container>
-                        </Grid>
+                            <Grid item xs={12}>
+                                <Container>
+                                    <FormControl variant="filled" fullWidth>
+                                        <InputLabel id="MEM_DEPART_NO">부서 *</InputLabel>
+                                        {this.state.departs ?
+                                            <Select
+                                                labelId="DEPART_SELECT"
+                                                id="DEPART_SELECT"
+                                                value={this.state.MEM.MEM_DEPT_NO}
+                                                onChange={this.handleDepartSelect}
+                                            >
+                                                {this.state.departs.map((item, index) => {
+                                                    return (
+                                                        <MenuItem key={index} value={item.DEPART_PK}>{item.DEPART_NAME}({item.DEPART_PK})</MenuItem>
+                                                    )
+                                                })}
+                                            </Select>
+                                            :
+                                            ''
+                                        }
+                                    </FormControl>
+                                </Container>
+                            </Grid>
 
-                        <Grid item xs={12}>
-                            <Container>
-                                <Button
-                                    fullWidth
-                                    variant="contained"
-                                    size="large"
-                                    onClick={this.valueChecking}
-                                >
-                                    가입하기
-                                </Button>
-                            </Container>
-                        </Grid>
+                            <Grid item xs={12}>
+                                <Container>
+                                    <Button
+                                        fullWidth
+                                        variant="contained"
+                                        size="large"
+                                        onClick={this.valueChecking}
+                                    >
+                                        가입하기
+                                    </Button>
+                                </Container>
+                            </Grid>
 
-                    </Grid>
-                </Container >
+                        </Grid>
+                    </Container >
+                }
             </Box>
         )
     }

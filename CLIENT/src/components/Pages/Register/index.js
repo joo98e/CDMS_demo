@@ -13,31 +13,10 @@ import StepperButtonGroup from '../../common/StepperButtonGroup'
 
 
 const styles = theme => ({
-    root: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
-    },
-    maximumHorizon: {
-        minWidth: '100%'
-    },
-    maximumVertical: {
-        minHeight: '100%'
-    },
-    policyContent: {
-        minHeight: '65%'
-    },
-    registerBox: {
-        display: 'flex',
-        flexDirection: 'column',
-        width: '40%',
-        height: '100vh',
-        overflowY: 'scroll'
-    },
     columnBox: {
         display: 'flex',
         flexDirection: 'column',
+        paddingBottom: theme.spacing(4),
         backgroundColor: theme.palette.background.paper
     },
     show: {
@@ -45,19 +24,18 @@ const styles = theme => ({
     },
     hide: {
         display: 'none'
+    },
+    center: {
+        minWidth : theme.spacing(48),
+        margin : "0 auto"
     }
-});
+}); 
 
 const stepInfo = {
     stepsTitle: [
         "이용 약관",
         "회원 정보 입력",
         "가입 완료",
-    ],
-    stepsDesc: [
-        "",
-        "",
-        ""
     ],
     sortBy: "horizontal",
     resultComponent: ""
@@ -131,8 +109,15 @@ export class index extends PureComponent {
                         )
                     })
                 }
-                
-                <StepperButtonGroup stepNum={this.state.stepNum} stepMaxNum={StepByComponent.length - 1} handleClickMoveStep={this.handleClickMoveStep} />
+
+                <Grow
+                    in={this.state.awhile}
+                    {...({ timeout: 1000 })}
+                >
+                    <Box className={classes.center}>
+                        <StepperButtonGroup stepNum={this.state.stepNum} stepMaxNum={StepByComponent.length - 1} handleClickMoveStep={this.handleClickMoveStep} />
+                    </Box>
+                </Grow>
 
             </Container>
         )

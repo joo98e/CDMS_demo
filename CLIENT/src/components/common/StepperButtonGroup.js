@@ -3,7 +3,7 @@
  * @param {props.stepNum}               : 현재 스텝
  * @param {props.stepMaxNum  }          : 총 스텝 수
  * @param {handleClickMoveStep}         : 스텝 증감 함수
- * @returns {<DotsMobileStepper />}
+ * @returns {<StepperButtonGroup />}
  */
 
 import React from 'react';
@@ -17,16 +17,18 @@ const useStyles = makeStyles({
     root: {
         maxWidth: 400,
         flexGrow: 1,
+        borderRadius : "8px"
     },
 });
 
-export default function DotsMobileStepper(props) {
+export default function StepperButtonGroup(props) {
     const classes = useStyles();
     const theme = useTheme();
 
     return (
         <MobileStepper
             variant="dots"
+            color="inherit"
             steps={props.stepMaxNum + 1}
             position="static"
             activeStep={props.stepNum}

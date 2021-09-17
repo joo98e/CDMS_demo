@@ -12,11 +12,6 @@ import {
  *                                         "타이틀명2",
  *                                         "타이틀명3",
  *                                     ],
- *                                     stepsDesc: [
- *                                         "데스크립션1",
- *                                         "데스크립션2",
- *                                         "데스크립션3"
- *                                     ],
  *                                     sortBy: "vertical" || "horizontal",
  *                                     resultComponent: <컴포넌트 /> || ""
  *                                 }
@@ -29,16 +24,10 @@ import {
 
 class StepComponent extends PureComponent {
 
-    componentDidMount() {
-        console.log(this.props.stepMaxNum);
-    }
-    
-
     render() {
         // 색깔 고치기
 
         const steps = this.props.stepInfo.stepsTitle;
-        const contents = this.props.stepInfo.stepsDesc;
         const resultComponent = this.props.stepInfo.resultComponent;
 
         return (
@@ -48,9 +37,6 @@ class StepComponent extends PureComponent {
                         return (
                             <Step key={index}>
                                 <StepLabel>{name}</StepLabel>
-                                <StepContent>
-                                    <Typography>{contents[index]}</Typography>
-                                </StepContent>
                             </Step>    
                         );
                     })}

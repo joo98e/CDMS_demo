@@ -5,7 +5,7 @@ import { useSnackbar } from 'notistack';
 import {
     Container, TextField, FormControl, Select, Button, Dialog, Typography,
     ListItemText, ListItem, List, Divider, AppBar, Toolbar, IconButton, MenuItem,
-    Grid, Box
+    Grid
 } from '@material-ui/core';
 
 import NotificationImportantIcon from '@material-ui/icons/NotificationImportant';
