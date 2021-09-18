@@ -7,7 +7,7 @@
 
 const FNValidator = (valueName, value) => {
     let isConfirmed = false;
-    
+
     switch (valueName.toUpperCase()) {
         // ID / 영문, 숫자만 사용하여 4 ~ 20글자
         case "ID":
@@ -16,7 +16,7 @@ const FNValidator = (valueName, value) => {
             console.log("email.test(value)", email.test(value))
             console.log("value === ''", value === '')
             console.log("value", value);
-            
+
             if (!email.test(value) || value === '') {
                 return false;
             } else {
@@ -39,8 +39,7 @@ const FNValidator = (valueName, value) => {
             // TODO
             // 특수문자 픽스해야함
 
-            if (!/^[가-힣]/.test(value) && value.length >= 1) {
-                
+            if (!/^[가-힣]/.test(value) || value.length === 0) {
                 return false;
             } else {
                 isConfirmed = true;
@@ -49,11 +48,8 @@ const FNValidator = (valueName, value) => {
             break;
 
         case "FIRST_NAME":
-            // TODO
-            // 특수문자 픽스해야함
 
-            if (!/^[가-힣]/.test(value) && value.length >= 1) {
-                
+            if (!/^[가-힣]/.test(value) || value.length === 0) {
                 return false;
             } else {
                 isConfirmed = true;
@@ -65,15 +61,15 @@ const FNValidator = (valueName, value) => {
             // TODO
             // 특수문자 픽스해야함
 
-            if (!/^[가-힣]/.test(value) && value.length >= 1) {
-                
+            if (!/^[가-힣]/.test(value) || value.length === 0) {
+
                 return false;
             } else {
                 isConfirmed = true;
             }
 
             break;
-        
+
         // 닉네임 / 한글 영문만 사용 가능
         case "NICKNAME":
             if (!/^[가-힣a-zA-Z]+$/.test(value)) {
@@ -85,7 +81,7 @@ const FNValidator = (valueName, value) => {
 
         // 이메일 
         case "EMAIL":
-            if (!/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i.test(value)) {   
+            if (!/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i.test(value)) {
                 return false;
             } else {
                 isConfirmed = true;
@@ -102,8 +98,27 @@ const FNValidator = (valueName, value) => {
                 }
             }
             break;
-            
+
+        case "DEPT_NO":
+            if (value === '' || value === undefined) {
+                return false;
+            } else {
+                isConfirmed = true;
+            }
+            break;
+
+        case "RANK":
+            if (value === '' || value === undefined) {
+                return false;
+            } else {
+                isConfirmed = true;
+            }
+            break;
+
         default:
+            /**
+             * @description 정규식을 거치지 않음
+             */
             break;
     }
 

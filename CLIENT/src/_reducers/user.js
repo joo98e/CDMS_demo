@@ -11,12 +11,12 @@ const getMemberSessionStorage = () => {
 }
 
 const initRegisterValue = {
-    id : '',
-    password : '',
-    first_name : '',
-    last_name : '',
-    nickName : '',
-    phone : '',
+    id: '',
+    password: '',
+    first_name: '',
+    last_name: '',
+    nickName: '',
+    phone: '',
 }
 
 const initialState = {
@@ -55,7 +55,7 @@ const user = (state = initialState, action) => {
             };
 
         case types.SET_PROJECT_PERSON_LIST:
-            
+
             let _temp = state.projectMember;
             let status = false;
 
@@ -76,14 +76,14 @@ const user = (state = initialState, action) => {
             }
 
         case types.SET_PROJECT_PERSON_LIST_INIT:
-            
+
             return {
                 ...state,
-                projectMember : []
+                projectMember: []
             };
-        
+
         case types.SET_REGISTER_MEMBER_INFO:
-            
+
             return {
                 ...state,
                 registerMember: {
@@ -93,12 +93,20 @@ const user = (state = initialState, action) => {
             }
 
         case types.SET_REGISTER_MEMBER_INFO_INIT:
-            
+
             return {
                 ...state,
-                registerMember: {}
+                registerMember: {
+                    avatar_file : '',
+                    id: '',
+                    password: '',
+                    first_name: '',
+                    last_name: '',
+                    nickName: '',
+                    phone: '',
+                }
             }
-        
+
         default:
             return state;
     }

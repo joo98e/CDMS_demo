@@ -14,7 +14,7 @@ const path = require('path');
 
 // ────────────────────────────────────────────────────────── Routes Import
 const users = require('./routes/users');
-const departments = require('./routes/departments');
+const org = require('./routes/org');
 const register = require('./routes/register');
 const menu = require('./routes/menu');
 const projects = require('./routes/projects');
@@ -25,7 +25,7 @@ const avatarsChange = require('./routes/uploads/avatars/avatarsChange');
 
 // 라우터 회원 
 app.use('/api/users', users);
-app.use('/api/departments', departments);
+app.use('/api/org', org);
 app.use('/api/register', register);
 
 // 라우터 프로젝트 + 렌더링

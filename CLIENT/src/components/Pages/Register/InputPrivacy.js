@@ -9,7 +9,6 @@ import {
     Divider
 } from '@material-ui/core'
 import { Visibility, VisibilityOff } from '@material-ui/icons'
-import { withSnackbar } from 'notistack'
 
 const styles = theme => ({
     fullWidth: {
@@ -32,11 +31,18 @@ export class InputAccount extends PureComponent {
             unboot: false
         }
     }
-    
+
     handleValueChange = (e) => {
         let nextState = { ...this.props.registerMember };
         nextState[e.target.name] = e.target.value;
-        
+
+        this.props.setRegisterMemberInfo(nextState);
+    }
+
+    handleFileChange = (e) => {
+        let nextState = { ...this.props.registerMember };
+        nextState.avatar_file = e.target.files[0];
+        nextState.avatar_name = e.target.value;
         this.props.setRegisterMemberInfo(nextState);
     }
 
@@ -45,7 +51,7 @@ export class InputAccount extends PureComponent {
             showPassword: !this.state.showPassword ? true : false
         });
     }
-    
+
     componentDidMount() {
         this.props.setRegisterMemberInfoInit();
     }
@@ -66,19 +72,21 @@ export class InputAccount extends PureComponent {
                         <Grid item xs={12}>
                             <Container>
                                 <Button
-                                    variant={true === false ? "outlined" : "contained"}
+                                    variant="outlined"
                                     component="label"
                                     color="inherit"
                                 >
-                                    <Typography color="inherit">
-                                        {true === false ? "프로필 이미지 선택" : "프로필 선택 완료!"}
+                                    <Typography 
+                                        color={!this.props.registerMember.avatar_file ? "textPrimary" : "textSecondary"}
+                                    >
+                                        {!this.props.registerMember.avatar_file ? "프로필 이미지 선택" : "프로필 선택 완료!"}
                                     </Typography>
 
                                     <input
                                         type="file"
                                         hidden
                                         accept="image/*"
-                                        // file={this.state.MEM.MEM_IMAGE}
+                                        file={this.props.registerMember.avatar_file}
                                         onChange={this.handleFileChange}
                                     />
                                 </Button>
@@ -135,6 +143,7 @@ export class InputAccount extends PureComponent {
                                     required
                                     name="first_name"
                                     label="성"
+                                    helperText="한글로 구성합니다."
                                     onChange={this.handleValueChange}
                                 />
                             </Container>
@@ -148,6 +157,7 @@ export class InputAccount extends PureComponent {
                                     required
                                     name="last_name"
                                     label="이름"
+                                    helperText="한글로 구성합니다."
                                     onChange={this.handleValueChange}
                                 />
                             </Container>
@@ -161,11 +171,12 @@ export class InputAccount extends PureComponent {
                                     required
                                     name="nickName"
                                     label="닉네임"
+                                    helperText="한글, 영문으로 구성합니다."
                                     onChange={this.handleValueChange}
                                 />
                             </Container>
                         </Grid>
-                        
+
                         <Grid item xs={12}>
                             <Container>
                                 <TextField
@@ -174,7 +185,7 @@ export class InputAccount extends PureComponent {
                                     required
                                     name="phone"
                                     label="연락처"
-                                    helperText="- 없이 입력하셔야 해요!"
+                                    helperText="-를 포함해서 입력해주세요!"
                                     onChange={this.handleValueChange}
                                 />
                             </Container>
@@ -194,16 +205,14 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = dispatch => {
     return {
         setRegisterMemberInfo: payload => { dispatch(actions.setRegisterMemberInfo(payload)) },
-        setRegisterMemberInfoInit: () => { dispatch(actions.setRegisterMemberInfoInit())}
+        setRegisterMemberInfoInit: () => { dispatch(actions.setRegisterMemberInfoInit()) }
     }
 };
 
 export default
     connect(mapStateToProps, mapDispatchToProps)
         ((withRouter
-            (withSnackbar
-                (withStyles(styles)
-                    (InputAccount)
-                )
+            (withStyles(styles)
+                (InputAccount)
             )
         ));
