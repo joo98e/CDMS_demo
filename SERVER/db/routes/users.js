@@ -42,7 +42,7 @@ router.post('/login', (req, res) => {
 router.get('/login/dev', (req, res) => {
     
     connection.query(
-        "SELECT * FROM TB_MEMBER_INFO where MEM_PK = 10;",
+        "SELECT * FROM tb_member where seq = 1;",
         (err, rows, fields) => {
             if (err) console.log(err);
             

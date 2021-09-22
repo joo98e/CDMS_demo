@@ -7,6 +7,7 @@ import Login from './components/Pages/Login';
 import Register from './components/Pages/Register';
 import Landing from './components/Pages/Landing'
 import Projects from './components/Pages/Projects'
+import Agencys from './components/Pages/Agencys'
 import PageNotFound from './components/Pages/Error/404'
 
 class App extends Component {
@@ -17,6 +18,7 @@ class App extends Component {
         <CustomRoute exact path="/register" component={Register} />
         <CustomRoute exact path="/landing" component={Landing} />
         <CustomRoute exact path="/projects" component={Projects} />
+        <CustomRoute exact path="/agencys" component={Agencys} />
         <CustomRoute component={Redirection} />
       </Switch>
     )

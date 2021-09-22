@@ -120,13 +120,13 @@ export class Login extends Component {
     }
 
     devLogin = () => {
-        Axios.get('/users/login/dev')
+        Axios.get('api/users/login/dev')
             .then(res => {
                 // SessionStorage에서는 객체 형태의 저장을 지원하지 않는다.
                 // 따라서, String 형태로 저장해두었다가, store에서 사용할 때 파싱한다.
                 sessionStorage.setItem('member', JSON.stringify(res.data));
                 this.props.devAuth(res.data);
-                this.props.enqueueSnackbar(`안녕하세요. ${this.props.user.member.MEM_NICKNAME}님?`, { variant: 'success' });
+                this.props.enqueueSnackbar(`개발 로그인입니다.`, { variant: 'success' });
                 this.props.history.push('/landing');
             }).catch((err) => {
                 this.props.enqueueSnackbar(`${err}`, { variant: 'error' });

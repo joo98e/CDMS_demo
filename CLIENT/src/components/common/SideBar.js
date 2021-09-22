@@ -30,21 +30,18 @@ const menuList = [
         MENU_NAME: '홈으로',
         MENU_ICON_NAME: <HomeIcon />,
         MENU_PUSH_LINK: '/',
-        MENU_PERMISSION: 'U'
     },
     {
         MENU_ID: '2',
         MENU_NAME: '프로젝트로',
         MENU_ICON_NAME: <NoteIcon />,
         MENU_PUSH_LINK: '/projects',
-        MENU_PERMISSION: 'U'
     },
     {
         MENU_ID: '3',
         MENU_NAME: '대시보드로',
         MENU_ICON_NAME: <VerticalIcon />,
         MENU_PUSH_LINK: '/dashboard',
-        MENU_PERMISSION: 'U'
     },
 ];
 
