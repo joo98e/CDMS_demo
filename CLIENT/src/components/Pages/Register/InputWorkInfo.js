@@ -38,7 +38,6 @@ export class InputJobs extends PureComponent {
         this.callApi()
             .then(res => {
                 this.setState({ orgStructure: res })
-                console.log(this.state);
             })
             .catch(err => console.log(err));
             

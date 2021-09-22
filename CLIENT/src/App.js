@@ -18,7 +18,7 @@ class App extends Component {
         <CustomRoute exact path="/register" component={Register} />
         <CustomRoute exact path="/landing" component={Landing} />
         <CustomRoute exact path="/projects" component={Projects} />
-        <CustomRoute exact path="/agencys" component={Agencys} />
+        <CustomRoute exact path="/agency" component={Agencys} />
         <CustomRoute component={Redirection} />
       </Switch>
     )

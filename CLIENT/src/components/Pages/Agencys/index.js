@@ -27,7 +27,7 @@ const styles = theme => ({
     },
 });
 
-export class Agencys extends Component {
+export class Agency extends Component {
     constructor(props) {
         super(props)
 
@@ -43,7 +43,7 @@ export class Agencys extends Component {
             awhile: true
         });
 
-        this.getProjectList();
+        this.getAgencyList();
     }
 
     // TODO 내가속한프로젝트보기
@@ -53,21 +53,21 @@ export class Agencys extends Component {
     // TODO 플러스 버튼 다이얼로그 구현
     // TODO DB 프로젝트참여자리스트 구현 
 
-    getProjectList = () => {
-        // const URL = 'api/agency/list';
-        // const params = this.props.member;
-        // axios.get(URL, {
-        //     params: {
-        //         ...params
-        //     }
-        // }).then(res => {
-        //     this.setState({
-        //         ...this.state,
-        //         agency: res.data
-        //     });
-        // }).catch(err => {
-        //     console.log(err);
-        // });
+    getAgencyList = () => {
+        const URL = 'api/agency/list';
+        const params = this.props.member;
+        axios.get(URL, {
+            params: {
+                ...params
+            }
+        }).then(res => {
+            this.setState({
+                ...this.state,
+                agency: res.data
+            });
+        }).catch(err => {
+            console.log(err);
+        });
     }
 
     render() {
@@ -119,4 +119,4 @@ const mapDispatchToProps = {
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Agencys))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Agency))

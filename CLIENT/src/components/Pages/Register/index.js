@@ -69,7 +69,7 @@ export class index extends PureComponent {
             ...this.state,
             awhile: true
         });
-        
+
         this.getIp();
         console.log(this.state);
 
@@ -87,7 +87,7 @@ export class index extends PureComponent {
                     break;
 
                 case 1:
-                    
+
                     for (let item in _obj) {
 
                         switch (item) {
@@ -211,24 +211,29 @@ export class index extends PureComponent {
 
     getIp = async () => {
         try {
-            const res = await axios.get('https://geolocation-db.com/json/');
-            this.setState({
-                ...this.state,
-                ip : res.data.IPv4,
-                country_code : res.data.country_code,
-                country_name : res.data.country_name,
-            });
+            await axios.get('https://geolocation-db.com/json/')
+                .then(res => {
+                    this.setState({
+                        ...this.state,
+                        ip: res.data.IPv4,
+                        country_code: res.data.country_code,
+                        country_name: res.data.country_name,
+                    });
+                })
+                .catch(err => console.log(err));
+
             console.log(this.state);
             return true;
+
         } catch (error) {
+            console.log(error);
             return false;
         }
     }
 
     confirm = async () => {
 
-        
-        const URL = "api/register/signUp2";
+        const URL = "api/register/signUp";
         const config = {
             headers: {
                 "content-type": "multipart/form-data"

@@ -13,28 +13,30 @@ const express = require('express');
 const path = require('path');
 
 // ────────────────────────────────────────────────────────── Routes Import
-const users = require('./routes/users');
-const org = require('./routes/org');
-const register = require('./routes/register');
-const menu = require('./routes/menu');
-const projects = require('./routes/projects');
-const policy = require('./routes/policy');
-const avatarsChange = require('./routes/uploads/avatars/avatarsChange');
+const Users = require('./routes/Users');
+const Org = require('./routes/Org');
+const Register = require('./routes/Register');
+const Menu = require('./routes/Menu');
+const Agency = require('./routes/Agency');
+const Projects = require('./routes/Projects');
+const Policy = require('./routes/Policy');
+const AvatarsChange = require('./routes/uploads/avatars/avatarsChange');
 
 // ────────────────────────────────────────────────────────── 
 
 // 라우터 회원 
-app.use('/api/users', users);
-app.use('/api/org', org);
-app.use('/api/register', register);
+app.use('/api/users', Users);
+app.use('/api/org', Org);
+app.use('/api/register', Register);
 
-// 라우터 프로젝트 + 렌더링
-app.use('/api/projects', projects);
-app.use('/api/uploads', avatarsChange);
+// 라우터 에이전시, 프로젝트
+app.use('/api/agency', Agency);
+app.use('/api/projects', Projects);
+app.use('/api/uploads', AvatarsChange);
 
 // 라우터 렌더링 필요 요소
-app.use('/api/menu', menu);
-app.use('/api/policy', policy);
+app.use('/api/menu', Menu);
+app.use('/api/policy', Policy);
 
 
 if (status === "prod") {

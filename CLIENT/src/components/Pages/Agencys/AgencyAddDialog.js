@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios'
 import { useSnackbar } from 'notistack';
+import { useSelector } from 'react-redux';
 import {
     Container, TextField, FormControl, Select, Button, Dialog, Typography,
     ListItemText, ListItem, List, Divider, AppBar, Toolbar, IconButton, MenuItem,
@@ -12,8 +13,6 @@ import NotificationImportantIcon from '@material-ui/icons/NotificationImportant'
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-
-import PersonList from './PersonList';
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -67,38 +66,27 @@ const TextFieldInputProps = {
 }
 
 const defaultState = {
-    PROJ_TITLE: "",
-    PROJ_CATEGORY : "",
-    PROJ_DESCRIPTION : "",
-    PROJ_MANAGER : "",
-    PROJ_AGENCY_NAME : "",
-    PROJ_AGENCY_MANAGER : "",
-    PROJ_AGENCY_MANAGER_PHONE : "",
-    PROJ_AGENCY_MANAGER_EMAIL : "",
-    PROJ_MAX_TASK : ""
+    name: "",
+    desc: "",
+    reg_ip : "",
+    upd_ip : ""
 }
 
 export default function FullScreenDialog() {
+    const _tmp = useSelector((store) => store.user.accessInfo);
+
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-    const [categoryList, setCategoryList] = React.useState(null);
     const [infos, setInfos] = React.useState(defaultState);
-    const [steps, setSteps] = React.useState(0);
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const [accessInfos, setAccessInfos] = React.useState(_tmp);
 
+    const { enqueueSnackbar } = useSnackbar();
+
+    
     React.useEffect(() => {
-
-        const fetchCategory = async () => {
-            await axios.get('api/projects/category')
-                .then(res => {
-                    setCategoryList(res.data);
-                });
-        }
-
-        fetchCategory();
-
+        console.log(accessInfos);
         return () => {
-
+            // TODO
         }
     }, []);
 
@@ -112,78 +100,48 @@ export default function FullScreenDialog() {
     };
 
     const handleValidateValue = () => {
-        console.log(12312);
-        let _base = "PROJ_";
-        
+        console.log(infos);
         for (let idx in infos) {
-            
+
             switch (idx) {
-                case _base + "TITLE":
-                    console.log("here i am111");
+                case "name":
                     if (infos[idx] === "" || infos[idx] === undefined) {
-                        enqueueSnackbar('제목 없는 프로젝트는 없어요.', {variant:'warning'});
+                        enqueueSnackbar('이름 없는 기관은 없어요.', { variant: 'warning' });
                         return false;
                     }
                     break;
 
-                case _base + "CATEGORY":
+                case "desc":
                     if (infos[idx] === "" || infos[idx] === undefined) {
-                        enqueueSnackbar('사업 구분이 필요합니다.', {variant:'warning'});
+                        enqueueSnackbar('설명을 기재해주세요!', { variant: 'warning' });
                         return false;
                     }
-                    break;
-
-                case _base + "DESCRIPTION":
-                    if (infos[idx] === "" || infos[idx] === undefined) {
-                        enqueueSnackbar('간단한 설명이라도 추가해주세요!', {variant:'warning'});
-                        return false;
-                    } else if (infos[idx].length < 10) {
-                        enqueueSnackbar("짧아도 너무 짧은데요!", {variant:'error'});
-                        return false;
-                    }
-                    break;
-
-                case _base + "MANAGER":
-                    if (infos[idx] === "" || infos[idx] === undefined) {
-                        enqueueSnackbar('프로젝트 담당자이 필요합니다.', { variant: 'warning' });
-                        return false;
-                    }
-                    break;
-
-                case _base + "AGENCY_NAME":
-                    if (infos[idx] === "" || infos[idx] === undefined) {
-                        enqueueSnackbar('기관명이 필요합니다.', { variant: 'warning' });
-                        return false;
-                    }
-                    break;
-
-                case _base + "AGENCY_MANAGER":
-
-                    break;
-
-                case _base + "AGENCY_MANAGER_PHONE":
-
-                    break;
-
-                case _base + "AGENCY_MANAGER_EMAIL":
-
-                    break;
-
-                case _base + "MAX_TASK":
-
                     break;
 
                 default:
                     break;
             }
         }
+
+        handleClickAddAgency();
     }
 
-    const handleChangeProjectInfos = (e) => {
+    const handleChangeAgencyInfos = (e) => {
         let nextValue = { ...infos }
         nextValue[e.target.name] = e.target.value;
         setInfos({ ...nextValue });
-        console.log(infos);
+    }
+
+    const handleClickAddAgency = () => {
+        const URL = 'api/agency/add';
+        const config = {
+            headers : {
+                "content-type" : "application/json"
+            }
+        }
+
+        axios.post(URL, infos, config);
+        console.log("posted");
     }
 
     return (
@@ -198,7 +156,7 @@ export default function FullScreenDialog() {
                             <CloseIcon />
                         </IconButton>
                         <Typography variant="h6" className={classes.title}>
-                            프로젝트 생성
+                            기관 생성
                         </Typography>
                         <Button autoFocus color="inherit" onClick={handleValidateValue}>
                             save
@@ -209,7 +167,7 @@ export default function FullScreenDialog() {
                     <Container maxWidth="xs">
                         <Typography className={classes.stepperTitleStyle} variant="h4" align="center">
                             <IconButton color="inherit"><NotificationImportantIcon fontSize="large" /></IconButton>
-                            프로젝트 생성
+                            기관 생성
                         </Typography>
                     </Container>
 
@@ -219,87 +177,22 @@ export default function FullScreenDialog() {
                         <Grid item xs={12} md={12} lg={12}>
                             <List>
                                 <ListItem>
-                                    <ListItemText primary="프로젝트명" />
-                                    <TextField className={classes.textFieldStyle} variant="outlined" placeholder="프로젝트명" inputProps={TextFieldInputProps} name="PROJ_TITLE" onChange={handleChangeProjectInfos} />
+                                    <ListItemText primary="기관명" />
+                                    <TextField className={classes.textFieldStyle} variant="outlined" placeholder="기관명" inputProps={TextFieldInputProps} name="name" onChange={handleChangeAgencyInfos} />
                                 </ListItem>
                                 <Divider />
                                 <ListItem>
-                                    <ListItemText primary="사업 구분" />
-                                    <FormControl className={classes.textFieldStyle} variant="outlined">
-                                        {categoryList ?
-                                            <Select
-                                                labelId="PROJ_CATEGORY"
-                                                id="PROJ_CATEGORY"
-                                                name="PROJ_CATEGORY"
-                                                value={infos.PROJ_CATEGORY ? infos.PROJ_CATEGORY : ''}
-                                                onChange={handleChangeProjectInfos}
-                                            >
-                                                {categoryList.map((item, index) => {
-                                                    return (
-                                                        <MenuItem key={index} value={item.CATEGORY_PK}>{item.CATEGORY_NAME}</MenuItem>
-                                                    )
-                                                })}
-                                            </Select>
-                                            :
-                                            ''
-                                        }
-                                    </FormControl>
+                                    <ListItemText primary="기관 설명" />
+                                    <TextField className={classes.textFieldStyle} variant="outlined" placeholder="기관 설명" inputProps={TextFieldInputProps} name="desc" onChange={handleChangeAgencyInfos} />
                                 </ListItem>
                                 <Divider />
-                                <ListItem>
-                                    <ListItemText primary="프로젝트 설명" />
-                                    <TextField className={classes.textFieldStyle} variant="outlined" placeholder="프로젝트 설명" inputProps={TextFieldInputProps} name="PROJ_DESCRIPTION" onChange={handleChangeProjectInfos} />
+                                {/* <ListItem>
+                                    <ListItemText primary="기관 담당자" />
+                                    <TextField className={classes.textFieldStyle} variant="outlined" placeholder="기관 담당자" inputProps={TextFieldInputProps} name="PROJ_MANAGER" onChange={handleChangeAgencyInfos} />
                                 </ListItem>
-                                <Divider />
-                                <ListItem>
-                                    <ListItemText primary="프로젝트 담당자" />
-                                    <TextField className={classes.textFieldStyle} variant="outlined" placeholder="프로젝트 담당자" inputProps={TextFieldInputProps} name="PROJ_MANAGER" onChange={handleChangeProjectInfos} />
-                                </ListItem>
-                                <Divider />
-                                <ListItem>
-                                    <ListItemText primary="프로젝트 참여 인원 구성" />
-                                    <PersonList />
-                                </ListItem>
-                                <Divider />
+                                <Divider /> */}
                             </List>
-
-                            <ListItem>
-                                <ListItemText primary="기관명" />
-                                <TextField className={classes.textFieldStyle} variant="outlined" placeholder="기관명" inputProps={TextFieldInputProps} name="PROJ_AGENCY_NAME" onChange={handleChangeProjectInfos} />
-                            </ListItem>
-                            <Divider />
-                            <ListItem>
-                                <ListItemText primary="기관 담당자" />
-                                <TextField className={classes.textFieldStyle} variant="outlined" placeholder="기관 담당자" inputProps={TextFieldInputProps} name="PROJ_AGENCY_MANAGER" onChange={handleChangeProjectInfos} />
-                            </ListItem>
-                            <Divider />
-                            <ListItem>
-                                <ListItemText primary="기관 담당자 번호" />
-                                <TextField className={classes.textFieldStyle} variant="outlined" placeholder="기관 담당자 번호" inputProps={TextFieldInputProps} name="PROJ_AGENCY_MANAGER_PHONE" onChange={handleChangeProjectInfos} />
-                            </ListItem>
-                            <Divider />
-                            <ListItem>
-                                <ListItemText primary="기관 담당자 이메일 주소" />
-                                <TextField className={classes.textFieldStyle} variant="outlined" placeholder="기관 담당자 이메일 주소" inputProps={TextFieldInputProps} name="PROJ_AGENCY_MANAGER_EMAIL" onChange={handleChangeProjectInfos} />
-                            </ListItem>
-                            <Divider />
-                            <ListItem>
-                                <ListItemText primary="프로젝트 과업 수" />
-                                <TextField className={classes.textFieldStyle} variant="outlined" placeholder="프로젝트 과업 수" inputProps={TextFieldInputProps} name="PROJ_MAX_TASK" onChange={handleChangeProjectInfos} />
-                            </ListItem>
-                            <Divider />
                         </Grid>
-                        {/* <Box className={classes.center}>
-                            <Button
-                                className={classes.buttonStyle}
-                                variant="outlined"
-                                color="inherit"
-                                onClick={() => {}}
-                                size="large"
-                            >
-                                제출
-                            </Button>
-                        </Box> */}
                     </Grid>
                 </Container>
             </Dialog>
@@ -311,7 +204,7 @@ export default function FullScreenDialog() {
 
 
 // const stepNames = [
-//     '프로젝트',
+//     '기관',
 //     '기관'
 // ];
 

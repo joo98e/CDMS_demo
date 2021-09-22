@@ -10,7 +10,7 @@ export const setMemberInfos = member => {
 
 // ─────────────────────────────────────────────────── 
 export const outAuthenticated = () => {
-    sessionStorage.removeItem('member');
+    localStorage.removeItem('member');
     return {
         type: types.OUT_AUTHENTICATED,
     };

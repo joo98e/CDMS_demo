@@ -1,13 +1,30 @@
 import * as types from '../_actions/ActionTypes';
 
-// DB 살리고 함수형으로 바꾸기
+/**
+ * @function getAuthLocalStorage          :   세션 스토리지로부터 멤버 정보를 받아온다.
+ * @returns 
+ */
 
-const getAuthSessionStorage = () => {
-    return sessionStorage.getItem('member') !== null ? true : false
+const getAuthLocalStorage = () => {
+    return localStorage.getItem('member') !== null ? true : false
 }
 
-const getMemberSessionStorage = () => {
-    return sessionStorage.getItem('member') !== null ? JSON.parse(sessionStorage.getItem('member')) : null
+const getMemberLocalStorage = () => {
+    return localStorage.getItem('member') !== null ? JSON.parse(localStorage.getItem('member')) : null
+}
+
+const getIp = async url => {
+    await fetch(url,
+        {
+            method: 'get',
+        })
+        .then(res => res.json())
+        .then(res => {
+            initialState.accessInfo = res;
+        })
+        .catch(err => {
+            console.log(err);
+        });
 }
 
 const initRegisterValue = {
@@ -20,11 +37,14 @@ const initRegisterValue = {
 }
 
 const initialState = {
-    auth: getAuthSessionStorage(),
-    member: getMemberSessionStorage(),
+    auth: getAuthLocalStorage(),
+    member: getMemberLocalStorage(),
+    accessInfo: 1,
     projectMember: [],
     registerMember: initRegisterValue
 };
+
+getIp('https://geolocation-db.com/json/');
 
 const user = (state = initialState, action) => {
 
@@ -36,7 +56,7 @@ const user = (state = initialState, action) => {
                 ...state,
                 auth: true,
                 // 로그인
-                member: JSON.parse(sessionStorage.getItem('member'))
+                member: JSON.parse(localStorage.getItem('member'))
             };
 
         case types.OUT_AUTHENTICATED:
@@ -51,7 +71,7 @@ const user = (state = initialState, action) => {
                 ...state,
                 auth: true,
                 // 개발 로그인
-                member: JSON.parse(sessionStorage.getItem('member'))
+                member: JSON.parse(localStorage.getItem('member'))
             };
 
         case types.SET_PROJECT_PERSON_LIST:
@@ -97,7 +117,7 @@ const user = (state = initialState, action) => {
             return {
                 ...state,
                 registerMember: {
-                    avatar_file : '',
+                    avatar_file: '',
                     id: '',
                     password: '',
                     first_name: '',

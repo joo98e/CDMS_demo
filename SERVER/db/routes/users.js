@@ -14,7 +14,6 @@ router.post('/login', (req, res) => {
             // ID 없음
             if(Array.isArray(rows) && rows.length === 0 && rows[0] === undefined)
             {
-                console.log(`req.id is undefined`);
                 return res.send();
             } 
             
