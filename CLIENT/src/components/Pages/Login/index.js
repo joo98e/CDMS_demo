@@ -93,6 +93,9 @@ export class Login extends Component {
                 if (!res.data) {
                     return this.props.enqueueSnackbar('아이디 혹은 비밀번호가 틀렸습니다.', { variant: 'error' });
                 } else {
+                    if (res.data.resultCode === -1) {
+                        return this.props.enqueueSnackbar(res.data.resultMessage, { variant: 'error' });
+                    }
                     // 로그인 성공
                     const storageItem = {
                         seq : res.data.seq,

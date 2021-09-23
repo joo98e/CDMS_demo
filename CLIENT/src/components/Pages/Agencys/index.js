@@ -86,7 +86,7 @@ export class Agency extends Component {
                                 {/* {
                                     this.state.agency.map((item, index) => {
                                         return (
-                                            <ProjectCard
+                                            <AgencyCard
                                                 key={index}
                                                 infos={item}
                                             />

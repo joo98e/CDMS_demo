@@ -86,7 +86,7 @@ export class InputJobs extends PureComponent {
                                             labelId="dept_no"
                                             id="dept_no"
                                             name="dept_no"
-                                            value={1}
+                                            value={this.props.registerMember.dept_no ? this.props.registerMember.dept_no : 1}
                                             onChange={this.handleValueChange}
                                         >
                                             {this.state.orgStructure.departs.map((item, index) => {
@@ -111,7 +111,7 @@ export class InputJobs extends PureComponent {
                                             labelId="rank_no"
                                             id="rank_no"
                                             name="rank_no"
-                                            value={25}
+                                            value={this.props.registerMember.rank_no ? this.props.registerMember.rank_no : 25}
                                             onChange={this.handleValueChange}
                                         >
                                             {this.state.orgStructure.rank.map((item, index) => {

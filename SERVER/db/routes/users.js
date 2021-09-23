@@ -27,8 +27,15 @@ router.post('/login', (req, res) => {
                     result = bcrypt.compareSync(item.password, rows[0].password);
 
                     // 성공
-                    if(result){
-                        return res.send(rows[0]);
+                    if (result) {
+                        if (rows[0].ref_auth_id === 0) {
+                            return res.status(200).send({
+                                resultCode: -1,
+                                resultMessage : "권한을 부여받지 못한 아이디입니다."
+                            });
+                        } else {
+                            return res.status(200).send(rows[0]);
+                        }
                     }else{
                         return res.send();
                     }
