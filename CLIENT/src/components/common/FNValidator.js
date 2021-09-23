@@ -12,7 +12,7 @@ const FNValidator = (valueName, value) => {
         // ID / 영문, 숫자만 사용하여 4 ~ 20글자
         case "ID":
             const email = new RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i);
-
+            
             if (!email.test(value) || value === '') {
                 return false;
             } else {

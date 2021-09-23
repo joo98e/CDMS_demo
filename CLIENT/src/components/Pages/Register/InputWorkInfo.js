@@ -51,6 +51,7 @@ export class InputJobs extends PureComponent {
             departs : await resDepart.json(),
             rank : await resRank.json()
         }
+        console.log(_temp);
         return _temp;
     }
 
@@ -85,7 +86,7 @@ export class InputJobs extends PureComponent {
                                             labelId="dept_no"
                                             id="dept_no"
                                             name="dept_no"
-                                            value={this.props.registerMember.dept_no}
+                                            value={1}
                                             onChange={this.handleValueChange}
                                         >
                                             {this.state.orgStructure.departs.map((item, index) => {
@@ -110,7 +111,7 @@ export class InputJobs extends PureComponent {
                                             labelId="rank_no"
                                             id="rank_no"
                                             name="rank_no"
-                                            value={this.props.registerMember.rank}
+                                            value={25}
                                             onChange={this.handleValueChange}
                                         >
                                             {this.state.orgStructure.rank.map((item, index) => {

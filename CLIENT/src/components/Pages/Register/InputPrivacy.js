@@ -9,6 +9,7 @@ import {
 import {
     Visibility, VisibilityOff, RadioButtonUnchecked, CheckCircleOutline
 } from '@material-ui/icons'
+import axios from 'axios';
 
 const styles = theme => ({
     fullWidth: {
@@ -18,10 +19,11 @@ const styles = theme => ({
         margin: "0 auto"
     },
     marginBottom3: {
+        marginTop: theme.spacing(4),
         marginBottom: theme.spacing(4)
     },
     iconMargin: {
-        marginLeft : theme.spacing(1)
+        marginLeft: theme.spacing(1)
     }
 });
 
@@ -31,9 +33,12 @@ export class InputAccount extends PureComponent {
         this.state = {
             showPassword: false,
             departs: "",
-            unboot: false,
-            idCheck : false
+            idCheck: false
         }
+    }
+
+    componentDidMount() {
+        this.props.setRegisterMemberInfoInit();
     }
 
     handleValueChange = (e) => {
@@ -41,6 +46,14 @@ export class InputAccount extends PureComponent {
         nextState[e.target.name] = e.target.value;
 
         this.props.setRegisterMemberInfo(nextState);
+
+        if (e.target.name.toLowerCase() === 'id') {
+            this.props.setRegisterMemberInfo({
+                ...nextState,
+                idCheck: false
+            });
+            console.log(this.props.registerMember.idCheck);
+        }
     }
 
     handleFileChange = (e) => {
@@ -56,21 +69,16 @@ export class InputAccount extends PureComponent {
         });
     }
 
-    componentDidMount() {
-        this.props.setRegisterMemberInfoInit();
-    }
-
     render() {
         const { classes } = this.props;
         return (
-            <Box >
-                <Divider />
-
+            <Box>
                 <Box mt={8} mb={4}>
                     <Typography variant="h4" align='center'>
                         어떤 분이신가요?
                     </Typography>
                 </Box>
+                <Divider />
                 <Container className={classes.marginBottom3}>
                     <Grid container justifyContent='center' spacing={4}>
                         <Grid item xs={12}>
@@ -106,14 +114,16 @@ export class InputAccount extends PureComponent {
                                         required
                                         name="id"
                                         label="ID"
-                                        placeholder="example@example.com과 같은 형식이어야 해요!"
+                                        placeholder="example@example.com"
                                         onChange={this.handleValueChange}
+                                        error={this.props.errorTextField.id}
                                     />
                                     <IconButton
                                         color="inherit"
                                         className={classes.iconMargin}
+                                        onClick={this.props.handleIdDuplicateCheck}
                                     >
-                                        {this.state.showPassword ? <CheckCircleOutline /> : <RadioButtonUnchecked />}
+                                        {this.props.registerMember.idCheck ? <CheckCircleOutline /> : <RadioButtonUnchecked />}
                                     </IconButton>
                                 </Box>
                             </Container>
@@ -131,7 +141,8 @@ export class InputAccount extends PureComponent {
                                             name="password"
                                             label="PASSWORD"
                                             autoComplete="off"
-                                            placeholder="영문자, 숫자, 특수문자(!, @, #, $, %, &, *)를 각 1자 이상 포함하여 8 ~ 16자로 구성해주세요!"
+                                            placeholder="영문자, 숫자, 특수문자(!, @, #, $, %, &, *)를 각 1자 이상 포함하여 8 ~ 16자로 구성해주세요."
+                                            error={this.props.errorTextField.password}
                                             onChange={this.handleValueChange}
                                         />
                                     </form>
@@ -153,7 +164,8 @@ export class InputAccount extends PureComponent {
                                     required
                                     name="first_name"
                                     label="성"
-                                    helperText="한글로 구성합니다."
+                                    placeholder="한글로 구성하셔야 합니다."
+                                    error={this.props.errorTextField.first_name}
                                     onChange={this.handleValueChange}
                                 />
                             </Container>
@@ -167,7 +179,8 @@ export class InputAccount extends PureComponent {
                                     required
                                     name="last_name"
                                     label="이름"
-                                    helperText="한글로 구성합니다."
+                                    placeholder="한글로 구성하셔야 합니다."
+                                    error={this.props.errorTextField.last_name}
                                     onChange={this.handleValueChange}
                                 />
                             </Container>
@@ -181,7 +194,8 @@ export class InputAccount extends PureComponent {
                                     required
                                     name="nickName"
                                     label="닉네임"
-                                    helperText="한글, 영문으로 구성합니다."
+                                    placeholder="한글, 영문으로 구성하셔야 합니다."
+                                    error={this.props.errorTextField.nickName}
                                     onChange={this.handleValueChange}
                                 />
                             </Container>
@@ -195,7 +209,8 @@ export class InputAccount extends PureComponent {
                                     required
                                     name="phone"
                                     label="연락처"
-                                    helperText="-를 포함해서 입력해주세요!"
+                                    placeholder="000-0000-0000"
+                                    error={this.props.errorTextField.phone}
                                     onChange={this.handleValueChange}
                                 />
                             </Container>

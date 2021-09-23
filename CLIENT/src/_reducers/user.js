@@ -40,7 +40,7 @@ const initRegisterValue = {
 const initialState = {
     auth: getAuthLocalStorage(),
     member: getMemberLocalStorage(),
-    accessInfo: 1,
+    accessInfo: null,
     projectMember: [],
     registerMember: initRegisterValue
 };
@@ -120,6 +120,7 @@ const user = (state = initialState, action) => {
                 registerMember: {
                     avatar_file: '',
                     id: '',
+                    idCheck: false,
                     password: '',
                     first_name: '',
                     last_name: '',

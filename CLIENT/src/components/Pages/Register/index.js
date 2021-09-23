@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 
 import StepComponent from '../../common/StepComponent'
 import Policy from './Policy'
-import InputAccount from './InputPrivacy'
+import InputPrivacy from './InputPrivacy'
 import InputJobs from './InputWorkInfo';
 import Success from './Success';
 
@@ -20,24 +20,26 @@ import axios from 'axios';
 const styles = theme => ({
     columnBox: {
         display: 'flex',
+        minHeight: '100vh',
         flexDirection: 'column',
-        paddingBottom: theme.spacing(4),
+        paddingBottom: theme.spacing(2),
         backgroundColor: theme.palette.background.paper
     },
     show: {
-        display: 'block'
+        display: 'block',
+        paddingTop: theme.spacing(4),
     },
     hide: {
         display: 'none'
     },
     center: {
         margin: "0 auto"
-    }
+    },
 });
 
 const stepInfo = {
     stepsTitle: [
-        "이용 약관",
+        "이용약관",
         "어떤 분이신가요?",
         "어떤 업무를 하시나요?",
         "완료",
@@ -69,10 +71,6 @@ export class index extends PureComponent {
             ...this.state,
             awhile: true
         });
-
-        this.getIp();
-        console.log(this.state);
-
     }
 
     handleClickMoveStep = param => {
@@ -81,10 +79,11 @@ export class index extends PureComponent {
         result = true;
 
         if (param > 0) {
+            console.log(_obj);
             console.log(_obj.idCheck);
             switch (this.state.stepNum) {
                 case 0:
-                    this.props.enqueueSnackbar(`이용 약관 확인이 되었어요.`, { variant: 'info' });
+                    this.props.enqueueSnackbar(`이용약관 확인이 되었어요.`, { variant: 'info' });
                     break;
 
                 case 1:
@@ -95,10 +94,16 @@ export class index extends PureComponent {
                             case "id":
                                 if (!FNValidator("ID", _obj[item])) {
                                     this.props.enqueueSnackbar("ID는 이메일 형식이에요!", { variant: "warning" });
+                                    this.setState({
+                                        ...this.state,
+                                        errorTextField: {
+                                            id: true
+                                        }
+                                    });
                                     return result = false;
                                 }
                                 break;
-                            
+
                             case "idCheck":
                                 console.log(_obj.idCheck);
                                 if (!_obj.idCheck) {
@@ -110,6 +115,12 @@ export class index extends PureComponent {
                             case "password":
                                 if (!FNValidator("PASSWORD", _obj[item])) {
                                     this.props.enqueueSnackbar("비밀번호를 확인해주세요!", { variant: "warning" });
+                                    this.setState({
+                                        ...this.state,
+                                        errorTextField: {
+                                            password: true
+                                        }
+                                    });
                                     return result = false;
                                 }
                                 break;
@@ -117,6 +128,12 @@ export class index extends PureComponent {
                             case "first_name":
                                 if (!FNValidator("FIRST_NAME", _obj[item])) {
                                     this.props.enqueueSnackbar("성, 이름을 확인해주세요!", { variant: "warning" });
+                                    this.setState({
+                                        ...this.state,
+                                        errorTextField: {
+                                            first_name: true
+                                        }
+                                    });
                                     return result = false;
                                 }
                                 break;
@@ -124,6 +141,12 @@ export class index extends PureComponent {
                             case "last_name":
                                 if (!FNValidator("LAST_NAME", _obj[item])) {
                                     this.props.enqueueSnackbar("이름을 입력해주세요!", { variant: "warning" });
+                                    this.setState({
+                                        ...this.state,
+                                        errorTextField: {
+                                            last_name: true
+                                        }
+                                    });
                                     return result = false;
                                 }
                                 break;
@@ -131,6 +154,12 @@ export class index extends PureComponent {
                             case "nickName":
                                 if (!FNValidator("NICKNAME", _obj[item])) {
                                     this.props.enqueueSnackbar("닉네임은 한글, 영문만 사용 가능해요!", { variant: "warning" });
+                                    this.setState({
+                                        ...this.state,
+                                        errorTextField: {
+                                            nickName: true
+                                        }
+                                    });
                                     return result = false;
                                 }
                                 break;
@@ -138,6 +167,12 @@ export class index extends PureComponent {
                             case "phone":
                                 if (!FNValidator("PHONE", _obj[item])) {
                                     this.props.enqueueSnackbar("번호는 꼭 필요해요!", { variant: "warning" });
+                                    this.setState({
+                                        ...this.state,
+                                        errorTextField: {
+                                            phone: true
+                                        }
+                                    });
                                     return result = false;
                                 }
                                 break;
@@ -152,10 +187,20 @@ export class index extends PureComponent {
                         }
                     }
 
-                    if (result)
+                    if (result) {
+                        this.setState({
+                            ...this.state,
+                            errorTextField: {
+                                id: false,
+                                password: false,
+                                first_name: false,
+                                last_name: false,
+                                nickName: false,
+                                phone: false,
+                            }
+                        });
                         this.props.enqueueSnackbar(`멋진 분이시군요!`, { variant: 'success' });
-                    else
-                        this.props.enqueueSnackbar(`오류입니다!`, { variant: 'error' });
+                    } else this.props.enqueueSnackbar(`오류입니다!`, { variant: 'error' });
 
                     break;
 
@@ -218,25 +263,48 @@ export class index extends PureComponent {
         }
     }
 
-    getIp = async () => {
-        try {
-            await axios.get('https://geolocation-db.com/json/')
+    handleIdDuplicateCheck = () => {
+        if (!FNValidator("id", this.props.registerMember.id)) {
+            return this.props.enqueueSnackbar("ID는 이메일 형식입니다.", { variant: "warning" });
+        } else {
+            const URL = 'api/register/duplicateCheckId'
+    
+            axios.post(URL, this.props.registerMember)
                 .then(res => {
-                    this.setState({
-                        ...this.state,
-                        ip: res.data.IPv4,
-                        country_code: res.data.country_code,
-                        country_name: res.data.country_name,
-                    });
+                    if (res.data.resultCode === 1) {
+                        this.props.setRegisterMemberInfo(
+                            {
+                                ...this.props.registerMember,
+                                idCheck: true
+                            }
+                        );
+
+                        this.setState({
+                            ...this.state,
+                            errorTextField: {
+                                id: false,
+                                password: false,
+                                first_name: false,
+                                last_name: false,
+                                nickName: false,
+                                phone: false,
+                            }
+                        });
+
+                        return this.props.enqueueSnackbar("회원가입이 가능한 아이디입니다.", { variant: "success" });;
+                    } else if (res.data.resultCode === -1) {
+                        this.setState({
+                            ...this.state,
+                            errorTextField: {
+                                id: true,
+                            }
+                        });
+                        return this.props.enqueueSnackbar("중복되는 아이디가 있습니다.", { variant: "warning" });
+                    } else {
+                        return this.props.enqueueSnackbar("예기치 못한 오류입니다.", { variant: "error" });
+                    }
                 })
                 .catch(err => console.log(err));
-
-            console.log(this.state);
-            return true;
-
-        } catch (error) {
-            console.log(error);
-            return false;
         }
     }
 
@@ -259,17 +327,14 @@ export class index extends PureComponent {
         formData.append("phone", this.props.registerMember.phone);
         formData.append("rank_no", this.props.registerMember.rank_no);
         formData.append("dept_no", this.props.registerMember.dept_no);
-        formData.append("reg_ip", this.state.ip);
-        formData.append("upd_ip", this.state.ip);
-        formData.append("country_name", this.state.country_name);
-        formData.append("country_code", this.state.country_code);
+        formData.append("reg_ip", this.props.accessInfo.IPv4);
+        formData.append("upd_ip", this.props.accessInfo.IPv4);
+        formData.append("country_name", this.props.accessInfo.country_name);
+        formData.append("country_code", this.props.accessInfo.country_code);
 
         return axios.post(URL, formData, config)
             .then((req, res) => {
-                console.log("this.state.ip", this.state.ip);
-                console.log("this.state.ip", this.state.ip);
-                console.log("this.state.country_name", this.state.country_name);
-                console.log("this.state.country_code", this.state.country_code);
+                this.props.enqueueSnackbar("회원가입이 성공하였습니다. 권한을 부여받아주세요.", { variant: "success" });
             })
             .catch(err => {
                 console.warn(err);
@@ -297,7 +362,7 @@ export class index extends PureComponent {
             },
             {
                 StepNum: 2,
-                Component: <InputAccount handleClickMoveStep={this.handleClickMoveStep} errorTextField={this.state.errorTextField} />
+                Component: <InputPrivacy handleClickMoveStep={this.handleClickMoveStep} errorTextField={this.state.errorTextField} handleIdDuplicateCheck={this.handleIdDuplicateCheck} />
             },
             {
                 StepNum: 3,
@@ -357,7 +422,14 @@ export class index extends PureComponent {
     }
 }
 
+const mapDispatchToProps = dispatch => {
+    return {
+        setRegisterMemberInfo: payload => { dispatch(actions.setRegisterMemberInfo(payload)) }
+    }
+};
+
 const mapStateToProps = state => ({
-    registerMember: state.user.registerMember
+    registerMember: state.user.registerMember,
+    accessInfo : state.user.accessInfo
 });
-export default connect(mapStateToProps)(withSnackbar(withStyles(styles)(withRouter(index))))
+export default connect(mapStateToProps, mapDispatchToProps)(withSnackbar(withStyles(styles)(withRouter(index))))

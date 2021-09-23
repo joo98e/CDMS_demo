@@ -60,14 +60,16 @@ export class Agency extends Component {
             params: {
                 ...params
             }
-        }).then(res => {
-            this.setState({
-                ...this.state,
-                agency: res.data
+        })
+            .then(res => {
+                this.setState({
+                    ...this.state,
+                    agency: res.data
+                });
+            })
+            .catch(err => {
+                console.log(err);
             });
-        }).catch(err => {
-            console.log(err);
-        });
     }
 
     render() {

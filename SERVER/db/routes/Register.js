@@ -28,11 +28,11 @@ const avatarStorage = multer({
 router.post('/signUp', avatarStorage.single('avatar_file'), (req, res) => {
     bcrypt.genSalt(saltRounds, (err, salt) => {
         bcrypt.hash(req.body.password, salt, (err, hash) => {
-            if(err) console.log(err);
+            if (err) console.log(err);
 
-            let SQL = 
-            `INSERT INTO tb_member (avatar_name, avatar_path, id, password, first_name, last_name, nickName, phone, rank_no, dept_no, reg_date, upd_date, reg_ip, upd_ip, country_name, country_code) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-            
+            let SQL =
+                `INSERT INTO tb_member (avatar_name, avatar_path, id, password, first_name, last_name, nickName, phone, rank_no, dept_no, reg_date, upd_date, reg_ip, upd_ip, country_name, country_code) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
             let params = [
                 !req.file ? "default.png" : req.file.filename,
                 !req.file ? `${avatarTargetDIR}default.png` : `${avatarTargetDIR}` + req.file.filename,
@@ -51,20 +51,44 @@ router.post('/signUp', avatarStorage.single('avatar_file'), (req, res) => {
                 req.body.country_name,
                 req.body.country_code
             ];
-            
-            console.log(`${params}`);
 
             connection.query(SQL, params, (err, rows, fields) => {
-                if (err) console.log(err);
+                if (err) {
+                    return res.status(400).send({resultCode : '-1', result : false});
+                } else {
+                    return res.status(200).send({ resultCode: '1', result: true });
+                }
             });
-
-            res.status(200).json(req.body);
         });
     });
 });
 
-module.exports = router;
+router.post('/duplicateCheckId', (req, res) => {
+    const SQL = "SELECT tb_member.id FROM tb_member WHERE tb_member.id = ?"
+    const param = req.body.id;
 
+    connection.query(SQL, param, (err, rows) => {
+        if (err) {
+            console.log(err.status);
+            console.log(err);
+        }
+
+        if (rows.length === 0) {
+            return res.status(200).send({
+                result: true,
+                resultCode: 1,
+                resultMessage : "가입 가능한 아이디입니다."
+            });
+        } else {
+            return res.status(200).send({
+                result: false,
+                resultCode: -1,
+                resultMessage: "이미 존재하는 아이디입니다."
+            });
+        }
+    });
+
+});
 
 
 
@@ -78,3 +102,6 @@ const checkDirectory = (dir) => {
         console.log(`폴더가 이미 존재하여 다음 차례를 진행합니다, ${avatarTargetDIR}\\items\\${dir}`);
     }
 }
+
+
+module.exports = router;
