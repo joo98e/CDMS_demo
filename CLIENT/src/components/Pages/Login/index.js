@@ -53,7 +53,7 @@ export class Login extends Component {
 
         this.state = {
             info: {},
-            awhile: false
+            awhile: false,
         }
     }
 
@@ -79,11 +79,11 @@ export class Login extends Component {
         
         const URL = '/api/users/login';
         const vars = {
-            user_id: this.state.info.user_id,
-            user_password: this.state.info.user_password
+            id: this.state.info.id,
+            password: this.state.info.password
         }
 
-        if (!this.state.info.user_id || !this.state.info.user_password) {
+        if (!this.state.info.id || !this.state.info.password) {
             return this.props.enqueueSnackbar('아이디 혹은 비밀번호를 입력해주세요.', { variant: 'warning' })
         }
 
@@ -95,23 +95,24 @@ export class Login extends Component {
                 } else {
                     // 로그인 성공
                     const storageItem = {
-                        MEM_USERID: res.data.MEM_USERID,
-                        MEM_NAME: res.data.MEM_NAME,
-                        MEM_NICKNAME: res.data.MEM_NICKNAME,
-                        MEM_BIRTHDAY: res.data.MEM_BIRTHDAY,
-                        MEM_DEPT_NO: res.data.MEM_DEPT_NO,
-                        MEM_AGE: res.data.MEM_AGE,
-                        MEM_EMPNO: res.data.MEM_EMPNO,
-                        MEM_MENU_APPEAR_POSITION: res.data.MEM_MENU_APPEAR_POSITION,
-                        MEM_IMAGE : res.data.MEM_IMAGE
+                        seq : res.data.seq,
+                        ref_auth_id : res.data.ref_auth_id,
+                        id : res.data.id,
+                        first_name : res.data.first_name,
+                        last_name : res.data.last_name,
+                        nickname : res.data.nickname,
+                        phone : res.data.phone,
+                        dept_no : res.data.dept_no,
+                        rank_no : res.data.rank_no,
+                        followed : res.data.followed,
+                        avatar_name : res.data.avatar_name,
+                        avatar_path : res.data.avatar_path
                     }
 
-                    // localStorage에서는 객체 형태의 저장을 지원하지 않는다.
-                    // 따라서, String 형태로 저장해두었다가, store에서 사용할 때 파싱한다.
                     localStorage.setItem('member', JSON.stringify(storageItem));
                     this.props.getAuthenticated(storageItem);
-                    this.props.enqueueSnackbar(`안녕하세요. ${this.props.user.member.MEM_NAME}님?`, { variant: 'success' });
-                    this.props.history.push('/landing');
+                    this.props.enqueueSnackbar(`안녕하세요. ${this.props.user.member.nickname}님?`, { variant: 'success' });
+                    this.props.history.push('/');
                 }
             }).catch((err) => {
                 this.props.enqueueSnackbar(`${err}`, { variant: 'error' });
@@ -122,12 +123,11 @@ export class Login extends Component {
     devLogin = () => {
         Axios.get('api/users/login/dev')
             .then(res => {
-                // localStorage에서는 객체 형태의 저장을 지원하지 않는다.
-                // 따라서, String 형태로 저장해두었다가, store에서 사용할 때 파싱한다.
+                
                 localStorage.setItem('member', JSON.stringify(res.data));
                 this.props.devAuth(res.data);
                 this.props.enqueueSnackbar(`개발 로그인입니다.`, { variant: 'success' });
-                this.props.history.push('/landing');
+                this.props.history.push('/');
             }).catch((err) => {
                 this.props.enqueueSnackbar(`${err}`, { variant: 'error' });
             });
@@ -163,7 +163,7 @@ export class Login extends Component {
                                     fullWidth
                                     required
                                     variant="filled"
-                                    name="user_id"
+                                    name="id"
                                     label="아이디"
                                     placeholder="example"
                                     onChange={this.handleChange}
@@ -178,7 +178,7 @@ export class Login extends Component {
                                     fullWidth
                                     required
                                     variant="filled"
-                                    name="user_password"
+                                    name="password"
                                     label="비밀번호"
                                     type="password"
                                     autoComplete="off"

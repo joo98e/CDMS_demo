@@ -13,7 +13,7 @@ const CURRENT_DIR = __dirname;
 const multer = require('multer');
 const path = require('path');
 const avatarTargetDIR = `uploads\\avatars\\items\\`;
-// dest : 목적지 데스티네이션 
+
 const avatarDIR = multer({ dest: avatarTargetDIR });
 
 const avatarStorage = multer({

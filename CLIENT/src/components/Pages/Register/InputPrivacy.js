@@ -4,11 +4,11 @@ import { withRouter } from 'react-router-dom';
 import * as actions from '../../../_actions/UserInfo'
 import {
     Container, Grid, TextField, IconButton, Typography,
-    Box, Button,
-    withStyles,
-    Divider
+    Box, Button, withStyles, Divider
 } from '@material-ui/core'
-import { Visibility, VisibilityOff } from '@material-ui/icons'
+import {
+    Visibility, VisibilityOff, RadioButtonUnchecked, CheckCircleOutline
+} from '@material-ui/icons'
 
 const styles = theme => ({
     fullWidth: {
@@ -19,6 +19,9 @@ const styles = theme => ({
     },
     marginBottom3: {
         marginBottom: theme.spacing(4)
+    },
+    iconMargin: {
+        marginLeft : theme.spacing(1)
     }
 });
 
@@ -28,7 +31,8 @@ export class InputAccount extends PureComponent {
         this.state = {
             showPassword: false,
             departs: "",
-            unboot: false
+            unboot: false,
+            idCheck : false
         }
     }
 
@@ -76,7 +80,7 @@ export class InputAccount extends PureComponent {
                                     component="label"
                                     color="inherit"
                                 >
-                                    <Typography 
+                                    <Typography
                                         color={!this.props.registerMember.avatar_file ? "textPrimary" : "textSecondary"}
                                     >
                                         {!this.props.registerMember.avatar_file ? "프로필 이미지 선택" : "프로필 선택 완료!"}
@@ -95,15 +99,23 @@ export class InputAccount extends PureComponent {
 
                         <Grid item xs={12}>
                             <Container>
-                                <TextField
-                                    variant="filled"
-                                    fullWidth
-                                    required
-                                    name="id"
-                                    label="ID"
-                                    helperText="example@example.com과 같은 형식이어야 해요!"
-                                    onChange={this.handleValueChange}
-                                />
+                                <Box display="flex" justifyContent="flex-start" alignItems="center">
+                                    <TextField
+                                        variant="filled"
+                                        fullWidth
+                                        required
+                                        name="id"
+                                        label="ID"
+                                        placeholder="example@example.com과 같은 형식이어야 해요!"
+                                        onChange={this.handleValueChange}
+                                    />
+                                    <IconButton
+                                        color="inherit"
+                                        className={classes.iconMargin}
+                                    >
+                                        {this.state.showPassword ? <CheckCircleOutline /> : <RadioButtonUnchecked />}
+                                    </IconButton>
+                                </Box>
                             </Container>
                         </Grid>
 
@@ -112,7 +124,6 @@ export class InputAccount extends PureComponent {
                                 <Box display="flex" justifyContent="flex-start" alignItems="center">
                                     <form className={classes.fullWidth}>
                                         <TextField
-                                            error={this.state.showPassword ? true : false}
                                             fullWidth
                                             variant="filled"
                                             required
@@ -120,18 +131,17 @@ export class InputAccount extends PureComponent {
                                             name="password"
                                             label="PASSWORD"
                                             autoComplete="off"
-                                            helperText="영문자, 숫자, 특수문자(!, @, #, $, %, &, *)를 각 1자 이상 포함하여 8 ~ 16자로 구성해주세요!"
+                                            placeholder="영문자, 숫자, 특수문자(!, @, #, $, %, &, *)를 각 1자 이상 포함하여 8 ~ 16자로 구성해주세요!"
                                             onChange={this.handleValueChange}
                                         />
                                     </form>
-                                    <Box>
-                                        <IconButton
-                                            color="inherit"
-                                            onClick={this.handleChangeShowPassWord}
-                                        >
-                                            {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
-                                        </IconButton>
-                                    </Box>
+                                    <IconButton
+                                        color="inherit"
+                                        className={classes.iconMargin}
+                                        onClick={this.handleChangeShowPassWord}
+                                    >
+                                        {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
+                                    </IconButton>
                                 </Box>
                             </Container>
                         </Grid>

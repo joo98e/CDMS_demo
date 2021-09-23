@@ -13,10 +13,6 @@ const FNValidator = (valueName, value) => {
         case "ID":
             const email = new RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i);
 
-            console.log("email.test(value)", email.test(value))
-            console.log("value === ''", value === '')
-            console.log("value", value);
-
             if (!email.test(value) || value === '') {
                 return false;
             } else {
@@ -73,6 +69,15 @@ const FNValidator = (valueName, value) => {
         // 닉네임 / 한글 영문만 사용 가능
         case "NICKNAME":
             if (!/^[가-힣a-zA-Z]+$/.test(value)) {
+                return false;
+            } else {
+                isConfirmed = true;
+            }
+            break;
+        
+        // 기관명 / 한글 혹은 영문이 반드시 1자 이상 포함, 한영숫 사용 가능
+        case "AGCYNAME":
+            if (!/^[A-za-zㄱ-ㅎ가-힣0-9]+[가-힣|ㄱ-ㅎ||A-Z|a-z]{1}/gi.test(value)) {
                 return false;
             } else {
                 isConfirmed = true;

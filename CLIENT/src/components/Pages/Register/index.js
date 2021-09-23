@@ -81,19 +81,28 @@ export class index extends PureComponent {
         result = true;
 
         if (param > 0) {
+            console.log(_obj.idCheck);
             switch (this.state.stepNum) {
                 case 0:
                     this.props.enqueueSnackbar(`이용 약관 확인이 되었어요.`, { variant: 'info' });
                     break;
 
                 case 1:
-
                     for (let item in _obj) {
 
                         switch (item) {
+
                             case "id":
                                 if (!FNValidator("ID", _obj[item])) {
                                     this.props.enqueueSnackbar("ID는 이메일 형식이에요!", { variant: "warning" });
+                                    return result = false;
+                                }
+                                break;
+                            
+                            case "idCheck":
+                                console.log(_obj.idCheck);
+                                if (!_obj.idCheck) {
+                                    this.props.enqueueSnackbar("ID 중복 체크를 해주세요.", { variant: "warning" });
                                     return result = false;
                                 }
                                 break;

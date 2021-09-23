@@ -11,7 +11,7 @@ import {
     TableContainer, Table, TableHead, TableBody, TableRow, TableCell
 } from '@material-ui/core'
 
-import PersonRow from '../../common/PersonRow';
+import UIPersonRow from '../../common/UIPersonRow';
 import UICircularProgress from '../../common/UICircularProgress';
 
 const styles = theme => ({
@@ -120,7 +120,7 @@ export class PersonList extends Component {
                                                 <TableBody>
                                                     {
                                                         this.state.workForce.map((item, index) => {
-                                                            return <PersonRow key={index} data={item} />
+                                                            return <UIPersonRow key={index} data={item} />
                                                         })
                                                     }
                                                 </TableBody>

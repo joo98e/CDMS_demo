@@ -29,6 +29,7 @@ const getIp = async url => {
 
 const initRegisterValue = {
     id: '',
+    idCheck : false,
     password: '',
     first_name: '',
     last_name: '',

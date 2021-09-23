@@ -13,6 +13,8 @@ import NotificationImportantIcon from '@material-ui/icons/NotificationImportant'
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import FNValidator from '../../common/FNValidator';
+import UIPersonList from '../../common/UIPersonList';
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -67,28 +69,19 @@ const TextFieldInputProps = {
 
 const defaultState = {
     name: "",
-    desc: "",
-    reg_ip : "",
-    upd_ip : ""
+    desc: ""
 }
 
 export default function FullScreenDialog() {
     const _tmp = useSelector((store) => store.user.accessInfo);
+    const _members = useSelector((store) => store.user.member);
 
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [infos, setInfos] = React.useState(defaultState);
-    const [accessInfos, setAccessInfos] = React.useState(_tmp);
+    const [accessInfos] = React.useState(_tmp);
 
     const { enqueueSnackbar } = useSnackbar();
-
-    
-    React.useEffect(() => {
-        console.log(accessInfos);
-        return () => {
-            // TODO
-        }
-    }, []);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -100,19 +93,19 @@ export default function FullScreenDialog() {
     };
 
     const handleValidateValue = () => {
-        console.log(infos);
-        for (let idx in infos) {
+        
+        for (let item in infos) {
 
-            switch (idx) {
+            switch (item) {
                 case "name":
-                    if (infos[idx] === "" || infos[idx] === undefined) {
-                        enqueueSnackbar('이름 없는 기관은 없어요.', { variant: 'warning' });
+                    if (!FNValidator("AGCYNAME", infos[item])) {
+                        enqueueSnackbar('한글, 영문이 반드시 포함되어야 하며 한글, 영문, 숫자만 사용 가능합니다.', { variant: 'warning' });
                         return false;
                     }
                     break;
 
                 case "desc":
-                    if (infos[idx] === "" || infos[idx] === undefined) {
+                    if (infos[item] === "" || infos[item] === undefined) {
                         enqueueSnackbar('설명을 기재해주세요!', { variant: 'warning' });
                         return false;
                     }
@@ -134,13 +127,18 @@ export default function FullScreenDialog() {
 
     const handleClickAddAgency = () => {
         const URL = 'api/agency/add';
+        const data = {
+            ...infos,
+            ...accessInfos,
+            ..._members
+        }
         const config = {
             headers : {
                 "content-type" : "application/json"
             }
         }
-
-        axios.post(URL, infos, config);
+        
+        axios.post(URL, data, config);
         console.log("posted");
     }
 
@@ -186,11 +184,11 @@ export default function FullScreenDialog() {
                                     <TextField className={classes.textFieldStyle} variant="outlined" placeholder="기관 설명" inputProps={TextFieldInputProps} name="desc" onChange={handleChangeAgencyInfos} />
                                 </ListItem>
                                 <Divider />
-                                {/* <ListItem>
+                                <ListItem>
                                     <ListItemText primary="기관 담당자" />
-                                    <TextField className={classes.textFieldStyle} variant="outlined" placeholder="기관 담당자" inputProps={TextFieldInputProps} name="PROJ_MANAGER" onChange={handleChangeAgencyInfos} />
+                                    <UIPersonList />
                                 </ListItem>
-                                <Divider /> */}
+                                <Divider />
                             </List>
                         </Grid>
                     </Grid>

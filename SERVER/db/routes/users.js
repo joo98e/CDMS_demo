@@ -7,7 +7,7 @@ router.post('/login', (req, res) => {
     const item = req.body;
     let result = Boolean;
     connection.query(
-        `SELECT * FROM TB_MEMBER_INFO WHERE MEM_USERID = '${item.user_id}'`,
+        `SELECT seq, ref_auth_id, id, password, first_name, last_name, nickname, phone, dept_no, rank_no, followed, avatar_name, avatar_path FROM tb_member WHERE id = ? AND delete_yn = 'N'`, item.id,
         (err, rows, fields) => {
             if(err) console.log(err);
 
@@ -20,10 +20,11 @@ router.post('/login', (req, res) => {
             // 비밀번호 확인
             else
             {
+                console.log(rows[0])
                 if(rows.length !== 0) {
                     if(err) console.log(err);
 
-                    result = bcrypt.compareSync(item.user_password, rows[0].MEM_PASSWORD);
+                    result = bcrypt.compareSync(item.password, rows[0].password);
 
                     // 성공
                     if(result){
@@ -41,7 +42,20 @@ router.post('/login', (req, res) => {
 router.get('/login/dev', (req, res) => {
     
     connection.query(
-        "SELECT * FROM tb_member where seq = 1;",
+        `SELECT 
+            seq,
+            ref_auth_id,
+            id,
+            first_name,
+            last_name,
+            nickname,
+            phone,
+            dept_no,
+            rank_no,
+            followed,
+            avatar_name,
+            avatar_path
+        FROM tb_member where seq = 1 AND delete_yn = 'N';`,
         (err, rows, fields) => {
             if (err) console.log(err);
             

@@ -22,6 +22,18 @@ router.get('/list', (req, res) => {
 
 router.post('/add', (req, res) => {
     console.log(req.body);
+
+    const SQL = `INSERT INTO tb_agcy (wrtier_seq, agency_manager_seq, name, desc, reg_date, upd_date, reg_ip, upd_ip) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+    const vars = [
+        req.body.seq,
+        req.body.seq,
+        req.body.seq,
+        req.body.seq,
+        req.body.seq,
+        req.body.seq,
+        req.body.seq,
+        req.body.seq,
+    ]
     
 });
 

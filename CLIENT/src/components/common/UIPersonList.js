@@ -1,8 +1,8 @@
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
-import * as actions from '../../../_actions/UserInfo';
-
+import * as actions from '../../_actions/UserInfo';
 
 import {
     Button, withStyles, Box,
@@ -11,8 +11,8 @@ import {
     TableContainer, Table, TableHead, TableBody, TableRow, TableCell
 } from '@material-ui/core'
 
-import UIPersonRow from '../../common/UIPersonRow';
-import UICircularProgress from '../../common/UICircularProgress';
+import UIPersonRow from './UIPersonRow';
+import UICircularProgress from '../common/UICircularProgress';
 
 const styles = theme => ({
     textFieldStyle: {
@@ -27,7 +27,7 @@ const styles = theme => ({
     }
 });
 
-export class PersonList extends Component {
+export class UIPersonList extends Component {
     constructor(props) {
         super(props)
 
@@ -118,11 +118,7 @@ export class PersonList extends Component {
                                                     </TableRow>
                                                 </TableHead>
                                                 <TableBody>
-                                                    {
-                                                        this.state.workForce.map((item, index) => {
-                                                            return <UIPersonRow key={index} data={item} />
-                                                        })
-                                                    }
+
                                                 </TableBody>
                                             </Table>
                                         </TableContainer>
@@ -137,7 +133,7 @@ export class PersonList extends Component {
                                     외부 인력 구성
                                 </DialogContentText>
                             </Box> */}
-                            
+
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={() => { this.handleChangeStatus("CANCLE") }} color="inherit" variant="outlined">
@@ -155,8 +151,15 @@ export class PersonList extends Component {
     }
 }
 
+/**
+ * @param {}             :
+ * @param {}             :
+ * @param {}             :
+ * @returns {}
+ */
+
 const mapStateToProps = (state) => ({
-    projectMember : state.user.projectMember
+    projectMember: state.user.projectMember
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -167,5 +170,5 @@ const mapDispatchToProps = (dispatch) => {
 
 export default connect(mapStateToProps, mapDispatchToProps)
     (withStyles(styles)
-    (withSnackbar(PersonList))
-);
+        (withSnackbar(UIPersonList))
+    );

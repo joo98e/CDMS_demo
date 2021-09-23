@@ -11,7 +11,7 @@ import LockOpenIcon from '@material-ui/icons/LockOpen';
 import { Avatar } from '@material-ui/core';
 // import AccountTreeIcon from '@material-ui/icons/AccountTree';
 // import HomeIcon from '@material-ui/icons/Home';
-import Sidebar from './SideBar';
+import UISidebar from './UISideBar';
 
 const styles = theme => ({
     root: {
@@ -46,7 +46,7 @@ export class MyNav extends Component {
             <div className={classes.root}>
                 <AppBar position='fixed'>
                     <Toolbar>
-                        <Sidebar />
+                        <UISidebar />
 
                         <Box flexGrow={1} className={classes.ml}>
                             <Typography variant="h6">
