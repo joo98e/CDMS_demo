@@ -43,3 +43,4 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDBnrzWER9WWUEHJ9EctJ3ELrnZhS2JSMHipIs7MDLw
 됐어됐어
 
 node 버전 변경 / 14 기본으로
+sudo 추가
