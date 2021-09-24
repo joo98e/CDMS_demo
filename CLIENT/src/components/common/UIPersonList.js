@@ -46,7 +46,7 @@ export class UIPersonList extends Component {
     componentDidMount() {
 
         // 젠킨스 테스트 #10
-        console.log(21312321);
+        console.log(789789789);
     }
 
     UIPersonRowChangeData = newItem => {
