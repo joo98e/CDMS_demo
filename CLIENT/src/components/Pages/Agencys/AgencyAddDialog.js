@@ -115,12 +115,11 @@ export default function FullScreenDialog() {
                 delete_yn: 'N'
             };
             await axios.get('api/agency/category', {
-                params: {
-                    delete_yn : 'N'
-                }
+                params: condition
             })
                 .then(res => {
-                    setCategoryList(res.data);
+                    setCategoryList(res.data.result);
+                    console.log(res.data);
                 });
         }
 
@@ -132,6 +131,7 @@ export default function FullScreenDialog() {
             await axios.post('api/org/person', condition)
                 .then(res => {
                     setPersonRow(res.data);
+                    console.log(res.data);
                 })
                 .catch(err => console.error(err));
         }

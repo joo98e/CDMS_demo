@@ -8,11 +8,11 @@ const myBatisMapper = require('mybatis-mapper');
 const format = require('../config/MyBatisFormat');
 
 router.get('/list', (req, res) => {
-    
+
     const SQL = `SELECT * FROM tb_agcy WHERE delete_yn = 'N';`
 
     console.log(req.query);
-     
+
     connection.query(SQL,
         (err, rows, fields) => {
             if (err) console.log(err);
@@ -23,19 +23,29 @@ router.get('/list', (req, res) => {
 });
 
 router.get('/category', (req, res) => {
-    const params = req.params;
+    const params = req.query;
     myBatisMapper.createMapper(['./db/xml/Agency/Agency.xml']);
 
     const SQL = myBatisMapper.getStatement('Agency', 'getCategory', params, format);
-    console.log(params);
+    connection.query(SQL,
+        (err, rows, fields) => {
+            if (err) console.log(err);
 
-    // connection.query(SQL,
-    //     (err, rows, fields) => {
-    //         if (err) console.log(err);
-            
-    //         res.status(200).send(rows);
-    //     }
-    // );
+            if (rows.length === 0) {
+                return res.status(200).send({
+                    result: {},
+                    resultCode: -2,
+                    resultMessage: '동작은 이루어졌으나 결과값이 없습니다.'
+                });
+            } else {
+                return res.status(200).send({
+                    result: rows,
+                    resultCode: 1,
+                    resultMessage: '완료'
+                });
+            }
+        }
+    );
 });
 
 router.post('/add', (req, res) => {
@@ -52,7 +62,7 @@ router.post('/add', (req, res) => {
         req.body.seq,
         req.body.seq,
     ]
-    
+
 });
 
 module.exports = router;
