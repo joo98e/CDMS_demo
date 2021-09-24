@@ -45,3 +45,4 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDBnrzWER9WWUEHJ9EctJ3ELrnZhS2JSMHipIs7MDLw
 node 버전 변경 / 14 기본으로
 sudo 추가
 으악 build 경로 잘못 됨.
+build 경로 제대로 잡았고~
