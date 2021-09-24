@@ -115,7 +115,9 @@ export default function FullScreenDialog() {
                 delete_yn: 'N'
             };
             await axios.get('api/agency/category', {
-                params: condition
+                params: {
+                    delete_yn : 'N'
+                }
             })
                 .then(res => {
                     setCategoryList(res.data);

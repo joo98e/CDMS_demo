@@ -26,20 +26,16 @@ router.get('/category', (req, res) => {
     const params = req.params;
     myBatisMapper.createMapper(['./db/xml/Agency/Agency.xml']);
 
-    myBatisMapper.getStatement('Agency', 'getCategory')
+    const SQL = myBatisMapper.getStatement('Agency', 'getCategory', params, format);
     console.log(params);
 
-
-
-    const SQL = `SELECT * FROM tb_agcy_biz_area WHERE delete_yn = 'N';`
-     
-    connection.query(SQL,
-        (err, rows, fields) => {
-            if (err) console.log(err);
+    // connection.query(SQL,
+    //     (err, rows, fields) => {
+    //         if (err) console.log(err);
             
-            res.status(200).send(rows);
-        }
-    );
+    //         res.status(200).send(rows);
+    //     }
+    // );
 });
 
 router.post('/add', (req, res) => {
