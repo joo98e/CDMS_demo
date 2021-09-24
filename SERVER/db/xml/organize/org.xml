@@ -7,7 +7,8 @@
       mem.full_name,
       org.name AS dept_name,
       mem.id,
-      auth.desc AS rank_name
+      auth.desc AS rank_name,
+      mem.avatar_path
     FROM
       tb_member AS mem
     LEFT JOIN
@@ -16,11 +17,11 @@
     LEFT JOIN
       tb_org_structure AS org
     ON mem.dept_no = org.id
-    <if test="delete_yn !== null">
+    <if test="delete_yn != null">
       WHERE
       mem.delete_yn = #{delete_yn}
     </if>
-    <if test="inside_yn !== null">
+    <if test="inside_yn != null">
       AND
       auth.inside_yn = #{inside_yn}
     </if>

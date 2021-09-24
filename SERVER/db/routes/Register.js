@@ -13,6 +13,7 @@ const CURRENT_DIR = __dirname;
 const multer = require('multer');
 const path = require('path');
 const avatarTargetDIR = `uploads\\avatars\\items\\`;
+const requestDir = 'static\\avatars\\items\\'
 
 const avatarDIR = multer({ dest: avatarTargetDIR });
 
@@ -35,7 +36,7 @@ router.post('/signUp', avatarStorage.single('avatar_file'), (req, res) => {
 
             let params = [
                 !req.file ? "default.png" : req.file.filename,
-                !req.file ? `${avatarTargetDIR}default.png` : `${avatarTargetDIR}` + req.file.filename,
+                !req.file ? `${requestDir}default.png` : `${requestDir}` + req.file.filename,
                 req.body.id,
                 hash,
                 req.body.first_name,

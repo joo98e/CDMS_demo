@@ -58,10 +58,7 @@ router.post('/person', (req, res) => {
         if (err) {
             console.error(err);
             return res.status(400).send({ result: {}, resultCode: -1, errorMsg: "에러입니다." });
-        }
-
-        else {
-            console.log(rows);
+        } else {
             if (rows.length === 0) {
                 return res.status(200).send({
                     result: {},
@@ -70,7 +67,7 @@ router.post('/person', (req, res) => {
                 });
             } else {
                 return res.status(200).send({
-                    result : rows,
+                    result: rows,
                     resultCode: 1,
                     resultMessage: '완료'
                 });

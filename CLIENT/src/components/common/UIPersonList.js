@@ -8,6 +8,7 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import { withSnackbar } from 'notistack';
+import lodash from 'lodash'
 
 import {
     Button, withStyles, Box,
@@ -38,7 +39,7 @@ export class UIPersonList extends Component {
 
         this.state = {
             isOpen: false,
-            personData: {}
+            personData: []
         }
     }
 
@@ -46,24 +47,33 @@ export class UIPersonList extends Component {
 
     }
 
-    handleChangePersonData = newPerson => {
-        return console.log(newPerson);
-        // 여기서 모 해야함
-        // 젠킨스 테스트#3
+    UIPersonRowChangeData = newItem => {
         let _temp = this.state.personData;
         let status = false;
+        
+        console.log('lodash', lodash.uniqBy(_temp, 1));
+        
 
         for (let idx in _temp) {
-            if (_temp[idx].seq === newPerson.seq) {
+            if (_temp[idx].seq === newItem.seq) {
                 _temp.splice(idx, 1);
                 status = true;
             }
         }
 
         if (status) {
-            console.log(_temp);
+            this.setState({
+                ...this.state,
+                personData: [..._temp]
+            });
         } else {
-            console.log(_temp);
+            this.setState({
+                ...this.state,
+                personData: [
+                    ...this.state.personData,
+                    newItem
+                ]
+            });
         }
     }
 
@@ -109,11 +119,11 @@ export class UIPersonList extends Component {
                                                 <TableHead>
                                                     <TableRow>
                                                         <TableCell align="center"></TableCell>
-                                                        <TableCell align="left">성명</TableCell>
-                                                        <TableCell align="left">부서</TableCell>
-                                                        <TableCell align="left">ID</TableCell>
-                                                        <TableCell align="left">이메일</TableCell>
-                                                        <TableCell align="left">구성</TableCell>
+                                                        <TableCell align="left">{this.props.TableColumnName[0]}</TableCell>
+                                                        <TableCell align="left">{this.props.TableColumnName[1]}</TableCell>
+                                                        <TableCell align="left">{this.props.TableColumnName[2]}</TableCell>
+                                                        <TableCell align="left">{this.props.TableColumnName[3]}</TableCell>
+                                                        <TableCell align="left">{this.props.TableColumnName[4]}</TableCell>
                                                     </TableRow>
                                                 </TableHead>
                                                 <TableBody>
@@ -125,7 +135,7 @@ export class UIPersonList extends Component {
                                                                         key={index}
                                                                         item={item}
                                                                         personData={this.state.personData}
-                                                                        handleChangePersonData={this.handleChangePersonData}
+                                                                        UIPersonRowChangeData={this.UIPersonRowChangeData}
                                                                     />
                                                                 )
                                                             })

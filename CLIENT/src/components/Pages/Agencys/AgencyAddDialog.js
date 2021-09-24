@@ -87,7 +87,7 @@ const TableColumnName = [
     "성명",
     "부서",
     "ID",
-    "이메일",
+    "직책",
     "구성",
 ];
 
@@ -110,14 +110,14 @@ export default function FullScreenDialog() {
 
     React.useEffect(() => {
 
-        const fetchCategory = async () => {
+        const loadCategory = async () => {
             await axios.get('api/agency/category')
                 .then(res => {
                     setCategoryList(res.data);
                 });
         }
 
-        const fetchPersonRow = async () => {
+        const loadPersonRow = async () => {
             const condition = {
                 inside_yn : 'Y',
                 delete_yn : 'N'
@@ -125,17 +125,17 @@ export default function FullScreenDialog() {
             await axios.post('api/org/person', condition)
                 .then(res => {
                     setPersonRow(res.data);
-                    console.log(res.data);
                 })
                 .catch(err => console.error(err));
         }
 
-        fetchCategory();
-        fetchPersonRow();
+        loadCategory();
+        loadPersonRow();
 
         return () => {
 
         }
+
     }, []);
 
     const handleClickOpen = () => {
@@ -282,31 +282,3 @@ export default function FullScreenDialog() {
         </div>
     );
 }
-
-
-
-
-// const stepNames = [
-//     '기관',
-//     '기관'
-// ];
-
-// const handleClickSteps = (type) => {
-//     switch (type) {
-//         case "NEXT":
-//             setSteps(steps + 1);
-//             break;
-
-//         case "PREV":
-//             setSteps(steps - 1);
-//             break;
-
-//         case "FINISH":
-//             console.log("Finish");
-//             setSteps(steps + 1);
-//             break;
-
-//         default:
-//             break;
-//     }
-// }
