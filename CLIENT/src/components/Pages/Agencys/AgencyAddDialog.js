@@ -70,18 +70,18 @@ const TextFieldInputProps = {
 const defaultState = {
     name: "",
     desc: "",
-    biz_area : ""
+    biz_area: ""
 }
 
 const BtnInfo = {
     open: "구성하기",
     complete: "완료",
-    cancle : "취소"
+    cancle: "취소"
 };
 
 const DialogInfo = {
     title: "기관 등록",
-    subTitle : "담당자 지정"
+    subTitle: "담당자 지정"
 };
 const TableColumnName = [
     "성명",
@@ -93,7 +93,7 @@ const TableColumnName = [
 
 const ResultMessage = {
     success: "담당자가 지정되었습니다.",
-    fail : "담당자 지정을 취소합니다."
+    fail: "담당자 지정을 취소합니다."
 };
 
 export default function FullScreenDialog() {
@@ -111,7 +111,12 @@ export default function FullScreenDialog() {
     React.useEffect(() => {
 
         const loadCategory = async () => {
-            await axios.get('api/agency/category')
+            const condition = {
+                delete_yn: 'N'
+            };
+            await axios.get('api/agency/category', {
+                params: condition
+            })
                 .then(res => {
                     setCategoryList(res.data);
                 });
@@ -119,8 +124,8 @@ export default function FullScreenDialog() {
 
         const loadPersonRow = async () => {
             const condition = {
-                inside_yn : 'Y',
-                delete_yn : 'N'
+                inside_yn: 'Y',
+                delete_yn: 'N'
             };
             await axios.post('api/org/person', condition)
                 .then(res => {
@@ -188,11 +193,11 @@ export default function FullScreenDialog() {
             ..._members
         }
         const config = {
-            headers : {
-                "content-type" : "application/json"
+            headers: {
+                "content-type": "application/json"
             }
         }
-        
+
         axios.post(URL, data, config);
         console.log("posted");
     }
@@ -273,7 +278,7 @@ export default function FullScreenDialog() {
                                     />
                                 </ListItem>
                                 <Divider />
-                                
+
                             </List>
                         </Grid>
                     </Grid>

@@ -50,9 +50,6 @@ export class UIPersonList extends Component {
     UIPersonRowChangeData = newItem => {
         let _temp = this.state.personData;
         let status = false;
-        
-        console.log('lodash', lodash.uniqBy(_temp, 1));
-        
 
         for (let idx in _temp) {
             if (_temp[idx].seq === newItem.seq) {
