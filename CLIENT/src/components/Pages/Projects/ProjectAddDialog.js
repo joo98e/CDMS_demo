@@ -224,29 +224,6 @@ export default function FullScreenDialog() {
                                 </ListItem>
                                 <Divider />
                                 <ListItem>
-                                    <ListItemText primary="사업 구분" />
-                                    <FormControl className={classes.textFieldStyle} variant="outlined">
-                                        {categoryList ?
-                                            <Select
-                                                labelId="PROJ_CATEGORY"
-                                                id="PROJ_CATEGORY"
-                                                name="PROJ_CATEGORY"
-                                                value={infos.PROJ_CATEGORY ? infos.PROJ_CATEGORY : ''}
-                                                onChange={handleChangeProjectInfos}
-                                            >
-                                                {categoryList.map((item, index) => {
-                                                    return (
-                                                        <MenuItem key={index} value={item.CATEGORY_PK}>{item.CATEGORY_NAME}</MenuItem>
-                                                    )
-                                                })}
-                                            </Select>
-                                            :
-                                            ''
-                                        }
-                                    </FormControl>
-                                </ListItem>
-                                <Divider />
-                                <ListItem>
                                     <ListItemText primary="프로젝트 설명" />
                                     <TextField className={classes.textFieldStyle} variant="outlined" placeholder="프로젝트 설명" inputProps={TextFieldInputProps} name="PROJ_DESCRIPTION" onChange={handleChangeProjectInfos} />
                                 </ListItem>

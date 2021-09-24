@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org">
+  <select id="getInternalPerson">
+    SELECT
+      mem.seq,
+      mem.full_name,
+      org.name AS dept_name,
+      mem.id,
+      auth.desc AS rank_name
+    FROM
+      tb_member AS mem
+    LEFT JOIN
+      tb_auth AS auth 
+    ON mem.ref_auth_id = auth.id
+    LEFT JOIN
+      tb_org_structure AS org
+    ON mem.dept_no = org.id
+    <if test="delete_yn !== null">
+      WHERE
+      mem.delete_yn = #{delete_yn}
+    </if>
+    <if test="inside_yn !== null">
+      AND
+      auth.inside_yn = #{inside_yn}
+    </if>
+  </select>
+</mapper>

@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import StepComponent from '../../common/StepComponent'
 import Policy from './Policy'
 import InputPrivacy from './InputPrivacy'
-import InputJobs from './InputWorkInfo';
+import InputWorkInfo from './InputWorkInfo';
 import Success from './Success';
 
 import * as actions from '../../../_actions/UserInfo'
@@ -366,7 +366,7 @@ export class index extends PureComponent {
             },
             {
                 StepNum: 3,
-                Component: <InputJobs />
+                Component: <InputWorkInfo />
             },
             {
                 StepNum: 4,

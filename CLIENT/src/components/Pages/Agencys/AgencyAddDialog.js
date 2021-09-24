@@ -69,8 +69,32 @@ const TextFieldInputProps = {
 
 const defaultState = {
     name: "",
-    desc: ""
+    desc: "",
+    biz_area : ""
 }
+
+const BtnInfo = {
+    open: "구성하기",
+    complete: "완료",
+    cancle : "취소"
+};
+
+const DialogInfo = {
+    title: "기관 등록",
+    subTitle : "담당자 지정"
+};
+const TableColumnName = [
+    "성명",
+    "부서",
+    "ID",
+    "이메일",
+    "구성",
+];
+
+const ResultMessage = {
+    success: "담당자가 지정되었습니다.",
+    fail : "담당자 지정을 취소합니다."
+};
 
 export default function FullScreenDialog() {
     const _tmp = useSelector((store) => store.user.accessInfo);
@@ -79,9 +103,40 @@ export default function FullScreenDialog() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [infos, setInfos] = React.useState(defaultState);
+    const [categoryList, setCategoryList] = React.useState(null);
+    const [personRow, setPersonRow] = React.useState(null);
     const [accessInfos] = React.useState(_tmp);
-
     const { enqueueSnackbar } = useSnackbar();
+
+    React.useEffect(() => {
+
+        const fetchCategory = async () => {
+            await axios.get('api/agency/category')
+                .then(res => {
+                    setCategoryList(res.data);
+                });
+        }
+
+        const fetchPersonRow = async () => {
+            const condition = {
+                inside_yn : 'Y',
+                delete_yn : 'N'
+            };
+            await axios.post('api/org/person', condition)
+                .then(res => {
+                    setPersonRow(res.data);
+                    console.log(res.data);
+                })
+                .catch(err => console.error(err));
+        }
+
+        fetchCategory();
+        fetchPersonRow();
+
+        return () => {
+
+        }
+    }, []);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -93,7 +148,6 @@ export default function FullScreenDialog() {
     };
 
     const handleValidateValue = () => {
-        
         for (let item in infos) {
 
             switch (item) {
@@ -123,6 +177,7 @@ export default function FullScreenDialog() {
         let nextValue = { ...infos }
         nextValue[e.target.name] = e.target.value;
         setInfos({ ...nextValue });
+        console.log(infos);
     }
 
     const handleClickAddAgency = () => {
@@ -154,7 +209,7 @@ export default function FullScreenDialog() {
                             <CloseIcon />
                         </IconButton>
                         <Typography variant="h6" className={classes.title}>
-                            기관 생성
+                            기관 등록
                         </Typography>
                         <Button autoFocus color="inherit" onClick={handleValidateValue}>
                             save
@@ -165,7 +220,7 @@ export default function FullScreenDialog() {
                     <Container maxWidth="xs">
                         <Typography className={classes.stepperTitleStyle} variant="h4" align="center">
                             <IconButton color="inherit"><NotificationImportantIcon fontSize="large" /></IconButton>
-                            기관 생성
+                            기관 등록
                         </Typography>
                     </Container>
 
@@ -174,6 +229,29 @@ export default function FullScreenDialog() {
                     <Grid container spacing={3}>
                         <Grid item xs={12} md={12} lg={12}>
                             <List>
+                                <ListItem>
+                                    <ListItemText primary="사업 구분" />
+                                    <FormControl className={classes.textFieldStyle} variant="outlined">
+                                        {categoryList ?
+                                            <Select
+                                                labelId="biz_area"
+                                                id="biz_area"
+                                                name="biz_area"
+                                                value={infos.biz_area ? infos.biz_area : ''}
+                                                onChange={handleChangeAgencyInfos}
+                                            >
+                                                {categoryList.map((item, index) => {
+                                                    return (
+                                                        <MenuItem key={index} value={item.id}>{item.name}</MenuItem>
+                                                    )
+                                                })}
+                                            </Select>
+                                            :
+                                            ''
+                                        }
+                                    </FormControl>
+                                </ListItem>
+                                <Divider />
                                 <ListItem>
                                     <ListItemText primary="기관명" />
                                     <TextField className={classes.textFieldStyle} variant="outlined" placeholder="기관명" inputProps={TextFieldInputProps} name="name" onChange={handleChangeAgencyInfos} />
@@ -186,9 +264,16 @@ export default function FullScreenDialog() {
                                 <Divider />
                                 <ListItem>
                                     <ListItemText primary="기관 담당자" />
-                                    <UIPersonList />
+                                    <UIPersonList
+                                        BtnInfo={BtnInfo}
+                                        DialogInfo={DialogInfo}
+                                        TableColumnName={TableColumnName}
+                                        TableLoadedData={personRow !== null ? personRow.result : {}}
+                                        ResultMessage={ResultMessage}
+                                    />
                                 </ListItem>
                                 <Divider />
+                                
                             </List>
                         </Grid>
                     </Grid>

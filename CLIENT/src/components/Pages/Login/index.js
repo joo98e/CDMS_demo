@@ -94,6 +94,7 @@ export class Login extends Component {
                     return this.props.enqueueSnackbar('아이디 혹은 비밀번호가 틀렸습니다.', { variant: 'error' });
                 } else {
                     if (res.data.resultCode === -1) {
+                        // 권한이 없는 아이디
                         return this.props.enqueueSnackbar(res.data.resultMessage, { variant: 'error' });
                     }
                     // 로그인 성공
@@ -126,7 +127,6 @@ export class Login extends Component {
     devLogin = () => {
         Axios.get('api/users/login/dev')
             .then(res => {
-                
                 localStorage.setItem('member', JSON.stringify(res.data));
                 this.props.devAuth(res.data);
                 this.props.enqueueSnackbar(`개발 로그인입니다.`, { variant: 'success' });

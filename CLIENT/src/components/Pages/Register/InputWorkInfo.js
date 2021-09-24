@@ -51,7 +51,7 @@ export class InputJobs extends PureComponent {
             departs : await resDepart.json(),
             rank : await resRank.json()
         }
-        console.log(_temp);
+        
         return _temp;
     }
 

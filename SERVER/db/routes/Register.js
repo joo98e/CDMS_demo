@@ -31,7 +31,7 @@ router.post('/signUp', avatarStorage.single('avatar_file'), (req, res) => {
             if (err) console.log(err);
 
             let SQL =
-                `INSERT INTO tb_member (avatar_name, avatar_path, id, password, first_name, last_name, nickName, phone, rank_no, dept_no, reg_date, upd_date, reg_ip, upd_ip, country_name, country_code) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+                `INSERT INTO tb_member (avatar_name, avatar_path, id, password, first_name, last_name, full_name, nickName, phone, rank_no, dept_no, reg_date, upd_date, reg_ip, upd_ip, country_name, country_code) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
             let params = [
                 !req.file ? "default.png" : req.file.filename,
@@ -40,6 +40,7 @@ router.post('/signUp', avatarStorage.single('avatar_file'), (req, res) => {
                 hash,
                 req.body.first_name,
                 req.body.last_name,
+                req.body.first_name + req.body.last_name,
                 req.body.nickName,
                 req.body.phone,
                 req.body.rank_no,
@@ -54,7 +55,7 @@ router.post('/signUp', avatarStorage.single('avatar_file'), (req, res) => {
 
             connection.query(SQL, params, (err, rows, fields) => {
                 if (err) {
-                    return res.status(400).send({resultCode : '-1', result : false});
+                    return res.status(400).send({ resultCode: '-1', result: false });
                 } else {
                     return res.status(200).send({ resultCode: '1', result: true });
                 }
@@ -77,7 +78,7 @@ router.post('/duplicateCheckId', (req, res) => {
             return res.status(200).send({
                 result: true,
                 resultCode: 1,
-                resultMessage : "가입 가능한 아이디입니다."
+                resultMessage: "가입 가능한 아이디입니다."
             });
         } else {
             return res.status(200).send({

@@ -1,18 +1,23 @@
+/**
+ * @param {}             :
+ * @param {}             :
+ * @param {}             :
+ * @returns {}
+ */
 
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { PropTypes } from 'prop-types';
 import { withSnackbar } from 'notistack';
-import * as actions from '../../_actions/UserInfo';
 
 import {
     Button, withStyles, Box,
     Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
-    Divider, Paper, Chip,
+    Divider, Paper,
     TableContainer, Table, TableHead, TableBody, TableRow, TableCell
 } from '@material-ui/core'
 
-import UIPersonRow from './UIPersonRow';
 import UICircularProgress from '../common/UICircularProgress';
+import UIPersonRow from '../common/UIPersonRow';
 
 const styles = theme => ({
     textFieldStyle: {
@@ -33,25 +38,32 @@ export class UIPersonList extends Component {
 
         this.state = {
             isOpen: false,
-            workForce: {}
+            personData: {}
         }
     }
 
     componentDidMount() {
-        // 인력 리스트
-        this.callApi()
-            .then(res => {
-                this.setState({ workForce: res });
-                console.log(this.state.workForce);
-            })
-            .catch(err => console.log(err));
+
     }
 
-    callApi = async () => {
-        let response = await fetch('/api/users/project/work');
-        let workForce = await response.json();
+    handleChangePersonData = newPerson => {
+        return console.log(newPerson);
+        // 여기서 모 해야함
+        let _temp = this.state.personData;
+        let status = false;
 
-        return workForce;
+        for (let idx in _temp) {
+            if (_temp[idx].seq === newPerson.seq) {
+                _temp.splice(idx, 1);
+                status = true;
+            }
+        }
+
+        if (status) {
+            console.log(_temp);
+        } else {
+            console.log(_temp);
+        }
     }
 
     handleChangeStatus = (type) => {
@@ -60,11 +72,9 @@ export class UIPersonList extends Component {
         });
 
         if (type === "SUBMIT") {
-            this.props.enqueueSnackbar('내부 인력 구성이 반영되었습니다.', { variant: 'success' });
+            this.props.enqueueSnackbar(this.props.ResultMessage.success, { variant: 'success' });
         } else if (type === "CANCLE") {
-            this.props.enqueueSnackbar('내부 인력 구성이 취소되었습니다.', { variant: 'warning' });
-
-            this.props.setProjectPersonInit();
+            this.props.enqueueSnackbar(this.props.ResultMessage.fail, { variant: 'warning' });
         }
     }
 
@@ -74,37 +84,25 @@ export class UIPersonList extends Component {
         return (
             <div>
                 <Button className={classes.textFieldStyle} color="inherit" variant="outlined" onClick={this.handleChangeStatus}>
-                    구성하기
+                    {this.props.BtnInfo.open}
                 </Button>
 
                 {
                     this.state.isOpen &&
                     <Dialog className={classes.dialog} open={this.state.isOpen} onClose={this.handleChangeStatus} fullWidth maxWidth="lg">
                         <DialogTitle>
-                            프로젝트 참여 인원 구성
+                            {this.props.DialogInfo.title}
                         </DialogTitle>
 
                         <DialogContent>
                             <Box className={classes.wrapper}>
                                 <DialogContentText className={classes.flexBox}>
-                                    내부 인력 구성
+                                    {this.props.DialogInfo.subTitle}
                                 </DialogContentText>
                                 <Divider />
 
-                                {/* {
-                                    this.props.projectMember.map((item, idx) => {
-                                        return <Chip key={idx} variant="outlined" size="small" label="Basic" />
-                                    })
-                                } */}
-
-                                {/* TODO 검색란 / onchange로 준비된 리스트에서 filter */}
-                                {/* Chip */}
-                                {/* Chip array */}
-                                {/* search 박스 오른쪽 위로 올리기 */}
-                                {/* https://material-ui.com/components/chips/ */}
-
                                 {
-                                    this.state.workForce ?
+                                    this.props.TableLoadedData ?
                                         <TableContainer component={Paper} color="inherit">
                                             <Table>
                                                 <TableHead>
@@ -118,7 +116,21 @@ export class UIPersonList extends Component {
                                                     </TableRow>
                                                 </TableHead>
                                                 <TableBody>
-
+                                                    {
+                                                        this.props.TableLoadedData ?
+                                                            this.props.TableLoadedData.map((item, index) => {
+                                                                return (
+                                                                    <UIPersonRow
+                                                                        key={index}
+                                                                        item={item}
+                                                                        personData={this.state.personData}
+                                                                        handleChangePersonData={this.handleChangePersonData}
+                                                                    />
+                                                                )
+                                                            })
+                                                            :
+                                                            <UICircularProgress />
+                                                    }
                                                 </TableBody>
                                             </Table>
                                         </TableContainer>
@@ -128,19 +140,13 @@ export class UIPersonList extends Component {
 
                             </Box>
 
-                            {/* <Box className={classes.wrapper}>
-                                <DialogContentText>
-                                    외부 인력 구성
-                                </DialogContentText>
-                            </Box> */}
-
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={() => { this.handleChangeStatus("CANCLE") }} color="inherit" variant="outlined">
-                                앗, 취소예요!
+                                {this.props.BtnInfo.cancle}
                             </Button>
                             <Button onClick={() => { this.handleChangeStatus("SUBMIT") }} color="inherit" variant="outlined">
-                                완료!
+                                {this.props.BtnInfo.complete}
                             </Button>
                         </DialogActions>
                     </Dialog>
@@ -151,24 +157,13 @@ export class UIPersonList extends Component {
     }
 }
 
-/**
- * @param {}             :
- * @param {}             :
- * @param {}             :
- * @returns {}
- */
 
-const mapStateToProps = (state) => ({
-    projectMember: state.user.projectMember
-});
+export default (withStyles(styles)(withSnackbar(UIPersonList)));
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        setProjectPersonInit: () => { dispatch(actions.setProjectPersonInit()) }
-    }
+UIPersonList.propTypes = {
+    BtnInfo: PropTypes.object.isRequired,
+    DialogInfo: PropTypes.object.isRequired,
+    TableColumnName: PropTypes.arrayOf(PropTypes.string).isRequired,
+    TableLoadedData: PropTypes.arrayOf(PropTypes.object).isRequired,
+    ResultMessage: PropTypes.object.isRequired
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)
-    (withStyles(styles)
-        (withSnackbar(UIPersonList))
-    );

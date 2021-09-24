@@ -20,6 +20,19 @@ router.get('/list', (req, res) => {
     );
 });
 
+router.get('/category', (req, res) => {
+    
+    const sql = `SELECT * FROM tb_agcy_biz_area WHERE delete_yn = 'N';`
+     
+    connection.query(sql,
+        (err, rows, fields) => {
+            if (err) console.log(err);
+            
+            res.status(200).send(rows);
+        }
+    );
+});
+
 router.post('/add', (req, res) => {
     console.log(req.body);
 
