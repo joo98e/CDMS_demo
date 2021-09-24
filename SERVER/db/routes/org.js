@@ -51,9 +51,11 @@ router.get('/rank', (req, res) => {
 
 // ──────────────────────────────────────────────── 인력
 router.post('/person', (req, res) => {
+    myBatisMapper.createMapper(['./db/xml/Organize/Org.xml']);
+
     const params = req.body;
-    myBatisMapper.createMapper(['./db/xml/organize/org.xml']);
-    const SQL = myBatisMapper.getStatement('org', 'getInternalPerson', params, format);
+    const SQL = myBatisMapper.getStatement('Org', 'getInternalPerson', params, format);
+    
     connection.query(SQL, (err, rows, fields) => {
         if (err) {
             console.error(err);

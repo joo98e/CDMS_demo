@@ -4,14 +4,16 @@ const router = express.Router();
 
 const connection = require("../db_connection");
 
+const myBatisMapper = require('mybatis-mapper');
+const format = require('../config/MyBatisFormat');
 
 router.get('/list', (req, res) => {
     
-    const sql = `SELECT * FROM tb_agcy WHERE delete_yn = 'N';`
+    const SQL = `SELECT * FROM tb_agcy WHERE delete_yn = 'N';`
 
     console.log(req.query);
      
-    connection.query(sql,
+    connection.query(SQL,
         (err, rows, fields) => {
             if (err) console.log(err);
 
@@ -21,14 +23,21 @@ router.get('/list', (req, res) => {
 });
 
 router.get('/category', (req, res) => {
-    
-    const sql = `SELECT * FROM tb_agcy_biz_area WHERE delete_yn = 'N';`
+    const params = req.params;
+    myBatisMapper.createMapper(['./db/xml/Agency/Agency.xml']);
+
+    myBatisMapper.getStatement('Agency', 'getCategory')
+    console.log(params);
+
+
+
+    const SQL = `SELECT * FROM tb_agcy_biz_area WHERE delete_yn = 'N';`
      
-    connection.query(sql,
+    connection.query(SQL,
         (err, rows, fields) => {
             if (err) console.log(err);
             
-            res.status(200).send(rows); 
+            res.status(200).send(rows);
         }
     );
 });
