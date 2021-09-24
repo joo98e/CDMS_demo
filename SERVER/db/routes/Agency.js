@@ -28,7 +28,7 @@ router.get('/category', (req, res) => {
         (err, rows, fields) => {
             if (err) console.log(err);
             
-            res.status(200).send(rows);
+            res.status(200).send(rows); 
         }
     );
 });
