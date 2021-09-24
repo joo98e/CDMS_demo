@@ -49,7 +49,7 @@ export class UIPersonList extends Component {
     handleChangePersonData = newPerson => {
         return console.log(newPerson);
         // 여기서 모 해야함
-        // 젠킨스 테스트
+        // 젠킨스 테스트#3
         let _temp = this.state.personData;
         let status = false;
 
