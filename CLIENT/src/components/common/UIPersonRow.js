@@ -51,7 +51,7 @@ export class PersonRow extends Component {
                             <Avatar
                                 className={classes.center}
                                 alt="멤버 아바타"
-                                src={this.props.item.avatar_path}
+                                src={this.props.item.avatar_path} 
                             />
                             :
                             <Skeleton variant="circle" width={40} height={40}>
