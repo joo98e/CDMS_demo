@@ -16,7 +16,6 @@ export class index extends Component {
                 <Route exact path="/register" component={Register}></Route>
                 <Route exact path="/assistant/landing" component={Landing}></Route>
                 <Route exact path="/assistant/projects" component={Projects}></Route>
-
             </div>
         )
     }

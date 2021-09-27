@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
-import * as actions from '../../_actions/UserInfo'
+import * as actions from '../../redux/action/UserInfoAction'
 
 import {
     Box, AppBar, Toolbar, IconButton, Typography, withStyles, Tooltip
@@ -80,7 +80,7 @@ export class MyNav extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    user: state.user
+    user: state.User
 })
 
 const mapDispatchToProps = (dispatch) => {

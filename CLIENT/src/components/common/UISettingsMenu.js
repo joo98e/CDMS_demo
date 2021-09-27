@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withSnackbar } from 'notistack'
-import * as actions from '../../_actions'
+import * as actions from '../../redux/action/UIAction'
 import { withStyles } from '@material-ui/core'
 import ColorLensIcon from '@material-ui/icons/ColorLens';
 import CachedIcon from '@material-ui/icons/Cached';
@@ -101,8 +101,8 @@ export class UISettingsMenu extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    theme: state.ui.theme,
-    menuAppearPosition: state.ui.menuAppearPosition
+    theme: state.UI.theme,
+    menuAppearPosition: state.UI.menuAppearPosition
 })
 
 const mapDispatchToProps = (dispatch) => {

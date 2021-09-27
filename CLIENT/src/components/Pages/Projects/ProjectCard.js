@@ -99,5 +99,5 @@ function ProjectCard(props) {
 }
 
 export default connect(state => ({
-  theme: state.ui.theme
+  theme: state.UI.theme
 }))(ProjectCard)

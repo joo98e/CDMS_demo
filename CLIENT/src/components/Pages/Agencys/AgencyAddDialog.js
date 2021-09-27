@@ -97,8 +97,8 @@ const ResultMessage = {
 };
 
 export default function FullScreenDialog() {
-    const _tmp = useSelector((store) => store.user.accessInfo);
-    const _members = useSelector((store) => store.user.member);
+    const _tmp = useSelector((store) => store.User.accessInfo);
+    const _members = useSelector((store) => store.User.member);
 
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);

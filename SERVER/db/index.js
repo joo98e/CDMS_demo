@@ -20,7 +20,6 @@ const Menu = require('./routes/Menu');
 const Agency = require('./routes/Agency');
 const Projects = require('./routes/Projects');
 const Policy = require('./routes/Policy');
-const AvatarsChange = require('./routes/uploads/avatars/avatarsChange');
 
 // ────────────────────────────────────────────────────────── 
 
@@ -32,7 +31,6 @@ app.use('/api/register', Register);
 // 라우터 에이전시, 프로젝트
 app.use('/api/agency', Agency);
 app.use('/api/projects', Projects);
-app.use('/api/uploads', AvatarsChange);
 
 // 라우터 렌더링 필요 요소
 app.use('/api/menu', Menu);

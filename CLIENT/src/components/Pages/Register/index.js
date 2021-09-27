@@ -13,7 +13,7 @@ import InputPrivacy from './InputPrivacy'
 import InputWorkInfo from './InputWorkInfo';
 import Success from './Success';
 
-import * as actions from '../../../_actions/UserInfo'
+import * as actions from '../../../redux/action/UserInfoAction'
 import FNValidator from '../../common/FNValidator';
 import axios from 'axios';
 
@@ -429,7 +429,7 @@ const mapDispatchToProps = dispatch => {
 };
 
 const mapStateToProps = state => ({
-    registerMember: state.user.registerMember,
-    accessInfo : state.user.accessInfo
+    registerMember: state.Producer.registerMember,
+    accessInfo : state.User.accessInfo
 });
 export default connect(mapStateToProps, mapDispatchToProps)(withSnackbar(withStyles(styles)(withRouter(index))))

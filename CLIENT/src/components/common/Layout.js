@@ -51,9 +51,9 @@ export class Layout extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    hourlyGreetings: state.ui.hourlyGreetings,
-    user: state.user,
-    theme: state.ui.theme
+    hourlyGreetings: state.UI.hourlyGreetings,
+    user: state.User,
+    theme: state.UI.theme
 })
 
 const mapDispatchToProps = {

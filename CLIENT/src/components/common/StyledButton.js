@@ -34,7 +34,7 @@ export class StyledButton extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    theme: state.ui.theme
+    theme: state.UI.theme
 })
 
 export default connect(mapStateToProps)(withStyles(styles)(StyledButton))

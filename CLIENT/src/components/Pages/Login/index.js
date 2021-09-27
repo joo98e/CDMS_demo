@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Axios from 'axios';
-import * as actions from '../../../_actions/UserInfo'
+import * as actions from '../../../redux/action/UserInfoAction'
 import CopyRights from '../../common/CopyRights'
-import logo from '../../../_logo/logo.svg'
+import logo from '../../../common/logo/logo.svg'
 import { withSnackbar } from 'notistack'
 
 import { Box, Button, TextField, withStyles, Typography, Grow } from '@material-ui/core'
@@ -237,9 +237,9 @@ export class Login extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    hourlyGreetings: state.ui.hourlyGreetings,
-    user: state.user,
-    theme: state.ui.theme
+    hourlyGreetings: state.UI.hourlyGreetings,
+    user: state.User,
+    theme: state.UI.theme
 })
 
 const mapDispatchToProps = dispatch => {

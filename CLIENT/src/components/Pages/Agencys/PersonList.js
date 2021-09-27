@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
-import * as actions from '../../../_actions/UserInfo';
+import * as actions from '../../../_actions/Actions/UserInfo';
 
 
 import {
@@ -156,7 +156,7 @@ export class PersonList extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    projectMember : state.user.projectMember
+    projectMember : state.Producer.projectMember
 });
 
 const mapDispatchToProps = (dispatch) => {

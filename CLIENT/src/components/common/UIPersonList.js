@@ -72,13 +72,17 @@ export class UIPersonList extends Component {
                 ]
             });
         }
+        setTimeout(() => {
+            console.log(this.state.personData);
+        }, 1000);
     }
 
     handleChangeStatus = (type) => {
         this.setState({
-            isOpen: !this.state.isOpen ? true : false
+            isOpen: !this.state.isOpen ? true : false,
+            personData: []
         });
-
+        
         if (type === "SUBMIT") {
             this.props.enqueueSnackbar(this.props.ResultMessage.success, { variant: 'success' });
         } else if (type === "CANCLE") {

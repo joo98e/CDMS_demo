@@ -4,15 +4,13 @@ import { SnackbarProvider } from 'notistack';
 import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
-import './css/init.css';
-import './css/mediaQuery.css';
+import './common/css/init.css';
+import './common/css/mediaQuery.css';
 
 import { Provider } from 'react-redux';
-import Store from './_store'
+import Store from './redux/Store'
 import { CssBaseline } from "@material-ui/core";
 import UISnackBar from './components/common/UISnackBar';
-
-
 
 ReactDOM.render(
   <Provider store={Store}>

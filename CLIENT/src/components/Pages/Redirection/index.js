@@ -37,8 +37,8 @@ export class Redirection extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    theme: state.ui.theme,
-    user: state.user
+    theme: state.UI.theme,
+    user: state.User
 });
 
 export default connect(mapStateToProps)(Redirection)

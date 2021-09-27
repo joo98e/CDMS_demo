@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom';
-import * as actions from '../../../_actions/UserInfo'
+import * as actions from '../../../redux/action/UserInfoAction'
 import {
     Container, Grid, TextField, IconButton, Typography, MenuItem,
     Box, Button, Select, FormControl, InputLabel, withStyles, Divider
@@ -135,7 +135,7 @@ export class InputJobs extends PureComponent {
 }
 
 const mapStateToProps = (state) => ({
-    registerMember: state.user.registerMember
+    registerMember: state.Producer.registerMember
 });
 
 const mapDispatchToProps = dispatch => {

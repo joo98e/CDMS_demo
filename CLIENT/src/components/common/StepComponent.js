@@ -52,7 +52,7 @@ class StepComponent extends PureComponent {
 }
 
 const mapStateToProps = (state) => ({
-    color: state.ui.color
+    color: state.UI.color
 });
 
 export default connect(mapStateToProps)(StepComponent);

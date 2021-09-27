@@ -112,5 +112,5 @@ function SideBar(props) {
 }
 
 export default connect(state => ({
-    position: state.ui.menuAppearPosition,
+    position: state.UI.menuAppearPosition,
 }))(SideBar)

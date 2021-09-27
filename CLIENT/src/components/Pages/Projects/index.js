@@ -112,7 +112,7 @@ export class Projects extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    member: state.user.member
+    member: state.User.member
 })
 
 const mapDispatchToProps = {
