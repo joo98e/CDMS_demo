@@ -69,12 +69,17 @@ export class Landing extends Component {
                     <Grid container spacing={3}>
                         <Grid item xs={12} md={6} lg={6}>
                             <Paper className={classes.mh}>
-                                sdsiofsdjif
+                                1번
                             </Paper>
                         </Grid>
                         <Grid item xs={12} md={6} lg={6}>
                             <Paper className={classes.mh}>
-                                sdsiofsdjif
+                                2번
+                            </Paper>
+                        </Grid>
+                        <Grid item xs={12} md={6} lg={6}>
+                            <Paper className={classes.mh}>
+                                2번
                             </Paper>
                         </Grid>
                         <Grid item xs={12} className={classes.chartsArea}>

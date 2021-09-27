@@ -119,12 +119,19 @@ export class UIPersonList extends Component {
                                             <Table>
                                                 <TableHead>
                                                     <TableRow>
-                                                        <TableCell align="center"></TableCell>
+                                                        {
+                                                            this.props.TableColumnName.map((item, index) => {
+                                                                return (
+                                                                    <TableCell key={index}>{item}</TableCell>
+                                                                )
+                                                            })
+                                                        }
+                                                        {/* <TableCell align="center"></TableCell>
                                                         <TableCell align="left">{this.props.TableColumnName[0]}</TableCell>
                                                         <TableCell align="left">{this.props.TableColumnName[1]}</TableCell>
                                                         <TableCell align="left">{this.props.TableColumnName[2]}</TableCell>
                                                         <TableCell align="left">{this.props.TableColumnName[3]}</TableCell>
-                                                        <TableCell align="left">{this.props.TableColumnName[4]}</TableCell>
+                                                        <TableCell align="left">{this.props.TableColumnName[4]}</TableCell> */}
                                                     </TableRow>
                                                 </TableHead>
                                                 <TableBody>

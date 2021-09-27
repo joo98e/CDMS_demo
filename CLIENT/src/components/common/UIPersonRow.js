@@ -1,15 +1,19 @@
 /** 
- * @param {}             :
- * @param {}             :
- * @param {}             :
- * @returns {}
+ * @param {this.props.item.avatar_path}                     : 
+ * @param {this.props.item.full_name}                       : 
+ * @param {this.props.item.dept_name}                       : 
+ * @param {this.props.item.id}                              : 
+ * @param {this.props.item.rank_name}                       : 
+ * @param {this.props.UIPersonRowChangeData(this}           :             
+ * @returns {PersonRow}
  */
 
 import React, { Component } from 'react';
 
 import {
-    Avatar, withStyles, TableRow, TableCell, Switch,
+    Avatar, withStyles, TableRow, TableCell, Switch
 } from '@material-ui/core';
+import { Skeleton } from '@material-ui/lab';
 
 const style = theme => ({
     center: {
@@ -20,12 +24,13 @@ const style = theme => ({
 export class PersonRow extends Component {
     constructor(props) {
         super(props)
-    
+
         this.state = {
-             checked : this.props.personData
+            checked: this.props.personData,
+            avatarLoad: false
         }
     }
-    
+
     isChecked = () => {
         let status = false;
         for (let idx in this.props.personData) {
@@ -41,11 +46,18 @@ export class PersonRow extends Component {
         return (
             <TableRow>
                 <TableCell>
-                    <Avatar
-                        className={classes.center}
-                        alt="멤버 아바타"
-                        src={this.props.item.avatar_path}
-                    />
+                    {
+                        this.state.avatarLoad ?
+                            <Avatar
+                                className={classes.center}
+                                alt="멤버 아바타"
+                                src={this.props.item.avatar_path}
+                            />
+                            :
+                            <Skeleton variant="circle" width={40} height={40}>
+
+                            </Skeleton>
+                    }
                 </TableCell>
                 <TableCell align="left">
                     {this.props.item.full_name}

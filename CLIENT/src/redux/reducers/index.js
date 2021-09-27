@@ -4,7 +4,9 @@ import UI from './UI';
 import Producer from './Producer'
 
 const reducers = combineReducers({
-    UI, User, Producer
+    UI,
+    User,
+    Producer
 });
 
 export default reducers;

@@ -84,6 +84,7 @@ const DialogInfo = {
     subTitle: "담당자 지정"
 };
 const TableColumnName = [
+    "",
     "성명",
     "부서",
     "ID",
@@ -119,7 +120,6 @@ export default function FullScreenDialog() {
             })
                 .then(res => {
                     setCategoryList(res.data.result);
-                    console.log(res.data);
                 });
         }
 
@@ -131,7 +131,6 @@ export default function FullScreenDialog() {
             await axios.post('api/org/person', condition)
                 .then(res => {
                     setPersonRow(res.data);
-                    console.log(res.data);
                 })
                 .catch(err => console.error(err));
         }

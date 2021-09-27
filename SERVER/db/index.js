@@ -4,11 +4,9 @@
 const status = process.env.NODE_ENV = (process.env.NODE_ENV && (process.env.NODE_ENV).trim().toLowerCase() == 'production') ? 'prod' : 'dev';
 console.log(status);
 
-// ────────────────────────────────────────────────────────── Require
-const CURRENT_DIR = __dirname;
+// ────────────────────────────────────────────────────────── 
 const app = require('./app');
-const port = process.env.PORT || 5005;
-
+const port = status === "prod" ? process.env.PORT || 80 : process.env.PORT || 5005;
 const express = require('express');
 const path = require('path');
 

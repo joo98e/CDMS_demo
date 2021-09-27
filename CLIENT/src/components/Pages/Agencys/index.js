@@ -45,14 +45,7 @@ export class Agency extends Component {
 
         this.getAgencyList();
     }
-
-    // TODO 내가속한프로젝트보기
-    // TODO 프로젝트 리스트
-    // TODO 카드 구현
-    // TODO 그로우 구현
-    // TODO 플러스 버튼 다이얼로그 구현
-    // TODO DB 프로젝트참여자리스트 구현 
-
+    
     getAgencyList = () => {
         const URL = 'api/agency/list';
         const params = this.props.member;
