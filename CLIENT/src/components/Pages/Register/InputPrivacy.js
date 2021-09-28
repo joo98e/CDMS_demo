@@ -88,12 +88,9 @@ export class InputAccount extends PureComponent {
                                     component="label"
                                     color="inherit"
                                 >
-                                    <Typography
-                                        color={!this.props.registerMember.avatar_file ? "textPrimary" : "textSecondary"}
-                                    >
+                                    <Typography>
                                         {!this.props.registerMember.avatar_file ? "프로필 이미지 선택" : "프로필 선택 완료!"}
                                     </Typography>
-
                                     <input
                                         type="file"
                                         hidden
@@ -128,7 +125,6 @@ export class InputAccount extends PureComponent {
                                 </Box>
                             </Container>
                         </Grid>
-
                         <Grid item xs={12}>
                             <Container>
                                 <Box display="flex" justifyContent="flex-start" alignItems="center">
@@ -139,9 +135,9 @@ export class InputAccount extends PureComponent {
                                             required
                                             type={this.state.showPassword ? 'text' : 'password'}
                                             name="password"
-                                            label="PASSWORD"
+                                            label="비밀번호"
                                             autoComplete="off"
-                                            placeholder="영문자, 숫자, 특수문자(!, @, #, $, %, &, *)를 각 1자 이상 포함하여 8 ~ 16자로 구성해주세요."
+                                            placeholder="영문자, 숫자, 특수문자(!, @, #, $, %, &, *)를 각 1자 이상 포함하여 8 ~ 16자"
                                             error={this.props.errorTextField.password}
                                             onChange={this.handleValueChange}
                                         />
@@ -154,6 +150,22 @@ export class InputAccount extends PureComponent {
                                         {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
                                     </IconButton>
                                 </Box>
+                            </Container>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Container>
+                                <TextField
+                                    fullWidth
+                                    variant="filled"
+                                    required
+                                    type={this.state.showPassword ? 'text' : 'password'}
+                                    name="password"
+                                    label="비밀번호 확인"
+                                    autoComplete="off"
+                                    helperText="영문자, 숫자, 특수문자(!, @, #, $, %, &, *)를 각 1자 이상 포함하여 8 ~ 16자로 구성해주세요."
+                                    error={this.props.errorTextField.password}
+                                    onChange={this.handleValueChange}
+                                />
                             </Container>
                         </Grid>
                         <Grid item xs={12}>

@@ -18,6 +18,7 @@ const Menu = require('./routes/Menu');
 const Agency = require('./routes/Agency');
 const Projects = require('./routes/Projects');
 const Policy = require('./routes/Policy');
+const Util = require('./routes/Util');
 
 // ────────────────────────────────────────────────────────── 
 
@@ -33,7 +34,7 @@ app.use('/api/projects', Projects);
 // 라우터 렌더링 필요 요소
 app.use('/api/menu', Menu);
 app.use('/api/policy', Policy);
-
+app.use('/api/util', Util);
 
 if (status === "prod") {
     // BUILD 제공

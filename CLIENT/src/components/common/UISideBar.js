@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import axios from 'axios'
 
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -39,13 +40,13 @@ const menuList = [
         MENU_PUSH_LINK: '/agency',
         MENU_PERMISSION: 'U'
     },
-    {
-        MENU_ID: '3',
-        MENU_NAME: '대시보드',
-        MENU_ICON_NAME: <VerticalIcon />,
-        MENU_PUSH_LINK: '/dashboard',
-        MENU_PERMISSION: 'U'
-    },
+    // {
+    //     MENU_ID: '3',
+    //     MENU_NAME: '대시보드',
+    //     MENU_ICON_NAME: <VerticalIcon />,
+    //     MENU_PUSH_LINK: '/dashboard',
+    //     MENU_PERMISSION: 'U'
+    // },
 ];
 
 function SideBar(props) {
@@ -53,6 +54,7 @@ function SideBar(props) {
 
     const classes = useStyles();
     const [positinal, setPositinal] = React.useState(false);
+    const [menuInfo, setMenuInfo] = React.useState(null);
 
     const toggleDrawer = (open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -62,6 +64,30 @@ function SideBar(props) {
         setPositinal(open);
     };
 
+    const getMenuInfo = () => {
+        const URL = "/api/util/menu/info";
+        const condition = {
+            delete_yn: 'N'
+        }
+
+        axios.get(URL, {
+            params: condition
+        })
+            .then(res => {
+                console.log(res.data.result);
+                return res.data.result;
+            });
+    }
+
+    React.useEffect(() => {
+
+        setMenuInfo(getMenuInfo());
+        // 아이콘때문에 비동기 처리가 어려움
+
+        return () => {
+            
+        }
+    }, [menuInfo])
 
     const list = position => (
         <div
@@ -94,7 +120,7 @@ function SideBar(props) {
         <div>
             <React.Fragment>
                 <Tooltip title={'메뉴'}>
-                    <IconButton  color="inherit" onClick={toggleDrawer(true)}>
+                    <IconButton color="inherit" onClick={toggleDrawer(true)}>
                         <MenuIcon color="inherit" />
                     </IconButton>
                 </Tooltip>
