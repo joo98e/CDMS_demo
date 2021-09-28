@@ -1,5 +1,5 @@
 
- # 2021.09.28 _My BirthDay!_ :birthday:
+ # 2021.09.28 _My BirthDay!_ :birthday:222
 
 ## 권한 기능 구상 
 > - 퍼블릭 라우트, 프라이빗 라우트  
