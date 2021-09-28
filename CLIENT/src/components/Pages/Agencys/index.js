@@ -4,6 +4,7 @@ import axios from 'axios'
 
 import {
     Container, Grid, Grow, Paper,
+    Typography,
     withStyles,
 } from '@material-ui/core';
 
@@ -25,6 +26,11 @@ const styles = theme => ({
         position: 'relative',
         height: '272px',
     },
+    minPadding: {
+        padding: theme.spacing(2),
+        backgroundColor: theme.palette.background.default,
+        
+    }
 });
 
 export class Agency extends Component {
@@ -45,13 +51,24 @@ export class Agency extends Component {
 
         this.getAgencyList();
     }
-    
-    getAgencyList = () => {
+
+    getAgencyList = srchType => {
+        
+        /** 
+         * @param {srchType}
+         * @description              : ALL / 모두
+         * @description              : MINE / 내게 속한 것만
+         * @description              : BIZ / 특정 사업 구분으로
+         */
+        
         const URL = 'api/agency/list';
-        const params = this.props.member;
         axios.get(URL, {
             params: {
-                ...params
+                member: {
+                    ...this.props.member
+                },
+                delete_yn: 'N',
+                srchType: !srchType || srchType === (undefined || null) ? srchType : null
             }
         })
             .then(res => {
@@ -67,37 +84,48 @@ export class Agency extends Component {
 
     render() {
         const { classes } = this.props;
+        
         return (
             <Container className={classes.root}>
                 {
                     this.state.agency === null ?
                         <UICircularProgress />
                         :
-                        <Grid container>
-                            <Grid container spacing={3}>
+                        <Grid container spacing={3}>
 
-                                {/* {
-                                    this.state.agency.map((item, index) => {
-                                        return (
-                                            <AgencyCard
-                                                key={index}
-                                                infos={item}
-                                            />
-                                        )
-                                    })
-                                } */}
+                            <Grid item xs={12} md={12} lg={12}>
+                                <Grow
+                                    in={this.state.awhile}
+                                    style={{ transformOrigin: '0 0 0' }}
+                                    {...(this.state.awhile ? { _timeout: 800 } : {})}
+                                >
+                                    <Paper className={classes.minPadding} elevation={4}>
+                                        <Typography variant="h5">나의 기관 리스트</Typography>
+                                    </Paper>
+                                </Grow>
+                            </Grid>
 
-                                <Grid item xs={12} md={6} lg={4} >
-                                    <Grow
-                                        in={this.state.awhile}
-                                        style={{ transformOrigin: '0 0 0' }}
-                                        {...(this.state.awhile ? { timeout: 800 } : {})}
-                                    >
-                                        <Paper elevation={4} className={classes.relative}>
-                                            <AgencyAddDialog />
-                                        </Paper>
-                                    </Grow>
-                                </Grid>
+                            {
+                                this.state.agency.map((item, index) => {
+                                    return (
+                                        <AgencyCard
+                                            key={index}
+                                            item={item}
+                                        />
+                                    )
+                                })
+                            }
+
+                            <Grid item xs={12} md={6} lg={4} >
+                                <Grow
+                                    in={this.state.awhile}
+                                    style={{ transformOrigin: '0 0 0' }}
+                                    {...(this.state.awhile ? { timeout: 800 } : {})}
+                                >
+                                    <Paper elevation={4} className={classes.relative}>
+                                        <AgencyAddDialog />
+                                    </Paper>
+                                </Grow>
                             </Grid>
                         </Grid>
                 }

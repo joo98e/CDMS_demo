@@ -1,14 +1,16 @@
-/**
- * @param {}             :
- * @param {}             :
- * @param {}             :
+/** 
+ * @param {BtnInfo}                      : props / Required
+ * @param {DialogInfo}                   : props / Required
+ * @param {TableColumnName}              : props / Required
+ * @param {TableLoadedData}              : props / Required
+ * @param {ResultMessage}                : props / Required
+ * @param {ResultAction}                 : props / success, fail로 데이터 반환 및 처리할 것
  * @returns {}
  */
 
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import { withSnackbar } from 'notistack';
-import lodash from 'lodash'
 
 import {
     Button, withStyles, Box,
@@ -39,18 +41,14 @@ export class UIPersonList extends Component {
 
         this.state = {
             isOpen: false,
-            personData: []
+            data: []
         }
     }
-
-    componentDidMount() {
-        
-    }
-
+    
     UIPersonRowChangeData = newItem => {
-        let _temp = this.state.personData;
+        let _temp = this.state.data;
         let status = false;
-
+        
         for (let idx in _temp) {
             if (_temp[idx].seq === newItem.seq) {
                 _temp.splice(idx, 1);
@@ -61,31 +59,31 @@ export class UIPersonList extends Component {
         if (status) {
             this.setState({
                 ...this.state,
-                personData: [..._temp]
+                data: [..._temp]
             });
         } else {
             this.setState({
                 ...this.state,
-                personData: [
-                    ...this.state.personData,
+                data: [
+                    ...this.state.data,
                     newItem
                 ]
             });
         }
-        setTimeout(() => {
-            console.log(this.state.personData);
-        }, 1000);
     }
 
     handleChangeStatus = (type) => {
         this.setState({
             isOpen: !this.state.isOpen ? true : false,
-            personData: []
+            data: []
         });
         
         if (type === "SUBMIT") {
+            if (this.props.ResultAction) this.props.ResultAction.success(this.state.data);
             this.props.enqueueSnackbar(this.props.ResultMessage.success, { variant: 'success' });
+
         } else if (type === "CANCLE") {
+            if (this.props.ResultAction) this.props.ResultAction.fail();
             this.props.enqueueSnackbar(this.props.ResultMessage.fail, { variant: 'warning' });
         }
     }
@@ -126,12 +124,6 @@ export class UIPersonList extends Component {
                                                                 )
                                                             })
                                                         }
-                                                        {/* <TableCell align="center"></TableCell>
-                                                        <TableCell align="left">{this.props.TableColumnName[0]}</TableCell>
-                                                        <TableCell align="left">{this.props.TableColumnName[1]}</TableCell>
-                                                        <TableCell align="left">{this.props.TableColumnName[2]}</TableCell>
-                                                        <TableCell align="left">{this.props.TableColumnName[3]}</TableCell>
-                                                        <TableCell align="left">{this.props.TableColumnName[4]}</TableCell> */}
                                                     </TableRow>
                                                 </TableHead>
                                                 <TableBody>
@@ -142,7 +134,7 @@ export class UIPersonList extends Component {
                                                                     <UIPersonRow
                                                                         key={index}
                                                                         item={item}
-                                                                        personData={this.state.personData}
+                                                                        data={this.state.data}
                                                                         UIPersonRowChangeData={this.UIPersonRowChangeData}
                                                                     />
                                                                 )

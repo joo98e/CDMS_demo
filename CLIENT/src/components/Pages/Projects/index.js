@@ -55,10 +55,9 @@ export class Projects extends Component {
 
     getProjectList = () => {
         const URL = 'api/projects';
-        const params = this.props.member;
         axios.get(URL, {
             params: {
-                ...params
+                ...this.props.member
             }
         }).then(res => {
             this.setState({

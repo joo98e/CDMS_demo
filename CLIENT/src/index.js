@@ -8,12 +8,12 @@ import './common/css/init.css';
 import './common/css/mediaQuery.css';
 
 import { Provider } from 'react-redux';
-import Store from './redux/Store'
+import store from './redux/store'
 import { CssBaseline } from "@material-ui/core";
 import UISnackBar from './components/common/UISnackBar';
 
 ReactDOM.render(
-  <Provider store={Store}>
+  <Provider store={store}>
     <BrowserRouter>
         <SnackbarProvider maxSnack={5} anchorOrigin={{ vertical: 'bottom', horizontal: 'left', }} action={(key) => (<UISnackBar goods={key} />)} >
           <CssBaseline />

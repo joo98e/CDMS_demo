@@ -5,7 +5,7 @@ module.exports = (() => {
 
     // static, images
     if (status === 'prod') {
-        app.use('/static', express.static('/home/uploads'));
+        app.use('/static', express.static('/home/data'));
     } else if (status === 'dev') {
         app.use('/static', express.static('./uploads'));
     }

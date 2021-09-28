@@ -20,7 +20,8 @@ const initRegisterValue = {
 const initAgencyInfo = {
     name: '',
     desc: '',
-    biz_area : ''
+    biz_area: '',
+    person : []
 }
 
 const initialState = {
@@ -93,6 +94,7 @@ const Producer = (state = initialState, action) => {
                 ...state,
                 agencyInfo: {
                     ...state.agencyInfo,
+                    ...action.payload
                 }
             };
         

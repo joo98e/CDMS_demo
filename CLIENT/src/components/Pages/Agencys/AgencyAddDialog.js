@@ -2,11 +2,14 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios'
 import { useSnackbar } from 'notistack';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { setAgencyInfo } from '../../../redux/action/ProducerAction'
+
 import {
     Container, TextField, FormControl, Select, Button, Dialog, Typography,
     ListItemText, ListItem, List, Divider, AppBar, Toolbar, IconButton, MenuItem,
-    Grid
+    Grid, Chip, Avatar
 } from '@material-ui/core';
 
 import NotificationImportantIcon from '@material-ui/icons/NotificationImportant';
@@ -98,16 +101,18 @@ const ResultMessage = {
 };
 
 export default function FullScreenDialog() {
-    const _tmp = useSelector((store) => store.User.accessInfo);
-    const _members = useSelector((store) => store.User.member);
+    const { enqueueSnackbar } = useSnackbar();
+    const history = useHistory();
+
+    const _accessInfo = useSelector((store) => store.User.accessInfo);
+    const _member = useSelector((store) => store.User.member);
+    const _agencyInfo = useSelector((store) => store.Producer.agencyInfo);
+    const dispatch = useDispatch();
 
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-    const [infos, setInfos] = React.useState(defaultState);
     const [categoryList, setCategoryList] = React.useState(null);
     const [personRow, setPersonRow] = React.useState(null);
-    const [accessInfos] = React.useState(_tmp);
-    const { enqueueSnackbar } = useSnackbar();
 
     React.useEffect(() => {
 
@@ -149,24 +154,38 @@ export default function FullScreenDialog() {
     };
 
     const handleClose = () => {
+        dispatch(setAgencyInfo(defaultState));
         setOpen(false);
-        setInfos(defaultState);
     };
 
     const handleValidateValue = () => {
-        for (let item in infos) {
+        for (let item in _agencyInfo) {
 
             switch (item) {
                 case "name":
-                    if (!FNValidator("AGCYNAME", infos[item])) {
+                    if (!FNValidator("AGCYNAME", _agencyInfo[item])) {
                         enqueueSnackbar('한글, 영문이 반드시 포함되어야 하며 한글, 영문, 숫자만 사용 가능합니다.', { variant: 'warning' });
                         return false;
                     }
                     break;
 
                 case "desc":
-                    if (infos[item] === "" || infos[item] === undefined) {
-                        enqueueSnackbar('설명을 기재해주세요!', { variant: 'warning' });
+                    if (_agencyInfo[item] === "" || _agencyInfo[item] === undefined) {
+                        enqueueSnackbar('설명을 기재해주세요.', { variant: 'warning' });
+                        return false;
+                    }
+                    break;
+
+                case "biz_area":
+                    if (_agencyInfo[item] === "" || _agencyInfo[item] === undefined) {
+                        enqueueSnackbar('사업 구분이 필요합니다.', { variant: 'warning' });
+                        return false;
+                    }
+                    break;
+
+                case "person":
+                    if (_agencyInfo[item].length === 0 || _agencyInfo[item].length === undefined) {
+                        enqueueSnackbar('기관 담당자를 구성해야 합니다.', { variant: 'warning' });
                         return false;
                     }
                     break;
@@ -180,27 +199,52 @@ export default function FullScreenDialog() {
     }
 
     const handleChangeAgencyInfos = (e) => {
-        let nextValue = { ...infos }
+        let nextValue = { ..._agencyInfo }
         nextValue[e.target.name] = e.target.value;
-        setInfos({ ...nextValue });
-        console.log(infos);
+        dispatch(setAgencyInfo({ ...nextValue }));
+    }
+
+    const ResultAction = {
+        success: data => {
+            dispatch(setAgencyInfo({
+                ..._agencyInfo,
+                person: data
+            }))
+        },
+        fail: () => {
+
+        }
     }
 
     const handleClickAddAgency = () => {
         const URL = 'api/agency/add';
         const data = {
-            ...infos,
-            ...accessInfos,
-            ..._members
-        }
+            ..._accessInfo,
+            ..._member,
+            ..._agencyInfo
+        };
+
         const config = {
             headers: {
                 "content-type": "application/json"
             }
         }
 
-        axios.post(URL, data, config);
-        console.log("posted");
+        axios.post(URL, data, config)
+            .then(res => {
+                console.log('────────────────');
+                console.log(res.data);
+                if (res.data.resultCode === 1) {
+                    dispatch(setAgencyInfo({
+                        ..._agencyInfo,
+                        person: []
+                    }));
+                    enqueueSnackbar("기관 등록에 성공했습니다.", { variant: 'success' });
+                    history.go(0);
+                } else {
+                    enqueueSnackbar(res.data.resultCode, { variant: 'error' });
+                }
+            });
     }
 
     return (
@@ -218,7 +262,7 @@ export default function FullScreenDialog() {
                             기관 등록
                         </Typography>
                         <Button autoFocus color="inherit" onClick={handleValidateValue}>
-                            save
+                            등록하기
                         </Button>
                     </Toolbar>
                 </AppBar>
@@ -243,7 +287,7 @@ export default function FullScreenDialog() {
                                                 labelId="biz_area"
                                                 id="biz_area"
                                                 name="biz_area"
-                                                value={infos.biz_area ? infos.biz_area : ''}
+                                                value={_agencyInfo.biz_area ? _agencyInfo.biz_area : ''}
                                                 onChange={handleChangeAgencyInfos}
                                             >
                                                 {categoryList.map((item, index) => {
@@ -276,7 +320,23 @@ export default function FullScreenDialog() {
                                         TableColumnName={TableColumnName}
                                         TableLoadedData={personRow !== null ? personRow.result : {}}
                                         ResultMessage={ResultMessage}
+                                        ResultAction={ResultAction}
                                     />
+                                </ListItem>
+                                <ListItem>
+                                    <ListItemText />
+                                    {
+                                        _agencyInfo.person &&
+                                        _agencyInfo.person.map((item, index) => {
+                                            if (index > 5) {
+                                                return false
+                                            } else {
+                                                return (
+                                                    <Chip key={item.seq} avatar={<Avatar src={item.avatar_path} />} label={`${item.full_name}`} />
+                                                )
+                                            }
+                                        })
+                                    }
                                 </ListItem>
                                 <Divider />
 

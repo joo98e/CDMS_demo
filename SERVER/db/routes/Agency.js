@@ -5,13 +5,13 @@ const router = express.Router();
 const connection = require("../db_connection");
 
 const myBatisMapper = require('mybatis-mapper');
+myBatisMapper.createMapper(['./db/xml/Agency/Agency.xml']);
 const format = require('../config/MyBatisFormat');
 
 router.get('/list', (req, res) => {
 
-    const SQL = `SELECT * FROM tb_agcy WHERE delete_yn = 'N';`
-
-    console.log(req.query);
+    const params = req.query;
+    const SQL = myBatisMapper.getStatement('Agency', 'getAgcyList', params, format);
 
     connection.query(SQL,
         (err, rows, fields) => {
@@ -22,9 +22,30 @@ router.get('/list', (req, res) => {
     );
 });
 
+router.get('/getColleague', (req, res) => {
+
+    // const params = req.params;
+
+    // const SQL = myBatisMapper.getStatement('Agency', 'getAgcyList', params, format);
+
+    // console.log(req.query);
+    // res.send(true)
+
+    const SQL = `SELECT * FROM tb_agcy WHERE delete_yn = 'N';`
+
+    console.log(req.query);
+
+    // connection.query(SQL,
+    //     (err, rows, fields) => {
+    //         if (err) console.log(err);
+
+    //         res.status(200).send(rows);
+    //     }
+    // );
+});
+
 router.get('/category', (req, res) => {
     const params = req.query;
-    myBatisMapper.createMapper(['./db/xml/Agency/Agency.xml']);
 
     const SQL = myBatisMapper.getStatement('Agency', 'getCategory', params, format);
     connection.query(SQL,
@@ -49,19 +70,54 @@ router.get('/category', (req, res) => {
 });
 
 router.post('/add', (req, res) => {
-    console.log(req.body);
+    const params = req.body;
+    const SQL_AGENCY = myBatisMapper.getStatement('Agency', 'insertAgency', params, format);
+    
+    connection.query(SQL_AGENCY,
+        (err, rows) => {
+            if (err) {
+                return res.status(500).send({
+                    result: {},
+                    resultCode: -1,
+                    resultMessage: "예기치 못한 오류",
+                })
+            } else {
+                if (Array.isArray(params.person) && params.person.length > 0) {
+                    const params_sub = {
+                        last_insert_id: rows.insertId,
+                        IPv4 : params.IPv4,
+                        person: params.person
+                    };
+                    const SQL_AGENCY_COLLEAGUE = myBatisMapper.getStatement('Agency', 'insertAgencyColleague', params_sub, format);
 
-    const SQL = `INSERT INTO tb_agcy (wrtier_seq, agency_manager_seq, name, desc, reg_date, upd_date, reg_ip, upd_ip) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
-    const vars = [
-        req.body.seq,
-        req.body.seq,
-        req.body.seq,
-        req.body.seq,
-        req.body.seq,
-        req.body.seq,
-        req.body.seq,
-        req.body.seq,
-    ]
+                    connection.query(SQL_AGENCY_COLLEAGUE,
+                        (err, rows) => {
+                            if (err) {
+                                return res.status(500).send({
+                                    result: {},
+                                    resultCode: -1,
+                                    resultMessage: "예기치 못한 오류"
+                                });
+                            } else {
+                                return res.status(200).send({
+                                    result: rows,
+                                    resultCode: 1,
+                                    resultMessage : "성공"
+                                });
+                            }
+                        }
+                    )
+                } else {
+                    return res.status(200).send({
+                        result: rows,
+                        resultCode: 1,
+                        resultMessage : '기관 참여자를 제외하고 성공'
+                    })
+                }
+            }
+        }
+    );
+
 
 });
 

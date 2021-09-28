@@ -5,8 +5,22 @@
     font-style: normal;
 }
 
-*{
-    font-family:'GmarketSansMedium' !important;
+@font-face {
+    font-family: 'NanumSquareRound';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SpoqaHanSansNeo-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: 'SpoqaHanSansNeo-Regular' !important;
 }
 
 html, body {
@@ -14,26 +28,26 @@ html, body {
     padding: 0;
     border: 0;
     box-sizing: border-box;
-    
 }
+
 *::-webkit-scrollbar {
     cursor: pointer;
     width: 16px !important;
 }
- 
+
 *::-webkit-scrollbar-track {
     cursor: pointer;
     background-color: #686868 !important;
     border-radius: 100px !important;
 }
- 
+
 *::-webkit-scrollbar-thumb {
     cursor: pointer;
     background-color: #bdbdbd !important;
     border-radius: 100px !important;
 }
 
-a{
-    color : inherit;
+a {
+    color: inherit;
     text-decoration: none;
 }

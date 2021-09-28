@@ -26,8 +26,8 @@ const styles = theme => ({
 });
 
 const List = [
-    { icon: <ColorLensIcon />, name: '테마 변경' },
-    { icon: <CachedIcon />, name: '메뉴 위치 변경' },
+    { id : 1, icon: <ColorLensIcon />, name: '테마 변경' },
+    { id : 2, icon: <CachedIcon />, name: '메뉴 위치 변경' },
 ];
 
 export class UISettingsMenu extends Component {
@@ -40,17 +40,16 @@ export class UISettingsMenu extends Component {
         }
     }
 
-    handleClick = (key) => {
-        switch (key) {
-            case '테마 변경':
+    handleClick = (id) => {
+        switch (id) {
+            case 1:
                 this.props.handleSetTheme();
                 this.props.enqueueSnackbar('테마가 변경되었습니다.', { variant: 'success' });
                 break;
 
-            case '메뉴 위치 변경':
+            case 2:
                 this.props.handleSetMenuAppearPosition();
-                this.props.enqueueSnackbar(`메뉴 위치가 변경되었습니다. (${this.props.menuAppearPosition})`, { variant: 'success' });
-
+                this.props.enqueueSnackbar(`메뉴 위치가 변경되었습니다.`, { variant: 'success' });
                 break;
 
             default:
@@ -91,7 +90,7 @@ export class UISettingsMenu extends Component {
                             icon={action.icon}
                             tooltipTitle={action.name}
                             value={this.props.theme}
-                            onClick={() => { this.handleClick(action.name) }}
+                            onClick={() => { this.handleClick(action.id) }}
                         />
                     ))}
                 </SpeedDial>
