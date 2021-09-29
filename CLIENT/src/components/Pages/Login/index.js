@@ -59,7 +59,6 @@ export class Login extends Component {
 
     componentDidMount() {
         if (this.props.user.auth) this.props.history.push('/');
-        console.log(this.props.theme);
         this.setState({
             awhile: true
         });
@@ -144,6 +143,7 @@ export class Login extends Component {
     render() {
 
         const { classes } = this.props;
+        console.log(this.props);
 
         return (
             <Box className={classes.root}>

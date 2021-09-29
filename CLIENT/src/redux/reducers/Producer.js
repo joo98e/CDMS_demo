@@ -48,16 +48,7 @@ const Producer = (state = initialState, action) => {
 
             return {
                 ...state,
-                registerMember: {
-                    avatar_file: '',
-                    id: '',
-                    idCheck: false,
-                    password: '',
-                    first_name: '',
-                    last_name: '',
-                    nickName: '',
-                    phone: '',
-                }
+                registerMember: initRegisterValue
             }
         
         case types.SET_PROJECT_PERSON_LIST:

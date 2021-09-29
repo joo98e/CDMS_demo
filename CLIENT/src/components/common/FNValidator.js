@@ -97,7 +97,11 @@ const FNValidator = (valueName, value) => {
         case "PHONE":
             if (value !== '') {
                 if (!/^\d{3}-\d{3,4}-\d{4}$/.test(value)) {
-                    return false;
+                    if (!/^01[0-9]{9}/.test(value)) {
+                        return false;
+                    } else {
+                        isConfirmed = true;
+                    }
                 } else {
                     isConfirmed = true;
                 }

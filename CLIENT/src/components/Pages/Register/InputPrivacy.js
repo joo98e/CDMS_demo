@@ -10,6 +10,7 @@ import {
     Visibility, VisibilityOff, RadioButtonUnchecked, CheckCircleOutline
 } from '@material-ui/icons'
 import axios from 'axios';
+import { InputProfile } from './InputProfile';
 
 const styles = theme => ({
     fullWidth: {
@@ -24,7 +25,42 @@ const styles = theme => ({
     },
     iconMargin: {
         marginLeft: theme.spacing(1)
-    }
+    },
+    mainAvatar: {
+        width: theme.spacing(24),
+        height: theme.spacing(24),
+        margin: '0 auto',
+    },
+    setAvatarBtn: {
+        display: 'block',
+        margin: '0 auto',
+        marginBottom: theme.spacing(2),
+    },
+    profileDialog: {
+        display: 'block',
+        minHeight: '90vh'
+    },
+    completeBtn: {
+        position: 'absolute',
+        top: theme.spacing(1),
+        right: theme.spacing(2)
+    },
+    mt: {
+        display : 'block',
+        margin : '0 auto',
+        marginTop: theme.spacing(4),
+        marginBottom: theme.spacing(4)
+    },
+    mb: {
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(4)
+    },
+    trans: {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)'
+    },
 });
 
 export class InputAccount extends PureComponent {
@@ -56,13 +92,6 @@ export class InputAccount extends PureComponent {
         }
     }
 
-    handleFileChange = (e) => {
-        let nextState = { ...this.props.registerMember };
-        nextState.avatar_file = e.target.files[0];
-        nextState.avatar_name = e.target.value;
-        this.props.setRegisterMemberInfo(nextState);
-    }
-
     handleChangeShowPassWord = () => {
         this.setState({
             showPassword: !this.state.showPassword ? true : false
@@ -82,24 +111,12 @@ export class InputAccount extends PureComponent {
                 <Container className={classes.marginBottom3}>
                     <Grid container justifyContent='center' spacing={4}>
                         <Grid item xs={12}>
-                            <Container>
-                                <Button
-                                    variant="outlined"
-                                    component="label"
-                                    color="inherit"
-                                >
-                                    <Typography>
-                                        {!this.props.registerMember.avatar_file ? "프로필 이미지 선택" : "프로필 선택 완료!"}
-                                    </Typography>
-                                    <input
-                                        type="file"
-                                        hidden
-                                        accept="image/*"
-                                        file={this.props.registerMember.avatar_file}
-                                        onChange={this.handleFileChange}
-                                    />
-                                </Button>
-                            </Container>
+                            <InputProfile
+                                classes={classes}
+                                registerMember={this.props.registerMember}
+                                setRegisterMemberInfo={this.props.setRegisterMemberInfo}
+                                setRegisterMemberInfoInit={this.props.setRegisterMemberInfoInit}
+                            />
                         </Grid>
 
                         <Grid item xs={12}>
@@ -154,18 +171,20 @@ export class InputAccount extends PureComponent {
                         </Grid>
                         <Grid item xs={12}>
                             <Container>
-                                <TextField
-                                    fullWidth
-                                    variant="filled"
-                                    required
-                                    type={this.state.showPassword ? 'text' : 'password'}
-                                    name="password"
-                                    label="비밀번호 확인"
-                                    autoComplete="off"
-                                    helperText="영문자, 숫자, 특수문자(!, @, #, $, %, &, *)를 각 1자 이상 포함하여 8 ~ 16자로 구성해주세요."
-                                    error={this.props.errorTextField.password}
-                                    onChange={this.handleValueChange}
-                                />
+                                <form>
+                                    <TextField
+                                        fullWidth
+                                        variant="filled"
+                                        required
+                                        type={this.state.showPassword ? 'text' : 'password'}
+                                        name="password"
+                                        label="비밀번호 확인"
+                                        autoComplete="off"
+                                        helperText="영문자, 숫자, 특수문자(!, @, #, $, %, &, *)를 각 1자 이상 포함하여 8 ~ 16자로 구성해주세요."
+                                        error={this.props.errorTextField.password}
+                                        onChange={this.handleValueChange}
+                                    />
+                                </form>
                             </Container>
                         </Grid>
                         <Grid item xs={12}>
@@ -220,8 +239,7 @@ export class InputAccount extends PureComponent {
                                     fullWidth
                                     required
                                     name="phone"
-                                    label="연락처"
-                                    placeholder="000-0000-0000"
+                                    label="휴대폰"
                                     error={this.props.errorTextField.phone}
                                     onChange={this.handleValueChange}
                                 />

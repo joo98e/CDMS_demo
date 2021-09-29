@@ -166,7 +166,7 @@ export class index extends PureComponent {
 
                             case "phone":
                                 if (!FNValidator("PHONE", _obj[item])) {
-                                    this.props.enqueueSnackbar("번호는 꼭 필요해요!", { variant: "warning" });
+                                    this.props.enqueueSnackbar("휴대폰 번호를 확인해주세요!", { variant: "warning" });
                                     this.setState({
                                         ...this.state,
                                         errorTextField: {

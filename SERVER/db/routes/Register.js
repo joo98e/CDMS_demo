@@ -7,18 +7,20 @@ const connection = require("../db_connection");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
-// 파일 관련
-const fs = require('fs');
-const CURRENT_DIR = __dirname;
+// 업로더
 const multer = require('multer');
-const path = require('path');
-const avatarTargetDIR = `uploads\\avatars\\items\\`;
-const requestDir = 'static\\avatars\\items\\'
 
-const avatarDIR = multer({ dest: avatarTargetDIR });
+// MyBatis
+const myBatisMapper = require('mybatis-mapper');
+myBatisMapper.createMapper(['./db/xml/Register/RegisterUser.xml']);
+const format = require('../config/MyBatisFormat');
+
+// 실제 클라이언트 요청 경로
+const requestDir = 'static\\avatars\\items\\';
 
 const avatarStorage = multer({
     storage: multer.diskStorage({
+        // 실제 업로드 경로
         destination: `uploads\\avatars\\items\\`,
         filename: function (req, file, cb) {
             cb(null, `avatar_${Date.now()}_${file.originalname}`);
@@ -28,8 +30,26 @@ const avatarStorage = multer({
 
 router.post('/signUp', avatarStorage.single('avatar_file'), (req, res) => {
     bcrypt.genSalt(saltRounds, (err, salt) => {
+        if (err) {
+            return res.status(500).send({
+                result: {},
+                resultCode: -1,
+                resultMessage : "패스워드 암호화 실패 #1"
+            });
+        }
+
         bcrypt.hash(req.body.password, salt, (err, hash) => {
-            if (err) console.log(err);
+            if (err) {
+                console.log(err);
+
+                return res.status(500).send({
+                    result: {},
+                    resultCode : -1,
+                    resultMessage : "패스워드 암호화 실패 #2"
+                });
+            };
+
+            const TEMP = myBatisMapper.getStatement('Agency', 'getAgcyList', params, format);
 
             let SQL =
                 `INSERT INTO tb_member (avatar_name, avatar_path, id, password, first_name, last_name, full_name, nickName, phone, rank_no, dept_no, reg_date, upd_date, reg_ip, upd_ip, country_name, country_code) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
@@ -91,19 +111,5 @@ router.post('/duplicateCheckId', (req, res) => {
     });
 
 });
-
-
-
-const checkDirectory = (dir) => {
-    const _target = `${avatarTargetDIR}\\${dir}`;
-
-    if (!fs.existsSync(_target)) {
-        fs.mkdirSync(_target);
-        console.log(`folder created, ${dir}`);
-    } else {
-        console.log(`폴더가 이미 존재하여 다음 차례를 진행합니다, ${avatarTargetDIR}\\items\\${dir}`);
-    }
-}
-
 
 module.exports = router;
