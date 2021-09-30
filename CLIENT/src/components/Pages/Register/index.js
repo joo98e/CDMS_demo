@@ -319,12 +319,13 @@ export class index extends PureComponent {
 
         const formData = new FormData();
         formData.append("avatar_file", this.props.registerMember.avatar_file);
+        formData.append("avatar_name", this.props.registerMember.avatar_name !== undefined ? this.props.registerMember.avatar_name : "34.png");
         formData.append("id", this.props.registerMember.id);
         formData.append("password", this.props.registerMember.password);
         formData.append("first_name", this.props.registerMember.first_name);
         formData.append("last_name", this.props.registerMember.last_name);
         formData.append("nickName", this.props.registerMember.nickName);
-        formData.append("phone", this.props.registerMember.phone);
+        formData.append("phone", this.props.registerMember.replace(/-/gi, ""));
         formData.append("rank_no", this.props.registerMember.rank_no);
         formData.append("dept_no", this.props.registerMember.dept_no);
         formData.append("reg_ip", this.props.accessInfo.IPv4);
@@ -404,7 +405,9 @@ export class index extends PureComponent {
                 >
                     <Box className={classes.center}>
                         <ButtonGroup variant="contained" color="inherit">
-                            <Button variant="outlined" disabled={this.state.stepNum === 0 || this.state.stepNum === stepInfo.stepsTitle.length - 1} onClick={() => { this.handleClickMoveStep(-1) }}>
+                            <Button variant="outlined"
+                                disabled={this.state.stepNum === 0 || this.state.stepNum === stepInfo.stepsTitle.length - 1}
+                                onClick={() => { this.handleClickMoveStep(-1) }}>
                                 <Typography>이전</Typography>
                             </Button>
                             <Button variant="outlined" onClick={this.handleClickMoveLoginPage}>
@@ -416,7 +419,6 @@ export class index extends PureComponent {
                         </ButtonGroup>
                     </Box>
                 </Grow>
-
             </Container>
         )
     }

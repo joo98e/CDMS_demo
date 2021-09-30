@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="RegisterMember">
+
+    <insert id="insertMember">
+        INSERT INTO
+        tb_member
+        (
+            avatar_name,
+            avatar_path,
+            id,
+            password,
+            first_name,
+            last_name,
+            full_name,
+            nickName,
+            phone,
+            rank_no,
+            dept_no,
+            reg_date,
+            upd_date,
+            reg_ip,
+            upd_ip,
+            country_name,
+            country_code
+        )
+        VALUES
+        (
+            #{avatar_name},
+            #{avatar_path},
+            #{id},
+            #{password},
+            #{first_name},
+            #{last_name},
+            #{full_name},
+            #{nickName},
+            #{phone},
+            #{rank_no},
+            #{dept_no},
+            #{reg_date},
+            #{upd_date},
+            #{reg_ip},
+            #{upd_ip},
+            #{country_name},
+            #{country_code}
+        );
+    </insert>
+
+</mapper>

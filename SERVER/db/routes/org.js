@@ -4,6 +4,7 @@ const router = express.Router();
 
 const connection = require("../db_connection");
 
+const getNow = require("../func/getNow");
 const myBatisMapper = require('mybatis-mapper');
 const format = require('../config/MyBatisFormat');
 
@@ -55,7 +56,7 @@ router.post('/person', (req, res) => {
 
     const params = req.body;
     const SQL = myBatisMapper.getStatement('Org', 'getInternalPerson', params, format);
-    
+
     connection.query(SQL, (err, rows, fields) => {
         if (err) {
             console.error(err);

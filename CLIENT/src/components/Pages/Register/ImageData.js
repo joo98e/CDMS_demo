@@ -203,7 +203,7 @@ const ImageData = [
     },
     {
         title: "기본 사진 - 34",
-        name : "34.jpg",
+        name : "34.png",
         src: "/static/avatars/items/default/34.png",
         alt : "기본 34번 사진",
     },

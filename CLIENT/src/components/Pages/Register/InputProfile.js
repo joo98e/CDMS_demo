@@ -21,7 +21,7 @@ export class InputProfile extends Component {
             nowAvatarName: null,
             nowAvatarPath: null,
             nowAvatarNum: null,
-            dialogToggle: true,
+            dialogToggle: false,
             popoverToggle: false,
             avatar_file: null,
             avatar_name: null
@@ -45,13 +45,12 @@ export class InputProfile extends Component {
         this.props.setRegisterMemberInfo({
             ...this.props.registerMember,
             avatar_file : e.target.files[0],
-            avatar_name : e.target.value,
-            avatar_default_name : null,
-            avatar_default_path : null
+            avatar_name : e.target.value
         });
     }
 
     handleFileChange = (num, src, name) => {
+        console.log(name);
         this.setState({
             ...this.state,
             nowAvatarName: name,
@@ -62,9 +61,7 @@ export class InputProfile extends Component {
         this.props.setRegisterMemberInfo({
             ...this.props.registerMember,
             avatar_file: null,
-            avatar_name: null,
-            avatar_default_name: this.state.nowAvatarName,
-            avatar_default_path: this.state.nowAvatarPath
+            avatar_name: name,
         });
     }
 
@@ -106,7 +103,7 @@ export class InputProfile extends Component {
                 >
                     <Avatar
                         className={classes.mainAvatar}
-                        src={this.state.nowAvatarPath !== null ? this.state.nowAvatarPath : "/static/avatars/items/default/default.png"}
+                        src={this.state.nowAvatarPath !== null ? this.state.nowAvatarPath : "/static/avatars/items/default/34.png"}
                     />
                 </IconButton>
                 <Typography variant="body1" align="center">
@@ -127,7 +124,7 @@ export class InputProfile extends Component {
                             <DialogContent>
                                 <Avatar
                                     className={classes.mainAvatar}
-                                    src={this.state.nowAvatarPath !== null ? this.state.nowAvatarPath : "/static/avatars/items/default/default.png"}
+                                    src={this.state.nowAvatarPath !== null ? this.state.nowAvatarPath : "/static/avatars/items/default/34.png"}
                                 />
                                 <Button
                                     className={classes.completeBtn}
@@ -176,7 +173,7 @@ export class InputProfile extends Component {
                                                         }}
                                                         actionIcon={
                                                             <IconButton
-                                                                style={{ color: this.state.nowAvatarNum === index ? 'pink' : 'white' }}
+                                                                style={{ color: this.state.nowAvatarNum === index ? '#F58A9D' : 'white' }}
                                                                 onClick={() => { this.handleFileChange(index, item.src, item.name) }}
                                                             >
                                                                 <FavoriteIcon />
