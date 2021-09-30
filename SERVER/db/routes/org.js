@@ -6,6 +6,7 @@ const connection = require("../db_connection");
 
 const getNow = require("../func/getNow");
 const myBatisMapper = require('mybatis-mapper');
+myBatisMapper.createMapper(['./db/xml/Organize/Org.xml']);
 const format = require('../config/MyBatisFormat');
 
 // ──────────────────────────────────────────────── 부서
@@ -52,9 +53,9 @@ router.get('/rank', (req, res) => {
 
 // ──────────────────────────────────────────────── 인력
 router.post('/person', (req, res) => {
-    myBatisMapper.createMapper(['./db/xml/Organize/Org.xml']);
 
     const params = req.body;
+    
     const SQL = myBatisMapper.getStatement('Org', 'getInternalPerson', params, format);
 
     connection.query(SQL, (err, rows, fields) => {

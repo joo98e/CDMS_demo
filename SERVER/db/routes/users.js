@@ -87,6 +87,7 @@ router.get('/project/work', (req, res) => {
     INNER JOIN TB_MEMBER_INFO
     ON TB_MEMBER_INFO.MEM_DEPT_NO = TB_DEPART_LIST.DEPART_PK
     WHERE TB_MEMBER_INFO.MEM_DEL_YN = 'N';`
+    
     connection.query(SQL, (err, rows, fields) => {
         if (err) console.log(err);
 

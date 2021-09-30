@@ -1,3 +1,4 @@
+const status = process.env.NODE_ENV = (process.env.NODE_ENV && (process.env.NODE_ENV).trim().toLowerCase() == 'production') ? 'prod' : 'dev';
 
 const express = require('express');
 const router = express.Router();
@@ -30,11 +31,19 @@ router.get('/menu/info', (req, res) => {
                 return res.status(200).send({
                     result: rows,
                     resultCode: 1,
-                    resultMessage : "성공"
+                    resultMessage: "성공"
                 });
             }
         });
-    
+
+});
+
+router.get('/process/isProd', (req, res) => {
+    return res.status(200).send({
+        result: status === 'prod' ? true : false,
+        resultCode: 1,
+        resultMessage: status === 'prod' ? "prod" : "dev"
+    });
 });
 
 module.exports = router;

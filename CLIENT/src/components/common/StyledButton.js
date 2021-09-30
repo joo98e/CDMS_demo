@@ -20,7 +20,6 @@ export class StyledButton extends Component {
     
     render() {
         // const { classes } = this.props;
-        console.log(this.props);
         return (
             <Button
                 // className={classes.sssss}

@@ -74,7 +74,6 @@ function SideBar(props) {
             params: condition
         })
             .then(res => {
-                console.log(res.data.result);
                 return res.data.result;
             });
     }

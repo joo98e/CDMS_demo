@@ -14,17 +14,52 @@ const message = function () {
                             : greeting >= 6 ? '너무 이른데요..' : '굿밤!'
 }
 
+const test = () => {
+    let tested = null;
+
+    isProdEnv()
+        .then(data => {
+            console.log(data);
+            tested = data;
+        });
+
+    return tested;
+}
+
+
+const isProdEnv = async () => {
+    const config = {
+        method: "GET",
+        header: {
+            'content-type': "application/json"
+        }
+    }
+    let aaa;
+
+    await fetch('/api/util/process/isProd', config)
+        .then(res => {
+            res.json();
+        })
+        .then(res => console.log(res));
+    
+    console.log(aaa);
+    return aaa;
+}
+
+
+
 const initialState = {
     color: 'default',
-    nowThemeNum : 0,
+    nowThemeNum: 0,
     theme: Themes.dark,
     bgColor: "#424242",
     hourlyGreetings: message(),
-    menuAppearPosition: 'left'
+    menuAppearPosition: 'left',
+    isProd: isProdEnv()
 };
 
 const UI = (state = initialState, action) => {
-    
+
     switch (action.type) {
 
         case types.SET_MENU_APPEAR_POSITION:
@@ -40,22 +75,22 @@ const UI = (state = initialState, action) => {
             return {
                 ...state,
                 theme: state.nowThemeNum === 0 ? Themes.white : Themes.dark,
-                nowThemeNum : state.nowThemeNum === 0 ? 1 : 0
+                nowThemeNum: state.nowThemeNum === 0 ? 1 : 0
             }
-            
-            // if(state.nowThemeNum === Object.keys(Themes).length - 1){
-            //     return {
-            //         ...state,
-            //         nowThemeNum : 0,
-            //         theme: Themes[Object.keys(Themes)[0]]
-            //     }
-            // }else{
-            //     return {
-            //         ...state,
-            //         nowThemeNum : state.nowThemeNum + 1,
-            //         theme: Themes[Object.keys(Themes)[state.nowThemeNum + 1]]
-            //     };
-            // }
+
+        // if(state.nowThemeNum === Object.keys(Themes).length - 1){
+        //     return {
+        //         ...state,
+        //         nowThemeNum : 0,
+        //         theme: Themes[Object.keys(Themes)[0]]
+        //     }
+        // }else{
+        //     return {
+        //         ...state,
+        //         nowThemeNum : state.nowThemeNum + 1,
+        //         theme: Themes[Object.keys(Themes)[state.nowThemeNum + 1]]
+        //     };
+        // }
 
         default:
             return state;

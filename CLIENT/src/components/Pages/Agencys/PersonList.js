@@ -42,7 +42,6 @@ export class PersonList extends Component {
         this.callApi()
             .then(res => {
                 this.setState({ workForce: res });
-                console.log(this.state.workForce);
             })
             .catch(err => console.log(err));
     }

@@ -79,8 +79,6 @@ export class index extends PureComponent {
         result = true;
 
         if (param > 0) {
-            console.log(_obj);
-            console.log(_obj.idCheck);
             switch (this.state.stepNum) {
                 case 0:
                     this.props.enqueueSnackbar(`이용약관 확인이 되었어요.`, { variant: 'info' });
@@ -88,7 +86,6 @@ export class index extends PureComponent {
 
                 case 1:
                     for (let item in _obj) {
-
                         switch (item) {
 
                             case "id":
@@ -105,7 +102,6 @@ export class index extends PureComponent {
                                 break;
 
                             case "idCheck":
-                                console.log(_obj.idCheck);
                                 if (!_obj.idCheck) {
                                     this.props.enqueueSnackbar("ID 중복 체크를 해주세요.", { variant: "warning" });
                                     return result = false;
@@ -123,6 +119,31 @@ export class index extends PureComponent {
                                     });
                                     return result = false;
                                 }
+                                break;
+                            
+                            case "passwordCheck":
+                                if (_obj[item] === "") {
+                                    this.props.enqueueSnackbar("비밀번호 확인란을 입력해주세요!", { variant: "warning" });
+                                    this.setState({
+                                        ...this.state,
+                                        errorTextField: {
+                                            password: true
+                                        }
+                                    });
+                                    
+                                    return result = false;
+                                } else if (_obj[item] !== _obj.password) {
+                                    this.props.enqueueSnackbar("비밀번호가 일치하지 않습니다.", { variant: "warning" });
+                                    this.setState({
+                                        ...this.state,
+                                        errorTextField: {
+                                            password: true
+                                        }
+                                    });
+
+                                    return result = false;
+                                }
+                                
                                 break;
 
                             case "first_name":
@@ -181,7 +202,7 @@ export class index extends PureComponent {
 
                                 /**
                                  * @description 정규식을 거치지 않음
-                                 */
+                                */
 
                                 break;
                         }
@@ -201,6 +222,12 @@ export class index extends PureComponent {
                         });
                         this.props.enqueueSnackbar(`멋진 분이시군요!`, { variant: 'success' });
                     } else this.props.enqueueSnackbar(`오류입니다!`, { variant: 'error' });
+
+                    this.props.setRegisterMemberInfo({
+                        ...this.props.registerMember,
+                        dept_no: "",
+                        rank_no : ""
+                    })
 
                     break;
 
@@ -231,7 +258,7 @@ export class index extends PureComponent {
                                 break;
                         }
                     }
-
+                    
                     if (result) {
                         this.props.enqueueSnackbar(`정말 멋진 업무에요!`, { variant: 'success' });
                         this.confirm();
@@ -325,7 +352,7 @@ export class index extends PureComponent {
         formData.append("first_name", this.props.registerMember.first_name);
         formData.append("last_name", this.props.registerMember.last_name);
         formData.append("nickName", this.props.registerMember.nickName);
-        formData.append("phone", this.props.registerMember.replace(/-/gi, ""));
+        formData.append("phone", this.props.registerMember.phone.replace(/-/gi, ""));
         formData.append("rank_no", this.props.registerMember.rank_no);
         formData.append("dept_no", this.props.registerMember.dept_no);
         formData.append("reg_ip", this.props.accessInfo.IPv4);

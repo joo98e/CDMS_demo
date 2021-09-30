@@ -67,7 +67,6 @@ export class index extends PureComponent {
     callApi = async () => {
         let response = await fetch('/api/departments');
         let departments = await response.json();
-        console.log(departments);
         return departments;
     }
 

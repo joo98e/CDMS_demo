@@ -54,6 +54,7 @@ export class Login extends Component {
         this.state = {
             info: {},
             awhile: false,
+            isDev : false
         }
     }
 
@@ -63,7 +64,6 @@ export class Login extends Component {
             awhile: true
         });
     }
-
 
     handleChange = (e) => {
         let nextValue = { ...this.state.info };
@@ -143,7 +143,6 @@ export class Login extends Component {
     render() {
 
         const { classes } = this.props;
-        console.log(this.props);
 
         return (
             <Box className={classes.root}>

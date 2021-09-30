@@ -50,7 +50,6 @@ export class InputProfile extends Component {
     }
 
     handleFileChange = (num, src, name) => {
-        console.log(name);
         this.setState({
             ...this.state,
             nowAvatarName: name,
@@ -161,9 +160,7 @@ export class InputProfile extends Component {
                                                         alt={item.alt}
                                                         loading="lazy"
                                                     />
-                                                    <IconButton>
-                                                        Not Found
-                                                    </IconButton>
+                                                    <IconButton></IconButton>
                                                     <ImageListItemBar
                                                         position="top"
                                                         style={{

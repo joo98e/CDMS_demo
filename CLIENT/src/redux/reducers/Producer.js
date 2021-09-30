@@ -12,6 +12,7 @@ const initRegisterValue = {
     id: '',
     idCheck: false,
     password: '',
+    passwordCheck : '',
     first_name: '',
     last_name: '',
     nickName: '',

@@ -80,7 +80,7 @@ export class InputAccount extends PureComponent {
     handleValueChange = (e) => {
         let nextState = { ...this.props.registerMember };
         nextState[e.target.name] = e.target.value;
-
+        
         this.props.setRegisterMemberInfo(nextState);
 
         if (e.target.name.toLowerCase() === 'id') {
@@ -88,7 +88,6 @@ export class InputAccount extends PureComponent {
                 ...nextState,
                 idCheck: false
             });
-            console.log(this.props.registerMember.idCheck);
         }
     }
 
@@ -177,10 +176,10 @@ export class InputAccount extends PureComponent {
                                         variant="filled"
                                         required
                                         type={this.state.showPassword ? 'text' : 'password'}
-                                        name="password"
+                                        name="passwordCheck"
                                         label="비밀번호 확인"
                                         autoComplete="off"
-                                        helperText="영문자, 숫자, 특수문자(!, @, #, $, %, &, *)를 각 1자 이상 포함하여 8 ~ 16자로 구성해주세요."
+                                        helperText="비밀번호 확인을 위해 한번 더 입력해주세요."
                                         error={this.props.errorTextField.password}
                                         onChange={this.handleValueChange}
                                     />

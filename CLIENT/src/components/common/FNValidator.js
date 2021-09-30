@@ -130,8 +130,6 @@ const FNValidator = (valueName, value) => {
              */
             break;
     }
-
-    console.log(`${valueName} is confirmed`);
     return isConfirmed;
 }
 

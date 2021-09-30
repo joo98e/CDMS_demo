@@ -77,7 +77,6 @@ export default function FullScreenDialog() {
             await axios.get('/projects/category')
                 .then(res => {
                     setCategoryList(res.data);
-                    console.log(res.data);
                 });
         }
 
@@ -120,7 +119,6 @@ export default function FullScreenDialog() {
                 break;
 
             case "FINISH":
-                console.log("Finish");
                 setSteps(steps + 1);
                 break;
 

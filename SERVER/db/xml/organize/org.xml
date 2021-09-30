@@ -5,18 +5,16 @@
     SELECT
       mem.seq,
       mem.full_name,
-      org.name AS dept_name,
       mem.id,
-      auth.desc AS rank_name,
-      mem.avatar_path
+      mem.avatar_path,
+      (SELECT name FROM tb_org_structure AS org WHERE org.id = mem.dept_no AND org.`type` = "TYPE::DEPART") as dept_name,
+      (SELECT name FROM tb_org_structure AS org WHERE org.id = mem.rank_no AND org.`type` = "TYPE::RANK") as rank_name
     FROM
       tb_member AS mem
+
     LEFT JOIN
       tb_auth AS auth 
     ON mem.ref_auth_id = auth.id
-    LEFT JOIN
-      tb_org_structure AS org
-    ON mem.dept_no = org.id
     <if test="delete_yn != null">
       WHERE
       mem.delete_yn = #{delete_yn}

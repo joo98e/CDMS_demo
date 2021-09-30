@@ -232,8 +232,6 @@ export default function FullScreenDialog() {
 
         axios.post(URL, data, config)
             .then(res => {
-                console.log('────────────────');
-                console.log(res.data);
                 if (res.data.resultCode === 1) {
                     dispatch(setAgencyInfo({
                         ..._agencyInfo,

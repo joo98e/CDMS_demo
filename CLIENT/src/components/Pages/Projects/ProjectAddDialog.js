@@ -112,14 +112,12 @@ export default function FullScreenDialog() {
     };
 
     const handleValidateValue = () => {
-        console.log(12312);
         let _base = "PROJ_";
         
         for (let idx in infos) {
             
             switch (idx) {
                 case _base + "TITLE":
-                    console.log("here i am111");
                     if (infos[idx] === "" || infos[idx] === undefined) {
                         enqueueSnackbar('제목 없는 프로젝트는 없어요.', {variant:'warning'});
                         return false;
@@ -183,7 +181,6 @@ export default function FullScreenDialog() {
         let nextValue = { ...infos }
         nextValue[e.target.name] = e.target.value;
         setInfos({ ...nextValue });
-        console.log(infos);
     }
 
     return (
