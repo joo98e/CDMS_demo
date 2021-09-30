@@ -34,19 +34,25 @@ const isProdEnv = async () => {
             'content-type': "application/json"
         }
     }
-    let aaa;
+    let data = null;
 
     await fetch('/api/util/process/isProd', config)
         .then(res => {
-            res.json();
+            return res.json();
         })
-        .then(res => console.log(res));
-    
-    console.log(aaa);
-    return aaa;
+        .then(res => {
+           return data = res;
+        });
 }
 
-
+const sssss = () => {
+    let tmp;
+    isProdEnv()
+        .then(res => {
+            console.log(res);
+            return res
+        });
+}
 
 const initialState = {
     color: 'default',
@@ -55,7 +61,7 @@ const initialState = {
     bgColor: "#424242",
     hourlyGreetings: message(),
     menuAppearPosition: 'left',
-    isProd: isProdEnv()
+    isProd: sssss()
 };
 
 const UI = (state = initialState, action) => {
