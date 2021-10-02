@@ -41,17 +41,17 @@ const isProdEnv = async () => {
             return res.json();
         })
         .then(res => {
-           return data = res;
+            console.log(res);
+            data = res;
+            sssss(data)
         });
+    
+    return data;
 }
 
-const sssss = () => {
-    let tmp;
-    isProdEnv()
-        .then(res => {
-            console.log(res);
-            return res
-        });
+const sssss = data => {
+    
+    console.log(data);
 }
 
 const initialState = {

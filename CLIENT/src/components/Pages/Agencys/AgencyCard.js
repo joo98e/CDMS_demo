@@ -48,7 +48,6 @@ function ProjectCard(props) {
     setTimeout(() => {
       setGrowIn(true);
     }, 150);
-    console.log(props.item);
 
     const getColleagueList = () => {
       const URL = '/api/agency/getColleague';
