@@ -54,7 +54,7 @@ export class Login extends Component {
         this.state = {
             info: {},
             awhile: false,
-            isDev : false
+            isDev: false
         }
     }
 
@@ -75,7 +75,7 @@ export class Login extends Component {
     }
 
     loginCheck = () => {
-        
+
         const URL = '/api/users/login';
         const vars = {
             id: this.state.info.id,
@@ -98,18 +98,18 @@ export class Login extends Component {
                     }
                     // 로그인 성공
                     const storageItem = {
-                        seq : res.data.seq,
-                        ref_auth_id : res.data.ref_auth_id,
-                        id : res.data.id,
-                        first_name : res.data.first_name,
-                        last_name : res.data.last_name,
-                        nickname : res.data.nickname,
-                        phone : res.data.phone,
-                        dept_no : res.data.dept_no,
-                        rank_no : res.data.rank_no,
-                        followed : res.data.followed,
-                        avatar_name : res.data.avatar_name,
-                        avatar_path : res.data.avatar_path
+                        seq: res.data.seq,
+                        ref_auth_id: res.data.ref_auth_id,
+                        id: res.data.id,
+                        first_name: res.data.first_name,
+                        last_name: res.data.last_name,
+                        nickname: res.data.nickname,
+                        phone: res.data.phone,
+                        dept_no: res.data.dept_no,
+                        rank_no: res.data.rank_no,
+                        followed: res.data.followed,
+                        avatar_name: res.data.avatar_name,
+                        avatar_path: res.data.avatar_path
                     }
 
                     localStorage.setItem('member', JSON.stringify(storageItem));
@@ -212,17 +212,21 @@ export class Login extends Component {
                                     회원가입
                                 </Button>
                             </Box>
-                            <Box display="flex">
-                                <Button
-                                    className={classes.buttonMargin}
-                                    fullWidth
-                                    variant="outlined"
-                                    onClick={this.devLogin}
-                                    color="inherit"
-                                >
-                                    개발 환경 로그인
-                                </Button>
-                            </Box>
+                            {
+                                !this.props.isProd &&
+                                <Box display="flex">
+                                    <Button
+                                        className={classes.buttonMargin}
+                                        fullWidth
+                                        variant="outlined"
+                                        onClick={this.devLogin}
+                                        color="inherit"
+                                    >
+                                        개발 환경 로그인
+                                    </Button>
+                                </Box>
+                            }
+
                         </Box>
                         <Box>
                             <CopyRights />
@@ -238,7 +242,8 @@ export class Login extends Component {
 const mapStateToProps = (state) => ({
     hourlyGreetings: state.UI.hourlyGreetings,
     user: state.User,
-    theme: state.UI.theme
+    theme: state.UI.theme,
+    isProd: state.UI.isProd
 })
 
 const mapDispatchToProps = dispatch => {

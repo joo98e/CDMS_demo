@@ -14,19 +14,6 @@ const message = function () {
                             : greeting >= 6 ? '너무 이른데요..' : '굿밤!'
 }
 
-const test = () => {
-    let tested = null;
-
-    isProdEnv()
-        .then(data => {
-            console.log(data);
-            tested = data;
-        });
-
-    return tested;
-}
-
-
 const isProdEnv = async () => {
     const config = {
         method: "GET",
@@ -34,26 +21,20 @@ const isProdEnv = async () => {
             'content-type': "application/json"
         }
     }
-    let data = null;
 
     await fetch('/api/util/process/isProd', config)
         .then(res => {
             return res.json();
         })
         .then(res => {
-            console.log(res);
-            data = res;
-            sssss(data)
+            initialState.isProd = res.result;
+            console.log(res.result);
+        })
+        .catch(err => {
+            console.log(err);
         });
     
-    return data;
 }
-
-const sssss = data => {
-    
-    console.log(data);
-}
-
 const initialState = {
     color: 'default',
     nowThemeNum: 0,
@@ -61,8 +42,10 @@ const initialState = {
     bgColor: "#424242",
     hourlyGreetings: message(),
     menuAppearPosition: 'left',
-    isProd: sssss()
+    isProd: undefined
 };
+
+isProdEnv();
 
 const UI = (state = initialState, action) => {
 
