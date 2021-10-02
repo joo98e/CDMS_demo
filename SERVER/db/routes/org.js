@@ -29,7 +29,7 @@ router.get('/depart', (req, res) => {
         }
     )
 });
-
+ 
 // ──────────────────────────────────────────────── 직급 
 router.get('/rank', (req, res) => {
     const SQL = `
