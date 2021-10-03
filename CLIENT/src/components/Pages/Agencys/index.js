@@ -115,7 +115,6 @@ export class Agency extends Component {
                                     )
                                 })
                             }
-
                             <Grid item xs={12} md={6} lg={4} >
                                 <Grow
                                     in={this.state.awhile}

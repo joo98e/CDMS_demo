@@ -10,7 +10,14 @@ router.get('/list', (req, res) => {
 
     connection.query(sql,
         (err, rows, fields) => {
-            if (err) console.log(err);
+            if (err) {
+                console.log(err);
+                res.status(400).send({
+                    result : false,
+                    resultCode : -1,
+                    resultMessage : "알 수 없는 오류"
+                });
+            };
 
             let result = rows;
 

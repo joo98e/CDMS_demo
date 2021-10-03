@@ -11,7 +11,7 @@ const express = require('express');
 const path = require('path');
 
 // ────────────────────────────────────────────────────────── Routes Import
-const Users = require('./routes/Users');
+const Member = require('./routes/Member');
 const Org = require('./routes/Org');
 const Register = require('./routes/Register');
 const Menu = require('./routes/Menu');
@@ -23,7 +23,7 @@ const Util = require('./routes/Util');
 // ────────────────────────────────────────────────────────── 
 
 // 라우터 회원 
-app.use('/api/users', Users);
+app.use('/api/member', Member);
 app.use('/api/org', Org);
 app.use('/api/register', Register);
 

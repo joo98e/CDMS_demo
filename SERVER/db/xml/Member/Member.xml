@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Member">
+    <select id="getCompareId">
+        SELECT
+            seq, 
+            ref_auth_id, 
+            id, 
+            password, 
+            first_name, 
+            last_name, 
+            nickname, 
+            phone, 
+            dept_no, 
+            rank_no, 
+            followed, 
+            avatar_name, 
+            avatar_path
+        FROM
+        tb_member
+        
+        <if test="">
+
+        </if>
+    </select>
+</mapper>

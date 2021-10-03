@@ -12,18 +12,15 @@ const connection = require("../db_connection");
 router.get('/menu/info', (req, res) => {
     const params = req.query;
     const SQL = myBatisMapper.getStatement("Util", "getMenuInfo", params, format);
-    console.log(params);
-    console.log(SQL);
-
 
     connection.query(SQL,
         (err, rows, field) => {
             if (err) {
                 console.log(err);
-                return res.status(500).send({
+                return res.status(400).send({
                     result: {},
                     resultCode: -1,
-                    resultMessage: "실패"
+                    resultMessage: "알 수 없는 오류"
                 });
             }
 

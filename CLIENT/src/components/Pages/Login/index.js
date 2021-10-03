@@ -76,7 +76,7 @@ export class Login extends Component {
 
     loginCheck = () => {
 
-        const URL = '/api/users/login';
+        const URL = '/api/member/login';
         const vars = {
             id: this.state.info.id,
             password: this.state.info.password
@@ -124,7 +124,7 @@ export class Login extends Component {
     }
 
     devLogin = () => {
-        Axios.get('api/users/login/dev')
+        Axios.get('api/member/login/dev')
             .then(res => {
                 localStorage.setItem('member', JSON.stringify(res.data));
                 this.props.devAuth(res.data);
