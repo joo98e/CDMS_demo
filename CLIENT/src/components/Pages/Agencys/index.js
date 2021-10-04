@@ -29,7 +29,7 @@ const styles = theme => ({
     minPadding: {
         padding: theme.spacing(2),
         backgroundColor: theme.palette.background.default,
-        
+
     }
 });
 
@@ -53,14 +53,14 @@ export class Agency extends Component {
     }
 
     getAgencyList = srchType => {
-        
+
         /** 
          * @param {srchType}
          * @description              : ALL / 모두
          * @description              : MINE / 내게 속한 것만
          * @description              : BIZ / 특정 사업 구분으로
          */
-        
+
         const URL = 'api/agency/list';
         axios.get(URL, {
             params: {
@@ -84,7 +84,7 @@ export class Agency extends Component {
 
     render() {
         const { classes } = this.props;
-        
+
         return (
             <Container className={classes.root}>
                 {
@@ -115,17 +115,20 @@ export class Agency extends Component {
                                     )
                                 })
                             }
-                            <Grid item xs={12} md={6} lg={4} >
-                                <Grow
-                                    in={this.state.awhile}
-                                    style={{ transformOrigin: '0 0 0' }}
-                                    {...(this.state.awhile ? { timeout: 800 } : {})}
-                                >
-                                    <Paper elevation={4} className={classes.relative}>
-                                        <AgencyAddDialog />
-                                    </Paper>
-                                </Grow>
-                            </Grid>
+                            {
+                                this.props.member.ref_allow_action.indexOf('WRITE') !== -1 &&
+                                <Grid item xs={12} md={6} lg={4} >
+                                    <Grow
+                                        in={this.state.awhile}
+                                        style={{ transformOrigin: '0 0 0' }}
+                                        {...(this.state.awhile ? { timeout: 800 } : {})}
+                                    >
+                                        <Paper elevation={4} className={classes.relative}>
+                                            <AgencyAddDialog />
+                                        </Paper>
+                                    </Grow>
+                                </Grid>
+                            }
                         </Grid>
                 }
             </Container>

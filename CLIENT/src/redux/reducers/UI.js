@@ -28,7 +28,6 @@ const isProdEnv = async () => {
         })
         .then(res => {
             initialState.isProd = res.result;
-            console.log(res.result);
         })
         .catch(err => {
             console.log(err);

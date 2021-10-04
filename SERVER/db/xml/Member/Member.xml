@@ -3,24 +3,61 @@
 <mapper namespace="Member">
     <select id="getCompareId">
         SELECT
-            seq, 
-            ref_auth_id, 
-            id, 
-            password, 
-            first_name, 
-            last_name, 
-            nickname, 
-            phone, 
-            dept_no, 
-            rank_no, 
-            followed, 
-            avatar_name, 
-            avatar_path
+            mem.seq, 
+            auth.allow_action AS ref_allow_action,
+            mem.ref_auth_id, 
+            mem.id, 
+            mem.password, 
+            mem.first_name, 
+            mem.last_name, 
+            mem.nickname, 
+            mem.phone, 
+            mem.dept_no, 
+            mem.rank_no, 
+            mem.followed, 
+            mem.avatar_name, 
+            mem.avatar_path
         FROM
-        tb_member
-        
-        <if test="">
+            tb_member AS mem
+        LEFT JOIN 
+            tb_auth AS auth
+        ON
+            mem.ref_auth_id = auth.id
+        <where>
+            <if test="id != null">
+                AND mem.id = #{id}
+            </if>
+            <if test="delete_yn != null">
+                AND mem.delete_yn = #{delete_yn}
+            </if>
+        </where>
+    </select>
 
-        </if>
+    <select id="devLogin">
+        SELECT
+            mem.seq, 
+            mem.ref_auth_id, 
+            auth.allow_action AS ref_allow_action,
+            mem.id, 
+            mem.password, 
+            mem.first_name, 
+            mem.last_name, 
+            mem.nickname, 
+            mem.phone, 
+            mem.dept_no, 
+            mem.rank_no, 
+            mem.followed, 
+            mem.avatar_name, 
+            mem.avatar_path
+        FROM
+            tb_member AS mem
+        LEFT JOIN 
+            tb_auth AS auth
+        ON 
+            mem.ref_auth_id = auth.id
+        WHERE 
+            mem.id = #{id}
+        AND 
+            mem.delete_yn = #{delete_yn}
     </select>
 </mapper>

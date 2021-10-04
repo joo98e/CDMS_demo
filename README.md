@@ -8,7 +8,7 @@
 
 ### 컴포넌트권한에 따른 렌더링 여부 추가
 > - [ ] 여부에 따라 각 컴포넌트에 Oh my! something that wasn't supposed to happen 등
-> - [ ] 
+> - [ ] -
 
 ### 로그인 처리 MyBatis로 이전
 > - [x] XML 생성 및 셀렉트 생성

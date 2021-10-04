@@ -89,7 +89,7 @@ export class Login extends Component {
 
         Axios.post(URL, vars)
             .then(res => {
-                if (!res.data) {
+                if (res.data.resultCode === -3) {
                     return this.props.enqueueSnackbar('아이디 혹은 비밀번호가 틀렸습니다.', { variant: 'error' });
                 } else {
                     if (res.data.resultCode === -1) {
@@ -100,6 +100,7 @@ export class Login extends Component {
                     const storageItem = {
                         seq: res.data.seq,
                         ref_auth_id: res.data.ref_auth_id,
+                        ref_allow_action : res.data.ref_allow_action,
                         id: res.data.id,
                         first_name: res.data.first_name,
                         last_name: res.data.last_name,

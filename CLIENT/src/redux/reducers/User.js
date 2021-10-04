@@ -36,6 +36,7 @@ const initialState = {
     member: getMemberLocalStorage(),
     accessInfo: null,
 };
+
 getIp('http://geolocation-db.com/json/');
 
 const User = (state = initialState, action) => {
