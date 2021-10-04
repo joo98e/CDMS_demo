@@ -55,24 +55,63 @@
 
     <select id="getAgcyList">
         SELECT 
-            * 
-        FROM
-        tb_agcy
-        <if test="delete_yn != null">
-            WHERE delete_yn = #{delete_yn}
-        </if>
-        <choose>
-            <when test="srchType == 'ALL'">
-                
-            </when>
-            <when test="srchType == 'MINE'">
+            agcy.id,
+            agcy.biz_area,
+            agcy.writer_seq,
+            agcy.`name`,
+            agcy.`desc`
+        FROM 
+            tb_agcy_colleague AS agcy_colg 
+        RIGHT JOIN 
+            tb_agcy AS agcy
+        ON 
+            agcy.id = agcy_colg.ref_agcy_id
 
-            </when>
-            <when test="srchType == 'BIZ'">
+        <where>
+            <choose>
+                <when test="srchType == 'ALL'">
+                    
+                </when>
+                <when test="srchType == 'MINE'">
+                    AND agcy_colg.ref_agcy_colleague_seq = #{mem_seq}
+                </when>
+                <when test="srchType == 'BIZ'">
+    
+                </when>
+                <otherwise></otherwise>
+            </choose>
 
-            </when>
-            <otherwise></otherwise>
-        </choose>
+            <if test="delete_yn != null">
+                AND agcy.delete_yn = #{delete_yn}
+            </if>
+            <choose>
+                <when test="status = 'STATUS::OPEN'">
+                    AND agcy.`status` = 'STATUS::OPEN'
+                </when>
+            </choose>
+        </where>
     </select>
     
+    <select id="getColleague">
+        SELECT 
+            agcy_colg.id,
+            agcy_colg.ref_agcy_colleague_seq,
+            agcy_colg.ref_agcy_id,
+            agcy_colg.`name`,
+            mem.avatar_path
+        FROM
+            tb_agcy_colleague AS agcy_colg
+        LEFT JOIN 
+            tb_member AS mem
+        ON 
+            mem.seq = agcy_colg.ref_agcy_colleague_seq
+        <where>
+            <if test="delete_yn != null">
+                AND agcy_colg.delete_yn = #{delete_yn}
+            </if>
+            <if test="agcy_id != null">
+                AND agcy_colg.ref_agcy_id = #{agcy_id}
+            </if>
+        </where>
+    </select>
 </mapper>

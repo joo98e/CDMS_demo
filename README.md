@@ -2,22 +2,26 @@
 ### 기관 리스트
 > - [x] Redux - allow action에 따라 관리자 계정일 경우 모든 기관 리스트를 렌더링
 > - [x] Redux - allow action에 따라 일반 사용자 계정일 경우 자신이 속한 리스트만 렌더링
-> - [ ] 속한 사람들의 아바타가 나타나도록 수정
-> - [ ] CardAction 클릭시 기관 정보 나타나도록 변경
-> - [ ] MORE 클릭시 기관별 프로젝트 리스트 나타나도록 추가
+> - [x] 속한 사람들의 아바타가 나타나도록 수정
+> - [ ] CardAction 클릭시 기관별 프로젝트 리스트 나타나도록 변경
+> - [ ] MORE 클릭시 기관 정보 나타나도록 변경
 > - [ ] 기관 정보 추가시 Object 타입 데이터 추가 기능
 
+### 권한별 allow Action 설정
+> - [ ] 추가한 컬럼을 이용하여 행동 여부 2차 체크 기능 
+
+### 컴포넌트권한에 따른 렌더링 여부 추가
+> - [ ] 여부에 따라 각 컴포넌트에 Oh my! something that wasn't supposed to happen 등
 
 ***
 # 2021.10.03
 
 ### 권한별 allow Action 설정
-> - [ ] tb_auth 컬럼 추가
+> - [x]] tb_auth 컬럼 추가
 > - [ ] 추가한 컬럼을 이용하여 행동 여부 2차 체크 기능 
 
 ### 컴포넌트권한에 따른 렌더링 여부 추가
 > - [ ] 여부에 따라 각 컴포넌트에 Oh my! something that wasn't supposed to happen 등
-> - [ ] -
 
 ### 로그인 처리 MyBatis로 이전
 > - [x] XML 생성 및 셀렉트 생성

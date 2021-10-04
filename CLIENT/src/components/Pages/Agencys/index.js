@@ -49,7 +49,21 @@ export class Agency extends Component {
             awhile: true
         });
 
-        this.getAgencyList();
+        switch (this.props.member.ref_auth_type) {
+            case 'M':
+                this.getAgencyList("ALL");
+
+                break;
+
+            case 'U':
+                this.getAgencyList("MINE");
+                
+                break;
+        
+            default:
+                break;
+        }
+        
     }
 
     getAgencyList = srchType => {
@@ -62,19 +76,19 @@ export class Agency extends Component {
          */
 
         const URL = 'api/agency/list';
+        console.log(srchType);
         axios.get(URL, {
             params: {
-                member: {
-                    ...this.props.member
-                },
+                mem_seq : this.props.member.seq,
                 delete_yn: 'N',
-                srchType: !srchType || srchType === (undefined || null) ? srchType : null
+                status : "STATUS::OPEN",
+                srchType: srchType !== (undefined || null) ? srchType : null
             }
         })
             .then(res => {
                 this.setState({
                     ...this.state,
-                    agency: res.data
+                    agency: res.data.result
                 });
             })
             .catch(err => {

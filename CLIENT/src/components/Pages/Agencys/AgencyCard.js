@@ -44,25 +44,27 @@ function ProjectCard(props) {
   const [GrowIn, setGrowIn] = React.useState(false);
   const [agcyColleagueList, setAgcyColleagueList] = React.useState(null);
 
+  const getColleagueList = () => {
+    const URL = '/api/agency/getColleague';
+    const condition = {
+      agcy_id: props.item.id,
+      delete_yn: 'N'
+    }
+    axios.get(URL, {
+      params: {
+        ...condition
+      }
+    })
+      .then(res => {
+        setAgcyColleagueList(res.data.result);
+      });
+  }
+
   React.useEffect(() => {
     setTimeout(() => {
       setGrowIn(true);
     }, 150);
-
-    const getColleagueList = () => {
-      const URL = '/api/agency/getColleague';
-      const condition = {
-        delete_yn: 'N'
-      }
-      axios.get(URL,
-        { params: condition }
-      ).then(res => {
-        console.log(res);
-      })
-    }
-
-    // getColleagueList();
-
+    getColleagueList();
   }, []);
 
   return (
@@ -84,12 +86,29 @@ function ProjectCard(props) {
                 <Typography variant="body2" color="inherit" component="p">
                   {props.item.desc}
                 </Typography>
-                
+
               </CardContent>
             </CardActionArea>
             <CardActions>
               <AvatarGroup max={6}>
-                <Avatar className={classes.avatar} alt="Remy Sharp">R</Avatar>
+                {/* {id: 9, ref_agcy_colleague_seq: 1, ref_agcy_id: 7, name: '관리자', avatar_path: 'static\avatars\items\default\33.jpg'} */}
+                {
+                  (Array.isArray(agcyColleagueList) && agcyColleagueList.length !== 0)
+                    ?
+                    agcyColleagueList.map((item, index) => {
+                      return (
+                        <Avatar
+                          className={classes.avatar}
+                          alt={item.name}
+                          src={item.avatar_path}
+                        />
+                      )
+                    })
+                    :
+                    <Typography>
+                      Loading...
+                    </Typography>
+                }
               </AvatarGroup>
             </CardActions>
             <CardActions>

@@ -29,7 +29,7 @@ router.get('/depart', (req, res) => {
         }
     )
 });
- 
+
 // ──────────────────────────────────────────────── 직급 
 router.get('/rank', (req, res) => {
     const SQL = `
@@ -55,13 +55,17 @@ router.get('/rank', (req, res) => {
 router.post('/person', (req, res) => {
 
     const params = req.body;
-    
+
     const SQL = myBatisMapper.getStatement('Org', 'getInternalPerson', params, format);
 
     connection.query(SQL, (err, rows, fields) => {
         if (err) {
             console.error(err);
-            return res.status(400).send({ result: {}, resultCode: -1, errorMsg: "에러입니다." });
+            return res.status(400).send({
+                result: {},
+                resultCode: -1,
+                errorMsg: "에러입니다."
+            });
         } else {
             if (rows.length === 0) {
                 return res.status(200).send({

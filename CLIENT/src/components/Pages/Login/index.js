@@ -99,6 +99,7 @@ export class Login extends Component {
                     // 로그인 성공
                     const storageItem = {
                         seq: res.data.seq,
+                        ref_auth_type : res.data.ref_auth_type,
                         ref_auth_id: res.data.ref_auth_id,
                         ref_allow_action : res.data.ref_allow_action,
                         id: res.data.id,

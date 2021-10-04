@@ -4,6 +4,7 @@
     <select id="getCompareId">
         SELECT
             mem.seq, 
+            auth.type_short_name AS ref_auth_type,
             auth.allow_action AS ref_allow_action,
             mem.ref_auth_id, 
             mem.id, 
@@ -37,6 +38,7 @@
         SELECT
             mem.seq, 
             mem.ref_auth_id, 
+            auth.type_short_name AS ref_auth_type,
             auth.allow_action AS ref_allow_action,
             mem.id, 
             mem.password, 
