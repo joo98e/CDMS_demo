@@ -41,7 +41,7 @@
             reg_ip,
             upd_ip
         )
-        VALUES        
+        VALUES
         <foreach collection="person" item="goods" separator=",">
         (
             #{last_insert_id},
@@ -53,7 +53,7 @@
         </foreach>
     </insert>
 
-    <select id="getAgcyList">
+    <select id="getAgcyListSrchTypeMine">
         SELECT 
             agcy.id,
             agcy.biz_area,
@@ -66,32 +66,52 @@
             tb_agcy AS agcy
         ON 
             agcy.id = agcy_colg.ref_agcy_id
-
         <where>
-            <choose>
-                <when test="srchType == 'ALL'">
-                    
-                </when>
-                <when test="srchType == 'MINE'">
-                    AND agcy_colg.ref_agcy_colleague_seq = #{mem_seq}
-                </when>
-                <when test="srchType == 'BIZ'">
-    
-                </when>
-                <otherwise></otherwise>
-            </choose>
-
+            <if test="mem_seq != null">
+                        AND agcy_colg.ref_agcy_colleague_seq = #{mem_seq}
+                    </if>
             <if test="delete_yn != null">
-                AND agcy.delete_yn = #{delete_yn}
+                        AND agcy.delete_yn = #{delete_yn}
+                    </if>
+            <if test="status != null">
+                <choose>
+                    <when test="status = 'STATUS::OPEN'">
+                                AND agcy.`status` = 'STATUS::OPEN'
+                            </when>
+                </choose>
             </if>
-            <choose>
-                <when test="status = 'STATUS::OPEN'">
-                    AND agcy.`status` = 'STATUS::OPEN'
-                </when>
-            </choose>
         </where>
     </select>
-    
+
+    <select id="getAgcyListSrchTypeAdmin">
+        SELECT
+            agcy.id,
+            agcy.biz_area,
+            agcy.writer_seq,
+            agcy.`name`,
+            agcy.`desc`
+        FROM
+            tb_agcy AS agcy
+        <where>
+            <if test="delete_yn != null">
+                        AND agcy.delete_yn = #{delete_yn}
+                    </if>
+            <if test="status != null">
+                <choose>
+                    <when test="status = 'STATUS::OPEN'">
+                        AND agcy.`status` = 'STATUS::OPEN'
+                    </when>
+                </choose>
+            </if>
+        </where>
+
+        ORDER BY agcy.reg_date DESC
+    </select>
+
+    <select id="getAgcyListSrchTypeBiz">
+
+    </select>
+
     <select id="getColleague">
         SELECT 
             agcy_colg.id,

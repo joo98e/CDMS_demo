@@ -9,7 +9,7 @@ import { setAgencyInfo } from '../../../redux/action/ProducerAction'
 import {
     Container, TextField, FormControl, Select, Button, Dialog, Typography,
     ListItemText, ListItem, List, Divider, AppBar, Toolbar, IconButton, MenuItem,
-    Grid, Chip, Avatar
+    Grid, Chip, Avatar, Box
 } from '@material-ui/core';
 
 import NotificationImportantIcon from '@material-ui/icons/NotificationImportant';
@@ -18,6 +18,7 @@ import Slide from '@material-ui/core/Slide';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import FNValidator from '../../common/FNValidator';
 import UIPersonList from '../../common/UIPersonList';
+import UIJsonBuilder from '../../common/UIJsonBuilder';
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -35,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
     },
     flexBox: {
         display: 'flex',
+        justifyContent: 'space-between',
     },
     textFieldStyle: {
         width: '30vw',
@@ -48,10 +50,6 @@ const useStyles = makeStyles((theme) => ({
     buttonStyle: {
         display: 'block',
         margin: '0 auto'
-    },
-    alignBox: {
-        display: 'flex',
-        justifyContent: 'space-between',
     },
     center: {
         width: "15em",
@@ -308,6 +306,15 @@ export default function FullScreenDialog() {
                                 <ListItem>
                                     <ListItemText primary="기관 설명" />
                                     <TextField className={classes.textFieldStyle} variant="outlined" placeholder="기관 설명" inputProps={TextFieldInputProps} name="desc" onChange={handleChangeAgencyInfos} />
+                                </ListItem>
+                                <Divider />
+                                <ListItem>
+                                    <ListItemText primary="Object" />
+                                    {/* UIJsonBuilder */}
+                                    <UIJsonBuilder
+                                        
+                                    />
+
                                 </ListItem>
                                 <Divider />
                                 <ListItem>

@@ -50,38 +50,37 @@ export class Agency extends Component {
         });
 
         switch (this.props.member.ref_auth_type) {
-            case 'M':
-                this.getAgencyList("ALL");
+            /**
+             * @param {srchType}
+             * @description              : MINE / 내게 속한 것만
+             * @description              : BIZ / 특정 사업 구분으로
+             * @description              : ADMIN / 관리자 전용 / 전체 리스트
+             */
 
+            case 'M':
+                this.getAgencyList("ADMIN");
+                console.log("is admin");
                 break;
 
             case 'U':
                 this.getAgencyList("MINE");
-                
+
                 break;
-        
+
             default:
                 break;
         }
-        
     }
 
     getAgencyList = srchType => {
 
-        /** 
-         * @param {srchType}
-         * @description              : ALL / 모두
-         * @description              : MINE / 내게 속한 것만
-         * @description              : BIZ / 특정 사업 구분으로
-         */
-
         const URL = 'api/agency/list';
-        console.log(srchType);
+
         axios.get(URL, {
             params: {
-                mem_seq : this.props.member.seq,
+                mem_seq: this.props.member.seq,
                 delete_yn: 'N',
-                status : "STATUS::OPEN",
+                status: "STATUS::OPEN",
                 srchType: srchType !== (undefined || null) ? srchType : null
             }
         })
@@ -123,7 +122,7 @@ export class Agency extends Component {
                                 this.state.agency.map((item, index) => {
                                     return (
                                         <AgencyCard
-                                            key={index}
+                                            key={item.id}
                                             item={item}
                                         />
                                     )

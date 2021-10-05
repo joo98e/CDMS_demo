@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core/';
 // import StyledButton from '../../common/StyledButton';
 import { AvatarGroup } from '@material-ui/lab'
+import UISkeletonAvatar from '../../common/UISkeletonAvatar';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -32,13 +33,9 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     height: '30px'
   },
-  avatar: {
-    color: theme.palette.text.primary,
-    backgroundColor: theme.palette.background.paper,
-  }
 }));
 
-function ProjectCard(props) {
+function AgencyCard(props) {
   const classes = useStyles();
 
   const [GrowIn, setGrowIn] = React.useState(false);
@@ -97,16 +94,16 @@ function ProjectCard(props) {
                     ?
                     agcyColleagueList.map((item, index) => {
                       return (
-                        <Avatar
-                          className={classes.avatar}
-                          alt={item.name}
-                          src={item.avatar_path}
+                        <UISkeletonAvatar
+                          key={index}
+                          path={item.avatar_path}
+                          fullName={item.name}
                         />
                       )
                     })
                     :
-                    <Typography>
-                      Loading...
+                    <Typography variant="body1">
+                      데이터가 없습니다.
                     </Typography>
                 }
               </AvatarGroup>
@@ -125,4 +122,4 @@ function ProjectCard(props) {
 
 export default connect(state => ({
   theme: state.UI.theme
-}))(ProjectCard)
+}))(AgencyCard)

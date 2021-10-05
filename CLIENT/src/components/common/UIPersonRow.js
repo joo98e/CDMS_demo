@@ -10,16 +10,8 @@
 
 import React, { Component } from 'react';
 
-import {
-    Avatar, withStyles, TableRow, TableCell, Switch
-} from '@material-ui/core';
-import { Skeleton } from '@material-ui/lab';
-
-const style = theme => ({
-    center: {
-        margin: "0 auto"
-    }
-});
+import { TableRow, TableCell, Switch } from '@material-ui/core';
+import UISkeletonAvatar from './UISkeletonAvatar';
 
 export class PersonRow extends Component {
     constructor(props) {
@@ -30,15 +22,6 @@ export class PersonRow extends Component {
             avatarLoad: false
         }
     }
-
-    componentDidMount() {
-        const loadImage = new Image();
-        loadImage.src = this.props.item.avatar_path;
-        loadImage.addEventListener('load', () => {
-            this.setState({ avatarLoad: true });
-        })
-    }
-
 
     isChecked = () => {
         let status = false;
@@ -51,26 +34,14 @@ export class PersonRow extends Component {
     }
 
     render() {
-        const { classes } = this.props;
         return (
             <React.Fragment>
                 <TableRow>
                     <TableCell>
-                        {
-                            this.state.avatarLoad ?
-                                <Avatar
-                                    className={classes.center}
-                                    alt={this.props.item.full_name}
-                                    src={this.props.item.avatar_path}
-                                />
-                                :
-                                <Skeleton
-                                    className={classes.center}
-                                    variant="circle"
-                                    width={40}
-                                    height={40}
-                                />
-                        }
+                        <UISkeletonAvatar
+                            fullName={this.props.item.full_name}
+                            path={this.props.item.avatar_path}
+                        />
                     </TableCell>
                     <TableCell align="left">
                         {this.props.item.full_name}
@@ -97,4 +68,4 @@ export class PersonRow extends Component {
     }
 }
 
-export default (withStyles(style)(PersonRow));
+export default PersonRow;

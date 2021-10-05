@@ -80,7 +80,7 @@ export class Projects extends Component {
                         <Grid container>
                             <Grid container spacing={3}>
 
-                                {
+                                {/* {
                                     this.state.projects.map((item, index) => {
                                         return (
                                             <ProjectCard
@@ -89,7 +89,7 @@ export class Projects extends Component {
                                             />
                                         )
                                     })
-                                }
+                                } */}
 
                                 <Grid item xs={12} md={6} lg={4} >
                                     <Grow
