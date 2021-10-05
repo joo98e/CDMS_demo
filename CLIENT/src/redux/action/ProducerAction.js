@@ -14,4 +14,3 @@ export const setAgencyInfoInit = () => {
         type: types.SET_AGENCY_INFO_INIT
     };
 };
-

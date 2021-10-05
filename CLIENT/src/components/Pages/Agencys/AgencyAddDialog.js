@@ -18,7 +18,9 @@ import Slide from '@material-ui/core/Slide';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import FNValidator from '../../common/FNValidator';
 import UIPersonList from '../../common/UIPersonList';
-import UIJsonBuilder from '../../common/UIJsonBuilder';
+import AgencyAdditionalDialog from './AgencyAdditionalDialog';
+import AgencyDatePicker from './AgencyDatePicker';
+import { getDate } from 'date-fns';
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -156,10 +158,32 @@ export default function FullScreenDialog() {
         setOpen(false);
     };
 
-    const handleValidateValue = () => {
-        for (let item in _agencyInfo) {
+    const handleChangeDate = (value, name) => {
+        const _fullYear = String(value.getFullYear());
+        const _getMonth = String(value.getMonth() + 1);
+        const _getDate = String(value.getDate());
+        const _result = `${_fullYear}-${_getMonth < 10 ? "0" + _getMonth : _getMonth}-${_getDate < 10 ? "0" + _getDate : _getDate}`
+        
+        let nextValue = { ..._agencyInfo }
+        nextValue[name] = _result;
+        dispatch(setAgencyInfo({ ...nextValue }));
+    }
 
+    const handleValidateValue = () => {
+        console.log(_agencyInfo);
+
+        for (let item in _agencyInfo) {
+            console.log(_agencyInfo[item]);
             switch (item) {
+                case "start_date":
+                    console.log(_agencyInfo[item]);
+                    alert(1)
+                    break;
+                
+                case "end_date":
+                    console.log(_agencyInfo[item]);
+                    break;
+                
                 case "name":
                     if (!FNValidator("AGCYNAME", _agencyInfo[item])) {
                         enqueueSnackbar('한글, 영문이 반드시 포함되어야 하며 한글, 영문, 숫자만 사용 가능합니다.', { variant: 'warning' });
@@ -212,6 +236,13 @@ export default function FullScreenDialog() {
         fail: () => {
 
         }
+    }
+
+    const selectedDate = (e) => {
+        
+    }
+    const handleDateChange = (e) => {
+        
     }
 
     const handleClickAddAgency = () => {
@@ -309,12 +340,24 @@ export default function FullScreenDialog() {
                                 </ListItem>
                                 <Divider />
                                 <ListItem>
-                                    <ListItemText primary="기타 정보" />
-                                    {/* UIJsonBuilder */}
-                                    <UIJsonBuilder
-
+                                    <ListItemText primary="사업 시작일" />
+                                    <AgencyDatePicker
+                                        name="start_date"
+                                        resultAction={handleChangeDate}
                                     />
-
+                                </ListItem>
+                                <Divider />
+                                <ListItem>
+                                    <ListItemText primary="사업 종료일" />
+                                    <AgencyDatePicker
+                                        name="end_date"
+                                        resultAction={handleChangeDate}
+                                    />
+                                </ListItem>
+                                <Divider />
+                                <ListItem>
+                                    <ListItemText primary="추가 정보" />
+                                    <AgencyAdditionalDialog />
                                 </ListItem>
                                 <Divider />
                                 <ListItem>

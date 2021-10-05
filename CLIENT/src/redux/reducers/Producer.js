@@ -2,7 +2,7 @@ import * as types from '../types';
 
 /**
  * @constant {initRegisterValue}                 : 회원가입 시 사용
- * @constant {initAgencyInfo}                    : 기관 생성시 사용
+ * @constant {initAgencyValue}                    : 기관 생성시 사용
  * @constant {initProjectMemberValue}            : 프로젝트 생성시 사용
  * @constant {initialState}                      : 초기값
  */
@@ -18,17 +18,21 @@ const initRegisterValue = {
     nickName: '',
     phone: '',
 }
-const initAgencyInfo = {
+
+const initAgencyValue = {
     name: '',
     desc: '',
     biz_area: '',
-    person : []
+    person: [],
+    start_date: new Date(),
+    end_date: new Date(),
+    additionalInfo: []
 }
 
 const initialState = {
     registerMember: initRegisterValue,
     projectMember: initProjectMemberValue,
-    agencyInfo : initAgencyInfo
+    agencyInfo : initAgencyValue
 };
 
 const Producer = (state = initialState, action) => {

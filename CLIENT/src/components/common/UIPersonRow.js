@@ -18,10 +18,15 @@ export class PersonRow extends Component {
         super(props)
 
         this.state = {
-            checked: this.props.data,
+            checked: this.isChecked(),
             avatarLoad: false
         }
     }
+
+    componentDidMount() {
+        
+    }
+    
 
     isChecked = () => {
         let status = false;

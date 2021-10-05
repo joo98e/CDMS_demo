@@ -102,16 +102,17 @@ router.get('/category', (req, res) => {
 });
 
 router.post('/add', (req, res) => {
-    const params = req.body;
+    const params = req.body;    
     const SQL_AGENCY = myBatisMapper.getStatement('Agency', 'insertAgency', params, format);
 
     connection.query(SQL_AGENCY,
         (err, rows) => {
             if (err) {
+                console.log(err);
                 return res.status(400).send({
                     result: {},
                     resultCode: -1,
-                    resultMessage: "예기치 못한 오류",
+                    resultMessage: "(기관 생성)예기치 못한 오류",
                 })
             } else {
                 if (Array.isArray(params.person) && params.person.length > 0) {
@@ -128,13 +129,13 @@ router.post('/add', (req, res) => {
                                 return res.status(400).send({
                                     result: {},
                                     resultCode: -1,
-                                    resultMessage: "예기치 못한 오류"
+                                    resultMessage: "(기관 참여자 생성)예기치 못한 오류"
                                 });
                             } else {
                                 return res.status(200).send({
                                     result: rows,
                                     resultCode: 1,
-                                    resultMessage: "성공"
+                                    resultMessage: "등록에 성공했습니다."
                                 });
                             }
                         }

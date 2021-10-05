@@ -103,7 +103,7 @@ function AgencyCard(props) {
                     })
                     :
                     <Typography variant="body1">
-                      데이터가 없습니다.
+                      참여자가 없습니다.
                     </Typography>
                 }
               </AvatarGroup>

@@ -19,6 +19,7 @@
             biz_area,
             `name`,
             `desc`,
+            add_info,
             reg_ip,
             upd_ip
         ) VALUES(
@@ -26,6 +27,7 @@
             #{biz_area},
             #{name},
             #{desc},
+            #{additionalInfo},
             #{IPv4},
             #{IPv4}
         );
@@ -59,7 +61,9 @@
             agcy.biz_area,
             agcy.writer_seq,
             agcy.`name`,
-            agcy.`desc`
+            agcy.`desc`,
+            agcy.start_date,
+            agcy.end_date
         FROM 
             tb_agcy_colleague AS agcy_colg 
         RIGHT JOIN 
@@ -76,11 +80,13 @@
             <if test="status != null">
                 <choose>
                     <when test="status = 'STATUS::OPEN'">
-                                AND agcy.`status` = 'STATUS::OPEN'
-                            </when>
+                        AND agcy.`status` = 'STATUS::OPEN'
+                    </when>
                 </choose>
             </if>
+            AND agcy.end_date >= (SELECT DATE_ADD(CURRENT_DATE(), INTERVAL -3 MONTH));
         </where>
+        ORDER BY agcy.reg_date DESC
     </select>
 
     <select id="getAgcyListSrchTypeAdmin">
@@ -104,13 +110,11 @@
                 </choose>
             </if>
         </where>
-
+        AND agcy.end_date >= (SELECT DATE_ADD(CURRENT_DATE(), INTERVAL -3 MONTH))
         ORDER BY agcy.reg_date DESC
     </select>
 
-    <select id="getAgcyListSrchTypeBiz">
-
-    </select>
+    <select id="getAgcyListSrchTypeBiz"></select>
 
     <select id="getColleague">
         SELECT 

@@ -70,6 +70,8 @@ export class UIPersonList extends Component {
                 ]
             });
         }
+
+        console.log(this.state.data);
     }
 
     handleChangeStatus = (type) => {
