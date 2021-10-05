@@ -20,6 +20,8 @@
             `name`,
             `desc`,
             add_info,
+            start_date,
+            end_date,
             reg_ip,
             upd_ip
         ) VALUES(
@@ -28,6 +30,8 @@
             #{name},
             #{desc},
             #{additionalInfo},
+            #{start_date},
+            #{end_date},
             #{IPv4},
             #{IPv4}
         );

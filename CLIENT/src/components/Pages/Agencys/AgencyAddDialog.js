@@ -173,15 +173,19 @@ export default function FullScreenDialog() {
         console.log(_agencyInfo);
 
         for (let item in _agencyInfo) {
-            console.log(_agencyInfo[item]);
             switch (item) {
                 case "start_date":
-                    console.log(_agencyInfo[item]);
-                    alert(1)
+                    if (_agencyInfo[item] > _agencyInfo.end_date) {
+                        enqueueSnackbar('사업 기간이 알맞지 않습니다.', { variant: 'warning' });
+                        return false;
+                    }
                     break;
                 
                 case "end_date":
-                    console.log(_agencyInfo[item]);
+                    if (_agencyInfo[item] < _agencyInfo.start_date) {
+                        enqueueSnackbar('사업 기간이 알맞지 않습니다.', { variant: 'warning' });
+                        return false;
+                    }
                     break;
                 
                 case "name":
@@ -236,13 +240,6 @@ export default function FullScreenDialog() {
         fail: () => {
 
         }
-    }
-
-    const selectedDate = (e) => {
-        
-    }
-    const handleDateChange = (e) => {
-        
     }
 
     const handleClickAddAgency = () => {

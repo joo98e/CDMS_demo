@@ -19,13 +19,21 @@ const initRegisterValue = {
     phone: '',
 }
 
+const today = () => {
+    const _now = new Date();
+    const _fullYear = String(_now.getFullYear());
+    const _getMonth = String(_now.getMonth() + 1);
+    const _getDate = String(_now.getDate());
+    return `${_fullYear}-${_getMonth < 10 ? "0" + _getMonth : _getMonth}-${_getDate < 10 ? "0" + _getDate : _getDate}`
+ }
+
 const initAgencyValue = {
+    start_date: today(),
+    end_date: today(),
     name: '',
     desc: '',
     biz_area: '',
     person: [],
-    start_date: new Date(),
-    end_date: new Date(),
     additionalInfo: []
 }
 
