@@ -89,7 +89,7 @@ export class Login extends Component {
 
         Axios.post(URL, vars)
             .then(res => {
-                if (res.data.resultCode === -3) {
+                if (res.data.resultCode === -2 || res.data.resultCode === -3) {
                     return this.props.enqueueSnackbar('아이디 혹은 비밀번호가 틀렸습니다.', { variant: 'error' });
                 } else {
                     if (res.data.resultCode === -1) {

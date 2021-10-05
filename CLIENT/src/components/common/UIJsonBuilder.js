@@ -11,8 +11,7 @@ import { withSnackbar } from 'notistack';
 import {
     Button, withStyles, Box,
     Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
-    Divider, Paper,
-    TableContainer, Table, TableHead, TableBody, TableRow, TableCell
+    Divider, Paper, Grid
 } from '@material-ui/core'
 
 import UICircularProgress from '../common/UICircularProgress';
@@ -59,14 +58,14 @@ export class UIPersonList extends Component {
         return (
             <div>
                 <Button className={classes.textFieldStyle} color="inherit" variant="outlined" onClick={this.handleChangeStatus}>
-                    기관 정보 추가하기
+                    추가하기
                 </Button>
 
                 {
                     this.state.isOpen &&
                     <Dialog className={classes.dialog} open={this.state.isOpen} onClose={this.handleChangeStatus} fullWidth maxWidth="lg">
                         <DialogTitle>
-                            기관 정보
+                            기관 등록
                         </DialogTitle>
 
                         <DialogContent>
@@ -74,7 +73,9 @@ export class UIPersonList extends Component {
                                 Key & Value로 구성해보세요.
                             </DialogContentText>
                             <Box>
-                                
+                                <Grid container>
+
+                                </Grid>
                             </Box>
                         </DialogContent>
                         <DialogActions>

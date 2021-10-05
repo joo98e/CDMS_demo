@@ -28,7 +28,6 @@ router.post('/login', (req, res) => {
                 resultMessage: "알 수 없는 오류입니다."
             });
         }
-
         // ID 없음
         if (Array.isArray(rows) && rows.length === 0 && rows[0] === undefined) {
             return res.status(200).send({
@@ -37,7 +36,7 @@ router.post('/login', (req, res) => {
                 resultMessage: "일치하는 아이디가 없습니다."
             });
         }
-
+        
         // 비밀번호 확인
         else {
             if (rows.length !== 0) {

@@ -309,10 +309,10 @@ export default function FullScreenDialog() {
                                 </ListItem>
                                 <Divider />
                                 <ListItem>
-                                    <ListItemText primary="Object" />
+                                    <ListItemText primary="기타 정보" />
                                     {/* UIJsonBuilder */}
                                     <UIJsonBuilder
-                                        
+
                                     />
 
                                 </ListItem>
