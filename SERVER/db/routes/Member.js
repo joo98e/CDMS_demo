@@ -7,17 +7,15 @@ const connection = require("../db_connection");
 const myBatisMapper = require('mybatis-mapper');
 myBatisMapper.createMapper(['./db/xml/Member/Member.xml']);
 const format = require('../config/MyBatisFormat');
-const MybatisMapper = require('mybatis-mapper');
 
 router.post('/login', (req, res) => {
-    const item = req.body;
     const condition = {
         id: req.body.id,
         password: req.body.password,
         delete_yn: 'N'
     }
     const SQL = myBatisMapper.getStatement("Member", "getCompareId", condition, format);
-
+    
     let result = Boolean;
     connection.query(SQL, (err, rows, fields) => {
         if (err) {
@@ -80,7 +78,7 @@ router.get('/login/dev', (req, res) => {
         id : 'dev',
         delete_yn : 'N'
     }
-    const SQL = MybatisMapper.getStatement('Member', 'devLogin', condition, format);
+    const SQL = myBatisMapper.getStatement('Member', 'devLogin', condition, format);
     connection.query(SQL, (err, rows, fields) => {
         if (err) {
             console.log(err)
@@ -94,37 +92,6 @@ router.get('/login/dev', (req, res) => {
         res.status(200).send(rows[0]);
     }
     );
-
-});
-
-router.get('/project/work', (req, res) => {
-    const SQL =
-        `SELECT
-    TB_MEMBER_INFO.MEM_PK AS id,
-    TB_MEMBER_INFO.MEM_DEPT_NO,
-    TB_DEPART_LIST.DEPART_NAME,
-    TB_MEMBER_INFO.MEM_USERID,
-    TB_MEMBER_INFO.MEM_NAME,
-    TB_MEMBER_INFO.MEM_EMAIL,
-    TB_MEMBER_INFO.MEM_IMAGE,
-    TB_MEMBER_INFO.MEM_INSIDE_YN
-    FROM TB_DEPART_LIST
-    INNER JOIN TB_MEMBER_INFO
-    ON TB_MEMBER_INFO.MEM_DEPT_NO = TB_DEPART_LIST.DEPART_PK
-    WHERE TB_MEMBER_INFO.MEM_DEL_YN = 'N';`
-
-    connection.query(SQL, (err, rows, fields) => {
-        if (err) {
-            console.log(err)
-            res.status(400).send({
-                result: false,
-                resultCode: -1,
-                resultMessage: "알 수 없는 오류"
-            })
-        };
-
-        res.status(200).send(rows);
-    });
 });
 
 module.exports = router;

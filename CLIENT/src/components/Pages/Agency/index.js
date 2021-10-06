@@ -100,50 +100,44 @@ export class Agency extends Component {
 
         return (
             <Container className={classes.root}>
-                {
-                    this.state.agency === null ?
-                        <UICircularProgress />
-                        :
-                        <Grid container spacing={3}>
-
-                            <Grid item xs={12} md={12} lg={12}>
-                                <Grow
-                                    in={this.state.awhile}
-                                    style={{ transformOrigin: '0 0 0' }}
-                                    {...(this.state.awhile ? { _timeout: 800 } : {})}
-                                >
-                                    <Paper className={classes.minPadding} elevation={4}>
-                                        <Typography variant="h5">나의 기관 리스트</Typography>
-                                    </Paper>
-                                </Grow>
-                            </Grid>
-
-                            {
-                                this.state.agency.map((item, index) => {
-                                    return (
-                                        <AgencyCard
-                                            key={item.id}
-                                            item={item}
-                                        />
-                                    )
-                                })
-                            }
-                            {
-                                this.props.member.ref_allow_action.indexOf('WRITE') !== -1 &&
-                                <Grid item xs={12} md={6} lg={4} >
-                                    <Grow
-                                        in={this.state.awhile}
-                                        style={{ transformOrigin: '0 0 0' }}
-                                        {...(this.state.awhile ? { timeout: 800 } : {})}
-                                    >
-                                        <Paper elevation={4} className={classes.relative}>
-                                            <AgencyAddDialog />
-                                        </Paper>
-                                    </Grow>
-                                </Grid>
-                            }
-                        </Grid>
-                }
+                <Grid container spacing={3}>
+                    <Grid item xs={12} md={12} lg={12}>
+                        <Paper className={classes.minPadding} elevation={4}>
+                            <Typography variant="h5">나의 기관 리스트</Typography>
+                        </Paper>
+                    </Grid>
+                    {
+                        this.state.agency === null ?
+                            <UICircularProgress />
+                            :
+                            <React.Fragment>
+                                {
+                                    this.state.agency.map((item, index) => {
+                                        return (
+                                            <AgencyCard
+                                                key={item.id}
+                                                item={item}
+                                            />
+                                        )
+                                    })
+                                }
+                                {
+                                    this.props.member.ref_allow_action.indexOf('WRITE') !== -1 &&
+                                    <Grid item xs={12} md={6} lg={4} >
+                                        <Grow
+                                            in={this.state.awhile}
+                                            style={{ transformOrigin: '0 0 0' }}
+                                            {...(this.state.awhile ? { timeout: 800 } : {})}
+                                        >
+                                            <Paper elevation={4} className={classes.relative}>
+                                                <AgencyAddDialog />
+                                            </Paper>
+                                        </Grow>
+                                    </Grid>
+                                }
+                            </React.Fragment>
+                    }
+                </Grid>
             </Container>
         )
     }

@@ -68,7 +68,7 @@ export class Login extends Component {
     handleChange = (e) => {
         let nextValue = { ...this.state.info };
         nextValue[e.target.name] = e.target.value;
-
+        console.log(nextValue);
         this.setState({
             info: nextValue
         });
@@ -86,7 +86,6 @@ export class Login extends Component {
             return this.props.enqueueSnackbar('아이디 혹은 비밀번호를 입력해주세요.', { variant: 'warning' })
         }
 
-
         Axios.post(URL, vars)
             .then(res => {
                 if (res.data.resultCode === -2 || res.data.resultCode === -3) {
@@ -103,6 +102,7 @@ export class Login extends Component {
                         ref_auth_id: res.data.ref_auth_id,
                         ref_allow_action : res.data.ref_allow_action,
                         id: res.data.id,
+                        password : res.data.password,
                         first_name: res.data.first_name,
                         last_name: res.data.last_name,
                         nickname: res.data.nickname,

@@ -19,7 +19,7 @@ router.get('/list', (req, res) => {
     const selectId = condition.srchType === "MINE" ? "getAgcyListSrchTypeMine"
         : condition.srchType === "ADMIN" ? "getAgcyListSrchTypeAdmin"
             : "getAgcyListSrchTypeBiz";
-    
+
     const SQL = myBatisMapper.getStatement('Agency', selectId, condition, format);
 
     connection.query(SQL,
@@ -102,7 +102,7 @@ router.get('/category', (req, res) => {
 });
 
 router.post('/add', (req, res) => {
-    const params = req.body;    
+    const params = req.body;
     const SQL_AGENCY = myBatisMapper.getStatement('Agency', 'insertAgency', params, format);
 
     connection.query(SQL_AGENCY,
@@ -152,6 +152,29 @@ router.post('/add', (req, res) => {
     );
 
 
+});
+
+router.get('/detail', (req, res) => {
+    const params = req.query;
+    const SQL = myBatisMapper.getStatement("Agency", "getDetail", params, format);
+    connection.query(SQL,
+        (err, rows) => {
+            if (err) {
+                console.log(err);
+
+                return res.status(400).send({
+                    result: false,
+                    resultCode: -1,
+                    resultMessage: "기관 디테일 조회 실패"
+                });
+            } else {
+                return res.status(200).send({
+                    result: rows,
+                    resultCode: 1,
+                    resultMessage : "기관 디테일 조회 성공"
+                });
+            }
+        });
 });
 
 module.exports = router;

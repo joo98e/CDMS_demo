@@ -50,9 +50,11 @@ export class MyNav extends Component {
 
                         <Box flexGrow={1} className={classes.ml}>
                             <Typography variant="h6">
-
+                                
                             </Typography>
                         </Box>
+
+                        
 
                         {this.props.user.auth ?
                             <Tooltip title="로그아웃">
@@ -67,10 +69,6 @@ export class MyNav extends Component {
                                 세션을 종료하세요.
                             </Typography>
                         }
-
-                        {/* TODO */}
-                        {/* <Avatar alt="1" src={`http://localhost:5005/${this.props.user.member.MEM_IMAGE}`} /> */}
-                        {/* <Avatar alt="아바타" src={avatars} /> */}
                         
                     </Toolbar>
                 </AppBar>

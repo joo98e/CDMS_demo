@@ -32,7 +32,7 @@ html, body {
 
 *::-webkit-scrollbar {
     cursor: pointer;
-    width: 16px !important;
+    width: 8px !important;
 }
 
 *::-webkit-scrollbar-track {

@@ -27,7 +27,7 @@ const styles = theme => ({
     },
 });
 
-export class UIJsonBuilder extends Component {
+export class AgencyAdditionalDialog extends Component {
     constructor(props) {
         super(props)
 
@@ -50,14 +50,18 @@ export class UIJsonBuilder extends Component {
     }
 
     handleChangeStatus = () => {
-        
-        if (this.state.isOpen) {
-            if (this.nullCheck()) return;
 
-            this.props.setAgencyInfo({
-                ...this.props.agencyInfo,
-                additionalInfo: JSON.stringify(this.state.data)
-            });
+        if (this.state.isOpen) {
+            if (this.nullCheck()) {
+                return false;
+            } else {
+                if (Array.isArray(this.state.data) && this.state.data.length !== 0) {
+                    this.props.setAgencyInfo({
+                        ...this.props.agencyInfo,
+                        additionalInfo: JSON.stringify(this.state.data)
+                    });
+                 }
+            };
 
             this.props.enqueueSnackbar("추가 정보 구성이 완료되었습니다.", { variant: "success" });
         }
@@ -87,7 +91,7 @@ export class UIJsonBuilder extends Component {
 
     handleAddField = () => {
         if (this.nullCheck()) return;
-        
+
         this.setState({
             ...this.state,
             nowLength: this.state.nowLength + 1,
@@ -107,7 +111,7 @@ export class UIJsonBuilder extends Component {
                 let _key = document.getElementsByName(`key_${this.state.nowLength}`)[0].value
                 let _value = document.getElementsByName(`value_${this.state.nowLength}`)[0].value
 
-                if (!_key || !_value) {
+                if ((!_key || !_value)) {
                     this.props.enqueueSnackbar("key 혹은 value가 비어 있습니다.", { variant: "warning" });
                     return true;
                 } else {
@@ -119,7 +123,7 @@ export class UIJsonBuilder extends Component {
             console.log("this.state.data", this.state.data);
             console.log("this.props.agencyInfo.additionalInfo", this.props.agencyInfo.additionalInfo);
         }
-        
+
     }
 
     handleRemoveField = () => {
@@ -258,4 +262,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withSnackbar(UIJsonBuilder)));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withSnackbar(AgencyAdditionalDialog)));

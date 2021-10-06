@@ -12,7 +12,7 @@ import {
     Grid, Chip, Avatar, Box
 } from '@material-ui/core';
 
-import NotificationImportantIcon from '@material-ui/icons/NotificationImportant';
+import BusinessIcon from '@material-ui/icons/Business';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
@@ -293,7 +293,7 @@ export default function FullScreenDialog() {
                 <Container>
                     <Container maxWidth="xs">
                         <Typography className={classes.stepperTitleStyle} variant="h4" align="center">
-                            <IconButton color="inherit"><NotificationImportantIcon fontSize="large" /></IconButton>
+                            <IconButton color="inherit"><BusinessIcon fontSize="large" /></IconButton>
                             기관 등록
                         </Typography>
                     </Container>

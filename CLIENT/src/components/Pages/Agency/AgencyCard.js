@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router';
+
 import axios from 'axios'
 import {
   Grid, Grow, Paper,
@@ -38,6 +40,8 @@ const useStyles = makeStyles(theme => ({
 function AgencyCard(props) {
   const classes = useStyles();
 
+  const history = useHistory();
+
   const [GrowIn, setGrowIn] = React.useState(false);
   const [agcyColleagueList, setAgcyColleagueList] = React.useState(null);
 
@@ -73,19 +77,19 @@ function AgencyCard(props) {
       >
         <Paper elevation={4}>
           <Card className={classes.root}>
-            <CardActionArea>
-              <CardContent className={classes.boxTop}>
+            {/* <CardActionArea> */}
+            <CardContent className={classes.boxTop}>
 
-                <Typography gutterBottom variant="h5" component="h2">
-                  {props.item.name}
-                </Typography>
+              <Typography gutterBottom variant="h5" component="h2">
+                {props.item.name}
+              </Typography>
 
-                <Typography variant="body2" color="inherit" component="p">
-                  {props.item.desc}
-                </Typography>
+              <Typography variant="body2" color="inherit" component="p">
+                {props.item.desc}
+              </Typography>
 
-              </CardContent>
-            </CardActionArea>
+            </CardContent>
+            {/* </CardActionArea> */}
             <CardActions>
               <AvatarGroup max={6}>
                 {/* {id: 9, ref_agcy_colleague_seq: 1, ref_agcy_id: 7, name: '관리자', avatar_path: 'static\avatars\items\default\33.jpg'} */}
@@ -109,7 +113,12 @@ function AgencyCard(props) {
               </AvatarGroup>
             </CardActions>
             <CardActions>
-              <Button className={classes.boxBottom} variant="outlined" size="small">
+              <Button
+                className={classes.boxBottom}
+                variant="outlined"
+                size="small"
+                onClick={() => { history.push(`/agency/detail/${props.item.id}`) }}
+              >
                 <Typography variant="body2" color="textPrimary">MORE</Typography>
               </Button>
             </CardActions>

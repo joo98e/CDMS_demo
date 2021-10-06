@@ -6,8 +6,9 @@ import Redirection from './components/Pages/Redirection';
 import Login from './components/Pages/Login';
 import Register from './components/Pages/Register';
 import Landing from './components/Pages/Landing'
-import Projects from './components/Pages/Projects'
-import Agencys from './components/Pages/Agencys'
+import Project from './components/Pages/_old_Project'
+import Agency from './components/Pages/Agency'
+import AgencyDetail from './components/Pages/Agency/Detail'
 import PageNotFound from './components/Pages/Error/404'
 
 class App extends Component {
@@ -17,8 +18,9 @@ class App extends Component {
         <CustomRoute exact path="/login" component={Login} />
         <CustomRoute exact path="/register" component={Register} />
         <CustomRoute exact path="/landing" component={Landing} />
-        <CustomRoute exact path="/projects" component={Projects} />
-        <CustomRoute exact path="/agency" component={Agencys} />
+        <CustomRoute exact path="/project" component={Project} />
+        <CustomRoute exact path="/agency" component={Agency} />
+        <CustomRoute exact path="/agency/detail/:ref_agcy_id" component={AgencyDetail} />
         <CustomRoute component={Redirection} />
       </Switch>
     )

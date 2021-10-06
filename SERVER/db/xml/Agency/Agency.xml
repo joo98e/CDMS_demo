@@ -88,7 +88,7 @@
                     </when>
                 </choose>
             </if>
-            AND agcy.end_date >= (SELECT DATE_ADD(CURRENT_DATE(), INTERVAL -3 MONTH));
+            AND agcy.end_date >= (SELECT DATE_ADD(CURRENT_DATE(), INTERVAL -3 MONTH))
         </where>
         ORDER BY agcy.reg_date DESC
     </select>
@@ -140,6 +140,46 @@
             <if test="agcy_id != null">
                 AND agcy_colg.ref_agcy_id = #{agcy_id}
             </if>
+        </where>
+    </select>
+
+    <select id="getDetail">
+        SELECT 
+            agcy.biz_area,
+            agcy.writer_seq,
+            mem.full_name,
+            org_dept.`name` AS dept,
+            org_rank.`name` AS `rank`,
+            agcy.`name`,
+            agcy.`desc`,
+            agcy.add_info,
+            agcy.start_date,
+            agcy.end_date,
+            agcy.reg_date,
+            agcy.upd_date
+        FROM
+            tb_agcy AS agcy
+        LEFT JOIN
+            tb_member AS mem
+        ON 
+            agcy.writer_seq = mem.seq
+        LEFT JOIN 
+            tb_org_structure AS org_rank
+        ON
+            mem.rank_no = org_rank.id
+        LEFT JOIN
+            tb_org_structure AS org_dept
+        ON
+            mem.dept_no = org_dept.id
+        <where>
+            <choose>
+                <when test="ref_agcy_id != null">
+                    AND agcy.id = #{ref_agcy_id}
+                </when>
+                <when test="delete_yn != null">
+                    AND agcy.delete_yn = #{delete_yn}
+                </when>
+            </choose>
         </where>
     </select>
 </mapper>
