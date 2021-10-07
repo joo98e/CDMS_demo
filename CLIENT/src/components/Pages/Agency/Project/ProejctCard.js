@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-export class ProjectDetail extends Component {
+import { Card, CardAction } from '@material-ui/core'
+
+export class ProejctCard extends Component {
     render() {
         return (
             <div>
@@ -19,4 +21,4 @@ const mapDispatchToProps = {
     
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectDetail)
+export default connect(mapStateToProps, mapDispatchToProps)(ProejctCard)

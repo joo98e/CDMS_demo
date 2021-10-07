@@ -27,6 +27,18 @@ export class Layout extends Component {
         )
     }
 
+    scrollEvent = () => {
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    }
+
+    componentDidMount() {
+        
+    }
+    
+    componentDidUpdate() {
+        this.scrollEvent();
+    }
+
     render() {
         const { component: Component } = this.props;
         return (

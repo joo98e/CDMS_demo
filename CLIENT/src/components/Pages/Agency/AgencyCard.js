@@ -4,14 +4,12 @@ import { useHistory } from 'react-router';
 
 import axios from 'axios'
 import {
-  Grid, Grow, Paper,
-  Card, CardActionArea, CardActions, CardContent,
-  Button,
-  Typography,
-  Avatar,
-  makeStyles,
+  Grid, Grow, Paper, Button, Typography, Box,
+  Avatar, makeStyles, IconButton,
+  CardHeader, Card, CardActions, CardContent,
 } from '@material-ui/core/';
-// import StyledButton from '../../common/StyledButton';
+
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { AvatarGroup } from '@material-ui/lab'
 import UISkeletonAvatar from '../../common/UISkeletonAvatar';
 
@@ -29,11 +27,40 @@ const useStyles = makeStyles(theme => ({
     fontWeight: '400'
   },
   boxTop: {
-    height: '170px'
+    display: "-webkit-box",
+    height: theme.spacing(20),
+    maxHeight: theme.spacing(20),
+    boxSizing: 'border-box',
+    paddingLeft: theme.spacing(4),
+    paddingRight: theme.spacing(4),
+    lineClamp: "8",
+    boxOrient: "vertical",
+    overflow: 'hidden',
+    textOverflow: "ellipsis"
   },
   boxBottom: {
     width: '100%',
     height: '30px'
+  },
+  cardHeader: {
+    display: 'flex',
+    flex: "1 1 auto",
+    boxSizing: 'border-box',
+    padding: theme.spacing(2)
+  },
+  headerTitle: {
+    width: "90%",
+  },
+  headerAction: {
+    width: "10%",
+    marginLeft: -theme.spacing(1),
+    marginTop: -theme.spacing(1),
+  },
+  hiddenText: {
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
+    overflow: 'hidden',
+    display: 'block',
   },
 }));
 
@@ -62,10 +89,9 @@ function AgencyCard(props) {
   }
 
   React.useEffect(() => {
-    setTimeout(() => {
-      setGrowIn(true);
-    }, 150);
+    setGrowIn(true);
     getColleagueList();
+
   }, []);
 
   return (
@@ -77,21 +103,26 @@ function AgencyCard(props) {
       >
         <Paper elevation={4}>
           <Card className={classes.root}>
+            <Box className={classes.cardHeader}>
+              <Box className={classes.headerTitle}>
+                <Typography variant="h6" className={classes.hiddenText}>
+                  {props.item.name}
+                </Typography>
+              </Box>
+              <Box className={classes.headerAction}>
+                <IconButton aria-label="settings">
+                  <MoreVertIcon />
+                </IconButton>
+              </Box>
+            </Box>
+
             {/* <CardActionArea> */}
-            <CardContent className={classes.boxTop}>
-
-              <Typography gutterBottom variant="h5" component="h2">
-                {props.item.name}
-              </Typography>
-
-              <Typography variant="body2" color="inherit" component="p">
-                {props.item.desc}
-              </Typography>
-
-            </CardContent>
+            <Box className={classes.boxTop}>
+              {props.item.desc}
+            </Box>
             {/* </CardActionArea> */}
             <CardActions>
-              <AvatarGroup max={6}>
+              <AvatarGroup max={4}>
                 {/* {id: 9, ref_agcy_colleague_seq: 1, ref_agcy_id: 7, name: '관리자', avatar_path: 'static\avatars\items\default\33.jpg'} */}
                 {
                   (Array.isArray(agcyColleagueList) && agcyColleagueList.length !== 0)
@@ -107,7 +138,7 @@ function AgencyCard(props) {
                     })
                     :
                     <Typography variant="body1">
-                      참여자가 없습니다.
+                      데이터가 없습니다.
                     </Typography>
                 }
               </AvatarGroup>

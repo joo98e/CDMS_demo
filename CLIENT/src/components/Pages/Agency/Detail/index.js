@@ -47,7 +47,7 @@ const styles = theme => ({
     }
 });
 
-export class index extends Component {
+export class AgencyDetail extends Component {
     constructor(props) {
         super(props)
 
@@ -312,4 +312,4 @@ export default
         (withRouter
             (withStyles
                 (styles)
-                (index)));
+                (AgencyDetail)));
