@@ -11,6 +11,7 @@ import {
     Container
 } from "@material-ui/core"
 
+import getDateFormat from '../../../common/fn/getDateFormat';
 import UICircularProgress from '../../../common/UICircularProgress'
 
 const styles = theme => ({
@@ -81,18 +82,17 @@ export class AgencyDetail extends Component {
             }
         })
             .then(res => {
+
                 this.setState({
                     ...this.state,
                     data: {
                         ...res.data.result[0],
-                        // reg_date: moment.format(res.data.result[0].reg_date),
-                        // start_date: moment.format(res.data.result[0].start_date),
-                        // upd_date: moment.format(res.data.result[0].upd_date),
+                        reg_date: getDateFormat.YYYYMMDD(res.data.result[0].reg_date),
+                        start_date: getDateFormat.YYYYMMDD(res.data.result[0].start_date),
+                        upd_date: getDateFormat.YYYYMMDD(res.data.result[0].upd_date),
                         add_info: JSON.parse(res.data.result[0].add_info)
                     }
                 });
-                console.log(new Date(res.data.result[0].reg_date));
-                console.log(this.state.data);
             });
     }
 
@@ -103,10 +103,6 @@ export class AgencyDetail extends Component {
 
         const toWrite = [
             {
-                key: "성명",
-                value: this.state.data.full_name
-            },
-            {
                 key: "부서",
                 value: this.state.data.dept
             },
@@ -115,8 +111,20 @@ export class AgencyDetail extends Component {
                 value: this.state.data.rank
             },
             {
+                key: "성명",
+                value: this.state.data.full_name
+            },
+            {
                 key: "생성일",
                 value: this.state.data.reg_date
+            },
+            {
+                key: "사업 시작일",
+                value: this.state.data.start_date
+            },
+            {
+                key: "사업 종료일",
+                value: this.state.data.upd_date
             },
         ];
 
@@ -241,7 +249,7 @@ export class AgencyDetail extends Component {
                                                     toWrite.map((item, index) => {
                                                         return (
                                                             <React.Fragment key={index}>
-                                                                <Grid item xs={12} md={6} lg={6}>
+                                                                <Grid item xs={6} md={6} lg={6}>
                                                                     <Typography
                                                                         variant="body1"
                                                                         align="left"
@@ -250,7 +258,7 @@ export class AgencyDetail extends Component {
                                                                         {item.key}
                                                                     </Typography>
                                                                 </Grid>
-                                                                <Grid item xs={12} md={6} lg={6}>
+                                                                <Grid item xs={6} md={6} lg={6}>
                                                                     <Typography
                                                                         variant="body1"
                                                                         align="left"

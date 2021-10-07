@@ -12,14 +12,17 @@ import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import Button from '@material-ui/core/Button';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import {
+    KeyboardArrowLeftIcon,
+    KeyboardArrowRightIcon
+} from "./CustomIcons"
+
 
 const useStyles = makeStyles({
     root: {
         maxWidth: 400,
         flexGrow: 1,
-        borderRadius : "8px"
+        borderRadius: "8px"
     },
 });
 
@@ -38,12 +41,12 @@ export default function StepperButtonGroup(props) {
             nextButton={
                 <Button size="small" onClick={() => { props.handleClickMoveStep(1) }} disabled={props.stepNum === props.stepMaxNum}>
                     Next
-                    {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+                    {theme.direction === 'rtl' ? KeyboardArrowLeftIcon : KeyboardArrowRightIcon}
                 </Button>
             }
             backButton={
                 <Button size="small" onClick={() => { props.handleClickMoveStep(-1) }} disabled={props.stepNum === 0}>
-                    {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+                    {theme.direction === 'rtl' ? KeyboardArrowRightIcon : KeyboardArrowLeftIcon}
                     Back
                 </Button>
             }

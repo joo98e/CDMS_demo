@@ -7,10 +7,7 @@ import {
     Box, AppBar, Toolbar, IconButton, Typography, withStyles, Tooltip
 } from '@material-ui/core';
 
-import LockOpenIcon from '@material-ui/icons/LockOpen';
-import { Avatar } from '@material-ui/core';
-// import AccountTreeIcon from '@material-ui/icons/AccountTree';
-// import HomeIcon from '@material-ui/icons/Home';
+import { LockOpenIcon } from './CustomIcons';
 import UISidebar from './UISideBar';
 
 const styles = theme => ({
@@ -50,7 +47,7 @@ export class MyNav extends Component {
 
                         <Box flexGrow={1} className={classes.ml}>
                             <Typography variant="h6">
-                                
+                                {this.props.pathGuider}
                             </Typography>
                         </Box>
 
@@ -60,13 +57,15 @@ export class MyNav extends Component {
                             <Tooltip title="로그아웃">
                                 <Link to="/login">
                                     <IconButton color="inherit" onClick={this.props.handleSessionQuit}>
-                                        <LockOpenIcon color="inherit" />
+                                        {LockOpenIcon}
                                     </IconButton>
                                 </Link>
                             </Tooltip>
                             :
-                            <Typography>
-                                세션을 종료하세요.
+                            <Typography
+                                onClick={this.props.handleSessionQuit}
+                            >
+                                정상적인 접근이 아닙니다. 세션을 종료하세요.
                             </Typography>
                         }
                         
@@ -78,7 +77,8 @@ export class MyNav extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    user: state.User
+    user: state.User,
+    pathGuider : state.UI.pathGuider
 })
 
 const mapDispatchToProps = (dispatch) => {

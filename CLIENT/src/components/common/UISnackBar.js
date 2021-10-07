@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withSnackbar } from 'notistack'
 import { Button } from '@material-ui/core'
-import CancelIcon from '@material-ui/icons/Cancel';
+import { CancelIcon } from './CustomIcons';
 
 export class UISnackBar extends Component {
     constructor(props) {
@@ -23,7 +23,7 @@ export class UISnackBar extends Component {
                 color="inherit"
                 onClick={this.handleCloseSnackBar}
             >
-                <CancelIcon />
+                {CancelIcon}
             </Button>
         )
     }

@@ -37,6 +37,7 @@ export class AgencyDatePicker extends Component {
                     variant="inline"
                     format="yyyy/MM/dd"
                     value={this.state.selectedDate}
+                    color="primary"
                     onChange={this.handleDateChange}
                 />
             </MuiPickersUtilsProvider>

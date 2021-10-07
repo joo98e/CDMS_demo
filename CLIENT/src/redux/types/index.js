@@ -1,9 +1,7 @@
 // ────────────────────────────────────────────────── UI
 export const SET_THEME = "SET_THEME";
 export const SET_MENU_APPEAR_POSITION = "SET_MENU_APPEAR_POSITION";
-
-// ─────────────────────────────────────────────────── history
-export const PAGE_BACK_ROUTE = "PAGE_BACK_ROUTE";
+export const SET_PATH_GUIDER = "SET_PATH_GUIDER";
 
 // ─────────────────────────────────────────────────── Auth
 export const GET_AUTHENTICATED = "GET_AUTHENTICATED";

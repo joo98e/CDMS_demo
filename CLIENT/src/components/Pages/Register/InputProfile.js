@@ -8,8 +8,7 @@ import {
     DialogContentText, DialogTitle, Divider, Button,
     ImageList, ImageListItem, ImageListItemBar
 } from '@material-ui/core'
-import AddCircleIcon from '@material-ui/icons/AddCircle';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import { AddCircleIcon, FavoriteIcon } from '../../common/CustomIcons';
 
 import ImageData from './ImageData';
 
@@ -141,7 +140,7 @@ export class InputProfile extends Component {
                                             component="label"
                                             className={classes.trans}
                                         >
-                                            <AddCircleIcon fontSize="large" />
+                                            {AddCircleIcon}
                                             <input
                                                 type="file"
                                                 hidden
@@ -173,7 +172,7 @@ export class InputProfile extends Component {
                                                                 style={{ color: this.state.nowAvatarNum === index ? '#F58A9D' : 'white' }}
                                                                 onClick={() => { this.handleFileChange(index, item.src, item.name) }}
                                                             >
-                                                                <FavoriteIcon />
+                                                                {FavoriteIcon}
                                                             </IconButton>
                                                         }
                                                     />

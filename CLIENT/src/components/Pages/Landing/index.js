@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { Grid, Paper, Typography, Container, withStyles } from '@material-ui/core'
+import { Grid, Paper, Typography, Box, withStyles } from '@material-ui/core'
 import UICharts from '../../common/UICharts'
 
 const styles = theme => ({
     root: {
-        marginTop: theme.spacing(4)
+        boxSizing : 'border-box',
+        padding : theme.spacing(4),
     },
     chartsArea: {
         position: 'relative',
@@ -28,7 +29,7 @@ export class Landing extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <Container className={classes.root}>
+            <Box className={classes.root}>
                 {/* <UICharts /> */}
                 {/* http://apis.data.go.kr/1262000/CountryCovid19SafetyServiceNew/getCountrySafetyNewsListNew?serviceKey=LwAgyVybTLt0KK2YRMagmhPRx53xp75rBqeTggtAwssoMuv1S3QIC8cE16yehXbEfaxxSAh9Q4MUu3MVPQ%2B%2Fng%3D%3D&returnType=JSON&nomOfRows=2&pageNo=1 */}
                 <React.Fragment>
@@ -48,7 +49,7 @@ export class Landing extends Component {
                         </Grid>
                     </Grid>
                 </React.Fragment>
-            </Container>
+            </Box>
         )
 
     }

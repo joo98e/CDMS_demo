@@ -1,3 +1,7 @@
+/**
+ * not be used
+ */
+
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios'
@@ -8,10 +12,13 @@ import {
     Grid
 } from '@material-ui/core';
 
-import NotificationImportantIcon from '@material-ui/icons/NotificationImportant';
-import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+
+import {
+    NotificationImportantIcon,
+    CloseIcon,
+    AddCircleIcon,
+} from '../../common/CustomIcons'
 
 import PersonList from './PersonList';
 
@@ -68,14 +75,14 @@ const TextFieldInputProps = {
 
 const defaultState = {
     PROJ_TITLE: "",
-    PROJ_CATEGORY : "",
-    PROJ_DESCRIPTION : "",
-    PROJ_MANAGER : "",
-    PROJ_AGENCY_NAME : "",
-    PROJ_AGENCY_MANAGER : "",
-    PROJ_AGENCY_MANAGER_PHONE : "",
-    PROJ_AGENCY_MANAGER_EMAIL : "",
-    PROJ_MAX_TASK : ""
+    PROJ_CATEGORY: "",
+    PROJ_DESCRIPTION: "",
+    PROJ_MANAGER: "",
+    PROJ_AGENCY_NAME: "",
+    PROJ_AGENCY_MANAGER: "",
+    PROJ_AGENCY_MANAGER_PHONE: "",
+    PROJ_AGENCY_MANAGER_EMAIL: "",
+    PROJ_MAX_TASK: ""
 }
 
 export default function FullScreenDialog() {
@@ -113,30 +120,30 @@ export default function FullScreenDialog() {
 
     const handleValidateValue = () => {
         let _base = "PROJ_";
-        
+
         for (let idx in infos) {
-            
+
             switch (idx) {
                 case _base + "TITLE":
                     if (infos[idx] === "" || infos[idx] === undefined) {
-                        enqueueSnackbar('제목 없는 프로젝트는 없어요.', {variant:'warning'});
+                        enqueueSnackbar('제목 없는 프로젝트는 없어요.', { variant: 'warning' });
                         return false;
                     }
                     break;
 
                 case _base + "CATEGORY":
                     if (infos[idx] === "" || infos[idx] === undefined) {
-                        enqueueSnackbar('사업 구분이 필요합니다.', {variant:'warning'});
+                        enqueueSnackbar('사업 구분이 필요합니다.', { variant: 'warning' });
                         return false;
                     }
                     break;
 
                 case _base + "DESCRIPTION":
                     if (infos[idx] === "" || infos[idx] === undefined) {
-                        enqueueSnackbar('간단한 설명이라도 추가해주세요!', {variant:'warning'});
+                        enqueueSnackbar('간단한 설명이라도 추가해주세요!', { variant: 'warning' });
                         return false;
                     } else if (infos[idx].length < 10) {
-                        enqueueSnackbar("짧아도 너무 짧은데요!", {variant:'error'});
+                        enqueueSnackbar("짧아도 너무 짧은데요!", { variant: 'error' });
                         return false;
                     }
                     break;
@@ -186,13 +193,13 @@ export default function FullScreenDialog() {
     return (
         <div>
             <IconButton color="inherit" className={classes.trans} onClick={handleClickOpen}>
-                <AddCircleIcon fontSize="large" />
+                {AddCircleIcon}
             </IconButton>
             <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
                 <AppBar className={classes.appBar} position="fixed">
                     <Toolbar>
                         <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
-                            <CloseIcon />
+                            {CloseIcon}
                         </IconButton>
                         <Typography variant="h6" className={classes.title}>
                             프로젝트 생성
@@ -205,7 +212,9 @@ export default function FullScreenDialog() {
                 <Container>
                     <Container maxWidth="xs">
                         <Typography className={classes.stepperTitleStyle} variant="h4" align="center">
-                            <IconButton color="inherit"><NotificationImportantIcon fontSize="large" /></IconButton>
+                            <IconButton color="inherit">
+                                {NotificationImportantIcon}
+                            </IconButton>
                             프로젝트 생성
                         </Typography>
                     </Container>

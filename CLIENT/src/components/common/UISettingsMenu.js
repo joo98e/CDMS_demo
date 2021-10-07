@@ -3,10 +3,12 @@ import { connect } from 'react-redux'
 import { withSnackbar } from 'notistack'
 import * as actions from '../../redux/action/UIAction'
 import { withStyles } from '@material-ui/core'
-import ColorLensIcon from '@material-ui/icons/ColorLens';
-import CachedIcon from '@material-ui/icons/Cached';
-import TouchAppTwoToneIcon from '@material-ui/icons/TouchAppTwoTone';
 import { SpeedDial, SpeedDialAction } from '@material-ui/lab';
+import {
+    ColorLensIcon,
+    CachedIcon,
+    TouchAppTwoToneIcon,
+} from './CustomIcons'
 
 const styles = theme => ({
     exampleWrapper: {
@@ -26,8 +28,8 @@ const styles = theme => ({
 });
 
 const List = [
-    { id : 1, icon: <ColorLensIcon />, name: '테마 변경' },
-    { id : 2, icon: <CachedIcon />, name: '메뉴 위치 변경' },
+    { id: 1, icon: ColorLensIcon, name: '테마 변경' },
+    { id: 2, icon: CachedIcon, name: '메뉴 위치 변경' },
 ];
 
 export class UISettingsMenu extends Component {
@@ -79,7 +81,7 @@ export class UISettingsMenu extends Component {
                     ariaLabel="SpeedDial example"
                     className={classes.speedDial}
                     hidden={this.state.hidden}
-                    icon={<TouchAppTwoToneIcon style={{ color: this.props.theme.palette.background.button }} />}
+                    icon={TouchAppTwoToneIcon}
                     open={this.state.open}
                     onOpen={this.handleOpen}
                     onClose={this.handleClose}

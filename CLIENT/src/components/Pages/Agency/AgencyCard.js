@@ -14,11 +14,9 @@ import { AvatarGroup } from '@material-ui/lab'
 import UISkeletonAvatar from '../../common/UISkeletonAvatar';
 
 import UICardHeader from '../../common/Card/UICardHeader';
-
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import EditIcon from '@material-ui/icons/Edit'
-import DeleteIcon from '@material-ui/icons/Delete'
-import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive'
+import {
+  EditIcon, DeleteIcon, MoreVertIcon, NotificationsActiveIcon
+} from '../../common/CustomIcons';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -104,12 +102,12 @@ function AgencyCard(props) {
   const headerActionList = [
     {
       name: "수정하기",
-      icon: <EditIcon />,
+      icon: EditIcon,
       action: alert1
     },
     {
       name: "삭제하기",
-      icon: <DeleteIcon />,
+      icon: DeleteIcon,
       action: alert2
     },
   ]
@@ -120,7 +118,7 @@ function AgencyCard(props) {
     setGrowIn(true);
     getColleagueList();
 
-    if (_member.ref_allow_action.indexOf('WRITE') !== -1 || props.item.writer_seq === _member.seq){
+    if (_member.ref_allow_action.indexOf('WRITE') !== -1 || props.item.writer_seq === _member.seq) {
       setWriteStatus(true);
     }
 
@@ -138,7 +136,7 @@ function AgencyCard(props) {
 
             <UICardHeader
               title={props.item.name}
-              icon={<MoreVertIcon />}
+              icon={MoreVertIcon}
               action={writeStatus ? headerActionList : null}
             />
 
@@ -170,12 +168,13 @@ function AgencyCard(props) {
                 }
               </AvatarGroup>
             </CardActions>
-            
+
             <CardActions>
               <Button
                 className={classes.boxBottom}
                 variant="outlined"
                 size="small"
+                color="inherit"
                 onClick={() => { history.push(`/agency/detail/${props.item.id}`) }}
               >
                 <Typography variant="body2" color="textPrimary">MORE</Typography>

@@ -6,7 +6,7 @@ import {
     Menu, MenuItem, ListItemIcon, ListItemText,
     makeStyles,
 } from "@material-ui/core"
-import CancelIcon from '@material-ui/icons/Cancel';
+import { CancelIcon } from '../CustomIcons';
 
 const useStyles = makeStyles(theme => ({
     cardHeader: {
@@ -85,7 +85,7 @@ export const UICardHeader = (props) => {
                             onClick={handleClose}
                         >
                             <ListItemIcon>
-                                <CancelIcon />
+                                {CancelIcon}
                             </ListItemIcon>
                             <ListItemText>
                                 닫기

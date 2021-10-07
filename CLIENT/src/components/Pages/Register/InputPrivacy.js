@@ -6,9 +6,14 @@ import {
     Container, Grid, TextField, IconButton, Typography,
     Box, Button, withStyles, Divider
 } from '@material-ui/core'
+
 import {
-    Visibility, VisibilityOff, RadioButtonUnchecked, CheckCircleOutline
-} from '@material-ui/icons'
+    VisibilityIcon,
+    VisibilityOffIcon,
+    RadioButtonUncheckedIcon,
+    CheckCircleOutlineIcon,
+} from "../../common/CustomIcons";
+
 import axios from 'axios';
 import { InputProfile } from './InputProfile';
 
@@ -46,8 +51,8 @@ const styles = theme => ({
         right: theme.spacing(2)
     },
     mt: {
-        display : 'block',
-        margin : '0 auto',
+        display: 'block',
+        margin: '0 auto',
         marginTop: theme.spacing(4),
         marginBottom: theme.spacing(4)
     },
@@ -80,7 +85,7 @@ export class InputAccount extends PureComponent {
     handleValueChange = (e) => {
         let nextState = { ...this.props.registerMember };
         nextState[e.target.name] = e.target.value;
-        
+
         this.props.setRegisterMemberInfo(nextState);
 
         if (e.target.name.toLowerCase() === 'id') {
@@ -136,7 +141,7 @@ export class InputAccount extends PureComponent {
                                         className={classes.iconMargin}
                                         onClick={this.props.handleIdDuplicateCheck}
                                     >
-                                        {this.props.registerMember.idCheck ? <CheckCircleOutline /> : <RadioButtonUnchecked />}
+                                        {this.props.registerMember.idCheck ? CheckCircleOutlineIcon : RadioButtonUncheckedIcon}
                                     </IconButton>
                                 </Box>
                             </Container>
@@ -163,7 +168,7 @@ export class InputAccount extends PureComponent {
                                         className={classes.iconMargin}
                                         onClick={this.handleChangeShowPassWord}
                                     >
-                                        {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
+                                        {this.state.showPassword ? VisibilityIcon : VisibilityOffIcon}
                                     </IconButton>
                                 </Box>
                             </Container>

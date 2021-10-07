@@ -11,7 +11,6 @@ import {
 import UICircularProgress from '../../common/UICircularProgress'
 import AgencyCard from './AgencyCard'
 import AgencyAddDialog from './AgencyAddDialog'
-// import { SatelliteTwoTone } from '@material-ui/icons';
 
 const styles = theme => ({
     root: {

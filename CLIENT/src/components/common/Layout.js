@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
+import { withRouter } from 'react-router';
 import { Box, withStyles } from '@material-ui/core';
+
+import * as actions from "../../redux/action/UIAction";
+import getPathGuider from './fn/getPathGuider';
 
 import MyNav from './MyNav';
 import UISettingsMenu from './UISettingsMenu';
@@ -32,11 +35,12 @@ export class Layout extends Component {
     }
 
     componentDidMount() {
-        
+        this.props.handleSetPathGuider(getPathGuider(this.props.history.location.pathname));
     }
     
     componentDidUpdate() {
         this.scrollEvent();
+        this.props.handleSetPathGuider(getPathGuider(this.props.history.location.pathname));
     }
 
     render() {
@@ -65,11 +69,14 @@ export class Layout extends Component {
 const mapStateToProps = (state) => ({
     hourlyGreetings: state.UI.hourlyGreetings,
     user: state.User,
-    theme: state.UI.theme
+    theme: state.UI.theme,
+    pathGuider : state.UI.pathGuider
 })
 
-const mapDispatchToProps = {
-
+const mapDispatchToProps = dispatch => {
+    return {
+        handleSetPathGuider : payload => {dispatch(actions.setPathGuider(payload))}
+    }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Layout));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withRouter(Layout)));

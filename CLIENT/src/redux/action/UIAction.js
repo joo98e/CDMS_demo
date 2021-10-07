@@ -16,3 +16,9 @@ export const setTheme = theme => {
     };
 };
 
+export const setPathGuider = payload => {
+    return {
+        type : types.SET_PATH_GUIDER,
+        payload
+    }
+}

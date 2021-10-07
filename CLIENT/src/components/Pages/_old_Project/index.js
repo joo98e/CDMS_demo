@@ -1,3 +1,7 @@
+/**
+ * not be used
+ */
+
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
@@ -8,9 +12,7 @@ import {
 } from '@material-ui/core';
 
 import UICircularProgress from '../../common/UICircularProgress'
-import ProjectCard from './ProjectCard'
 import ProjectAddDialog from './ProjectAddDialog'
-// import { SatelliteTwoTone } from '@material-ui/icons';
 
 const styles = theme => ({
     root: {

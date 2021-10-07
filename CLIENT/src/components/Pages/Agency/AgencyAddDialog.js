@@ -9,18 +9,20 @@ import { setAgencyInfo } from '../../../redux/action/ProducerAction'
 import {
     Container, TextField, FormControl, Select, Button, Dialog, Typography,
     ListItemText, ListItem, List, Divider, AppBar, Toolbar, IconButton, MenuItem,
-    Grid, Chip, Avatar, Box
+    Grid, Chip, Avatar
 } from '@material-ui/core';
 
-import BusinessIcon from '@material-ui/icons/Business';
-import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
 import FNValidator from '../../common/FNValidator';
 import UIPersonList from '../../common/UIPersonList';
 import AgencyAdditionalDialog from './AgencyAdditionalDialog';
 import AgencyDatePicker from './AgencyDatePicker';
-import { getDate } from 'date-fns';
+
+import {
+    BusinessIcon,
+    CloseIcon,
+    AddCircleIcon
+} from '../../common/CustomIcons';
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -135,7 +137,6 @@ export default function FullScreenDialog() {
             };
             await axios.post('api/org/person', condition)
                 .then(res => {
-                    console.log(res.data);
                     setPersonRow(res.data);
                 })
                 .catch(err => console.error(err));
@@ -164,7 +165,7 @@ export default function FullScreenDialog() {
         const _getMonth = String(value.getMonth() + 1);
         const _getDate = String(value.getDate());
         const _result = `${_fullYear}-${_getMonth < 10 ? "0" + _getMonth : _getMonth}-${_getDate < 10 ? "0" + _getDate : _getDate}`
-        
+
         let nextValue = { ..._agencyInfo }
         nextValue[name] = _result;
         dispatch(setAgencyInfo({ ...nextValue }));
@@ -181,14 +182,14 @@ export default function FullScreenDialog() {
                         return false;
                     }
                     break;
-                
+
                 case "end_date":
                     if (_agencyInfo[item] < _agencyInfo.start_date) {
                         enqueueSnackbar('사업 기간이 알맞지 않습니다.', { variant: 'warning' });
                         return false;
                     }
                     break;
-                
+
                 case "name":
                     if (!FNValidator("AGCYNAME", _agencyInfo[item])) {
                         enqueueSnackbar('한글, 영문이 반드시 포함되어야 하며 한글, 영문, 숫자만 사용 가능합니다.', { variant: 'warning' });
@@ -275,13 +276,13 @@ export default function FullScreenDialog() {
     return (
         <div>
             <IconButton color="inherit" className={classes.trans} onClick={handleClickOpen}>
-                <AddCircleIcon fontSize="large" />
+                {AddCircleIcon}
             </IconButton>
             <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
                 <AppBar className={classes.appBar} position="fixed">
                     <Toolbar>
                         <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
-                            <CloseIcon />
+                            {CloseIcon}
                         </IconButton>
                         <Typography variant="h6" className={classes.title}>
                             기관 등록
@@ -294,7 +295,9 @@ export default function FullScreenDialog() {
                 <Container>
                     <Container maxWidth="xs">
                         <Typography className={classes.stepperTitleStyle} variant="h4" align="center">
-                            <IconButton color="inherit"><BusinessIcon fontSize="large" /></IconButton>
+                            <IconButton color="inherit">
+                                {BusinessIcon}
+                            </IconButton>
                             기관 등록
                         </Typography>
                     </Container>
@@ -306,7 +309,7 @@ export default function FullScreenDialog() {
                             <List>
                                 <ListItem>
                                     <ListItemText primary="사업 구분" />
-                                    <FormControl className={classes.textFieldStyle} variant="outlined">
+                                    <FormControl className={classes.textFieldStyle} variant="filled">
                                         {categoryList ?
                                             <Select
                                                 labelId="biz_area"

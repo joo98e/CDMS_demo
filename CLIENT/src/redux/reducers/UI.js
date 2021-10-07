@@ -32,16 +32,17 @@ const isProdEnv = async () => {
         .catch(err => {
             console.log(err);
         });
-    
+
 }
 const initialState = {
     color: 'default',
     nowThemeNum: 0,
-    theme: Themes.dark,
+    theme: Themes.nature,
     bgColor: "#424242",
     hourlyGreetings: message(),
     menuAppearPosition: 'left',
-    isProd: undefined
+    isProd: undefined,
+    pathGuider: ""
 };
 
 isProdEnv();
@@ -60,28 +61,35 @@ const UI = (state = initialState, action) => {
             };
 
         case types.SET_THEME:
-            return {
-                ...state,
-                theme: state.nowThemeNum === 0 ? Themes.white : Themes.dark,
-                nowThemeNum: state.nowThemeNum === 0 ? 1 : 0
+            // return {
+            //     ...state,
+            //     theme: state.nowThemeNum === 0 ? Themes.white : Themes.dark,
+            //     nowThemeNum: state.nowThemeNum === 0 ? 1 : 0
+            // }
+
+            if (state.nowThemeNum === Object.keys(Themes).length - 1) {
+                return {
+                    ...state,
+                    nowThemeNum: 0,
+                    theme: Themes[Object.keys(Themes)[0]]
+                }
+            } else {
+                return {
+                    ...state,
+                    nowThemeNum: state.nowThemeNum + 1,
+                    theme: Themes[Object.keys(Themes)[state.nowThemeNum + 1]]
+                };
             }
 
-        // if(state.nowThemeNum === Object.keys(Themes).length - 1){
-        //     return {
-        //         ...state,
-        //         nowThemeNum : 0,
-        //         theme: Themes[Object.keys(Themes)[0]]
-        //     }
-        // }else{
-        //     return {
-        //         ...state,
-        //         nowThemeNum : state.nowThemeNum + 1,
-        //         theme: Themes[Object.keys(Themes)[state.nowThemeNum + 1]]
-        //     };
-        // }
+        case types.SET_PATH_GUIDER:
+            return {
+                ...state,
+                pathGuider: action.payload
+            };
 
         default:
             return state;
+
     }
 }
 

@@ -11,9 +11,11 @@ import {
     List, Divider, ListItem, ListItemIcon, ListItemText
 } from '@material-ui/core'
 
-import MenuIcon from '@material-ui/icons/Menu';
-import HomeIcon from '@material-ui/icons/Home';
-import NoteIcon from '@material-ui/icons/Note';
+import { 
+    NoteIcon,
+    MenuIcon,
+    HomeIcon,
+ } from "./CustomIcons"
 import VerticalIcon from '@material-ui/icons/VerticalSplit';
 
 const useStyles = makeStyles({
@@ -29,14 +31,14 @@ const menuList = [
     {
         MENU_ID: '1',
         MENU_NAME: '홈',
-        MENU_ICON_NAME: <HomeIcon />,
+        MENU_ICON_NAME: HomeIcon,
         MENU_PUSH_LINK: '/',
         MENU_PERMISSION: 'U'
     },
     {
         MENU_ID: '2',
         MENU_NAME: '기관 보기',
-        MENU_ICON_NAME: <NoteIcon />,
+        MENU_ICON_NAME: NoteIcon,
         MENU_PUSH_LINK: '/agency',
         MENU_PERMISSION: 'U'
     },
@@ -84,7 +86,7 @@ function SideBar(props) {
         // 아이콘때문에 비동기 처리가 어려움
 
         return () => {
-            
+
         }
     }, [menuInfo])
 
@@ -120,7 +122,7 @@ function SideBar(props) {
             <React.Fragment>
                 <Tooltip title={'메뉴'}>
                     <IconButton color="inherit" onClick={toggleDrawer(true)}>
-                        <MenuIcon color="inherit" />
+                        {MenuIcon}
                     </IconButton>
                 </Tooltip>
                 <SwipeableDrawer
