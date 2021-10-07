@@ -1,6 +1,6 @@
 /** 
- * @param {path}                 : 이미지 경로
- * @param {fullName}             : 대체 텍스트
+ * @param {src}             : 이미지 경로
+ * @param {alt}             : 대체 텍스트
  * @returns {Avatar}
  */
 
@@ -26,7 +26,7 @@ export class UISkeletonAvatar extends PureComponent {
 
     componentDidMount() {
         const loadImage = new Image();
-        loadImage.src = this.props.path;
+        loadImage.src = this.props.src;
         loadImage.addEventListener('load', () => {
             this.setState({ avatarLoad: true });
         })
@@ -40,8 +40,8 @@ export class UISkeletonAvatar extends PureComponent {
                     this.state.avatarLoad ?
                         <Avatar
                             className={classes.center}
-                            src={this.props.path}
-                            alt={this.props.fullName}
+                            src={this.props.src}
+                            alt={this.props.alt}
                         />
                         :
                         <Skeleton

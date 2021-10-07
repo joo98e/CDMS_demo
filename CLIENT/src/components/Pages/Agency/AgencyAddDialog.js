@@ -135,6 +135,7 @@ export default function FullScreenDialog() {
             };
             await axios.post('api/org/person', condition)
                 .then(res => {
+                    console.log(res.data);
                     setPersonRow(res.data);
                 })
                 .catch(err => console.error(err));

@@ -24,7 +24,7 @@ export class PersonRow extends Component {
     }
 
     componentDidMount() {
-        
+        console.log(this.props.item);
     }
     
 
@@ -44,8 +44,8 @@ export class PersonRow extends Component {
                 <TableRow>
                     <TableCell>
                         <UISkeletonAvatar
-                            fullName={this.props.item.full_name}
-                            path={this.props.item.avatar_path}
+                            src={this.props.item.avatar_path}
+                            alt={this.props.item.full_name}
                         />
                     </TableCell>
                     <TableCell align="left">

@@ -24,12 +24,16 @@ const styles = theme => ({
     },
     relative: {
         position: 'relative',
-        height: '272px',
+        height: '350px',
     },
     minPadding: {
         padding: theme.spacing(2),
         backgroundColor: theme.palette.background.default,
-
+    },
+    minHeight: {
+        width: '100%',
+        minHeight: '200px',
+        maxHeight: '400px',
     }
 });
 
@@ -129,8 +133,9 @@ export class Agency extends Component {
                                             style={{ transformOrigin: '0 0 0' }}
                                             {...(this.state.awhile ? { timeout: 800 } : {})}
                                         >
-                                            <Paper elevation={4} className={classes.relative}>
-                                                <AgencyAddDialog />
+                                            <Paper elevation={4} className={`${classes.relative}`}>
+                                                <AgencyAddDialog 
+                                                />
                                             </Paper>
                                         </Grow>
                                     </Grid>

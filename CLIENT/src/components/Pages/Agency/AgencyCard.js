@@ -1,17 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
-
+import { useSelector } from 'react-redux';
 import axios from 'axios'
 import {
   Grid, Grow, Paper, Button, Typography, Box,
-  Avatar, makeStyles, IconButton,
-  CardHeader, Card, CardActions, CardContent,
+  makeStyles,
+  Card, CardActions
 } from '@material-ui/core/';
 
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+
 import { AvatarGroup } from '@material-ui/lab'
 import UISkeletonAvatar from '../../common/UISkeletonAvatar';
+
+import UICardHeader from '../../common/Card/UICardHeader';
+
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import EditIcon from '@material-ui/icons/Edit'
+import DeleteIcon from '@material-ui/icons/Delete'
+import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -23,16 +30,14 @@ const useStyles = makeStyles(theme => ({
   pr: {
     position: 'relative'
   },
-  bold: {
-    fontWeight: '400'
-  },
   boxTop: {
     display: "-webkit-box",
     height: theme.spacing(20),
-    maxHeight: theme.spacing(20),
     boxSizing: 'border-box',
-    paddingLeft: theme.spacing(4),
-    paddingRight: theme.spacing(4),
+    maxHeight: theme.spacing(20),
+    marginBottom: theme.spacing(2),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
     lineClamp: "8",
     boxOrient: "vertical",
     overflow: 'hidden',
@@ -53,7 +58,6 @@ const useStyles = makeStyles(theme => ({
   },
   headerAction: {
     width: "10%",
-    marginLeft: -theme.spacing(1),
     marginTop: -theme.spacing(1),
   },
   hiddenText: {
@@ -66,9 +70,9 @@ const useStyles = makeStyles(theme => ({
 
 function AgencyCard(props) {
   const classes = useStyles();
-
   const history = useHistory();
-
+  const _member = useSelector((store) => store.User.member);
+  const [writeStatus, setWriteStatus] = React.useState(false);
   const [GrowIn, setGrowIn] = React.useState(false);
   const [agcyColleagueList, setAgcyColleagueList] = React.useState(null);
 
@@ -88,11 +92,39 @@ function AgencyCard(props) {
       });
   }
 
+
+  const alert1 = () => {
+    alert(1)
+  }
+
+  const alert2 = () => {
+    alert(2)
+  }
+
+  const headerActionList = [
+    {
+      name: "수정하기",
+      icon: <EditIcon />,
+      action: alert1
+    },
+    {
+      name: "삭제하기",
+      icon: <DeleteIcon />,
+      action: alert2
+    },
+  ]
+
+
   React.useEffect(() => {
+
     setGrowIn(true);
     getColleagueList();
 
-  }, []);
+    if (_member.ref_allow_action.indexOf('WRITE') !== -1 || props.item.writer_seq === _member.seq){
+      setWriteStatus(true);
+    }
+
+  }, [writeStatus]);
 
   return (
     <Grid item xs={12} md={6} lg={4} className={classes.pr}>
@@ -103,27 +135,22 @@ function AgencyCard(props) {
       >
         <Paper elevation={4}>
           <Card className={classes.root}>
-            <Box className={classes.cardHeader}>
-              <Box className={classes.headerTitle}>
-                <Typography variant="h6" className={classes.hiddenText}>
-                  {props.item.name}
-                </Typography>
-              </Box>
-              <Box className={classes.headerAction}>
-                <IconButton aria-label="settings">
-                  <MoreVertIcon />
-                </IconButton>
-              </Box>
-            </Box>
+
+            <UICardHeader
+              title={props.item.name}
+              icon={<MoreVertIcon />}
+              action={writeStatus ? headerActionList : null}
+            />
+
+
 
             {/* <CardActionArea> */}
             <Box className={classes.boxTop}>
               {props.item.desc}
             </Box>
-            {/* </CardActionArea> */}
+
             <CardActions>
               <AvatarGroup max={4}>
-                {/* {id: 9, ref_agcy_colleague_seq: 1, ref_agcy_id: 7, name: '관리자', avatar_path: 'static\avatars\items\default\33.jpg'} */}
                 {
                   (Array.isArray(agcyColleagueList) && agcyColleagueList.length !== 0)
                     ?
@@ -131,8 +158,8 @@ function AgencyCard(props) {
                       return (
                         <UISkeletonAvatar
                           key={index}
-                          path={item.avatar_path}
-                          fullName={item.name}
+                          src={item.avatar_path}
+                          alt={item.name}
                         />
                       )
                     })
@@ -143,6 +170,7 @@ function AgencyCard(props) {
                 }
               </AvatarGroup>
             </CardActions>
+            
             <CardActions>
               <Button
                 className={classes.boxBottom}

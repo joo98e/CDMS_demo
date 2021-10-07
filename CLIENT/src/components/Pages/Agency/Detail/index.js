@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { withRouter } from 'react-router'
+import moment from "moment";
 
 import {
     Grid, Box, Typography, Paper, Grow,
@@ -84,15 +85,41 @@ export class AgencyDetail extends Component {
                     ...this.state,
                     data: {
                         ...res.data.result[0],
+                        // reg_date: moment.format(res.data.result[0].reg_date),
+                        // start_date: moment.format(res.data.result[0].start_date),
+                        // upd_date: moment.format(res.data.result[0].upd_date),
                         add_info: JSON.parse(res.data.result[0].add_info)
                     }
                 });
-                console.log(this.state.data)
+                console.log(new Date(res.data.result[0].reg_date));
+                console.log(this.state.data);
             });
     }
 
+
+
     render() {
         const { classes } = this.props;
+
+        const toWrite = [
+            {
+                key: "성명",
+                value: this.state.data.full_name
+            },
+            {
+                key: "부서",
+                value: this.state.data.dept
+            },
+            {
+                key: "직무",
+                value: this.state.data.rank
+            },
+            {
+                key: "생성일",
+                value: this.state.data.reg_date
+            },
+        ];
+
         return (
             <Box className={classes.root}>
                 <Grid container spacing={2}>
@@ -210,24 +237,33 @@ export class AgencyDetail extends Component {
                                                 container
                                                 className={classes.mt1}
                                             >
-                                                <Grid item xs={12} md={6} lg={6}>
-                                                    <Typography
-                                                        variant="body1"
-                                                        align="left"
-                                                        className={classes.hiddenText}
-                                                    >
-                                                        성명
-                                                    </Typography>
-                                                </Grid>
-                                                <Grid item xs={12} md={6} lg={6}>
-                                                    <Typography
-                                                        variant="body1"
-                                                        align="left"
-                                                        className={classes.hiddenText}
-                                                    >
-                                                        {this.state.data.full_name}
-                                                    </Typography>
-                                                </Grid>
+                                                {this.state.data &&
+                                                    toWrite.map((item, index) => {
+                                                        return (
+                                                            <React.Fragment key={index}>
+                                                                <Grid item xs={12} md={6} lg={6}>
+                                                                    <Typography
+                                                                        variant="body1"
+                                                                        align="left"
+                                                                        className={classes.hiddenText}
+                                                                    >
+                                                                        {item.key}
+                                                                    </Typography>
+                                                                </Grid>
+                                                                <Grid item xs={12} md={6} lg={6}>
+                                                                    <Typography
+                                                                        variant="body1"
+                                                                        align="left"
+                                                                        className={classes.hiddenText}
+                                                                    >
+                                                                        {item.value}
+                                                                    </Typography>
+                                                                </Grid>
+                                                            </React.Fragment>
+                                                        )
+                                                    })
+                                                }
+
                                             </Grid>
                                         </Paper>
                                     </Grow>
@@ -255,7 +291,7 @@ export class AgencyDetail extends Component {
                                                 container
                                                 className={classes.mt1}
                                             >
-                                                
+
                                             </Grid>
                                         </Paper>
                                     </Grow>
