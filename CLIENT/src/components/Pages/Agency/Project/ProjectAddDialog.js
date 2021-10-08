@@ -147,7 +147,7 @@ export default function FullScreenDialog() {
     };
 
     const handleChangeDate = (value, name) => {
-        const _result = getDateFormat.YYYYMMDD(value);
+        const _result = name === "start_date" ? getDateFormat.YYYYMMDDHHMMSS_BEGIN(value) : getDateFormat.YYYYMMDDHHMMSS_END(value);
 
         let nextValue = { ..._projectInfo }
         nextValue[name] = _result;
@@ -173,7 +173,7 @@ export default function FullScreenDialog() {
                     break;
 
                 case "name":
-                    if (!FNValidator("AGCYNAME", _projectInfo[item])) {
+                    if (!FNValidator("PROJNAME", _projectInfo[item])) {
                         enqueueSnackbar('한글, 영문이 반드시 포함되어야 하며 한글, 영문, 숫자만 사용 가능합니다.', { variant: 'warning' });
                         return false;
                     }
@@ -225,8 +225,11 @@ export default function FullScreenDialog() {
             ..._accessInfo,
             ..._member,
             ..._projectInfo,
-            ref_agcy_id: ref_agcy_id
+            ref_agcy_id: ref_agcy_id,
         };
+
+        console.log(_projectInfo);
+        return;
 
         const config = {
             headers: {

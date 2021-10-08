@@ -84,6 +84,15 @@ const FNValidator = (valueName, value) => {
             }
             break;
 
+        // 프로젝트명 / 한글 혹은 영문이 반드시 1자 이상 포함, 한영숫 사용 가능
+        case "PROJNAME":
+            if (!/^[A-za-zㄱ-ㅎ가-힣0-9]+[가-힣|ㄱ-ㅎ||A-Z|a-z]{1}/gi.test(value)) {
+                return false;
+            } else {
+                isConfirmed = true;
+            }
+            break;
+
         // 이메일 
         case "EMAIL":
             if (!/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i.test(value)) {

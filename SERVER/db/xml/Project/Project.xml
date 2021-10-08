@@ -75,7 +75,16 @@
             <if test="delete_yn != null">
                 AND proj.delete_yn = #{delete_yn}
             </if>
+            <if test="unretired != null">
+                AND proj.end_date <![CDATA[>]]> #{unretired}
+            </if>
+            <if test="retired != null">
+                AND proj.end_date <![CDATA[<]]> #{retired}
+            </if>
         </where>
+        <if test="order_by != null">
+            ORDER BY proj.reg_date DESC
+        </if>
         <if test="limit != null and limit > 0">
             LIMIT ${limit}
         </if>

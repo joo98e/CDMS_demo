@@ -11,6 +11,7 @@ import {
     Container
 } from "@material-ui/core"
 
+import getNow from '../../../common/fn/getNow';
 import getDateFormat from '../../../common/fn/getDateFormat';
 import UICircularProgress from '../../../common/UICircularProgress'
 import ProjectAddDialog from "../Project/ProjectAddDialog"
@@ -24,11 +25,17 @@ const styles = theme => ({
         boxSizing: 'border-box',
         padding: theme.spacing(4)
     },
+    flexBox : {
+        display : "flex",
+        alignItems : "center",
+        justifyContent : "center"
+    },
     indent: {
         textIndent: theme.spacing(2)
     },
-    mt1: {
-        marginTop: theme.spacing(1)
+    vertical_m_1: {
+        marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(.5)
     },
     lh_2: {
         lineHeight: "2em"
@@ -43,7 +50,8 @@ const styles = theme => ({
     bxsizing: {
         boxSizing: "border-box",
         paddingLeft: theme.spacing(2),
-        paddingRight: theme.spacing(2)
+        paddingRight: theme.spacing(2),
+        paddingBottom: theme.spacing(2)
     },
     hiddenText: {
         display: 'block',
@@ -66,6 +74,7 @@ export class AgencyDetail extends Component {
             awhile: false,
             data: {},
             projectData: [],
+            endProjectData: [],
             writeStatus: false
         }
     }
@@ -117,9 +126,13 @@ export class AgencyDetail extends Component {
     }
 
     getProjectList = () => {
+
+        // 현재 프로젝트
         const condition = {
-            limit: 3,
+            limit: 2,
             ref_agcy_id: this.props.match.params.ref_agcy_id,
+            unretired : getNow(),
+            order_by : "DESC",
             delete_yn: 'N'
         }
         const URL = '/api/project/list';
@@ -133,10 +146,35 @@ export class AgencyDetail extends Component {
                 });
             } else {
                 // Error
-             }
-            
-        })
+            }
+
+        });
+
+        // 이전 프로젝트
+        const endedCondition = {
+            limit: 3,
+            ref_agcy_id: this.props.match.params.ref_agcy_id,
+            retired: getNow(),
+            order_by : "DESC",
+            delete_yn: 'N'
+        }
+        const endedURL = '/api/project/list';
+
+        axios.get(endedURL, {
+            params: endedCondition
+        }).then(res => {
+            if (res.data.resultCode !== -1) {
+                this.setState({
+                    endProjectData: res.data.result
+                });
+            } else {
+                // Error
+            }
+
+        });
     }
+
+
 
     render() {
         const { classes } = this.props;
@@ -225,7 +263,7 @@ export class AgencyDetail extends Component {
                                             <Divider />
                                             <Grid
                                                 container
-                                                className={classes.mt1}
+                                                className={classes.vertical_m_1}
                                             >
                                                 {
                                                     this.state.data.add_info && this.state.data.add_info.length !== 0 ?
@@ -254,9 +292,7 @@ export class AgencyDetail extends Component {
                                                             )
                                                         })
                                                         :
-                                                        <Typography variant="body1">
-                                                            데이터가 없습니다.
-                                                        </Typography>
+                                                        ""
                                                 }
                                             </Grid>
                                         </Paper>
@@ -283,7 +319,7 @@ export class AgencyDetail extends Component {
                                             <Divider />
                                             <Grid
                                                 container
-                                                className={classes.mt1}
+                                                className={classes.vertical_m_1}
                                             >
                                                 {this.state.data &&
                                                     toWrite.map((item, index) => {
@@ -336,26 +372,22 @@ export class AgencyDetail extends Component {
                                             </Typography>
                                             <Divider />
                                             <Grid
-                                                className={classes.mt1}
+                                                className={classes.vertical_m_1}
                                                 container
                                                 spacing={4}
                                             >
                                                 {
-                                                    this.state.projectData && this.state.projectData.length !== 0 ?
-                                                        this.state.projectData.map((item, index) => {
-                                                            return (
-                                                                <ProjectCard
-                                                                    key={index}
-                                                                    item={item}
-                                                                />
-                                                            )
-                                                        })
-                                                        :
-                                                        <Typography variant="h6" align="center">
-                                                            데이터가 없습니다.
-                                                        </Typography>
+                                                    this.state.projectData && this.state.projectData.length !== 0 &&
+                                                    this.state.projectData.map((item, index) => {
+                                                        return (
+                                                            <ProjectCard
+                                                                key={index}
+                                                                item={item}
+                                                            />
+                                                        )
+                                                    })
                                                 }
-                                                
+
                                                 {
                                                     this.state.writeStatus &&
                                                     <Grid item xs={12} md={6} lg={4}>
@@ -364,15 +396,6 @@ export class AgencyDetail extends Component {
                                                         </Paper>
                                                     </Grid>
                                                 }
-                                                <Grid item xs={12} md={12} lg={12}>
-                                                    <Button
-                                                        fullWidth
-                                                        variant="outlined"
-                                                        color="inherit"
-                                                    >
-                                                        MORE
-                                                    </Button>
-                                                </Grid>
                                             </Grid>
                                         </Paper>
                                     </Grow>
@@ -387,7 +410,7 @@ export class AgencyDetail extends Component {
                                     >
                                         <Paper
                                             elevation={4}
-                                            className={`${classes.minHeight} + ${classes.bxsizing}`}
+                                            className={classes.bxsizing}
                                         >
                                             <Typography
                                                 className={`${classes.lh_2}`}
@@ -397,10 +420,27 @@ export class AgencyDetail extends Component {
                                             </Typography>
                                             <Divider />
                                             <Grid
+                                                className={classes.vertical_m_1}
                                                 container
-                                                className={classes.mt1}
+                                                spacing={4}
                                             >
-
+                                                {
+                                                    this.state.endProjectData && this.state.endProjectData.length !== 0 ?
+                                                        this.state.endProjectData.map((item, index) => {
+                                                            return (
+                                                                <ProjectCard
+                                                                    key={index}
+                                                                    item={item}
+                                                                />
+                                                            )
+                                                        })
+                                                        :
+                                                        <Grid item xs={12} md={12} lg={12} className={`${classes.h_294px} + ${classes.flexBox}`}>
+                                                            <Typography variant="body1" align="center" component="div">
+                                                                데이터가 없습니다.
+                                                            </Typography>
+                                                        </Grid>
+                                                }
                                             </Grid>
                                         </Paper>
                                     </Grow>

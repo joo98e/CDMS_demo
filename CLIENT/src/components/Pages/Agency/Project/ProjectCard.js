@@ -38,7 +38,8 @@ const useStyles = makeStyles(theme => ({
     },
     boxBottom: {
         width: '100%',
-        height: '30px'
+        height: '30px',
+        marginBottom : theme.spacing(1)
     },
     cardHeader: {
         display: 'flex',

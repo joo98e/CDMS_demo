@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core';
 
 import Slide from '@material-ui/core/Slide';
+import getDateFormat from '../../common/fn/getDateFormat';
 import FNValidator from '../../common/FNValidator';
 import UIPersonList from '../../common/UIPersonList';
 import AgencyAdditionalDialog from './AgencyAdditionalDialog';
@@ -161,10 +162,7 @@ export default function FullScreenDialog() {
     };
 
     const handleChangeDate = (value, name) => {
-        const _fullYear = String(value.getFullYear());
-        const _getMonth = String(value.getMonth() + 1);
-        const _getDate = String(value.getDate());
-        const _result = `${_fullYear}-${_getMonth < 10 ? "0" + _getMonth : _getMonth}-${_getDate < 10 ? "0" + _getDate : _getDate}`
+        const _result = name === "start_date" ? getDateFormat.YYYYMMDDHHMMSS_BEGIN(value) : getDateFormat.YYYYMMDDHHMMSS_END(value);
 
         let nextValue = { ..._agencyInfo }
         nextValue[name] = _result;
