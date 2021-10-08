@@ -25,6 +25,7 @@ import {
 
 import getDateFormat from '../../../../common/fn/getDateFormat';
 import UICircularProgress from '../../../../common/UICircularProgress'
+import Chart from "./Chart"
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -37,7 +38,16 @@ const useStyles = makeStyles(theme => ({
     },
     minHeight: {
         minHeight : theme.spacing(40)
-    }
+    },
+    indent: {
+        textIndent: theme.spacing(2)
+    },
+    lh_2: {
+        lineHeight: "2em"
+    },
+    mt1: {
+        marginTop: theme.spacing(1)
+    },
 }));
 
 export const ProjectDetail = (props) => {
@@ -59,6 +69,7 @@ export const ProjectDetail = (props) => {
                 params: condition
             }).then((res) => {
                 setProjectData(...res.data.result);
+                console.log(...res.data.result);
                 return res.data;
             });
         }
@@ -72,46 +83,43 @@ export const ProjectDetail = (props) => {
         <Box className={classes.root}>
             <Grid container spacing={4}>
                 <Grid item xs={12} md={12} lg={12}>
-                    <Paper elevation={4} >
+                    <Paper elevation={4}>
                         <Typography
-                            variant="h4">
-                            {ref_proj_id}
+                            className={`${classes.indent} + ${classes.lh_2}`}
+                            variant="h4"
+                        >
+                            {projectData.name}
                         </Typography>
                     </Paper>
                 </Grid>
                 {
                     projectData ?
                         <React.Fragment>
-                            <Grow
-                                in={awhile}
-                                style={{ transformOrigin: '0 0 0' }}
-                                timeout={awhile ? 600 : 0}
-                            >
-                                <Grid item xs={12} md={6} lg={4}>
+                            <Grow in={awhile} style={{ transformOrigin: '0 0 0' }} timeout={awhile ? 600 : 0} >
+                                <Grid item xs={12} md={12} lg={12}>
                                     <Paper elevation={4} className={classes.minHeight}>
-                                        123213123123
+                                        <Chart />
                                     </Paper>
                                 </Grid>
                             </Grow>
-                            <Grow
-                                in={awhile}
-                                style={{ transformOrigin: '0 0 0' }}
-                                timeout={awhile ? 800 : 0}
-                            >
-                                <Grid item xs={12} md={6} lg={4}>
+                            <Grow in={awhile} style={{ transformOrigin: '0 0 0' }} timeout={awhile ? 800 : 0} >
+                                <Grid item xs={12} md={4} lg={4}>
                                     <Paper elevation={4} className={classes.minHeight}>
-                                        .235235235
+                                        영역 #1
                                     </Paper>
                                 </Grid>
                             </Grow>
-                            <Grow
-                                in={awhile}
-                                style={{ transformOrigin: '0 0 0' }}
-                                timeout={awhile ? 1000 : 0}
-                            >
-                                <Grid item xs={12} md={6} lg={4}>
+                            <Grow in={awhile} style={{ transformOrigin: '0 0 0' }} timeout={awhile ? 1000 : 0} >
+                                <Grid item xs={12} md={4} lg={4}>
                                     <Paper elevation={4} className={classes.minHeight}>
-                                        2315235235
+                                        영역 #2
+                                    </Paper>
+                                </Grid>
+                            </Grow>
+                            <Grow in={awhile} style={{ transformOrigin: '0 0 0' }} timeout={awhile ? 1000 : 0} >
+                                <Grid item xs={12} md={4} lg={4}>
+                                    <Paper elevation={4} className={classes.minHeight}>
+                                        영역 #3
                                     </Paper>
                                 </Grid>
                             </Grow>
