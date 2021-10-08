@@ -24,7 +24,8 @@ const getPathGuider = data => {
         case '/landing':
             value = landingGreeting();
             break;
-
+        
+        // ────────────────────────────────────────────────────
         case '/agency':
             value = "기관 리스트";
             break;
@@ -33,217 +34,220 @@ const getPathGuider = data => {
             value = "기관 상세";
             break;
 
-        case '/agency/boardlist/notice':
+        case '/agency/detail/notice/':
             value = "기관 공지사항";
             break;
+        // ────────────────────────────────────────────────────
 
-        case '/agency/project':
+        case '/agency/project/':
             value = "프로젝트";
             break;
 
-        case '/agency/project/boardlist/notice':
-            value = "프로젝트 공지사항";
-            break;
-
-        case '/agency/project/detail':
+        case '/agency/project/detail/':
             value = "프로젝트 상세";
             break;
+        
+        case '/agency/project/notice/':
+            value = "프로젝트 공지사항";
+            break;
+        
+        // ────────────────────────────────────────────────────
 
-        case '/agency/project/boardlist':
-            value = "기관 리스트";
+        case '/agency/project/boardlist/':
+            value = "설정";
             break;
 
         case '/03':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/04':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/05':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
 
         case '/06':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/07':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/08':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/09':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/10':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/11':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/12':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/13':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/14':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/15':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/16':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/17':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/18':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/19':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/20':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/21':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/22':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/23':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/24':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/25':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/26':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/27':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/28':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/29':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/30':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/31':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/32':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/33':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/34':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/35':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/36':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/37':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/38':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/39':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/40':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/41':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/42':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/43':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/44':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/45':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/46':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/47':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/48':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/49':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
         case '/50':
-            value = "기관 리스트";
+            value = "설정";
             break;
 
 

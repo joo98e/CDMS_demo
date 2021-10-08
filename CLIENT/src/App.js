@@ -9,6 +9,7 @@ import Landing from './components/Pages/Landing'
 import Project from './components/Pages/_old_Project'
 import Agency from './components/Pages/Agency'
 import AgencyDetail from './components/Pages/Agency/Detail'
+import ProjectDetail from './components/Pages/Agency/Project/Detail'
 import PageNotFound from './components/Pages/Error/404'
 
 class App extends Component {
@@ -21,6 +22,7 @@ class App extends Component {
         <CustomRoute exact path="/project" component={Project} />
         <CustomRoute exact path="/agency" component={Agency} />
         <CustomRoute exact path="/agency/detail/:ref_agcy_id" component={AgencyDetail} />
+        <CustomRoute exact path="/agency/project/detail/:ref_proj_id" component={ProjectDetail} />
         <CustomRoute component={Redirection} />
       </Switch>
     )

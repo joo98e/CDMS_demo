@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
 
@@ -36,7 +36,7 @@ const styles = theme => ({
     }
 });
 
-export class Agency extends Component {
+export class Agency extends PureComponent {
     constructor(props) {
         super(props)
 
@@ -76,7 +76,6 @@ export class Agency extends Component {
     }
 
     getAgencyList = srchType => {
-
         const URL = '/api/agency/list';
 
         axios.get(URL, {
@@ -86,13 +85,12 @@ export class Agency extends Component {
                 status: "STATUS::OPEN",
                 srchType: srchType !== (undefined || null) ? srchType : null
             }
+        }).then(res => {
+            this.setState({
+                ...this.state,
+                agency: res.data.result
+            });
         })
-            .then(res => {
-                this.setState({
-                    ...this.state,
-                    agency: res.data.result
-                });
-            })
             .catch(err => {
                 console.log(err);
             });
@@ -104,11 +102,11 @@ export class Agency extends Component {
         return (
             <Container className={classes.root}>
                 <Grid container spacing={3}>
-                    <Grid item xs={12} md={12} lg={12}>
+                    {/* <Grid item xs={12} md={12} lg={12}>
                         <Paper className={classes.minPadding} elevation={4}>
                             <Typography variant="h5">나의 기관 리스트</Typography>
                         </Paper>
-                    </Grid>
+                    </Grid> */}
                     {
                         this.state.agency === null ?
                             <UICircularProgress />

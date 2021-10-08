@@ -2,6 +2,32 @@ import { createTheme } from '@material-ui/core';
 import { purple, teal, blue, blueGrey, orange } from "@material-ui/core/colors";
 
 const theme = {
+    nature: createTheme({
+        palette: {
+            primary: {
+                main: "#1B2631",
+                light: "#7d8e9e",
+                dark: "#a2b7cc"
+            },
+            secondary: {
+                main: "#FFFFFF",
+                light: "#becad5",
+                dark: "#121a22"
+            },
+            background: {
+                default: "#2a3c4e",
+                paper: "#3c4f64",
+                button: "#7ca2c9",
+            },
+            text: {
+                primary: "#eaeaea",
+                secondary: "#dddddd",
+                hint: "#e7e7e7",
+                disabled: "#e7e7e7"
+            }
+        },
+    }),
+    
     dark: createTheme({
         palette: {
             type: 'dark',
@@ -33,32 +59,6 @@ const theme = {
             },
             text: {
                 primary: "#000000",
-            }
-        },
-    }),
-
-    nature: createTheme({
-        palette: {
-            primary: {
-                main: "#1B2631",
-                light : "#7d8e9e",
-                dark : "#a2b7cc"
-            },
-            secondary: {
-                main: "#FFFFFF",
-                light : "#becad5",
-                dark : "#121a22"
-            },
-            background: {
-                default: "#2a3c4e",
-                paper: "#3c4f64",
-                button: "#7ca2c9",
-            },
-            text: {
-                primary: "#eaeaea",
-                secondary : "#dddddd",
-                hint : "#e7e7e7",
-                disabled : "#e7e7e7"
             }
         },
     }),

@@ -15,7 +15,9 @@ import UISkeletonAvatar from '../../common/UISkeletonAvatar';
 
 import UICardHeader from '../../common/Card/UICardHeader';
 import {
-  EditIcon, DeleteIcon, MoreVertIcon, NotificationsActiveIcon
+  MoreVertIcon,
+  EditIcon,
+  DeleteIcon
 } from '../../common/CustomIcons';
 
 const useStyles = makeStyles(theme => ({
@@ -122,7 +124,7 @@ function AgencyCard(props) {
       setWriteStatus(true);
     }
 
-  }, [writeStatus]);
+  }, []);
 
   return (
     <Grid item xs={12} md={6} lg={4} className={classes.pr}>
@@ -140,9 +142,6 @@ function AgencyCard(props) {
               action={writeStatus ? headerActionList : null}
             />
 
-
-
-            {/* <CardActionArea> */}
             <Box className={classes.boxTop}>
               {props.item.desc}
             </Box>
@@ -174,7 +173,6 @@ function AgencyCard(props) {
                 className={classes.boxBottom}
                 variant="outlined"
                 size="small"
-                color="inherit"
                 onClick={() => { history.push(`/agency/detail/${props.item.id}`) }}
               >
                 <Typography variant="body2" color="textPrimary">MORE</Typography>

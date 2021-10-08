@@ -14,9 +14,7 @@ import UISnackBar from './components/common/UISnackBar';
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter
-      
-    >
+    <BrowserRouter>
         <SnackbarProvider maxSnack={5} anchorOrigin={{ vertical: 'bottom', horizontal: 'left', }} action={(key) => (<UISnackBar goods={key} />)} >
           <CssBaseline />
           <App />

@@ -14,7 +14,7 @@ import {
 import getDateFormat from '../../../common/fn/getDateFormat';
 import UICircularProgress from '../../../common/UICircularProgress'
 import ProjectAddDialog from "../Project/ProjectAddDialog"
-import { ProejctCard } from '../Project/ProejctCard';
+import ProjectCard from '../Project/ProjectCard';
 
 const styles = theme => ({
     root: {
@@ -34,10 +34,11 @@ const styles = theme => ({
         lineHeight: "2em"
     },
     minHeight: {
-        minHeight: "35em"
+        height: theme.spacing(50)
     },
-    minHeight20: {
-        minHeight: "25em"
+    h_294px: {
+        minHeight: '294px',
+        maxHeight: '400px',
     },
     bxsizing: {
         boxSizing: "border-box",
@@ -130,7 +131,6 @@ export class AgencyDetail extends Component {
                 this.setState({
                     projectData: res.data.result
                 });
-                console.log(res.data.result);
             } else {
                 // Error
              }
@@ -170,7 +170,7 @@ export class AgencyDetail extends Component {
 
         return (
             <Box className={classes.root}>
-                <Grid container spacing={2}>
+                <Grid container spacing={4}>
                     <Grid item xs={12} md={12} lg={12}>
                         <Paper elevation={4} >
                             <Typography
@@ -326,7 +326,7 @@ export class AgencyDetail extends Component {
                                     >
                                         <Paper
                                             elevation={4}
-                                            className={`${classes.minHeight} + ${classes.bxsizing}`}
+                                            className={classes.bxsizing}
                                         >
                                             <Typography
                                                 className={`${classes.lh_2}`}
@@ -338,15 +338,14 @@ export class AgencyDetail extends Component {
                                             <Grid
                                                 className={classes.mt1}
                                                 container
-                                                spacing={3}
+                                                spacing={4}
                                             >
                                                 {
                                                     this.state.projectData && this.state.projectData.length !== 0 ?
                                                         this.state.projectData.map((item, index) => {
                                                             return (
-                                                                <ProejctCard
+                                                                <ProjectCard
                                                                     key={index}
-                                                                    classes={classes}
                                                                     item={item}
                                                                 />
                                                             )
@@ -359,8 +358,8 @@ export class AgencyDetail extends Component {
                                                 
                                                 {
                                                     this.state.writeStatus &&
-                                                    <Grid item xs={4} md={4} lg={4}>
-                                                        <Paper elevation={1} className={`${classes.relative} + ${classes.minHeight20}`}>
+                                                    <Grid item xs={12} md={6} lg={4}>
+                                                        <Paper elevation={4} className={`${classes.relative} + ${classes.h_294px}`}>
                                                             <ProjectAddDialog />
                                                         </Paper>
                                                     </Grid>

@@ -88,17 +88,15 @@ const defaultState = {
 export default function FullScreenDialog() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-    const [categoryList, setCategoryList] = React.useState(null);
     const [infos, setInfos] = React.useState(defaultState);
-    const [steps, setSteps] = React.useState(0);
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
 
     React.useEffect(() => {
 
         const fetchCategory = async () => {
             await axios.get('/api/projects/category')
                 .then(res => {
-                    setCategoryList(res.data);
+                    // setCategoryList(res.data);
                 });
         }
 

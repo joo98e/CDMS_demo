@@ -16,7 +16,6 @@ import {
     MenuIcon,
     HomeIcon,
  } from "./CustomIcons"
-import VerticalIcon from '@material-ui/icons/VerticalSplit';
 
 const useStyles = makeStyles({
     list: {
