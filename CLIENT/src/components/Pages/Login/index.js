@@ -126,7 +126,7 @@ export class Login extends Component {
     }
 
     devLogin = () => {
-        Axios.get('api/member/login/dev')
+        Axios.get('/api/member/login/dev')
             .then(res => {
                 localStorage.setItem('member', JSON.stringify(res.data));
                 this.props.devAuth(res.data);

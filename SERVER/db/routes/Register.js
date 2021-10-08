@@ -18,7 +18,7 @@ const format = require('../config/MyBatisFormat');
 const getNow = require("../func/getNow");
 
 // 실제 클라이언트 요청 경로
-const requestDir = 'static\\\\avatars\\\\items\\\\';
+const requestDir = '\\\\static\\\\avatars\\\\items\\\\';
 
 const avatarStorage = multer({
     storage: multer.diskStorage({

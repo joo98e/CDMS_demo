@@ -5,7 +5,7 @@ import { withRouter } from 'react-router'
 import moment from "moment";
 
 import {
-    Grid, Box, Typography, Paper, Grow,
+    Grid, Box, Typography, Paper, Grow, Button,
     withStyles,
     Divider,
     Container
@@ -13,6 +13,8 @@ import {
 
 import getDateFormat from '../../../common/fn/getDateFormat';
 import UICircularProgress from '../../../common/UICircularProgress'
+import ProjectAddDialog from "../Project/ProjectAddDialog"
+import { ProejctCard } from '../Project/ProejctCard';
 
 const styles = theme => ({
     root: {
@@ -32,6 +34,9 @@ const styles = theme => ({
         lineHeight: "2em"
     },
     minHeight: {
+        minHeight: "35em"
+    },
+    minHeight20: {
         minHeight: "25em"
     },
     bxsizing: {
@@ -46,6 +51,9 @@ const styles = theme => ({
         overflow: 'hidden',
         marginLeft: theme.spacing(.5),
         marginRight: theme.spacing(.5)
+    },
+    relative: {
+        position: "relative"
     }
 });
 
@@ -55,16 +63,18 @@ export class AgencyDetail extends Component {
 
         this.state = {
             awhile: false,
-            data: {}
+            data: {},
+            projectData: [],
+            writeStatus: false
         }
     }
 
     componentDidMount() {
         this.setState({
-            awhile: true,
-            data: {}
+            awhile: true
         });
         this.getAgencyDetailInfo();
+        this.getProjectList();
     }
 
     getAgencyDetailInfo = () => {
@@ -80,9 +90,10 @@ export class AgencyDetail extends Component {
                 ...condition,
 
             }
-        })
-            .then(res => {
+        }).then(res => {
+            if (res.data.result.length === 0) {
 
+            } else {
                 this.setState({
                     ...this.state,
                     data: {
@@ -91,12 +102,41 @@ export class AgencyDetail extends Component {
                         start_date: getDateFormat.YYYYMMDD(res.data.result[0].start_date),
                         upd_date: getDateFormat.YYYYMMDD(res.data.result[0].upd_date),
                         add_info: JSON.parse(res.data.result[0].add_info)
-                    }
+                    },
+                    writeStatus: this.props.member.seq === res.data.result[0].writer_seq ? true : false
                 });
+            }
+        })
+            .catch((err) => {
+                console.log(err);
+                alert("잘못된 접근입니다.")
+                console.log(this.props.history.push('/'));
             });
+
     }
 
+    getProjectList = () => {
+        const condition = {
+            limit: 3,
+            ref_agcy_id: this.props.match.params.ref_agcy_id,
+            delete_yn: 'N'
+        }
+        const URL = '/api/project/list';
 
+        axios.get(URL, {
+            params: condition
+        }).then(res => {
+            if (res.data.resultCode !== -1) {
+                this.setState({
+                    projectData: res.data.result
+                });
+                console.log(res.data.result);
+            } else {
+                // Error
+             }
+            
+        })
+    }
 
     render() {
         const { classes } = this.props;
@@ -296,10 +336,44 @@ export class AgencyDetail extends Component {
                                             </Typography>
                                             <Divider />
                                             <Grid
-                                                container
                                                 className={classes.mt1}
+                                                container
+                                                spacing={3}
                                             >
-
+                                                {
+                                                    this.state.projectData && this.state.projectData.length !== 0 ?
+                                                        this.state.projectData.map((item, index) => {
+                                                            return (
+                                                                <ProejctCard
+                                                                    key={index}
+                                                                    classes={classes}
+                                                                    item={item}
+                                                                />
+                                                            )
+                                                        })
+                                                        :
+                                                        <Typography variant="h6" align="center">
+                                                            데이터가 없습니다.
+                                                        </Typography>
+                                                }
+                                                
+                                                {
+                                                    this.state.writeStatus &&
+                                                    <Grid item xs={4} md={4} lg={4}>
+                                                        <Paper elevation={1} className={`${classes.relative} + ${classes.minHeight20}`}>
+                                                            <ProjectAddDialog />
+                                                        </Paper>
+                                                    </Grid>
+                                                }
+                                                <Grid item xs={12} md={12} lg={12}>
+                                                    <Button
+                                                        fullWidth
+                                                        variant="outlined"
+                                                        color="inherit"
+                                                    >
+                                                        MORE
+                                                    </Button>
+                                                </Grid>
                                             </Grid>
                                         </Paper>
                                     </Grow>

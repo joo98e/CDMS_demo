@@ -2,22 +2,10 @@ import * as types from '../types';
 
 /**
  * @constant {initRegisterValue}                 : 회원가입 시 사용
- * @constant {initAgencyValue}                    : 기관 생성시 사용
+ * @constant {initAgencyValue}                   : 기관 생성시 사용
  * @constant {initProjectMemberValue}            : 프로젝트 생성시 사용
  * @constant {initialState}                      : 초기값
  */
-
-const initProjectMemberValue = [];
-const initRegisterValue = {
-    id: '',
-    idCheck: false,
-    password: '',
-    passwordCheck : '',
-    first_name: '',
-    last_name: '',
-    nickName: '',
-    phone: '',
-}
 
 const today = () => {
     const _now = new Date();
@@ -25,7 +13,20 @@ const today = () => {
     const _getMonth = String(_now.getMonth() + 1);
     const _getDate = String(_now.getDate());
     return `${_fullYear}-${_getMonth < 10 ? "0" + _getMonth : _getMonth}-${_getDate < 10 ? "0" + _getDate : _getDate}`
- }
+}
+
+const initProjectMemberValue = [];
+
+const initRegisterValue = {
+    id: '',
+    idCheck: false,
+    password: '',
+    passwordCheck: '',
+    first_name: '',
+    last_name: '',
+    nickName: '',
+    phone: '',
+}
 
 const initAgencyValue = {
     start_date: today(),
@@ -37,10 +38,20 @@ const initAgencyValue = {
     additionalInfo: []
 }
 
+const initProjectValue = {
+    start_date: today(),
+    end_date: today(),
+    name: '',
+    desc: '',
+    person: [],
+    additionalInfo: []
+};
+
 const initialState = {
     registerMember: initRegisterValue,
     projectMember: initProjectMemberValue,
-    agencyInfo : initAgencyValue
+    agencyInfo: initAgencyValue,
+    projectInfo: initProjectValue,
 };
 
 const Producer = (state = initialState, action) => {
@@ -63,7 +74,7 @@ const Producer = (state = initialState, action) => {
                 ...state,
                 registerMember: initRegisterValue
             }
-        
+
         case types.SET_PROJECT_PERSON_LIST:
 
             let _temp = state.projectMember;
@@ -91,7 +102,7 @@ const Producer = (state = initialState, action) => {
                 ...state,
                 projectMember: []
             };
-        
+
         case types.SET_AGENCY_INFO:
 
             return {
@@ -101,14 +112,31 @@ const Producer = (state = initialState, action) => {
                     ...action.payload
                 }
             };
-        
+
         case types.SET_AGENCY_INFO_INIT:
 
             return {
                 ...state,
                 agencyInfo: {}
             };
-        
+
+        case types.SET_PROJECT_INFO:
+
+            return {
+                ...state,
+                projectInfo: {
+                    ...state.projectInfo,
+                    ...action.payload
+                }
+            };
+
+        case types.SET_PROJECT_INFO_INIT:
+
+            return {
+                ...state,
+                projectInfo: {}
+            };
+
         default:
             return state;
     }

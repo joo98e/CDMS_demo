@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Project">
+
+    <insert id="insertProject">
+        INSERT INTO 
+        tb_agcy_proj
+        (
+            writer_seq,
+            ref_agcy_id,
+            ref_biz_area,
+            `name`,
+            `desc`,
+            add_info,
+            start_date,
+            end_date,
+            reg_ip,
+            upd_ip
+        ) VALUES(
+            #{seq},
+            #{ref_agcy_id},
+            (SELECT biz_area FROM tb_agcy WHERE tb_agcy.id = #{ref_agcy_id}),
+            #{name},
+            #{desc},
+            #{additionalInfo},
+            #{start_date},
+            #{end_date},
+            #{IPv4},
+            #{IPv4}
+        );
+    </insert>
+
+    <insert id="insertProjectColleague">
+        INSERT INTO
+        tb_agcy_proj_colleague
+        (
+            ref_agcy_id,
+            ref_agcy_colleague_seq,
+            `name`,
+            reg_ip,
+            upd_ip
+        )
+        VALUES
+        <foreach collection="person" item="goods" separator=",">
+        (
+            #{ref_agcy_id},
+            #{goods.seq},
+            #{goods.full_name},
+            #{IPv4},
+            #{IPv4}
+        )
+        </foreach>
+    </insert>
+
+    <select id="getProject">
+        SELECT 
+            proj.id,
+            proj.ref_agcy_id,
+            proj.ref_biz_area,
+            proj.`name`,
+            proj.`desc`,
+            proj.add_info,
+            proj.thumbnail_file_name,
+            proj.thumbnail_file_path,
+            proj.reg_date,
+            proj.upd_date,
+            proj.start_date,
+            proj.end_date
+        FROM
+            tb_agcy_proj AS proj
+        <where>
+            <if test="ref_agcy_id != null">
+                AND proj.ref_agcy_id = #{ref_agcy_id}
+            </if>
+            <if test="delete_yn != null">
+                AND proj.delete_yn = #{delete_yn}
+            </if>
+        </where>
+        <if test="limit != null and limit > 0">
+            LIMIT ${limit}
+        </if>
+    </select>
+</mapper>

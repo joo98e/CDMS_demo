@@ -3,26 +3,27 @@ import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios'
 import { useSnackbar } from 'notistack';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { setAgencyInfo } from '../../../redux/action/ProducerAction'
+import { useHistory, useParams  } from 'react-router-dom';
+import { setProjectInfo } from '../../../../redux/action/ProducerAction'
 
 import {
-    Container, TextField, FormControl, Select, Button, Dialog, Typography,
-    ListItemText, ListItem, List, Divider, AppBar, Toolbar, IconButton, MenuItem,
+    Container, TextField, Button, Dialog, Typography,
+    ListItemText, ListItem, List, Divider, AppBar, Toolbar, IconButton,
     Grid, Chip, Avatar
 } from '@material-ui/core';
 
+import ProjectAdditionalDialog from './ProjectAdditionalDialog'
+import ProjectDatePicker from './ProjectDatePicker';
 import Slide from '@material-ui/core/Slide';
-import FNValidator from '../../common/FNValidator';
-import UIPersonList from '../../common/UIPersonList';
-import AgencyAdditionalDialog from './AgencyAdditionalDialog';
-import AgencyDatePicker from './AgencyDatePicker';
+import getDateFormat from '../../../common/fn/getDateFormat';
+import FNValidator from '../../../common/FNValidator';
+import UIPersonList from '../../../common/UIPersonList';
 
 import {
     BusinessIcon,
     CloseIcon,
     AddCircleIcon
-} from '../../common/CustomIcons';
+} from '../../../common/CustomIcons';
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -85,7 +86,7 @@ const BtnInfo = {
 };
 
 const DialogInfo = {
-    title: "기관 등록",
+    title: "프로젝트 등록",
     subTitle: "담당자 지정"
 };
 const TableColumnName = [
@@ -105,30 +106,17 @@ const ResultMessage = {
 export default function FullScreenDialog() {
     const { enqueueSnackbar } = useSnackbar();
     const history = useHistory();
-
+    const { ref_agcy_id } = useParams();
     const _accessInfo = useSelector((store) => store.User.accessInfo);
     const _member = useSelector((store) => store.User.member);
-    const _agencyInfo = useSelector((store) => store.Producer.agencyInfo);
+    const _projectInfo = useSelector((store) => store.Producer.projectInfo);
     const dispatch = useDispatch();
 
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-    const [categoryList, setCategoryList] = React.useState(null);
     const [personRow, setPersonRow] = React.useState(null);
 
     React.useEffect(() => {
-
-        const loadCategory = async () => {
-            const condition = {
-                delete_yn: 'N'
-            };
-            await axios.get('/api/agency/category', {
-                params: condition
-            })
-                .then(res => {
-                    setCategoryList(res.data.result);
-                });
-        }
 
         const loadPersonRow = async () => {
             const condition = {
@@ -141,8 +129,6 @@ export default function FullScreenDialog() {
                 })
                 .catch(err => console.error(err));
         }
-
-        loadCategory();
         loadPersonRow();
 
         return () => {
@@ -156,64 +142,53 @@ export default function FullScreenDialog() {
     };
 
     const handleClose = () => {
-        dispatch(setAgencyInfo(defaultState));
+        dispatch(setProjectInfo(defaultState));
         setOpen(false);
     };
 
     const handleChangeDate = (value, name) => {
-        const _fullYear = String(value.getFullYear());
-        const _getMonth = String(value.getMonth() + 1);
-        const _getDate = String(value.getDate());
-        const _result = `${_fullYear}-${_getMonth < 10 ? "0" + _getMonth : _getMonth}-${_getDate < 10 ? "0" + _getDate : _getDate}`
+        const _result = getDateFormat.YYYYMMDD(value);
 
-        let nextValue = { ..._agencyInfo }
+        let nextValue = { ..._projectInfo }
         nextValue[name] = _result;
-        dispatch(setAgencyInfo({ ...nextValue }));
+        dispatch(setProjectInfo({ ...nextValue }));
     }
 
     const handleValidateValue = () => {
-        console.log(_agencyInfo);
-
-        for (let item in _agencyInfo) {
+        
+        for (let item in _projectInfo) {
             switch (item) {
                 case "start_date":
-                    if (_agencyInfo[item] > _agencyInfo.end_date) {
-                        enqueueSnackbar('사업 기간이 알맞지 않습니다.', { variant: 'warning' });
+                    if (_projectInfo[item] > _projectInfo.end_date) {
+                        enqueueSnackbar('프로젝트 기간이 알맞지 않습니다.', { variant: 'warning' });
                         return false;
                     }
                     break;
 
                 case "end_date":
-                    if (_agencyInfo[item] < _agencyInfo.start_date) {
-                        enqueueSnackbar('사업 기간이 알맞지 않습니다.', { variant: 'warning' });
+                    if (_projectInfo[item] < _projectInfo.start_date) {
+                        enqueueSnackbar('프로젝트 기간이 알맞지 않습니다.', { variant: 'warning' });
                         return false;
                     }
                     break;
 
                 case "name":
-                    if (!FNValidator("AGCYNAME", _agencyInfo[item])) {
+                    if (!FNValidator("AGCYNAME", _projectInfo[item])) {
                         enqueueSnackbar('한글, 영문이 반드시 포함되어야 하며 한글, 영문, 숫자만 사용 가능합니다.', { variant: 'warning' });
                         return false;
                     }
                     break;
 
                 case "desc":
-                    if (_agencyInfo[item] === "" || _agencyInfo[item] === undefined) {
+                    if (_projectInfo[item] === "" || _projectInfo[item] === undefined) {
                         enqueueSnackbar('설명을 기재해주세요.', { variant: 'warning' });
                         return false;
                     }
                     break;
 
-                case "biz_area":
-                    if (_agencyInfo[item] === "" || _agencyInfo[item] === undefined) {
-                        enqueueSnackbar('사업 구분이 필요합니다.', { variant: 'warning' });
-                        return false;
-                    }
-                    break;
-
                 case "person":
-                    if (_agencyInfo[item].length === 0 || _agencyInfo[item].length === undefined) {
-                        enqueueSnackbar('기관 담당자를 구성해야 합니다.', { variant: 'warning' });
+                    if (_projectInfo[item].length === 0 || _projectInfo[item].length === undefined) {
+                        enqueueSnackbar('프로젝트 담당자를 구성해야 합니다.', { variant: 'warning' });
                         return false;
                     }
                     break;
@@ -223,19 +198,19 @@ export default function FullScreenDialog() {
             }
         }
 
-        handleClickAddAgency();
+        handleClickAddProject();
     }
 
-    const handleChangeAgencyInfos = (e) => {
-        let nextValue = { ..._agencyInfo }
+    const handleChangeProjectInfos = (e) => {
+        let nextValue = { ..._projectInfo }
         nextValue[e.target.name] = e.target.value;
-        dispatch(setAgencyInfo({ ...nextValue }));
+        dispatch(setProjectInfo({ ...nextValue }));
     }
 
     const ResultAction = {
         success: data => {
-            dispatch(setAgencyInfo({
-                ..._agencyInfo,
+            dispatch(setProjectInfo({
+                ..._projectInfo,
                 person: data
             }))
         },
@@ -244,12 +219,13 @@ export default function FullScreenDialog() {
         }
     }
 
-    const handleClickAddAgency = () => {
-        const URL = '/api/agency/add';
+    const handleClickAddProject = () => {
+        const URL = '/api/project/add';
         const data = {
             ..._accessInfo,
             ..._member,
-            ..._agencyInfo
+            ..._projectInfo,
+            ref_agcy_id: ref_agcy_id
         };
 
         const config = {
@@ -257,15 +233,15 @@ export default function FullScreenDialog() {
                 "content-type": "application/json"
             }
         }
-
+        
         axios.post(URL, data, config)
             .then(res => {
                 if (res.data.resultCode === 1) {
-                    dispatch(setAgencyInfo({
-                        ..._agencyInfo,
+                    dispatch(setProjectInfo({
+                        ..._projectInfo,
                         person: []
                     }));
-                    enqueueSnackbar("기관 등록에 성공했습니다.", { variant: 'success' });
+                    enqueueSnackbar("프로젝트 등록에 성공했습니다.", { variant: 'success' });
                     history.go(0);
                 } else {
                     enqueueSnackbar(res.data.resultCode, { variant: 'error' });
@@ -285,7 +261,7 @@ export default function FullScreenDialog() {
                             {CloseIcon}
                         </IconButton>
                         <Typography variant="h6" className={classes.title}>
-                            기관 등록
+                            프로젝트 등록
                         </Typography>
                         <Button autoFocus color="inherit" onClick={handleValidateValue}>
                             등록하기
@@ -298,7 +274,7 @@ export default function FullScreenDialog() {
                             <IconButton color="inherit">
                                 {BusinessIcon}
                             </IconButton>
-                            기관 등록
+                            프로젝트 등록
                         </Typography>
                     </Container>
 
@@ -308,49 +284,31 @@ export default function FullScreenDialog() {
                         <Grid item xs={12} md={12} lg={12}>
                             <List>
                                 <ListItem>
-                                    <ListItemText primary="사업 구분" />
-                                    <FormControl className={classes.textFieldStyle} variant="filled">
-                                        {categoryList ?
-                                            <Select
-                                                labelId="biz_area"
-                                                id="biz_area"
-                                                name="biz_area"
-                                                value={_agencyInfo.biz_area ? _agencyInfo.biz_area : ''}
-                                                onChange={handleChangeAgencyInfos}
-                                            >
-                                                {categoryList.map((item, index) => {
-                                                    return (
-                                                        <MenuItem key={index} value={item.id}>{item.name}</MenuItem>
-                                                    )
-                                                })}
-                                            </Select>
-                                            :
-                                            ''
-                                        }
-                                    </FormControl>
+                                    <ListItemText primary="프로젝트명" />
+                                    <TextField className={classes.textFieldStyle} variant="outlined" placeholder="프로젝트명" inputProps={TextFieldInputProps} name="name" onChange={handleChangeProjectInfos} />
                                 </ListItem>
                                 <Divider />
                                 <ListItem>
-                                    <ListItemText primary="기관명" />
-                                    <TextField className={classes.textFieldStyle} variant="outlined" placeholder="기관명" inputProps={TextFieldInputProps} name="name" onChange={handleChangeAgencyInfos} />
+                                    <ListItemText primary="프로젝트 설명" />
+                                    <TextField className={classes.textFieldStyle} variant="outlined" placeholder="프로젝트 설명" inputProps={TextFieldInputProps} name="desc" onChange={handleChangeProjectInfos} />
                                 </ListItem>
                                 <Divider />
-                                <ListItem>
-                                    <ListItemText primary="기관 설명" />
-                                    <TextField className={classes.textFieldStyle} variant="outlined" placeholder="기관 설명" inputProps={TextFieldInputProps} name="desc" onChange={handleChangeAgencyInfos} />
-                                </ListItem>
+                                {/* <ListItem>
+                                    <ListItemText primary="프로젝트 썸네일" />
+                                    <TextField className={classes.textFieldStyle} variant="outlined" placeholder="프로젝트 썸네일" inputProps={TextFieldInputProps} name="name" onChange={handleChangeProjectInfos} />
+                                </ListItem> */}
                                 <Divider />
                                 <ListItem>
-                                    <ListItemText primary="사업 시작일" />
-                                    <AgencyDatePicker
+                                    <ListItemText primary="프로젝트 시작일" />
+                                    <ProjectDatePicker
                                         name="start_date"
                                         resultAction={handleChangeDate}
                                     />
                                 </ListItem>
                                 <Divider />
                                 <ListItem>
-                                    <ListItemText primary="사업 종료일" />
-                                    <AgencyDatePicker
+                                    <ListItemText primary="프로젝트 종료일" />
+                                    <ProjectDatePicker
                                         name="end_date"
                                         resultAction={handleChangeDate}
                                     />
@@ -358,11 +316,11 @@ export default function FullScreenDialog() {
                                 <Divider />
                                 <ListItem>
                                     <ListItemText primary="추가 정보" />
-                                    <AgencyAdditionalDialog />
+                                    <ProjectAdditionalDialog />
                                 </ListItem>
                                 <Divider />
                                 <ListItem>
-                                    <ListItemText primary="기관 담당자" />
+                                    <ListItemText primary="프로젝트 담당자" />
                                     <UIPersonList
                                         BtnInfo={BtnInfo}
                                         DialogInfo={DialogInfo}
@@ -375,10 +333,10 @@ export default function FullScreenDialog() {
                                 <ListItem>
                                     <ListItemText />
                                     {
-                                        _agencyInfo.person &&
-                                        _agencyInfo.person.map((item, index) => {
+                                        _projectInfo.person &&
+                                        _projectInfo.person.map((item, index) => {
                                             if (index > 5) {
-                                                return false
+                                                return "";
                                             } else {
                                                 return (
                                                     <Chip key={item.seq} avatar={<Avatar src={item.avatar_path} />} label={`${item.full_name}`} />

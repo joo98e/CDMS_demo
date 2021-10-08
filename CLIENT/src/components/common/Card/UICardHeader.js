@@ -1,3 +1,9 @@
+/** 
+ * @param {title}             : string
+ * @param {icon}              : JSX Element
+ * @returns {}
+ */
+
 import React from 'react'
 import { connect } from 'react-redux'
 

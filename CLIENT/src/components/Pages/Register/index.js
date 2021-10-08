@@ -294,7 +294,7 @@ export class index extends PureComponent {
         if (!FNValidator("id", this.props.registerMember.id)) {
             return this.props.enqueueSnackbar("ID는 이메일 형식입니다.", { variant: "warning" });
         } else {
-            const URL = 'api/register/duplicateCheckId'
+            const URL = '/api/register/duplicateCheckId'
     
             axios.post(URL, this.props.registerMember)
                 .then(res => {
@@ -337,7 +337,7 @@ export class index extends PureComponent {
 
     confirm = async () => {
 
-        const URL = "api/register/signUp";
+        const URL = "/api/register/signUp";
         const config = {
             headers: {
                 "content-type": "multipart/form-data"

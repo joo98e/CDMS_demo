@@ -78,9 +78,6 @@ export class InputProfile extends Component {
     }
 
     handleAvatarChange = e => {
-        setTimeout(() => {
-            console.log("this.props.registerMember", this.props.registerMember);
-        }, 1000);
         this.setState({
             ...this.state,
             dialogToggle: false

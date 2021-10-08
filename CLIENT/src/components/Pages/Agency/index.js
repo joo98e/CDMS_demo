@@ -77,7 +77,7 @@ export class Agency extends Component {
 
     getAgencyList = srchType => {
 
-        const URL = 'api/agency/list';
+        const URL = '/api/agency/list';
 
         axios.get(URL, {
             params: {

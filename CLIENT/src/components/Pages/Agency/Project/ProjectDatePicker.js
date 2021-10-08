@@ -8,7 +8,7 @@ import {
     KeyboardDatePicker,
 } from '@material-ui/pickers';
 
-export class UIDatePicker extends Component {
+export class ProjectDatePicker extends Component {
     constructor(props) {
         super(props)
 
@@ -53,4 +53,4 @@ const mapDispatchToProps = {
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UIDatePicker)
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectDatePicker)

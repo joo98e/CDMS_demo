@@ -161,18 +161,26 @@ router.get('/detail', (req, res) => {
         (err, rows) => {
             if (err) {
                 console.log(err);
-
                 return res.status(400).send({
                     result: false,
                     resultCode: -1,
                     resultMessage: "기관 디테일 조회 실패"
                 });
             } else {
-                return res.status(200).send({
-                    result: rows,
-                    resultCode: 1,
-                    resultMessage : "기관 디테일 조회 성공"
-                });
+                if (rows.length === 0) {
+                    return res.status(200).send({
+                        result: false,
+                        resultCode: -1,
+                        resultMessage: "잘못된 접근입니다."
+                    });
+                } else {
+                    return res.status(200).send({
+                        result: rows,
+                        resultCode: 1,
+                        resultMessage: "기관 디테일 조회 성공"
+                    });
+                }
+                
             }
         });
 });

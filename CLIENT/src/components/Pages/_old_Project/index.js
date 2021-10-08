@@ -56,7 +56,7 @@ export class Projects extends Component {
     // TODO DB 프로젝트참여자리스트 구현 
 
     getProjectList = () => {
-        const URL = 'api/projects';
+        const URL = '/api/projects';
         axios.get(URL, {
             params: {
                 ...this.props.member
