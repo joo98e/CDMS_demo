@@ -20,12 +20,13 @@ import { useParams } from 'react-router';
 import axios from 'axios'
 
 import {
-    Box, Grid, Grow, makeStyles, Paper, Typography
+    Box, Divider, Grid, Grow, makeStyles, Paper, Typography
 } from "@material-ui/core"
 
 import getDateFormat from '../../../../common/fn/getDateFormat';
 import UICircularProgress from '../../../../common/UICircularProgress'
 import Chart from "./Chart"
+import { ProcessCard } from '../Process/ProcessCard';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -37,7 +38,7 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(4)
     },
     minHeight: {
-        minHeight : theme.spacing(40)
+        minHeight: theme.spacing(30)
     },
     indent: {
         textIndent: theme.spacing(2)
@@ -48,6 +49,40 @@ const useStyles = makeStyles(theme => ({
     mt1: {
         marginTop: theme.spacing(1)
     },
+    hiddenText: {
+        whiteSpace: "nowrap",
+        textOverflow: "ellipsis",
+        overflow: 'hidden',
+        display: 'block',
+    },
+    m_1: {
+        margin: theme.spacing(2)
+    },
+    p_1: {
+        padding: theme.spacing(2)
+    },
+    titleBox: {
+        display: "flex",
+        padding : theme.spacing(1),
+        whiteSpace: "nowrap",
+        textOverflow: "ellipsis",
+        overflow: 'hidden',
+        textIndent : theme.spacing(1),
+        flexDirection : "column"
+    },
+    mainTitle: {
+        display: "inline-block",
+        paddingRight: theme.spacing(1),
+        fontSize: "2em",
+    },
+    subTitle: {
+        display: "inline-block",
+        paddingRight: theme.spacing(1),
+        fontSize: "1em",
+    },
+    descColor: {
+        color: theme.palette.text.desc
+    }
 }));
 
 export const ProjectDetail = (props) => {
@@ -56,6 +91,7 @@ export const ProjectDetail = (props) => {
 
     const [awhile, setAwhile] = useState(false);
     const [projectData, setProjectData] = useState([]);
+    const [processData, setProcessData] = useState([]);
 
     useEffect(() => {
         const getProjectDetail = async () => {
@@ -74,8 +110,27 @@ export const ProjectDetail = (props) => {
             });
         }
 
+        const getProcessList = async () => {
+            const condition = {
+                ref_proj_id: ref_proj_id,
+                colg_type: "TYPE::MAIN",
+                delete_yn: "N",
+            }
+            const URL = "/api/process/colgmain";
+
+            axios.get(URL, {
+                params: condition
+            }).then((res) => {
+                setProcessData(res.data.result);
+                console.log(res.data.result);
+                console.log("processData", processData);
+                return res.data;
+            }).catch(err => console.log(err));
+        }
+
         setAwhile(true);
         getProjectDetail();
+        getProcessList();
 
     }, [ref_proj_id])
 
@@ -84,45 +139,45 @@ export const ProjectDetail = (props) => {
             <Grid container spacing={4}>
                 <Grid item xs={12} md={12} lg={12}>
                     <Paper elevation={4}>
-                        <Typography
-                            className={`${classes.indent} + ${classes.lh_2}`}
-                            variant="h4"
-                        >
-                            {projectData.name}
-                        </Typography>
+                        <div className={classes.titleBox}>
+                            <span className={classes.mainTitle}>{projectData.name}</span>
+                            <span className={`${classes.subTitle} + ${classes.descColor}`}>{projectData.desc}</span>
+                        </div>
                     </Paper>
                 </Grid>
                 {
                     projectData ?
                         <React.Fragment>
+
+                            {/* 과업 차트 */}
                             <Grow in={awhile} style={{ transformOrigin: '0 0 0' }} timeout={awhile ? 600 : 0} >
                                 <Grid item xs={12} md={12} lg={12}>
-                                    <Paper elevation={4} className={classes.minHeight}>
+                                    <Paper elevation={4}>
                                         <Chart />
                                     </Paper>
                                 </Grid>
                             </Grow>
-                            <Grow in={awhile} style={{ transformOrigin: '0 0 0' }} timeout={awhile ? 800 : 0} >
-                                <Grid item xs={12} md={4} lg={4}>
-                                    <Paper elevation={4} className={classes.minHeight}>
-                                        영역 #1
-                                    </Paper>
-                                </Grid>
-                            </Grow>
+
+                            {/* 과업 목록 */}
+
                             <Grow in={awhile} style={{ transformOrigin: '0 0 0' }} timeout={awhile ? 1000 : 0} >
-                                <Grid item xs={12} md={4} lg={4}>
-                                    <Paper elevation={4} className={classes.minHeight}>
-                                        영역 #2
+                                <Grid item xs={12} md={12} lg={12}>
+                                    <Paper elevation={4}>
+                                        {
+                                            processData &&
+                                            processData.map((item, index) => {
+                                                return (
+                                                    <ProcessCard
+                                                        key={index}
+                                                        item={item}
+                                                    />
+                                                )
+                                            })
+                                        }
                                     </Paper>
                                 </Grid>
                             </Grow>
-                            <Grow in={awhile} style={{ transformOrigin: '0 0 0' }} timeout={awhile ? 1000 : 0} >
-                                <Grid item xs={12} md={4} lg={4}>
-                                    <Paper elevation={4} className={classes.minHeight}>
-                                        영역 #3
-                                    </Paper>
-                                </Grid>
-                            </Grow>
+
                         </React.Fragment>
                         :
                         <UICircularProgress />

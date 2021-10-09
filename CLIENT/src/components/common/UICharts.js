@@ -17,16 +17,16 @@ const styles = theme => ({
 
 const getGoneDate = days => {
     let tmp = new Date();
-    
+
     let years = tmp.getFullYear();
     let month = tmp.getMonth();
     let day = tmp.getDate() - days;
 
     const result = `${String(years)}-${String(month)}-${String(day)}`;
-    
+
     return result;
 }
- 
+
 const data = [
     {
         name: getGoneDate(20), uv: 10040, pv: 2400, amt: 7000,
@@ -61,12 +61,10 @@ class Chart extends PureComponent {
     }
 
     componentDidMount() {
-        setTimeout(() => {
-            this.setState({
-                ...this.state,
-                data: data
-            })
-        }, 1000);
+        this.setState({
+            ...this.state,
+            data: data
+        })
     }
 
     // https://api.github.com/repos/joo98e/CDMS_DEMO/commits
@@ -83,7 +81,7 @@ class Chart extends PureComponent {
                     <ResponsiveContainer width="99%" aspect={3}>
                         <LineChart
                             width={500}
-                            height={300}                            
+                            height={300}
                             data={data}
                             margin={{
                                 top: 50, right: 30, left: 20, bottom: 30,
@@ -100,7 +98,7 @@ class Chart extends PureComponent {
                         </LineChart>
                     </ResponsiveContainer>
                     :
-                    <Paper style={{minHeight : '406px'}}>
+                    <Paper style={{ minHeight: '406px' }}>
                         <UICircularProgress />
                     </Paper>
                 }

@@ -30,11 +30,9 @@ export class Landing extends Component {
         const { classes } = this.props;
         return (
             <Box className={classes.root}>
-                {/* <UICharts /> */}
-                {/* http://apis.data.go.kr/1262000/CountryCovid19SafetyServiceNew/getCountrySafetyNewsListNew?serviceKey=LwAgyVybTLt0KK2YRMagmhPRx53xp75rBqeTggtAwssoMuv1S3QIC8cE16yehXbEfaxxSAh9Q4MUu3MVPQ%2B%2Fng%3D%3D&returnType=JSON&nomOfRows=2&pageNo=1 */}
                 <React.Fragment>
                     <Grid container spacing={3}>
-                        <Grid item xs={12} md={6} lg={6}>
+                        {/* <Grid item xs={12} md={6} lg={6}>
                             <Paper className={classes.mh}>
                                 1번
                             </Paper>
@@ -43,7 +41,7 @@ export class Landing extends Component {
                             <Paper className={classes.mh}>
                                 2번
                             </Paper>
-                        </Grid>
+                        </Grid> */}
                         <Grid item xs={12} className={classes.chartsArea}>
                             <UICharts />
                         </Grid>

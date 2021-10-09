@@ -17,6 +17,7 @@ const Register = require('./routes/Register');
 const Menu = require('./routes/Menu');
 const Agency = require('./routes/Agency');
 const Project = require('./routes/Project');
+const Process = require('./routes/Process');
 const Policy = require('./routes/Policy');
 const Util = require('./routes/Util');
 
@@ -30,6 +31,7 @@ app.use('/api/register', Register);
 // 라우터 에이전시, 프로젝트
 app.use('/api/agency', Agency);
 app.use('/api/project', Project);
+app.use('/api/process', Process);
 
 // 라우터 렌더링 필요 요소
 app.use('/api/menu', Menu);

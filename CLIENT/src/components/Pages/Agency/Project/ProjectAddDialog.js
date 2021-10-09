@@ -227,10 +227,7 @@ export default function FullScreenDialog() {
             ..._projectInfo,
             ref_agcy_id: ref_agcy_id,
         };
-
-        console.log(_projectInfo);
-        return;
-
+        
         const config = {
             headers: {
                 "content-type": "application/json"

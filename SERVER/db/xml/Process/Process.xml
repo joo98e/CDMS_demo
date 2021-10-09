@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Process">
+    <select id="getColgMain">
+        SELECT 
+            proc.id AS process_id,
+            proc.`name` AS process_name,
+            proc.`desc` AS process_desc,
+            proc.cur_task,
+            proc.total_task,
+            proc.`status`,
+            proc.start_date,
+            proc.end_date,
+            colg.`type`,
+            mem.full_name,
+            mem.nickname,
+            org_dept.`name` AS dept_name,
+            org_rank.`name` AS rank_name,
+            mem.avatar_path
+        FROM
+            tb_agcy_proj_proc AS proc
+        LEFT JOIN 
+            tb_agcy_proj_proc_colleague as colg
+            ON proc.id = colg.ref_task_id
+        LEFT JOIN 
+            tb_member AS mem
+            ON mem.seq = colg.ref_colleague_seq 
+        LEFT JOIN
+            tb_org_structure AS org_dept
+            ON org_dept.id = mem.dept_no
+        LEFT JOIN
+            tb_org_structure AS org_rank
+            ON org_rank.id = mem.rank_no
+        WHERE
+            proc.delete_yn = #{delete_yn}
+            AND colg.type = #{colg_type}
+            AND proc.ref_proj_id = #{ref_proj_id}
+    </select>
+</mapper>

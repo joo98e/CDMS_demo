@@ -18,16 +18,30 @@ const theme = {
                 default: "#2a3c4e",
                 paper: "#3c4f64",
                 button: "#7ca2c9",
+                modal : "rgba(0,0,0,0.2)"
             },
             text: {
-                primary: "#eaeaea",
-                secondary: "#dddddd",
-                hint: "#e7e7e7",
-                disabled: "#e7e7e7"
+                primary: "#EAEAEA",
+                secondary: "#DDDDDD",
+                hint: "#E7E7E7",
+                disabled: "#E7E7E7",
+                desc : "#DDDDDD"
+            },
+            chart: {
+                main: "",
+                sub: "",
+                text : {
+                    main : "#2D2D2D",
+                    sub : "#565656"
+                }
+            },
+            // 실제 버튼 영역
+            grey : {
+                A100 : "#193048"
             }
         },
     }),
-    
+
     dark: createTheme({
         palette: {
             type: 'dark',
@@ -59,6 +73,7 @@ const theme = {
             },
             text: {
                 primary: "#000000",
+                desc : "#363636"
             }
         },
     }),

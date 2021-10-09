@@ -1,11 +1,13 @@
 import React, { PureComponent } from 'react';
 
 import {
-    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
+    XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
+    BarChart, Bar
+
 } from 'recharts';
 
 import axios from 'axios';
-import { Paper, withStyles } from '@material-ui/core'
+import { withStyles } from '@material-ui/core'
 import UICircularProgress from '../../../../common/UICircularProgress'
 
 const styles = theme => ({
@@ -28,26 +30,47 @@ const getGoneDate = days => {
 
 const data = [
     {
-        name: getGoneDate(20), uv: 10040, pv: 2400, amt: 7000,
+        name: "Page A",
+        uv: 4000,
+        pv: 2400,
+        amt: 2400
     },
     {
-        name: getGoneDate(15), uv: 3000, pv: 1398, amt: 2210,
+        name: "Page B",
+        uv: 3000,
+        pv: 1398,
+        amt: 2210
     },
     {
-        name: getGoneDate(7), uv: 2000, pv: 9800, amt: 2290,
+        name: "Page C",
+        uv: 2000,
+        pv: 9800,
+        amt: 2290
     },
     {
-        name: getGoneDate(5), uv: 2780, pv: 12000, amt: 2000,
+        name: "Page D",
+        uv: 2780,
+        pv: 3908,
+        amt: 2000
     },
     {
-        name: getGoneDate(3), uv: 1890, pv: 4800, amt: 2181,
+        name: "Page E",
+        uv: 1890,
+        pv: 4800,
+        amt: 2181
     },
     {
-        name: getGoneDate(2), uv: 2390, pv: 3800, amt: 2500,
+        name: "Page F",
+        uv: 2390,
+        pv: 3800,
+        amt: 2500
     },
     {
-        name: getGoneDate(1), uv: 3490, pv: 4300, amt: 2100,
-    },
+        name: "Page G",
+        uv: 3490,
+        pv: 4300,
+        amt: 2100
+    }
 ];
 
 class Chart extends PureComponent {
@@ -60,44 +83,52 @@ class Chart extends PureComponent {
     }
 
     componentDidMount() {
-        setTimeout(() => {
-            this.setState({
-                ...this.state,
-                data: data
-            })
-        }, 1000);
+        this.setState({
+            ...this.state,
+            data: data
+        })
     }
 
     render() {
         const { classes } = this.props;
         return (
-            <Paper>
+            <React.Fragment>
                 {this.state.data ?
-                    <ResponsiveContainer width="99%" aspect={3}>
-                        <LineChart
-                            width={500}
-                            height={300}
+                    <ResponsiveContainer width="95%" aspect={3}>
+                        <BarChart
+                            width={200}
+                            height={100}
                             data={data}
                             margin={{
-                                top: 50, right: 30, left: 20, bottom: 30,
+                                top: 50,
+                                right: 50,
+                                left: 50,
+                                bottom: 50
                             }}
                         >
-                            <CartesianGrid strokeDasharray="4 4" />
-                            <XAxis dataKey="name" stroke="#8884d8" />
-                            <YAxis stroke="#8884d8" />
-                            <Tooltip />
+                            <CartesianGrid strokeDasharray="3 3" />
+
+
+                            <XAxis dataKey="name"
+                                onClick={() => console.log(1)}
+                                tick={{ stroke: '#FFF' }}
+                                style={{
+                                    cursor: "pointer"
+                                }}
+                            />
+                            <YAxis
+                                tick={{ stroke: '#FFF' }}
+                            />
+                            <Tooltip cursor={false} />
                             <Legend />
-                            <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-                            <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-                            <Line type="monotone" dataKey="amt" stroke="#82ca9d" />
-                        </LineChart>
+                            <Bar dataKey="pv" stackId="a" fill="#8884d8" />
+                            <Bar dataKey="uv" stackId="a" fill="#82ca9d" />
+                        </BarChart>
                     </ResponsiveContainer>
                     :
-                    <Paper style={{ minHeight: '406px' }}>
-                        <UICircularProgress />
-                    </Paper>
+                    <UICircularProgress />
                 }
-            </Paper>
+            </React.Fragment>
         );
 
     }

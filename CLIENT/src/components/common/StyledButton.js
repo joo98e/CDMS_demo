@@ -19,10 +19,9 @@ export class StyledButton extends Component {
     }
     
     render() {
-        // const { classes } = this.props;
+        
         return (
             <Button
-                // className={classes.sssss}
                 variant={this.props.variant ? this.props.variant : 'outlined'}
                 size={this.props.size ? this.props.size : 'small'}
             >
