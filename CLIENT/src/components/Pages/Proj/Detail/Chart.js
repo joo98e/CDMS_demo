@@ -1,12 +1,10 @@
 import React, { PureComponent } from 'react';
-
+import { connect } from 'react-redux';
 import {
     XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
     BarChart, Bar
-
 } from 'recharts';
 
-import axios from 'axios';
 import { withStyles } from '@material-ui/core'
 import UICircularProgress from '../../../common/UICircularProgress'
 
@@ -15,51 +13,6 @@ const styles = theme => ({
         marginTop: theme.spacing(4)
     }
 });
-
-const data = [
-    {
-        name: "Page A",
-        uv: 4000,
-        pv: 2400,
-        amt: 2400
-    },
-    {
-        name: "Page B",
-        uv: 3000,
-        pv: 1398,
-        amt: 2210
-    },
-    {
-        name: "Page C",
-        uv: 2000,
-        pv: 9800,
-        amt: 2290
-    },
-    {
-        name: "Page D",
-        uv: 2780,
-        pv: 3908,
-        amt: 2000
-    },
-    {
-        name: "Page E",
-        uv: 1890,
-        pv: 4800,
-        amt: 2181
-    },
-    {
-        name: "Page F",
-        uv: 2390,
-        pv: 3800,
-        amt: 2500
-    },
-    {
-        name: "Page G",
-        uv: 3490,
-        pv: 4300,
-        amt: 2100
-    }
-];
 
 class Chart extends PureComponent {
     constructor(props) {
@@ -73,44 +26,38 @@ class Chart extends PureComponent {
     componentDidMount() {
         this.setState({
             ...this.state,
-            data: data
+            data: this.props.data
         })
     }
 
     render() {
-        const { classes } = this.props;
+        const { classes, data } = this.props;
+
         return (
             <React.Fragment>
                 {this.state.data ?
-                    <ResponsiveContainer width="95%" aspect={3}>
+                    <ResponsiveContainer width="95%" aspect={4}>
                         <BarChart
-                            width={200}
-                            height={100}
+                            width={600}
+                            height={300}
                             data={data}
-                            margin={{
-                                top: 50,
-                                right: 50,
-                                left: 50,
-                                bottom: 50
-                            }}
+                            layout="vertical"
+                            margin={{ top: 30, bottom: 30 }}
                         >
-                            <CartesianGrid strokeDasharray="3 3" />
-
-
-                            <XAxis dataKey="name"
-                                onClick={() => console.log(1)}
+                            <XAxis
+                                type="number"
                                 tick={{ stroke: '#FFF' }}
-                                style={{
-                                    cursor: "pointer"
-                                }}
                             />
                             <YAxis
+                                type="category" dataKey="process_name"
                                 tick={{ stroke: '#FFF' }}
                             />
+
+                            <CartesianGrid strokeDasharray="3 3" />
                             <Tooltip cursor={false} />
                             <Legend />
-                            <Bar dataKey="pv" stackId="a" fill="#8884d8" />
-                            <Bar dataKey="uv" stackId="a" fill="#82ca9d" />
+                            <Bar barSize={20} dataKey="cur_task" stackId="a" fill={this.props.theme.palette.background.default} />
+                            <Bar barSize={20} dataKey="total_task" stackId="a" fill={"rgba(255,255,255,0.2)"} />
                         </BarChart>
                     </ResponsiveContainer>
                     :
@@ -122,4 +69,9 @@ class Chart extends PureComponent {
     }
 }
 
-export default withStyles(styles)(Chart)
+const mapStateToProps = (state) => {
+    return {
+        theme: state.UI.theme
+    }
+}
+export default connect(mapStateToProps)(withStyles(styles)(Chart))

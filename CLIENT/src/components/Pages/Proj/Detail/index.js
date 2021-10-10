@@ -14,18 +14,19 @@
 
 
 
-import React, { useState, useSelector, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux'
 import { useParams } from 'react-router';
 import axios from 'axios'
 
 import {
-    Box, Divider, Grid, Grow, makeStyles, Paper, Typography
+    Box, Grid, Grow, makeStyles, Paper, IconButton
 } from "@material-ui/core"
 
-import UICircularProgress from '../../../common/UICircularProgress'
 import Chart from "./Chart"
-import { ProcessCard } from '../../Process/ProcessCard';
+import ProcessCard from '../../Process/ProcessCard';
+import UICircularProgress from '../../../common/UICircularProgress'
+import { AddCircleIcon } from '../../../common/CustomIcons';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -36,8 +37,11 @@ const useStyles = makeStyles(theme => ({
         boxSizing: "border-box",
         padding: theme.spacing(4)
     },
+    relative : {
+        position : "relative"
+    },
     minHeight: {
-        minHeight: theme.spacing(30)
+        minHeight: theme.spacing(40)
     },
     indent: {
         textIndent: theme.spacing(2)
@@ -62,12 +66,12 @@ const useStyles = makeStyles(theme => ({
     },
     titleBox: {
         display: "flex",
-        padding : theme.spacing(1),
+        padding: theme.spacing(1),
         whiteSpace: "nowrap",
         textOverflow: "ellipsis",
         overflow: 'hidden',
-        textIndent : theme.spacing(1),
-        flexDirection : "column"
+        textIndent: theme.spacing(1),
+        flexDirection: "column"
     },
     mainTitle: {
         display: "inline-block",
@@ -81,7 +85,13 @@ const useStyles = makeStyles(theme => ({
     },
     descColor: {
         color: theme.palette.text.desc
-    }
+    },  
+    trans: {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)'
+    },
 }));
 
 export const ProjectDetail = (props) => {
@@ -104,7 +114,6 @@ export const ProjectDetail = (props) => {
                 params: condition
             }).then((res) => {
                 setProjectData(...res.data.result);
-                console.log(...res.data.result);
                 return res.data;
             });
         }
@@ -121,8 +130,7 @@ export const ProjectDetail = (props) => {
                 params: condition
             }).then((res) => {
                 setProcessData(res.data.result);
-                console.log(res.data.result);
-                console.log("processData", processData);
+                console.log("processData", res.data.result);
                 return res.data;
             }).catch(err => console.log(err));
         }
@@ -152,7 +160,9 @@ export const ProjectDetail = (props) => {
                             <Grow in={awhile} style={{ transformOrigin: '0 0 0' }} timeout={awhile ? 600 : 0} >
                                 <Grid item xs={12} md={12} lg={12}>
                                     <Paper elevation={4}>
-                                        <Chart />
+                                        <Chart 
+                                            data={processData}
+                                        />
                                     </Paper>
                                 </Grid>
                             </Grow>
@@ -161,7 +171,7 @@ export const ProjectDetail = (props) => {
 
                             <Grow in={awhile} style={{ transformOrigin: '0 0 0' }} timeout={awhile ? 1000 : 0} >
                                 <Grid item xs={12} md={12} lg={12}>
-                                    <Paper elevation={4}>
+                                    <Paper elevation={4} className={classes.minHeight}>
                                         {
                                             processData &&
                                             processData.map((item, index) => {
@@ -176,7 +186,16 @@ export const ProjectDetail = (props) => {
                                     </Paper>
                                 </Grid>
                             </Grow>
+                            <Grow in={awhile} style={{ transformOrigin: '0 0 0' }} timeout={awhile ? 1000 : 0} >
+                                <Grid item xs={12} md={12} lg={12}>
+                                    <Paper elevation={4} className={`${classes.minHeight} + ${classes.relative}`}>
+                                        <IconButton color="inherit" className={classes.trans}>
+                                            {AddCircleIcon}
+                                        </IconButton>
+                                    </Paper>
+                                </Grid>
 
+                            </Grow>
                         </React.Fragment>
                         :
                         <UICircularProgress />

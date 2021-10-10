@@ -9,6 +9,7 @@ import {
 
 import { LockOpenIcon } from './CustomIcons';
 import UISidebar from './UISideBar';
+import UISkeletonAvatar from './UISkeletonAvatar'
 
 const styles = theme => ({
     root: {
@@ -20,8 +21,21 @@ const styles = theme => ({
     mr: {
         marginRight: theme.spacing(2),
     },
+    mb1: {
+        paddingBottom: theme.spacing(1)
+    },
     title: {
         flewGrow: 1
+    },
+    writerBox: {
+        display: "inline-block",
+        margin: theme.spacing(2),
+        paddingTop: theme.spacing(1),
+        paddingBottom: theme.spacing(1),
+        paddingLeft: theme.spacing(2),
+        paddingRight: theme.spacing(2),
+        borderRadius: theme.spacing(2),
+        background: theme.palette.background.default
     },
 
 });
@@ -34,7 +48,7 @@ export class MyNav extends Component {
 
         }
     }
-    
+
 
     render() {
         const { classes } = this.props;
@@ -51,7 +65,7 @@ export class MyNav extends Component {
                             </Typography>
                         </Box>
 
-                        
+
 
                         {this.props.user.auth ?
                             <Tooltip title="로그아웃">
@@ -68,7 +82,17 @@ export class MyNav extends Component {
                                 정상적인 접근이 아닙니다. 세션을 종료하세요.
                             </Typography>
                         }
-                        
+
+                        <div
+                            className={classes.writerBox}
+                        >
+                            <UISkeletonAvatar
+                                className={classes.mb1}
+                                src={this.props.user.member.avatar_path}
+                                alt={this.props.user.member.nickname}
+                            />
+                        </div>
+
                     </Toolbar>
                 </AppBar>
             </div>
@@ -78,7 +102,7 @@ export class MyNav extends Component {
 
 const mapStateToProps = (state) => ({
     user: state.User,
-    pathGuider : state.UI.pathGuider
+    pathGuider: state.UI.pathGuider
 })
 
 const mapDispatchToProps = (dispatch) => {

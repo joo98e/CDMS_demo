@@ -12,7 +12,6 @@ import {
 } from "@material-ui/core"
 
 import UISkeletonAvatar from "../../common/UISkeletonAvatar"
-import getDateFormat from "../../common/fn/getDateFormat"
 import ProcessCardChart from './ProcessCardChart';
 import { Bar } from 'react-chartjs-2';
 
@@ -24,9 +23,6 @@ const useStyles = makeStyles(theme => ({
         minHeight: "90vh",
         boxSizing: "border-box",
         padding: theme.spacing(4)
-    },
-    relative: {
-        position: `relative`
     },
     inline: {
         display: 'inline'
@@ -63,14 +59,14 @@ const useStyles = makeStyles(theme => ({
         paddingBottm: theme.spacing(1)
     },
     writerBox: {
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        width: theme.spacing(12),
-        height: theme.spacing(12),
+        display: "inline-block",
         margin: theme.spacing(2),
+        paddingTop: theme.spacing(1),
+        paddingBottom: theme.spacing(1),
+        paddingLeft: theme.spacing(2),
+        paddingRight: theme.spacing(2),
         borderRadius: theme.spacing(2),
-        background: theme.palette.background.default,
+        background: theme.palette.background.default
     },
     titleBox: {
         position: "relative",
@@ -107,26 +103,26 @@ export const ProcessCard = (props) => {
     const theme = useSelector(state => state.UI.theme)
 
     const data = {
-        labels: [props.item.process_name],
+        labels: ['기획'],
         datasets: [
             {
                 label: '현황',
                 backgroundColor: theme.palette.background.default,
                 borderColor: theme.palette.background.paper,
                 borderWidth: 1,
-                hoverBackgroundColor: theme.palette.background.paper,
+                hoverBackgroundColor: 'rgba(255, 255, 255, 0.4)',
                 hoverBorderColor: theme.palette.text.disable,
-                data: [props.item.cur_task, props.item.total_task],
+                data: [2, 10],
             }
         ]
     };
-    console.log(props.item.total_task);
+
     return (
         <React.Fragment>
             <div className={classes.titleBox}>
                 <span className={classes.mainTitle}>{props.item.process_name}</span>
                 <span className={`${classes.subTitle} + ${classes.descColor}`}>{props.item.process_desc}</span>
-                <Button size="large" variant="outlined" className={classes.more}>MORE</Button>
+                <Button size="large" variant="outlined" className={classes.more}>자세히</Button>
             </div>
             <Divider />
             <Grid container spacing={3} className={classes.bdBox}>
@@ -134,17 +130,40 @@ export const ProcessCard = (props) => {
                     <Paper className={`${classes.minHeight} + ${classes.mt2}`}>
                         <Bar
                             data={data}
-                            width={25} height={25}
+                            width={25}
+                            height={25}
                             options={{
-                                layout: { padding: 20 },
+                                layout : {
+                                    padding : 20
+                                },
                                 maintainAspectRatio: false,
                                 plugins: {
+                                    layout : {
+                                        padding : 20
+                                    },
                                     legend: {
-                                        display: false,
+                                        display: true,
+                                        title : {
+                                            display : true,
+                                            text : "현황",
+                                            color : "#FFF",
+                                            font : {
+                                                family : "NanumSquareRound",
+                                                size : theme.spacing(2)
+                                            }
+                                        },
+                                        labels: {
+                                            font: {
+                                                family: "NanumSquareRound",
+                                            }
+                                        }
+                                    },
+                                }, scales: {
+                                    xAxis: {
+                                        
                                     }
                                 }
                             }}
-                            style={{ background: "#FFF", borderRadius: theme.spacing(2) }}
                         />
                         {/* <ProcessCardChart
                             columnName={props.item.process_name}
@@ -159,52 +178,41 @@ export const ProcessCard = (props) => {
                         /> */}
                     </Paper>
                 </Grid>
-                <Grid item xs={12} md={5} lg={5}>
-                    <Paper className={`${classes.mt2} + ${classes.minHeight}`}>
+                <Grid item xs={12} md={10} lg={10}>
+                    <Paper className={`${classes.minHeight} + ${classes.mt2}`}>
                         <Typography variant="body1" className={`${classes.indent} + ${classes.hiddenText}`}>
-                            최근 활동
+                            세부 정보
                         </Typography>
-                    </Paper>
-                    <Grid container spacing={1}>
-                        <Grid item xs={6} md={6} lg={6} className={`${classes.minHeight} + ${classes.relative}`}>
-                        </Grid>
-                    </Grid>
-                </Grid>
 
-                <Grid item xs={12} md={5} lg={5}>
-                    <Paper className={`${classes.mt2}`}>
-                        <Typography variant="body1" className={`${classes.indent} + ${classes.hiddenText}`}>
-                            주담당자
-                        </Typography>
+                        {/* 그리드 없이 플렉스로 */}
                         <Grid container spacing={1}>
-                            <Grid item xs={6} md={6} lg={6} className={`${classes.minHeight} + ${classes.relative}`}>
-                                <div className={`${classes.writerBox} + ${classes.minHeight}`}>
+                            <Grid item xs={3} md={3} lg={3}>
+                                <div
+                                    className={classes.writerBox}
+                                >
                                     <UISkeletonAvatar
-                                        className={classes.flexItem}
                                         src={props.item.avatar_path}
                                         alt={props.item.nickname}
                                     />
-                                    <Typography className={classes.flexItem} component="div" align="center" variant="body1">
-                                        {props.item.nickname}
-                                    </Typography>
+                                    {props.item.nickname}
                                 </div>
                             </Grid>
-                            <Grid item xs={6} md={6} lg={6} className={classes.minHeight}>
+                            <Grid item xs={9} md={9} lg={9}>
                                 <div
                                     className={classes.m2}
                                 >
-                                    <Typography variant="body1">
+                                    <Typography variant="body1" className={classes.lh_2}>
                                         {props.item.dept_name}
                                     </Typography>
-                                    <Typography variant="body1">
+                                    <Typography variant="body1" className={classes.lh_2}>
                                         {props.item.rank_name}
                                     </Typography>
                                 </div>
                             </Grid>
                         </Grid>
                     </Paper>
-
                 </Grid>
+
             </Grid>
         </React.Fragment>
     )

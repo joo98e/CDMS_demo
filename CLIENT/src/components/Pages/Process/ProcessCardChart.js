@@ -50,30 +50,27 @@ class Chart extends PureComponent {
         return (
             <React.Fragment>
                 {data ?
-                    <ResponsiveContainer width="100%" aspect={3}>
+                    <ResponsiveContainer width="95%" aspect={4}>
                         <BarChart
                             data={data}
                             width={200}
                             height={200}
-                            margin={{
-                                top: 10,
-                                bottom: 10,
-                                left: 20,
-                                right: 20
-                            }}
+                            layout="vertical"
+                            margin={{ top: 30, bottom: 30 }}
                         >
                             <CartesianGrid strokeDasharray="4 4" />
 
                             <XAxis
-                                dataKey="name"
+                                type="number"
                                 tick={{ stroke: this.props.theme.palette.text.primary }}
                             />
                             <YAxis
+                                type="category" dataKey="process_name"
                                 tick={{ stroke: this.props.theme.palette.text.primary }}
                             />
 
-                            <Bar barSize={100} dataKey="MIN" stackId="a" fill={this.props.theme.palette.background.default} />
-                            <Bar barSize={100} dataKey="MAX" stackId="a" fill={"rgba(255,255,255,0.2)"} />
+                            <Bar barSize={20} dataKey="MIN" stackId="a" fill={this.props.theme.palette.background.default} />
+                            <Bar barSize={20} dataKey="MAX" stackId="a" fill={"rgba(255,255,255,0.2)"} />
                         </BarChart>
                     </ResponsiveContainer>
                     :
