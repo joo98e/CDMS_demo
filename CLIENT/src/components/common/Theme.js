@@ -4,6 +4,14 @@ import { purple, teal, blue, blueGrey, orange } from "@material-ui/core/colors";
 const theme = {
     nature: createTheme({
         palette: {
+            action: {
+                active: "rgba(255, 255, 255, 0.8)",
+                hover: "rgba(255, 255, 255, 0.04)",
+                disabled : "rgba(255, 255, 255, 0.8)",
+                disabledBackground : "rgba(255, 255, 255, 0.8)",
+                focus : "rgba(255, 255, 255, 0.04)",
+                selected: "rgba(255, 255, 255, 0.8)"
+            },
             primary: {
                 main: "#1B2631",
                 light: "#7d8e9e",
@@ -24,19 +32,19 @@ const theme = {
                 secondary: "#DDDDDD",
                 hint: "#E7E7E7",
                 disabled: "#E7E7E7",
-                desc : "#DDDDDD"
+                desc: "#DDDDDD"
             },
             chart: {
                 main: "",
                 sub: "",
-                text : {
-                    main : "#2D2D2D",
-                    sub : "#565656"
+                text: {
+                    main: "#2D2D2D",
+                    sub: "#565656"
                 }
             },
             // 실제 버튼 영역
-            grey : {
-                A100 : "#193048"
+            grey: {
+                A100: "#193048"
             }
         },
     }),

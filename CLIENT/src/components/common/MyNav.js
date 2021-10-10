@@ -1,13 +1,19 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import * as actions from '../../redux/action/UserInfoAction'
 
 import {
-    Box, AppBar, Toolbar, IconButton, Typography, withStyles, Tooltip
+    Box, AppBar, Toolbar, IconButton, Typography, withStyles, Tooltip, Menu, MenuItem, Divider, ListItemIcon, Avatar, Badge
 } from '@material-ui/core';
 
-import { LockOpenIcon } from './CustomIcons';
+import {
+    LockOpenIcon,
+    NotificationsActiveIcon,
+    ExitToAppIcon,
+    InfoIcon,
+    HelpIcon
+} from './CustomIcons';
 import UISidebar from './UISideBar';
 import UISkeletonAvatar from './UISkeletonAvatar'
 
@@ -45,13 +51,54 @@ export class MyNav extends Component {
         super(props)
 
         this.state = {
-
+            open: false,
+            anchorEI: null
         }
     }
 
+    handleOpenMenu = event => {
+        this.setState({ ...this.state, open: !this.state.open ? true : false, anchorEI: event.currentTarget });
+    }
+
+    handleCloseMenu = () => {
+        this.setState({ ...this.state, open: !this.state.open ? true : false });
+    }
+
+    handleLogout = () => {
+        this.props.history.push('/login');
+        this.props.handleSessionQuit();
+    }
 
     render() {
         const { classes } = this.props;
+
+
+        const menuList = [
+            {
+                name: "프로필",
+                icon:
+                    <Badge badgeContent={0} color="secondary">
+                        {InfoIcon}
+                    </Badge>,
+                fn: null,
+                Divider: true
+            },
+            {
+                name: "알림 확인",
+                icon: NotificationsActiveIcon,
+                fn: null
+            },
+            {
+                name: "도움말",
+                icon: HelpIcon,
+                fn: null
+            },
+            {
+                name: "로그아웃",
+                icon: ExitToAppIcon,
+                fn: this.handleLogout
+            },
+        ]
 
         return (
             <div className={classes.root}>
@@ -67,7 +114,7 @@ export class MyNav extends Component {
 
 
 
-                        {this.props.user.auth ?
+                        {/* {this.props.user.auth ?
                             <Tooltip title="로그아웃">
                                 <Link to="/login">
                                     <IconButton color="inherit" onClick={this.props.handleSessionQuit}>
@@ -81,17 +128,49 @@ export class MyNav extends Component {
                             >
                                 정상적인 접근이 아닙니다. 세션을 종료하세요.
                             </Typography>
-                        }
+                        } */}
 
-                        <div
-                            className={classes.writerBox}
+                        <Tooltip title="메뉴">
+                            <IconButton
+                                onClick={this.handleOpenMenu}
+                            >
+                                <UISkeletonAvatar
+                                    className={classes.mb1}
+                                    src={this.props.user.member.avatar_path}
+                                    alt={this.props.user.member.nickname}
+                                />
+                            </IconButton>
+                        </Tooltip>
+                        <Menu
+                            open={this.state.open}
+                            anchorEl={this.state.anchorEI}
+                            onClose={this.handleCloseMenu}
+                            MenuListProps={{
+                                'aria-labelledby': 'lock-button',
+                                role: 'listbox',
+                            }}
                         >
-                            <UISkeletonAvatar
-                                className={classes.mb1}
-                                src={this.props.user.member.avatar_path}
-                                alt={this.props.user.member.nickname}
-                            />
-                        </div>
+                            {
+                                menuList &&
+                                menuList.map((item, index) => {
+                                    return (
+                                        <React.Fragment>
+                                            <MenuItem
+                                                key={index}
+                                                onClick={item.fn !== null ? item.fn : ""}
+                                                style={{minHeight : "60px"}}
+                                            >
+                                                <ListItemIcon>
+                                                    {item.icon}
+                                                </ListItemIcon>
+                                                {item.name}
+                                            </MenuItem>
+                                            {item.Divider && <Divider />}
+                                        </React.Fragment>
+                                    )
+                                })
+                            }
+                        </Menu>
 
                     </Toolbar>
                 </AppBar>
@@ -111,4 +190,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(MyNav))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withRouter(MyNav)))

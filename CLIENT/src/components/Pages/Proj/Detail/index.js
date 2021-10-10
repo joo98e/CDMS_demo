@@ -20,7 +20,7 @@ import { useParams, useHistory } from 'react-router';
 import axios from 'axios'
 
 import {
-    Box, Grid, Grow, makeStyles, Paper, IconButton
+    Box, Grid, Grow, makeStyles, Paper, IconButton, Typography
 } from "@material-ui/core"
 
 import Chart from "./Chart"
@@ -172,9 +172,9 @@ export const ProjectDetail = (props) => {
 
                             <Grow in={awhile} style={{ transformOrigin: '0 0 0' }} timeout={awhile ? 1000 : 0} >
                                 <Grid item xs={12} md={12} lg={12}>
-                                    <Paper elevation={4} className={classes.minHeight}>
+                                    <Paper elevation={4} className={`${classes.minHeight} + ${classes.relative}`}>
                                         {
-                                            processData &&
+                                            (processData && processData.length !== 0) ?
                                             processData.map((item, index) => {
                                                 return (
                                                     <ProcessCard
@@ -183,7 +183,12 @@ export const ProjectDetail = (props) => {
                                                     />
                                                 )
                                             })
+                                            :
+                                            <Typography className={classes.trans} variant="h6" component="div">
+                                                진행중인 프로세스가 없습니다.
+                                            </Typography>
                                         }
+
                                     </Paper>
                                 </Grid>
                             </Grow>
@@ -193,7 +198,7 @@ export const ProjectDetail = (props) => {
                                         <IconButton
                                             className={classes.trans}
                                             color="inherit"
-                                            onClick={() => {history.push('/agency/project/process/add')}}
+                                            onClick={() => { history.push('/agency/project/process/add') }}
                                         >
                                             {AddCircleIcon}
                                         </IconButton>
