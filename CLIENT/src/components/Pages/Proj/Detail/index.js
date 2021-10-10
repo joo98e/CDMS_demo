@@ -16,7 +16,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux'
-import { useParams } from 'react-router';
+import { useParams, useHistory } from 'react-router';
 import axios from 'axios'
 
 import {
@@ -37,8 +37,8 @@ const useStyles = makeStyles(theme => ({
         boxSizing: "border-box",
         padding: theme.spacing(4)
     },
-    relative : {
-        position : "relative"
+    relative: {
+        position: "relative"
     },
     minHeight: {
         minHeight: theme.spacing(40)
@@ -85,7 +85,7 @@ const useStyles = makeStyles(theme => ({
     },
     descColor: {
         color: theme.palette.text.desc
-    },  
+    },
     trans: {
         position: 'absolute',
         top: '50%',
@@ -96,6 +96,7 @@ const useStyles = makeStyles(theme => ({
 
 export const ProjectDetail = (props) => {
     const classes = useStyles();
+    const history = useHistory();
     const { ref_proj_id } = useParams();
 
     const [awhile, setAwhile] = useState(false);
@@ -160,7 +161,7 @@ export const ProjectDetail = (props) => {
                             <Grow in={awhile} style={{ transformOrigin: '0 0 0' }} timeout={awhile ? 600 : 0} >
                                 <Grid item xs={12} md={12} lg={12}>
                                     <Paper elevation={4}>
-                                        <Chart 
+                                        <Chart
                                             data={processData}
                                         />
                                     </Paper>
@@ -189,7 +190,11 @@ export const ProjectDetail = (props) => {
                             <Grow in={awhile} style={{ transformOrigin: '0 0 0' }} timeout={awhile ? 1000 : 0} >
                                 <Grid item xs={12} md={12} lg={12}>
                                     <Paper elevation={4} className={`${classes.minHeight} + ${classes.relative}`}>
-                                        <IconButton color="inherit" className={classes.trans}>
+                                        <IconButton
+                                            className={classes.trans}
+                                            color="inherit"
+                                            onClick={() => {history.push('/agency/project/process/add')}}
+                                        >
                                             {AddCircleIcon}
                                         </IconButton>
                                     </Paper>

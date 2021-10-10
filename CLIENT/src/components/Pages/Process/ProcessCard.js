@@ -50,6 +50,9 @@ const useStyles = makeStyles(theme => ({
     mt2: {
         marginTop: theme.spacing(2)
     },
+    mt4 : {
+        marginTop: theme.spacing(5)
+    },
     mb1: {
         marginBottom: theme.spacing(1)
     },
@@ -69,6 +72,7 @@ const useStyles = makeStyles(theme => ({
         width: theme.spacing(12),
         height: theme.spacing(12),
         margin: theme.spacing(2),
+        marginTop: theme.spacing(4),
         borderRadius: theme.spacing(2),
         background: theme.palette.background.default,
     },
@@ -161,45 +165,52 @@ export const ProcessCard = (props) => {
                 </Grid>
                 <Grid item xs={12} md={5} lg={5}>
                     <Paper className={`${classes.mt2} + ${classes.minHeight}`}>
-                        <Typography variant="body1" className={`${classes.indent} + ${classes.hiddenText}`}>
+                        <Typography variant="h6" className={`${classes.indent} + ${classes.hiddenText}`}>
                             최근 활동
                         </Typography>
                     </Paper>
                     <Grid container spacing={1}>
-                        <Grid item xs={6} md={6} lg={6} className={`${classes.minHeight} + ${classes.relative}`}>
+                        <Grid item xs={6} md={6} lg={6}>
                         </Grid>
                     </Grid>
                 </Grid>
 
                 <Grid item xs={12} md={5} lg={5}>
-                    <Paper className={`${classes.mt2}`}>
-                        <Typography variant="body1" className={`${classes.indent} + ${classes.hiddenText}`}>
+                    <Paper className={`${classes.mt2} + ${classes.minHeight}`}>
+                        <Typography variant="h6" className={`${classes.indent} + ${classes.hiddenText}`}>
                             주담당자
                         </Typography>
                         <Grid container spacing={1}>
-                            <Grid item xs={6} md={6} lg={6} className={`${classes.minHeight} + ${classes.relative}`}>
+                            <Grid item xs={3} md={3} lg={3}>
                                 <div className={`${classes.writerBox} + ${classes.minHeight}`}>
                                     <UISkeletonAvatar
-                                        className={classes.flexItem}
                                         src={props.item.avatar_path}
                                         alt={props.item.nickname}
                                     />
-                                    <Typography className={classes.flexItem} component="div" align="center" variant="body1">
+                                    <Typography component="div" align="center" variant="body1">
                                         {props.item.nickname}
                                     </Typography>
                                 </div>
                             </Grid>
-                            <Grid item xs={6} md={6} lg={6} className={classes.minHeight}>
-                                <div
-                                    className={classes.m2}
-                                >
-                                    <Typography variant="body1">
-                                        {props.item.dept_name}
-                                    </Typography>
-                                    <Typography variant="body1">
-                                        {props.item.rank_name}
-                                    </Typography>
-                                </div>
+                            <Grid item xs={9} md={9} lg={9}>
+                                <Grid container spacing={2} className={classes.mt4}>
+                                    <Grid item xs={6} md={6} lg={6}>
+                                        부서
+                                    </Grid>
+                                    <Grid item xs={6} md={6} lg={6}>
+                                        <Typography variant="body1">
+                                            {props.item.dept_name}
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={6} md={6} lg={6}>
+                                        직급
+                                    </Grid>
+                                    <Grid item xs={6} md={6} lg={6}>
+                                        <Typography variant="body1">
+                                            {props.item.rank_name}
+                                        </Typography>
+                                    </Grid>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Paper>
