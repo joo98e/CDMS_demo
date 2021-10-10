@@ -18,7 +18,6 @@ const theme = {
                 default: "#2a3c4e",
                 paper: "#3c4f64",
                 button: "#7ca2c9",
-                modal : "rgba(0,0,0,0.2)"
             },
             text: {
                 primary: "#EAEAEA",
@@ -58,25 +57,25 @@ const theme = {
         },
     }),
 
-    white: createTheme({
-        palette: {
-            primary: {
-                main: "#000",
-            },
-            secondary: {
-                main: '#000000',
-            },
-            background: {
-                default: "#FFF",
-                paper: "#EEE",
-                button: "#FFFFFF",
-            },
-            text: {
-                primary: "#000000",
-                desc : "#363636"
-            }
-        },
-    }),
+    // white: createTheme({
+    //     palette: {
+    //         primary: {
+    //             main: "#000",
+    //         },
+    //         secondary: {
+    //             main: '#000000',
+    //         },
+    //         background: {
+    //             default: "#FFF",
+    //             paper: "#EEE",
+    //             button: "#FFFFFF",
+    //         },
+    //         text: {
+    //             primary: "#000000",
+    //             desc : "#363636"
+    //         }
+    //     },
+    // }),
 
     // purple: createTheme({
     //     palette: {

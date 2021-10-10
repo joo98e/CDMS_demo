@@ -7,7 +7,7 @@ import {
 
 import axios from 'axios';
 import { withStyles } from '@material-ui/core'
-import UICircularProgress from '../../../../common/UICircularProgress'
+import UICircularProgress from '../../common/UICircularProgress'
 
 const styles = theme => ({
     root: {
@@ -35,12 +35,7 @@ class Chart extends PureComponent {
             data: ""
         }
     }
-
-    componentDidMount() {
-        console.log(this.props.curValue);
-    }
-
-
+    
     render() {
         const { classes } = this.props;
 
@@ -55,9 +50,11 @@ class Chart extends PureComponent {
         return (
             <React.Fragment>
                 {data ?
-                    <ResponsiveContainer width="100%" aspect={5}>
+                    <ResponsiveContainer width="100%" aspect={3}>
                         <BarChart
                             data={data}
+                            width={200}
+                            height={200}
                             margin={{
                                 top: 10,
                                 bottom: 10,
@@ -76,7 +73,7 @@ class Chart extends PureComponent {
                             />
 
                             <Bar barSize={100} dataKey="MIN" stackId="a" fill={this.props.theme.palette.background.default} />
-                            <Bar barSize={100} dataKey="MAX" stackId="a" fill="rgba(0,0,0,0.2)" />
+                            <Bar barSize={100} dataKey="MAX" stackId="a" fill={"rgba(255,255,255,0.2)"} />
                         </BarChart>
                     </ResponsiveContainer>
                     :

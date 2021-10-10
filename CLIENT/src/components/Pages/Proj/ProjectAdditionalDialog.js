@@ -15,7 +15,7 @@ import {
     Grid, Input, Tooltip
 } from '@material-ui/core'
 
-import * as actions from '../../../../redux/action/ProducerAction'
+import * as actions from '../../../redux/action/ProducerAction'
 
 const styles = theme => ({
     flexBox: {

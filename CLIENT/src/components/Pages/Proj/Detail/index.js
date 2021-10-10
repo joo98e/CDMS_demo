@@ -23,10 +23,9 @@ import {
     Box, Divider, Grid, Grow, makeStyles, Paper, Typography
 } from "@material-ui/core"
 
-import getDateFormat from '../../../../common/fn/getDateFormat';
-import UICircularProgress from '../../../../common/UICircularProgress'
+import UICircularProgress from '../../../common/UICircularProgress'
 import Chart from "./Chart"
-import { ProcessCard } from '../Process/ProcessCard';
+import { ProcessCard } from '../../Process/ProcessCard';
 
 const useStyles = makeStyles(theme => ({
     root: {

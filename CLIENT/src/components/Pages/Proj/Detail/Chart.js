@@ -8,25 +8,13 @@ import {
 
 import axios from 'axios';
 import { withStyles } from '@material-ui/core'
-import UICircularProgress from '../../../../common/UICircularProgress'
+import UICircularProgress from '../../../common/UICircularProgress'
 
 const styles = theme => ({
     root: {
         marginTop: theme.spacing(4)
     }
 });
-
-const getGoneDate = days => {
-    let tmp = new Date();
-
-    let years = tmp.getFullYear();
-    let month = tmp.getMonth();
-    let day = tmp.getDate() - days;
-
-    const result = `${String(years)}-${String(month)}-${String(day)}`;
-
-    return result;
-}
 
 const data = [
     {

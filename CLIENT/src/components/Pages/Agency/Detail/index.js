@@ -5,17 +5,16 @@ import { withRouter } from 'react-router'
 import moment from "moment";
 
 import {
-    Grid, Box, Typography, Paper, Grow, Button,
+    Grid, Box, Typography, Paper, Grow,
     withStyles,
-    Divider,
-    Container
+    Divider
 } from "@material-ui/core"
 
 import getNow from '../../../common/fn/getNow';
 import getDateFormat from '../../../common/fn/getDateFormat';
 import UICircularProgress from '../../../common/UICircularProgress'
-import ProjectAddDialog from "../Project/ProjectAddDialog"
-import ProjectCard from '../Project/ProjectCard';
+import ProjectAddDialog from '../../Proj/ProjectAddDialog';
+import ProjectCard from '../../Proj/ProjectCard';
 
 const styles = theme => ({
     root: {
@@ -60,6 +59,9 @@ const styles = theme => ({
         overflow: 'hidden',
         marginLeft: theme.spacing(.5),
         marginRight: theme.spacing(.5)
+    },
+    subText : {
+        color : theme.palette.text.desc
     },
     relative: {
         position: "relative"
@@ -129,7 +131,7 @@ export class AgencyDetail extends Component {
 
         // 현재 프로젝트
         const condition = {
-            limit: 2,
+            // limit: 2,
             ref_agcy_id: this.props.match.params.ref_agcy_id,
             unretired : getNow(),
             order_by : "DESC",
@@ -152,7 +154,7 @@ export class AgencyDetail extends Component {
 
         // 이전 프로젝트
         const endedCondition = {
-            limit: 3,
+            // limit: 3,
             ref_agcy_id: this.props.match.params.ref_agcy_id,
             retired: getNow(),
             order_by : "DESC",
@@ -338,7 +340,7 @@ export class AgencyDetail extends Component {
                                                                     <Typography
                                                                         variant="body1"
                                                                         align="left"
-                                                                        className={classes.hiddenText}
+                                                                        className={`${classes.hiddenText} + ${classes.subText}`}
                                                                     >
                                                                         {item.value}
                                                                     </Typography>
@@ -457,7 +459,8 @@ export class AgencyDetail extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    member: state.User.member
+    member: state.User.member,
+    theme : state.UI.theme
 })
 
 const mapDispatchToProps = {

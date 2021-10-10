@@ -9,7 +9,7 @@ import Landing from './components/Pages/Landing'
 import Project from './components/Pages/_old_Project'
 import Agency from './components/Pages/Agency'
 import AgencyDetail from './components/Pages/Agency/Detail'
-import ProjectDetail from './components/Pages/Agency/Project/Detail'
+import ProjectDetail from './components/Pages/Proj/Detail'
 import PageNotFound from './components/Pages/Error/404'
 
 class App extends Component {

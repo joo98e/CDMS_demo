@@ -4,7 +4,7 @@ import axios from 'axios'
 import { useSnackbar } from 'notistack';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams  } from 'react-router-dom';
-import { setProjectInfo } from '../../../../redux/action/ProducerAction'
+import { setProjectInfo } from '../../../redux/action/ProducerAction'
 
 import {
     Container, TextField, Button, Dialog, Typography,
@@ -15,15 +15,15 @@ import {
 import ProjectAdditionalDialog from './ProjectAdditionalDialog'
 import ProjectDatePicker from './ProjectDatePicker';
 import Slide from '@material-ui/core/Slide';
-import getDateFormat from '../../../common/fn/getDateFormat';
-import FNValidator from '../../../common/FNValidator';
-import UIPersonList from '../../../common/UIPersonList';
+import getDateFormat from '../../common/fn/getDateFormat';
+import FNValidator from '../../common/FNValidator';
+import UIPersonList from '../../common/UIPersonList';
 
 import {
     BusinessIcon,
     CloseIcon,
     AddCircleIcon
-} from '../../../common/CustomIcons';
+} from '../../common/CustomIcons';
 
 const useStyles = makeStyles((theme) => ({
     appBar: {

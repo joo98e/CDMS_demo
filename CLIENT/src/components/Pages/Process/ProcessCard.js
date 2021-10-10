@@ -10,9 +10,8 @@ import {
     makeStyles
 } from "@material-ui/core"
 
-import UISkeletonAvatar from "../../../../common/UISkeletonAvatar"
+import UISkeletonAvatar from "../../common/UISkeletonAvatar"
 import ProcessCardChart from './ProcessCardChart';
-import { StyledButton } from '../../../../common/StyledButton';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -27,16 +26,23 @@ const useStyles = makeStyles(theme => ({
         display: 'inline'
     },
     minHeight: {
-        minHeight: theme.spacing(30)
+        minHeight: theme.spacing(30),
     },
     indent: {
         textIndent: theme.spacing(2)
+    },
+    bdBox : {
+        boxSizing : "border-box",
+        padding : theme.spacing(2)
     },
     lh_2: {
         lineHeight: "2em"
     },
     mt1: {
         marginTop: theme.spacing(1)
+    },
+    mt2: {
+        marginTop: theme.spacing(2)
     },
     mb1: {
         marginBottom: theme.spacing(1)
@@ -98,14 +104,12 @@ export const ProcessCard = (props) => {
             <div className={classes.titleBox}>
                 <span className={classes.mainTitle}>{props.item.process_name}</span>
                 <span className={`${classes.subTitle} + ${classes.descColor}`}>{props.item.process_desc}</span>
-                <Tooltip title="클릭하면 프로세스 페이지로 이동합니다.">
-                    <Button color="inherit" size="large" variant="contained" className={classes.more}>자세히</Button>
-                </Tooltip>
+                <Button size="large" variant="outlined" className={classes.more}>자세히</Button>
             </div>
             <Divider />
-            <Grid container spacing={3}>
+            <Grid container spacing={3} className={classes.bdBox}>
                 <Grid item xs={12} md={5} lg={5}>
-                    <Paper className={classes.m2}>
+                    <Paper className={`${classes.minHeight} + ${classes.mt2}`}>
                         <Typography variant="body1" className={`${classes.indent} + ${classes.hiddenText}`}>
                             현황
                         </Typography>
@@ -124,8 +128,8 @@ export const ProcessCard = (props) => {
                     </Paper>
                 </Grid>
                 <Grid item xs={12} md={7} lg={7}>
-                    <Paper className={classes.m2}>
-                        <Typography variant="body1" className={`${classes.indent} + ${classes.hiddenText} + ${classes.mb1} + ${classes.mt1}`}>
+                    <Paper className={`${classes.minHeight} + ${classes.mt2}`}>
+                        <Typography variant="body1" className={`${classes.indent} + ${classes.hiddenText}`}>
                             주 담당자
                         </Typography>
 

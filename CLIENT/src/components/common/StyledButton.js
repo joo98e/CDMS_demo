@@ -19,11 +19,13 @@ export class StyledButton extends Component {
     }
     
     render() {
-        
+
         return (
             <Button
+                className={this.props.classes.more}
                 variant={this.props.variant ? this.props.variant : 'outlined'}
                 size={this.props.size ? this.props.size : 'small'}
+                onClick={this.props.resultAction ? this.props.resultAction : ""}
             >
                 {this.props.contents ? this.props.contents : '내용 없음'}
             </Button>

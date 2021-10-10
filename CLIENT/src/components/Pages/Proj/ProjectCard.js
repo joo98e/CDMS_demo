@@ -8,10 +8,10 @@ import {
     Card, CardActions
 } from '@material-ui/core/';
 
-import UICardHeader from '../../../common/Card/UICardHeader';
+import UICardHeader from '../../common/Card/UICardHeader';
 import {
     EditIcon, DeleteIcon, MoreVertIcon
-} from '../../../common/CustomIcons';
+} from '../../common/CustomIcons';
 
 const useStyles = makeStyles(theme => ({
     root: {
