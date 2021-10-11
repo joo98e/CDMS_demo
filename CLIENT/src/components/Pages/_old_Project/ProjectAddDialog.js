@@ -191,13 +191,13 @@ export default function FullScreenDialog() {
     return (
         <div>
             <IconButton color="inherit" className={classes.trans} onClick={handleClickOpen}>
-                {AddCircleIcon}
+                <AddCircleIcon />
             </IconButton>
             <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
                 <AppBar className={classes.appBar} position="fixed">
                     <Toolbar>
                         <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
-                            {CloseIcon}
+                            <CloseIcon />
                         </IconButton>
                         <Typography variant="h6" className={classes.title}>
                             프로젝트 생성
@@ -211,7 +211,7 @@ export default function FullScreenDialog() {
                     <Container maxWidth="xs">
                         <Typography className={classes.stepperTitleStyle} variant="h4" align="center">
                             <IconButton color="inherit">
-                                {NotificationImportantIcon}
+                                <NotificationImportantIcon />
                             </IconButton>
                             프로젝트 생성
                         </Typography>

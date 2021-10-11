@@ -14,8 +14,25 @@ const styles = theme => ({
     exampleWrapper: {
         position: 'relative',
     },
-    speedDial: {
+    bright2222: {
         position: 'fixed',
+        "&$.MuiSpeedDial-fab": {
+            background: "#EBEBEB !important"
+        },
+        '&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft': {
+            bottom: theme.spacing(2),
+            right: theme.spacing(2),
+        },
+        '&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight': {
+            top: theme.spacing(2),
+            left: theme.spacing(2),
+        },
+    },
+    dark2222: {
+        position: 'fixed',
+        "&.MuiSpeedDial-fab": {
+            background: "#EDEDED"
+        },
         '&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft': {
             bottom: theme.spacing(2),
             right: theme.spacing(2),
@@ -28,8 +45,8 @@ const styles = theme => ({
 });
 
 const List = [
-    { id: 1, icon: ColorLensIcon, name: '테마 변경' },
-    { id: 2, icon: CachedIcon, name: '메뉴 위치 변경' },
+    { id: 1, icon: <ColorLensIcon />, name: '테마 변경' },
+    { id: 2, icon: <CachedIcon />, name: '메뉴 위치 변경' },
 ];
 
 export class UISettingsMenu extends Component {
@@ -78,13 +95,18 @@ export class UISettingsMenu extends Component {
         return (
             <div className={classes.exampleWrapper}>
                 <SpeedDial
-                    ariaLabel="SpeedDial example"
-                    className={classes.speedDial}
+                    ariaLabel="메뉴"
+                    className={
+                        this.props.nowThemeNum !== 2 ? classes.dark2222 : classes.bright2222
+                    }
                     hidden={this.state.hidden}
-                    icon={TouchAppTwoToneIcon}
+                    icon={<TouchAppTwoToneIcon />}
                     open={this.state.open}
                     onOpen={this.handleOpen}
                     onClose={this.handleClose}
+                    FabProps={{
+                        color: "primary"
+                    }}
                 >
                     {List.map((action) => (
                         <SpeedDialAction
@@ -103,6 +125,7 @@ export class UISettingsMenu extends Component {
 
 const mapStateToProps = (state) => ({
     theme: state.UI.theme,
+    nowThemeNum: state.UI.nowThemeNum,
     menuAppearPosition: state.UI.menuAppearPosition
 })
 

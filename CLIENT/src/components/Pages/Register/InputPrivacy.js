@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import * as actions from '../../../redux/action/UserInfoAction'
 import {
     Container, Grid, TextField, IconButton, Typography,
-    Box, Button, withStyles, Divider
+    Box, withStyles, Divider
 } from '@material-ui/core'
 
 import {
@@ -14,8 +14,7 @@ import {
     CheckCircleOutlineIcon,
 } from "../../common/CustomIcons";
 
-import axios from 'axios';
-import { InputProfile } from './InputProfile';
+import InputProfile from './InputProfile';
 
 const styles = theme => ({
     fullWidth: {
@@ -141,7 +140,7 @@ export class InputAccount extends PureComponent {
                                         className={classes.iconMargin}
                                         onClick={this.props.handleIdDuplicateCheck}
                                     >
-                                        {this.props.registerMember.idCheck ? CheckCircleOutlineIcon : RadioButtonUncheckedIcon}
+                                        {this.props.registerMember.idCheck ? <CheckCircleOutlineIcon /> : <RadioButtonUncheckedIcon />}
                                     </IconButton>
                                 </Box>
                             </Container>
@@ -168,7 +167,7 @@ export class InputAccount extends PureComponent {
                                         className={classes.iconMargin}
                                         onClick={this.handleChangeShowPassWord}
                                     >
-                                        {this.state.showPassword ? VisibilityIcon : VisibilityOffIcon}
+                                        {this.state.showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
                                     </IconButton>
                                 </Box>
                             </Container>

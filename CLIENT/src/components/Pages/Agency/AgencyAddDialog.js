@@ -274,13 +274,13 @@ export default function FullScreenDialog() {
     return (
         <div>
             <IconButton color="inherit" className={classes.trans} onClick={handleClickOpen}>
-                {AddCircleIcon}
+                <AddCircleIcon />
             </IconButton>
             <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
                 <AppBar className={classes.appBar} position="fixed">
                     <Toolbar>
                         <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
-                            {CloseIcon}
+                            <CloseIcon />
                         </IconButton>
                         <Typography variant="h6" className={classes.title}>
                             기관 등록
@@ -294,7 +294,7 @@ export default function FullScreenDialog() {
                     <Container maxWidth="xs">
                         <Typography className={classes.stepperTitleStyle} variant="h4" align="center">
                             <IconButton color="inherit">
-                                {BusinessIcon}
+                                <BusinessIcon />
                             </IconButton>
                             기관 등록
                         </Typography>

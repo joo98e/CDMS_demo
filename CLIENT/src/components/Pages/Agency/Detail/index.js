@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { withRouter } from 'react-router'
-import moment from "moment";
 
 import {
     Grid, Box, Typography, Paper, Grow,

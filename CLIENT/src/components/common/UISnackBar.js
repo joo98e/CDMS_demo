@@ -23,7 +23,7 @@ export class UISnackBar extends Component {
                 color="inherit"
                 onClick={this.handleCloseSnackBar}
             >
-                {CancelIcon}
+                {<CancelIcon />}
             </Button>
         )
     }

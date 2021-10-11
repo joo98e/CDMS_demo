@@ -1,19 +1,19 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { Grid, Paper, Typography, Box, withStyles } from '@material-ui/core'
+import { Grid, Box, withStyles } from '@material-ui/core'
 import UICharts from '../../common/UICharts'
 
 const styles = theme => ({
     root: {
-        boxSizing : 'border-box',
-        padding : theme.spacing(4),
+        boxSizing: 'border-box',
+        padding: theme.spacing(4),
     },
     chartsArea: {
         position: 'relative',
     },
     mh: {
-        minHeight : '300px'
+        minHeight: '300px'
     }
 });
 

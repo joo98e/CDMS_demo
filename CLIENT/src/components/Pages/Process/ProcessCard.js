@@ -1,19 +1,9 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { connect } from 'react-redux'
-import {
-    Typography,
-    Divider,
-    Grid,
-    Paper,
-    Button,
-    Tooltip,
-    makeStyles
-} from "@material-ui/core"
+import { Typography, Divider, Grid, Paper, Button, makeStyles } from "@material-ui/core"
 
 import UISkeletonAvatar from "../../common/UISkeletonAvatar"
-import getDateFormat from "../../common/fn/getDateFormat"
-import ProcessCardChart from './ProcessCardChart';
 import { Bar } from 'react-chartjs-2';
 
 const useStyles = makeStyles(theme => ({

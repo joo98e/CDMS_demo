@@ -10,9 +10,9 @@ import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
 
 import {
-    Button, withStyles, Box, IconButton,
+    Button, withStyles,
     Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
-    Divider, Paper, Grid, Typography, Input, Tooltip
+    Grid,  Input, Tooltip
 } from '@material-ui/core'
 
 import * as actions from '../../../redux/action/ProducerAction'

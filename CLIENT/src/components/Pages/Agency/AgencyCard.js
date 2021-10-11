@@ -104,12 +104,12 @@ function AgencyCard(props) {
   const headerActionList = [
     {
       name: "수정하기",
-      icon: EditIcon,
+      icon: <EditIcon />,
       action: alert1
     },
     {
       name: "삭제하기",
-      icon: DeleteIcon,
+      icon: <DeleteIcon />,
       action: alert2
     },
   ]
@@ -138,7 +138,7 @@ function AgencyCard(props) {
 
             <UICardHeader
               title={props.item.name}
-              icon={MoreVertIcon}
+              icon={<MoreVertIcon />}
               action={writeStatus ? headerActionList : null}
             />
 

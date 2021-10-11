@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import * as actions from '../../redux/action/UserInfoAction'
 
 import {
-    Box, AppBar, Toolbar, IconButton, Typography, withStyles, Tooltip, Menu, MenuItem, Divider, ListItemIcon, Avatar, Badge
+    Box, AppBar, Toolbar, IconButton, Typography, withStyles, Tooltip, Menu, MenuItem, Divider, ListItemIcon, Badge
 } from '@material-ui/core';
 
 import {
-    LockOpenIcon,
     NotificationsActiveIcon,
     ExitToAppIcon,
     InfoIcon,
@@ -64,6 +63,10 @@ export class MyNav extends Component {
         this.setState({ ...this.state, open: !this.state.open ? true : false });
     }
 
+    tmp = () => {
+        console.log("함수 미정");
+    }
+
     handleLogout = () => {
         this.props.history.push('/login');
         this.props.handleSessionQuit();
@@ -78,25 +81,25 @@ export class MyNav extends Component {
                 name: "프로필",
                 icon:
                     <Badge badgeContent={0} color="secondary">
-                        {InfoIcon}
+                        {<InfoIcon />}
                     </Badge>,
-                fn: null,
+                action: this.tmp,
                 Divider: true
             },
             {
-                name: "알림 확인",
-                icon: NotificationsActiveIcon,
-                fn: null
+                name: "나에게!",
+                icon: <NotificationsActiveIcon />,
+                action: this.tmp
             },
             {
-                name: "도움말",
-                icon: HelpIcon,
-                fn: null
+                name: "Help",
+                icon: <HelpIcon />,
+                action: this.tmp
             },
             {
                 name: "로그아웃",
-                icon: ExitToAppIcon,
-                fn: this.handleLogout
+                icon: <ExitToAppIcon />,
+                action: this.handleLogout
             },
         ]
 
@@ -111,16 +114,11 @@ export class MyNav extends Component {
                                 {this.props.pathGuider}
                             </Typography>
                         </Box>
-
-
-
                         {/* {this.props.user.auth ?
                             <Tooltip title="로그아웃">
-                                <Link to="/login">
-                                    <IconButton color="inherit" onClick={this.props.handleSessionQuit}>
-                                        {LockOpenIcon}
-                                    </IconButton>
-                                </Link>
+                                <IconButton color="inherit" onClick={this.props.handleSessionQuit}>
+                                    {<LockOpenIcon />}
+                                </IconButton>
                             </Tooltip>
                             :
                             <Typography
@@ -154,11 +152,10 @@ export class MyNav extends Component {
                                 menuList &&
                                 menuList.map((item, index) => {
                                     return (
-                                        <React.Fragment>
+                                        <div key={index}>
                                             <MenuItem
-                                                key={index}
-                                                onClick={item.fn !== null ? item.fn : ""}
-                                                style={{minHeight : "60px"}}
+                                                onClick={item.action}
+                                                style={{ minHeight: "60px" }}
                                             >
                                                 <ListItemIcon>
                                                     {item.icon}
@@ -166,7 +163,7 @@ export class MyNav extends Component {
                                                 {item.name}
                                             </MenuItem>
                                             {item.Divider && <Divider />}
-                                        </React.Fragment>
+                                        </div>
                                     )
                                 })
                             }

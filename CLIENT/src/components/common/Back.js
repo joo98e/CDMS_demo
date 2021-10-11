@@ -1,49 +1,21 @@
-/**
- * not be used
- */
+import React from 'react'
+import { useHistory } from 'react-router-dom'
+import {
+    Button
+} from "@material-ui/core"
 
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Box, withStyles, IconButton } from '@material-ui/core'
-import { KeyboardBackspace } from '@material-ui/icons'
+export default function ProcessAdd() {
+    const history = useHistory();
 
-const styles = theme => ({
-    wrapper: {
-        position: 'relative',
-        display: 'block'
-    }
-});
-
-export class Back extends Component {
-
-    fallBack = () => {
-        try {
-            this.props.history.goBack();
-        } catch (error) {
-            
-        }
-        
-    }
-
-    render() {
-        const classes = this.props;
-
-        return (
-            <Box className={classes.wrapper}>
-                <IconButton color="inherit" onClick={this.fallBack}>
-                    <KeyboardBackspace />
-                </IconButton>
-            </Box>
-        )
-    }
+    return (
+        <div>
+            <Button
+                variant="outlined"
+                color="inherit"
+                onClick={() => {history.goBack()}}
+            >
+                이전으로
+            </Button>
+        </div>
+    )
 }
-
-const mapStateToProps = (state) => ({
-
-})
-
-const mapDispatchToProps = {
-
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Back))

@@ -2,11 +2,7 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
 
-import {
-    Container, Grid, Grow, Paper,
-    Typography,
-    withStyles,
-} from '@material-ui/core';
+import { Container, Grid, Grow, Paper, withStyles } from '@material-ui/core';
 
 import UICircularProgress from '../../common/UICircularProgress'
 import AgencyCard from './AgencyCard'
@@ -131,7 +127,7 @@ export class Agency extends PureComponent {
                                             {...(this.state.awhile ? { timeout: 800 } : {})}
                                         >
                                             <Paper elevation={4} className={`${classes.relative}`}>
-                                                <AgencyAddDialog 
+                                                <AgencyAddDialog
                                                 />
                                             </Paper>
                                         </Grow>

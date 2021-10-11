@@ -5,17 +5,17 @@ const theme = {
     nature: createTheme({
         palette: {
             action: {
-                active: "rgba(255, 255, 255, 0.8)",
-                hover: "rgba(255, 255, 255, 0.04)",
-                disabled : "rgba(255, 255, 255, 0.8)",
-                disabledBackground : "rgba(255, 255, 255, 0.8)",
-                focus : "rgba(255, 255, 255, 0.04)",
-                selected: "rgba(255, 255, 255, 0.8)"
+                active: "rgba(0, 0, 0, 0.8)",
+                hover: "rgba(0, 0, 0, 0.04)",
+                disabled : "rgba(0, 0, 0, 0.8)",
+                disabledBackground : "rgba(0, 0, 0, 0.8)",
+                focus : "rgba(0, 0, 0, 0.04)",
+                selected: "rgba(0, 0, 0, 0.8)"
             },
             primary: {
                 main: "#1B2631",
                 light: "#7d8e9e",
-                dark: "#a2b7cc"
+                dark: "rgba(0, 0, 0, 0.8)"
             },
             secondary: {
                 main: "#FFFFFF",
@@ -25,7 +25,7 @@ const theme = {
             background: {
                 default: "#2a3c4e",
                 paper: "#3c4f64",
-                button: "#7ca2c9",
+                button: "#E1E1E1",
             },
             text: {
                 primary: "#EAEAEA",
@@ -53,10 +53,14 @@ const theme = {
         palette: {
             type: 'dark',
             primary: {
-                main: '#202020'
+                main: '#202020',
+                dark: "rgba(255, 255, 255, 0.2)"
             },
             secondary: {
                 main: '#FFF',
+            },
+            background: {
+                button: "#EBEBEB",
             },
             text: {
                 primary: "#FFF",
@@ -65,25 +69,71 @@ const theme = {
         },
     }),
 
-    // white: createTheme({
-    //     palette: {
-    //         primary: {
-    //             main: "#000",
-    //         },
-    //         secondary: {
-    //             main: '#000000',
-    //         },
-    //         background: {
-    //             default: "#FFF",
-    //             paper: "#EEE",
-    //             button: "#FFFFFF",
-    //         },
-    //         text: {
-    //             primary: "#000000",
-    //             desc : "#363636"
-    //         }
-    //     },
-    // }),
+    white: createTheme({
+        palette: {
+            action: {
+                active: "rgba(255, 255, 255, 0.8)",
+                hover: "rgba(255, 255, 255, 0.04)",
+                disabled : "rgba(255, 255, 255, 0.8)",
+                disabledBackground : "rgba(255, 255, 255, 0.8)",
+                focus : "rgba(255, 255, 255, 0.04)",
+                selected: "rgba(255, 255, 255, 0.8)"
+            },
+            primary: {
+                main: "#D3D3D3",
+                light: "#7d8e9e",
+                dark: "#a2b7cc",
+            },
+            secondary: {
+                main: "#686868",
+                light: "#becad5",
+                dark: "#121a22",
+                
+            },
+            info : {
+                main: "#686868",
+                light: "#becad5",
+                dark: "#121a22",
+            },
+            background: {
+                default: "#FBFCFF",
+                paper: "#eff0f4",
+                button: "#606060",
+            },
+            text: {
+                primary: "#333333",
+                secondary: "#6f6f6f",
+                hint: "#6f6f6f",
+                disabled: "#6f6f6f",
+                desc: "#9d9d9d"
+            },
+            chart: {
+                main: "",
+                sub: "",
+                text: {
+                    main: "#2D2D2D",
+                    sub: "#565656"
+                }
+            },
+            // 실제 버튼 영역
+            grey: {
+                A100: "#474747"
+            },
+
+        },
+        overrides: {
+            MuiCssBaseline: {
+              '@global': {
+                html: {
+                  WebkitFontSmoothing: 'auto',
+                },
+                "&$.MuiSpeedDial-fab": {
+                    background: "#EBEBEB !important"
+                },
+              },
+            },
+          },
+    }),
 
     // purple: createTheme({
     //     palette: {

@@ -137,7 +137,7 @@ export class InputProfile extends Component {
                                             component="label"
                                             className={classes.trans}
                                         >
-                                            {AddCircleIcon}
+                                            <AddCircleIcon />
                                             <input
                                                 type="file"
                                                 hidden
@@ -169,7 +169,7 @@ export class InputProfile extends Component {
                                                                 style={{ color: this.state.nowAvatarNum === index ? '#F58A9D' : 'white' }}
                                                                 onClick={() => { this.handleFileChange(index, item.src, item.name) }}
                                                             >
-                                                                {FavoriteIcon}
+                                                                <FavoriteIcon />
                                                             </IconButton>
                                                         }
                                                     />

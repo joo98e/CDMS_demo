@@ -4,15 +4,7 @@ import {
     XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
     BarChart, Bar
 } from 'recharts';
-
-import { withStyles } from '@material-ui/core'
 import UICircularProgress from '../../../common/UICircularProgress'
-
-const styles = theme => ({
-    root: {
-        marginTop: theme.spacing(4)
-    }
-});
 
 class Chart extends PureComponent {
     constructor(props) {
@@ -31,7 +23,7 @@ class Chart extends PureComponent {
     }
 
     render() {
-        const { classes, data } = this.props;
+        const { data } = this.props;
 
         return (
             <React.Fragment>
@@ -74,4 +66,4 @@ const mapStateToProps = (state) => {
         theme: state.UI.theme
     }
 }
-export default connect(mapStateToProps)(withStyles(styles)(Chart))
+export default connect(mapStateToProps)(Chart)

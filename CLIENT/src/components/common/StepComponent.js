@@ -1,9 +1,3 @@
-import React, { PureComponent } from 'react'
-import { connect } from 'react-redux';
-import {
-    Box, Stepper, Step, StepLabel, StepContent, Typography,
-} from '@material-ui/core';
-
 /**
  * @param {stepInfo}             : Object, 
  *                                 const stepInfo = {
@@ -22,11 +16,15 @@ import {
  * @returns {<StepComponent />}
  */
 
+import React, { PureComponent } from 'react'
+import { connect } from 'react-redux';
+import {
+    Box, Stepper, Step, StepLabel,
+} from '@material-ui/core';
+
 class StepComponent extends PureComponent {
 
     render() {
-        // 색깔 고치기
-
         const steps = this.props.stepInfo.stepsTitle;
         const resultComponent = this.props.stepInfo.resultComponent;
 

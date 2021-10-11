@@ -91,7 +91,7 @@ export const UICardHeader = (props) => {
                             onClick={handleClose}
                         >
                             <ListItemIcon>
-                                {CancelIcon}
+                                <CancelIcon />
                             </ListItemIcon>
                             <ListItemText>
                                 닫기

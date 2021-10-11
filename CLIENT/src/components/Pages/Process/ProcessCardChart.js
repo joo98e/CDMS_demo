@@ -1,31 +1,10 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import {
-    XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
-    BarChart, Bar, Label
+    XAxis, YAxis, CartesianGrid, ResponsiveContainer,
+    BarChart, Bar
 } from 'recharts';
-
-import axios from 'axios';
-import { withStyles } from '@material-ui/core'
 import UICircularProgress from '../../common/UICircularProgress'
-
-const styles = theme => ({
-    root: {
-        marginTop: theme.spacing(4)
-    }
-});
-
-const getGoneDate = days => {
-    let tmp = new Date();
-
-    let years = tmp.getFullYear();
-    let month = tmp.getMonth();
-    let day = tmp.getDate() - days;
-
-    const result = `${String(years)}-${String(month)}-${String(day)}`;
-
-    return result;
-}
 
 class Chart extends PureComponent {
     constructor(props) {
@@ -35,9 +14,7 @@ class Chart extends PureComponent {
             data: ""
         }
     }
-    
     render() {
-        const { classes } = this.props;
 
         const data = [
             {
@@ -88,4 +65,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(withStyles(styles)(Chart))
+export default connect(mapStateToProps)(Chart);

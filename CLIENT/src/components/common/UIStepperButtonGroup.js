@@ -41,12 +41,12 @@ export default function StepperButtonGroup(props) {
             nextButton={
                 <Button size="small" onClick={() => { props.handleClickMoveStep(1) }} disabled={props.stepNum === props.stepMaxNum}>
                     Next
-                    {theme.direction === 'rtl' ? KeyboardArrowLeftIcon : KeyboardArrowRightIcon}
+                    {theme.direction === 'rtl' ? <KeyboardArrowLeftIcon /> : <KeyboardArrowRightIcon />}
                 </Button>
             }
             backButton={
                 <Button size="small" onClick={() => { props.handleClickMoveStep(-1) }} disabled={props.stepNum === 0}>
-                    {theme.direction === 'rtl' ? KeyboardArrowRightIcon : KeyboardArrowLeftIcon}
+                    {theme.direction === 'rtl' ? <KeyboardArrowRightIcon /> : <KeyboardArrowLeftIcon />}
                     Back
                 </Button>
             }

@@ -30,14 +30,14 @@ const menuList = [
     {
         MENU_ID: '1',
         MENU_NAME: '홈',
-        MENU_ICON_NAME: HomeIcon,
+        MENU_ICON_NAME: <HomeIcon />,
         MENU_PUSH_LINK: '/',
         MENU_PERMISSION: 'U'
     },
     {
         MENU_ID: '2',
         MENU_NAME: '기관 보기',
-        MENU_ICON_NAME: NoteIcon,
+        MENU_ICON_NAME: <NoteIcon />,
         MENU_PUSH_LINK: '/agency',
         MENU_PERMISSION: 'U'
     },
@@ -121,7 +121,7 @@ function SideBar(props) {
             <React.Fragment>
                 <Tooltip title={'메뉴'}>
                     <IconButton color="inherit" onClick={toggleDrawer(true)}>
-                        {MenuIcon}
+                        <MenuIcon />
                     </IconButton>
                 </Tooltip>
                 <SwipeableDrawer

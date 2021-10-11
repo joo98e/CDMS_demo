@@ -3,17 +3,8 @@ import React, { PureComponent } from 'react';
 import {
     LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
-
-import axios from 'axios';
-import { Paper, withStyles } from '@material-ui/core'
+import { Paper } from '@material-ui/core'
 import UICircularProgress from '../common/UICircularProgress'
-import { minHeight } from '@material-ui/system';
-
-const styles = theme => ({
-    root: {
-        marginTop: theme.spacing(4)
-    }
-});
 
 const getGoneDate = days => {
     let tmp = new Date();
@@ -74,7 +65,6 @@ class Chart extends PureComponent {
     // git 이력으로 그래프 그리기
 
     render() {
-        const { classes } = this.props;
         return (
             <Paper>
                 {this.state.data ?
@@ -108,4 +98,4 @@ class Chart extends PureComponent {
     }
 }
 
-export default withStyles(styles)(Chart)
+export default Chart

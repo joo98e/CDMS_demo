@@ -15,8 +15,9 @@
 
 
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux'
 import { useParams, useHistory } from 'react-router';
+import { useSelector } from 'react-redux';
+import { useSnackbar } from 'notistack';
 import axios from 'axios'
 
 import {
@@ -27,6 +28,8 @@ import Chart from "./Chart"
 import ProcessCard from '../../Process/ProcessCard';
 import UICircularProgress from '../../../common/UICircularProgress'
 import { AddCircleIcon } from '../../../common/CustomIcons';
+import getDateFormat from '../../../common/fn/getDateFormat';
+import getNow from '../../../common/fn/getNow';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -97,7 +100,10 @@ const useStyles = makeStyles(theme => ({
 export const ProjectDetail = (props) => {
     const classes = useStyles();
     const history = useHistory();
+    // TODO 글쓰기 권한 지정해줘야함
+    const _member = useSelector((store) => store.User.member);
     const { ref_proj_id } = useParams();
+    const { enqueueSnackbar } = useSnackbar();
 
     const [awhile, setAwhile] = useState(false);
     const [projectData, setProjectData] = useState([]);
@@ -115,6 +121,7 @@ export const ProjectDetail = (props) => {
                 params: condition
             }).then((res) => {
                 setProjectData(...res.data.result);
+                console.log(...res.data.result);
                 return res.data;
             });
         }
@@ -140,6 +147,9 @@ export const ProjectDetail = (props) => {
         getProjectDetail();
         getProcessList();
 
+        if (getDateFormat.YYYYMMDD(projectData.end_date) < getDateFormat.YYYYMMDD(getNow())) {
+            enqueueSnackbar('종료된 프로젝트입니다.', { variant: "info" })
+        }
     }, [ref_proj_id])
 
     return (
@@ -175,37 +185,43 @@ export const ProjectDetail = (props) => {
                                     <Paper elevation={4} className={`${classes.minHeight} + ${classes.relative}`}>
                                         {
                                             (processData && processData.length !== 0) ?
-                                            processData.map((item, index) => {
-                                                return (
-                                                    <ProcessCard
-                                                        key={index}
-                                                        item={item}
-                                                    />
-                                                )
-                                            })
-                                            :
-                                            <Typography className={classes.trans} variant="h6" component="div">
-                                                진행중인 프로세스가 없습니다.
-                                            </Typography>
+                                                processData.map((item, index) => {
+                                                    return (
+                                                        <ProcessCard
+                                                            key={index}
+                                                            item={item}
+                                                        />
+                                                    )
+                                                })
+                                                :
+                                                <Typography className={classes.trans} variant="h6" component="div">
+                                                    진행중인 프로세스가 없습니다.
+                                                </Typography>
                                         }
 
                                     </Paper>
                                 </Grid>
                             </Grow>
-                            <Grow in={awhile} style={{ transformOrigin: '0 0 0' }} timeout={awhile ? 1000 : 0} >
-                                <Grid item xs={12} md={12} lg={12}>
-                                    <Paper elevation={4} className={`${classes.minHeight} + ${classes.relative}`}>
-                                        <IconButton
-                                            className={classes.trans}
-                                            color="inherit"
-                                            onClick={() => { history.push('/agency/project/process/add') }}
-                                        >
-                                            {AddCircleIcon}
-                                        </IconButton>
-                                    </Paper>
-                                </Grid>
-
-                            </Grow>
+                            {
+                                (
+                                    // (_member.ref_allow_action.indexOf('WRITE') !== -1 || props.item.writer_seq === _member.seq)
+                                    // &&
+                                    getDateFormat.YYYYMMDD(projectData.end_date) > getDateFormat.YYYYMMDD(getNow())
+                                ) &&
+                                <Grow in={awhile} style={{ transformOrigin: '0 0 0' }} timeout={awhile ? 1000 : 0}>
+                                    <Grid item xs={12} md={12} lg={12}>
+                                        <Paper elevation={4} className={`${classes.minHeight} + ${classes.relative}`}>
+                                            <IconButton
+                                                className={classes.trans}
+                                                color="inherit"
+                                                onClick={() => { history.push('/agency/project/process/add') }}
+                                            >
+                                                <AddCircleIcon />
+                                            </IconButton>
+                                        </Paper>
+                                    </Grid>
+                                </Grow>
+                            }
                         </React.Fragment>
                         :
                         <UICircularProgress />
@@ -215,12 +231,4 @@ export const ProjectDetail = (props) => {
     )
 }
 
-const mapStateToProps = (state) => ({
-
-})
-
-const mapDispatchToProps = {
-
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectDetail)
+export default (ProjectDetail)
