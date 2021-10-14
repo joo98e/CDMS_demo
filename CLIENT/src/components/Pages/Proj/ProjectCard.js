@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import {
     Grid, Grow, Paper, Button, Typography, Box,
     makeStyles,
-    Card, CardActions
+    Card, CardActions, CardMedia
 } from '@material-ui/core/';
 
 import UICardHeader from '../../common/Card/UICardHeader';
@@ -119,7 +119,9 @@ function ProjectCard(props) {
                         <Box className={classes.boxTop}>
                             {props.item.desc}
                         </Box>
-
+                        <CardMedia
+                            
+                        />
                         <CardActions>
                             <Button
                                 className={classes.boxBottom}

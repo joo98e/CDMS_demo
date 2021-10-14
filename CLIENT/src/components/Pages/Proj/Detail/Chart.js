@@ -38,18 +38,32 @@ class Chart extends PureComponent {
                         >
                             <XAxis
                                 type="number"
-                                tick={{ stroke: '#FFF' }}
+                                tick={{ stroke: this.props.theme.palette.text.secondary }}
                             />
                             <YAxis
                                 type="category" dataKey="process_name"
-                                tick={{ stroke: '#FFF' }}
+                                tick={{ stroke: this.props.theme.palette.text.secondary }}
                             />
 
                             <CartesianGrid strokeDasharray="3 3" />
                             <Tooltip cursor={false} />
                             <Legend />
-                            <Bar barSize={20} dataKey="cur_task" stackId="a" fill={this.props.theme.palette.background.default} />
-                            <Bar barSize={20} dataKey="total_task" stackId="a" fill={"rgba(255,255,255,0.2)"} />
+                            <Bar 
+                                barSize={20}
+                                name="현재 진행도"
+                                dataKey="cur_task"
+                                stackId="a"
+                                fill={this.props.theme.palette.background.default}
+                                label={{ fill: this.props.theme.palette.text.primary, fontSize: 14 }}
+                            />
+                            <Bar 
+                                barSize={20}
+                                name="전체 진행도"
+                                dataKey="total_task"
+                                stackId="a"
+                                fill={"rgba(255,255,255,0.2)"} 
+                            />
+
                         </BarChart>
                     </ResponsiveContainer>
                     :

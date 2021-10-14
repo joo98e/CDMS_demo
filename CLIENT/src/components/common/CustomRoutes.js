@@ -8,7 +8,9 @@ import Layout from './Layout'
 export class CustomRoutes extends PureComponent {
 
     componentDidMount() {
-        !this.props.user.auth && this.props.history.push('/login');
+        if (!this.props.user.auth || !this.props.user.member) {
+            this.props.history.push('/login');
+        }
     }
 
 

@@ -23,10 +23,10 @@ const styles = theme => ({
         boxSizing: 'border-box',
         padding: theme.spacing(4)
     },
-    flexBox : {
-        display : "flex",
-        alignItems : "center",
-        justifyContent : "center"
+    flexBox: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
     },
     indent: {
         textIndent: theme.spacing(2)
@@ -59,8 +59,8 @@ const styles = theme => ({
         marginLeft: theme.spacing(.5),
         marginRight: theme.spacing(.5)
     },
-    subText : {
-        color : theme.palette.text.desc
+    subText: {
+        color: theme.palette.text.desc
     },
     relative: {
         position: "relative"
@@ -132,8 +132,8 @@ export class AgencyDetail extends Component {
         const condition = {
             // limit: 2,
             ref_agcy_id: this.props.match.params.ref_agcy_id,
-            unretired : getNow(),
-            order_by : "DESC",
+            unretired: getNow(),
+            order_by: "DESC",
             delete_yn: 'N'
         }
         const URL = '/api/project/list';
@@ -156,7 +156,7 @@ export class AgencyDetail extends Component {
             // limit: 3,
             ref_agcy_id: this.props.match.params.ref_agcy_id,
             retired: getNow(),
-            order_by : "DESC",
+            order_by: "DESC",
             delete_yn: 'N'
         }
         const endedURL = '/api/project/list';
@@ -172,7 +172,12 @@ export class AgencyDetail extends Component {
                 // Error
             }
 
-        });
+        })
+            .catch((err) => {
+                console.log(err);
+                alert("잘못된 접근입니다.")
+                console.log(this.props.history.push('/'));
+            });;
     }
 
 
@@ -459,7 +464,7 @@ export class AgencyDetail extends Component {
 
 const mapStateToProps = (state) => ({
     member: state.User.member,
-    theme : state.UI.theme
+    theme: state.UI.theme
 })
 
 const mapDispatchToProps = {

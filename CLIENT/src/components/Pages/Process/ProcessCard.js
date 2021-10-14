@@ -93,7 +93,13 @@ const useStyles = makeStyles(theme => ({
         top: theme.spacing(1.5),
         right: theme.spacing(1.5),
         background: theme.palette.background.paper
-    }
+    },
+    hiddenText: {
+        whiteSpace: "nowrap",
+        textOverflow: "ellipsis",
+        overflow: 'hidden',
+        display: 'block',
+    },
 }));
 
 export const ProcessCard = (props) => {
@@ -171,7 +177,7 @@ export const ProcessCard = (props) => {
                             주담당자
                         </Typography>
                         <Grid container spacing={1}>
-                            <Grid item xs={3} md={3} lg={3}>
+                            <Grid item xs={4} md={4} lg={4}>
                                 <div className={`${classes.writerBox} + ${classes.minHeight}`}>
                                     <UISkeletonAvatar
                                         src={props.item.avatar_path}
@@ -182,13 +188,13 @@ export const ProcessCard = (props) => {
                                     </Typography>
                                 </div>
                             </Grid>
-                            <Grid item xs={9} md={9} lg={9}>
+                            <Grid item xs={8} md={8} lg={8}>
                                 <Grid container spacing={2} className={classes.mt4}>
                                     <Grid item xs={6} md={6} lg={6}>
                                         부서
                                     </Grid>
                                     <Grid item xs={6} md={6} lg={6}>
-                                        <Typography variant="body1">
+                                        <Typography variant="body1" className={classes.hiddenText}>
                                             {props.item.dept_name}
                                         </Typography>
                                     </Grid>
@@ -196,7 +202,7 @@ export const ProcessCard = (props) => {
                                         직급
                                     </Grid>
                                     <Grid item xs={6} md={6} lg={6}>
-                                        <Typography variant="body1">
+                                        <Typography variant="body1" className={classes.hiddenText}>
                                             {props.item.rank_name}
                                         </Typography>
                                     </Grid>
