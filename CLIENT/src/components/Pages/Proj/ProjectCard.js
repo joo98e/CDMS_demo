@@ -17,7 +17,6 @@ const useStyles = makeStyles(theme => ({
     root: {
         width: '100%',
         minHeight: '200px',
-        maxHeight: '400px',
         backgroundColor: theme.palette.background.default,
     },
     pr: {
@@ -60,6 +59,8 @@ const useStyles = makeStyles(theme => ({
         overflow: 'hidden',
         display: 'block',
     },
+    media: {
+    }
 }));
 
 function ProjectCard(props) {
@@ -97,6 +98,7 @@ function ProjectCard(props) {
         if (_member.ref_allow_action.indexOf('WRITE') !== -1 || props.item.writer_seq === _member.seq) {
             setWriteStatus(true);
         }
+        console.log(props.item);
 
     }, []);
 
@@ -115,13 +117,16 @@ function ProjectCard(props) {
                             icon={<MoreVertIcon />}
                             action={writeStatus ? headerActionList : null}
                         />
-
+                        <CardMedia
+                            className={classes.media}
+                            component="img"
+                            alt={props.item.name}
+                            area-name={props.item.thumbnail_file_name}
+                            image={props.item.thumbnail_file_path}
+                        />
                         <Box className={classes.boxTop}>
                             {props.item.desc}
                         </Box>
-                        <CardMedia
-                            
-                        />
                         <CardActions>
                             <Button
                                 className={classes.boxBottom}
