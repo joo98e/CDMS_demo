@@ -342,6 +342,7 @@ export default function FullScreenDialog() {
                                     <ListItemText primary="사업 시작일" />
                                     <AgencyDatePicker
                                         name="start_date"
+                                        textFieldStyle={classes.textFieldStyle}
                                         resultAction={handleChangeDate}
                                     />
                                 </ListItem>
@@ -350,6 +351,7 @@ export default function FullScreenDialog() {
                                     <ListItemText primary="사업 종료일" />
                                     <AgencyDatePicker
                                         name="end_date"
+                                        textFieldStyle={classes.textFieldStyle}
                                         resultAction={handleChangeDate}
                                     />
                                 </ListItem>

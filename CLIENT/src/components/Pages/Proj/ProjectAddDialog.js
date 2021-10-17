@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios'
 import { useSnackbar } from 'notistack';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, useParams  } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { setProjectInfo } from '../../../redux/action/ProducerAction'
 
 import {
@@ -155,7 +155,7 @@ export default function FullScreenDialog() {
     }
 
     const handleValidateValue = () => {
-        
+
         for (let item in _projectInfo) {
             switch (item) {
                 case "start_date":
@@ -227,13 +227,13 @@ export default function FullScreenDialog() {
             ..._projectInfo,
             ref_agcy_id: ref_agcy_id,
         };
-        
+
         const config = {
             headers: {
                 "content-type": "application/json"
             }
         }
-        
+
         axios.post(URL, data, config)
             .then(res => {
                 if (res.data.resultCode === 1) {
@@ -302,6 +302,7 @@ export default function FullScreenDialog() {
                                     <ListItemText primary="프로젝트 시작일" />
                                     <ProjectDatePicker
                                         name="start_date"
+                                        textFieldStyle={classes.textFieldStyle}
                                         resultAction={handleChangeDate}
                                     />
                                 </ListItem>
@@ -310,6 +311,7 @@ export default function FullScreenDialog() {
                                     <ListItemText primary="프로젝트 종료일" />
                                     <ProjectDatePicker
                                         name="end_date"
+                                        textFieldStyle={classes.textFieldStyle}
                                         resultAction={handleChangeDate}
                                     />
                                 </ListItem>

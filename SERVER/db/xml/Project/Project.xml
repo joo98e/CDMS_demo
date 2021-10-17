@@ -92,6 +92,7 @@
 
     <select id="getDetail">
         SELECT 
+            proj.id,
             proj.writer_seq,
             mem.full_name,
             org_dept.`name` AS dept,

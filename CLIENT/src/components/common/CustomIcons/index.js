@@ -25,7 +25,8 @@ import {
     Favorite,
     ExitToApp,
     Info,
-    Help
+    Help,
+    DateRange
 } from "@material-ui/icons";
 
 
@@ -237,6 +238,13 @@ export const HelpIcon = () => {
     const classes = useStyles();
     return (
         <Help className={classes.color} />
+    )
+}
+
+export const DateRangeIcon = () => {
+    const classes = useStyles();
+    return (
+        <DateRange className={classes.color} />
     )
 }
 

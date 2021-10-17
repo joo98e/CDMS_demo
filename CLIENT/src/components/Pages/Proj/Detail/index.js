@@ -1,19 +1,4 @@
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router';
 import { useSelector } from 'react-redux';
@@ -204,8 +189,8 @@ export const ProjectDetail = (props) => {
                             </Grow>
                             {
                                 (
-                                    // (_member.ref_allow_action.indexOf('WRITE') !== -1 || props.item.writer_seq === _member.seq)
-                                    // &&
+                                    (_member.ref_allow_action.indexOf('WRITE') !== -1 || projectData.writer_seq === _member.seq)
+                                    &&
                                     getDateFormat.YYYYMMDD(projectData.end_date) > getDateFormat.YYYYMMDD(getNow())
                                 ) &&
                                 <Grow in={awhile} style={{ transformOrigin: '0 0 0' }} timeout={awhile ? 1000 : 0}>
@@ -214,7 +199,7 @@ export const ProjectDetail = (props) => {
                                             <IconButton
                                                 className={classes.trans}
                                                 color="inherit"
-                                                onClick={() => { history.push('/agency/project/process/add') }}
+                                                onClick={() => { history.push(`/agency/project/process/add?proj=${projectData.id}`) }}
                                             >
                                                 <AddCircleIcon />
                                             </IconButton>

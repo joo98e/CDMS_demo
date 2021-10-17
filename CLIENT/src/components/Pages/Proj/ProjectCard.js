@@ -117,13 +117,13 @@ function ProjectCard(props) {
                             icon={<MoreVertIcon />}
                             action={writeStatus ? headerActionList : null}
                         />
-                        <CardMedia
+                        {/* <CardMedia
                             className={classes.media}
                             component="img"
                             alt={props.item.name}
                             area-name={props.item.thumbnail_file_name}
                             image={props.item.thumbnail_file_path}
-                        />
+                        /> */}
                         <Box className={classes.boxTop}>
                             {props.item.desc}
                         </Box>

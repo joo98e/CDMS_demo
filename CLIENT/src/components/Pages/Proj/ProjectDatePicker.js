@@ -7,6 +7,7 @@ import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
+import { DateRangeIcon } from '../../common/CustomIcons';
 
 export class ProjectDatePicker extends Component {
     constructor(props) {
@@ -34,11 +35,16 @@ export class ProjectDatePicker extends Component {
         return (
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
+                    className={this.props.textFieldStyle}
                     variant="inline"
                     format="yyyy/MM/dd"
                     value={this.state.selectedDate}
                     color="primary"
                     onChange={this.handleDateChange}
+                    inputVariant="outlined"
+                    invalidDateMessage="잘못된 날짜 형식이에요!"
+                    invalidLabel="잘못된 날짜 형식이에요!"
+                    keyboardIcon={<DateRangeIcon />}
                 />
             </MuiPickersUtilsProvider>
         )

@@ -87,7 +87,7 @@ export class MyNav extends Component {
                 Divider: true
             },
             {
-                name: "나에게!",
+                name: "알림",
                 icon: <NotificationsActiveIcon />,
                 action: this.tmp
             },
