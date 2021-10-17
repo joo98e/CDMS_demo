@@ -7,6 +7,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import 'date-fns';
+import koLocale from "date-fns/locale/ko"
 import DateFnsUtils from '@date-io/date-fns';
 import {
     MuiPickersUtilsProvider,
@@ -38,7 +39,7 @@ export class UIDatePicker extends Component {
 
     render() {
         return (
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <MuiPickersUtilsProvider utils={DateFnsUtils} locale={koLocale}>
                 <KeyboardDatePicker
                     className={this.props.textFieldStyle}
                     variant="inline"

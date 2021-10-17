@@ -89,13 +89,29 @@ const DialogInfo = {
     title: "기관 등록",
     subTitle: "담당자 지정"
 };
+
 const TableColumnName = [
-    "",
-    "성명",
-    "부서",
-    "ID",
-    "직책",
-    "구성",
+    [""],
+    ["성명"],
+    [
+        "부서",
+        {
+            className: "mobile-person-row"
+        }
+    ],
+    [
+        "ID",
+        {
+            className: "mobile-person-row"
+        }
+    ],
+    [
+        "직책",
+        {
+            className: "mobile-person-row"
+        }
+    ],
+    ["구성"],
 ];
 
 const ResultMessage = {

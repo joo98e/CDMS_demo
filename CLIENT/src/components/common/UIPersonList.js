@@ -24,7 +24,7 @@ import UIPersonRow from '../common/UIPersonRow';
 
 const styles = theme => ({
     textFieldStyle: {
-        width: '30vw',
+        width: '100%',
         textAlign: 'right',
     },
     wrapper: {
@@ -44,11 +44,11 @@ export class UIPersonList extends Component {
             data: []
         }
     }
-    
+
     UIPersonRowChangeData = newItem => {
         let _temp = this.state.data;
         let status = false;
-        
+
         for (let idx in _temp) {
             if (_temp[idx].seq === newItem.seq) {
                 _temp.splice(idx, 1);
@@ -79,7 +79,7 @@ export class UIPersonList extends Component {
             isOpen: !this.state.isOpen ? true : false,
             data: []
         });
-        
+
         if (type === "SUBMIT") {
             if (this.props.ResultAction) this.props.ResultAction.success(this.state.data);
             this.props.enqueueSnackbar(this.props.ResultMessage.success, { variant: 'success' });
@@ -122,7 +122,12 @@ export class UIPersonList extends Component {
                                                         {
                                                             this.props.TableColumnName.map((item, index) => {
                                                                 return (
-                                                                    <TableCell key={index}>{item}</TableCell>
+                                                                    <TableCell
+                                                                        key={index}
+                                                                        className={item[1] ? item[1].className : ""}
+                                                                    >
+                                                                        {item[0]}
+                                                                    </TableCell>
                                                                 )
                                                             })
                                                         }

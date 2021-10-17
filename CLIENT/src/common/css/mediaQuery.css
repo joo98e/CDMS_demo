@@ -1,15 +1,16 @@
 @media screen and (max-width:600px) {
-    body {
-        background-color: green;
-    }
     .mobile-logo {
         display: none !important;
-        width : 100% !important;
+        width: 100% !important;
     }
+    .mobile-column {
+        width: 100% !important;
+        flex-direction: column !important;
+    }
+}
 
-    .mobile-column{
-        width : 100% !important;
-        flex-direction : column !important;
+@media screen and (max-width:960px) {
+    .mobile-person-row {
+        display: none !important;
     }
-    
 }

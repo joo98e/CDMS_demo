@@ -51,13 +51,13 @@ export class PersonRow extends Component {
                     <TableCell align="left">
                         {this.props.item.full_name}
                     </TableCell>
-                    <TableCell align="left">
+                    <TableCell className="mobile-person-row" align="left">
                         {this.props.item.dept_name}
                     </TableCell>
-                    <TableCell align="left">
+                    <TableCell className="mobile-person-row" align="left">
                         {this.props.item.id}
                     </TableCell>
-                    <TableCell align="left">
+                    <TableCell className="mobile-person-row" align="left">
                         {this.props.item.rank_name}
                     </TableCell>
                     <TableCell align="left">
