@@ -26,7 +26,8 @@ import {
     ExitToApp,
     Info,
     Help,
-    DateRange
+    DateRange,
+    Search
 } from "@material-ui/icons";
 
 
@@ -245,6 +246,13 @@ export const DateRangeIcon = () => {
     const classes = useStyles();
     return (
         <DateRange className={classes.color} />
+    )
+}
+
+export const SearchIcon = () => {
+    const classes = useStyles();
+    return (
+        <Search className={classes.color} />
     )
 }
 

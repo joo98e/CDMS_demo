@@ -24,7 +24,7 @@ class App extends Component {
         <CustomRoute exact path="/agency" component={Agency} />
         <CustomRoute exact path="/agency/detail/:ref_agcy_id" component={AgencyDetail} />
         <CustomRoute exact path="/agency/project/detail/:ref_proj_id" component={ProjectDetail} />
-        <CustomRoute exact path="/agency/project/process/add" component={ProcessAdd} />
+        <CustomRoute exact path="/agency/project/detail/process/add/:ref_proj_id" component={ProcessAdd} />
         <CustomRoute component={Redirection} />
       </Switch>
     )

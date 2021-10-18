@@ -34,7 +34,12 @@ class Chart extends PureComponent {
                             height={300}
                             data={data}
                             layout="vertical"
-                            margin={{ top: 30, bottom: 30 }}
+                            margin={{
+                                top: 30,
+                                bottom: 30,
+                                left: 30,
+                                right : 30
+                            }}
                         >
                             <XAxis
                                 type="number"
@@ -54,7 +59,7 @@ class Chart extends PureComponent {
                                 dataKey="cur_task"
                                 stackId="a"
                                 fill={this.props.theme.palette.background.default}
-                                label={{ fill: this.props.theme.palette.text.primary, fontSize: 14 }}
+                                // label={{ fill: this.props.theme.palette.text.primary, fontSize: 14 }}
                             />
                             <Bar 
                                 barSize={20}

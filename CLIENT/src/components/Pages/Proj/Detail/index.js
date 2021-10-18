@@ -117,7 +117,7 @@ export const ProjectDetail = (props) => {
                 colg_type: "TYPE::MAIN",
                 delete_yn: "N",
             }
-            const URL = "/api/process/colgmain";
+            const URL = "/api/process/colg";
 
             axios.get(URL, {
                 params: condition
@@ -199,7 +199,9 @@ export const ProjectDetail = (props) => {
                                             <IconButton
                                                 className={classes.trans}
                                                 color="inherit"
-                                                onClick={() => { history.push(`/agency/project/process/add?proj=${projectData.id}`) }}
+                                                onClick={() => {
+                                                    history.push(`/agency/project/detail/process/add/${projectData.id}`)
+                                                }}
                                             >
                                                 <AddCircleIcon />
                                             </IconButton>

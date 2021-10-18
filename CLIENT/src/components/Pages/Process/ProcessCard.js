@@ -110,7 +110,7 @@ export const ProcessCard = (props) => {
         labels: [props.item.process_name],
         datasets: [
             {
-                label: '현황',
+                label: '현재 진행도',
                 backgroundColor: theme.palette.background.default,
                 borderColor: theme.palette.background.paper,
                 borderWidth: 1,
@@ -120,7 +120,7 @@ export const ProcessCard = (props) => {
             }
         ]
     };
-    console.log(props.item.total_task);
+    
     return (
         <React.Fragment>
             <div className={classes.titleBox}>

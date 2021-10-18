@@ -6,6 +6,7 @@ const connection = require("../db_connection");
 const myBatisMapper = require('mybatis-mapper');
 myBatisMapper.createMapper(['./db/xml/Process/Process.xml']);
 const format = require('../config/MyBatisFormat');
+const { intlFormat } = require('date-fns');
 
 router.post('/add', (req, res) => {
     const params = req.body;
@@ -59,9 +60,41 @@ router.post('/add', (req, res) => {
 
 });
 
-router.get('/colgmain', (req, res) => {
+router.get('/colg', (req, res) => {
     const params = req.query;
-    const SQL = myBatisMapper.getStatement("Process", "getColgMain", params, format);
+    const SQL = myBatisMapper.getStatement("Process", "getColg", params, format);
+    console.log(params);
+    console.log(SQL);
+    connection.query(SQL, (err, rows, fileds) => {
+        if (err) {
+            return res.status(400).send({
+                result: false,
+                resultCode: -1,
+                resultMessage: "오류"
+            });
+        } else {
+            if (rows.length === 0) {
+                return res.status(200).send({
+                    result: rows,
+                    resultCode: 1,
+                    resultMessage: "결과값이 없습니다."
+                });
+            } else {
+                return res.status(200).send({
+                    result: rows,
+                    resultCode: 1,
+                    resultMessage: "성공"
+                });
+            }
+        }
+    });
+});
+
+router.get('/newcolg', (req, res) => {
+    const params = req.query;
+    const SQL = myBatisMapper.getStatement("Process", "getNewColg", params, format);
+
+    return res.send(true);
 
     connection.query(SQL, (err, rows, fileds) => {
         if (err) {
@@ -78,7 +111,6 @@ router.get('/colgmain', (req, res) => {
                     resultMessage: "결과값이 없습니다."
                 });
             } else {
-                console.log(rows);
                 return res.status(200).send({
                     result: rows,
                     resultCode: 1,
@@ -88,5 +120,4 @@ router.get('/colgmain', (req, res) => {
         }
     });
 });
-
 module.exports = router;

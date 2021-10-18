@@ -53,7 +53,7 @@ const getPathGuider = data => {
         
         // ────────────────────────────────────────────────────
 
-        case '/agency/project/process/add':
+        case '/agency/project/detail/process/add/':
             value = "새 프로세스 등록";
             break;
 

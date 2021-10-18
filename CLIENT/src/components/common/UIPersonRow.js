@@ -24,7 +24,7 @@ export class PersonRow extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props.item);
+        
     }
     
 

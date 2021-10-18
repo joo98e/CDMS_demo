@@ -150,8 +150,6 @@ router.post('/add', (req, res) => {
             }
         }
     );
-
-
 });
 
 router.get('/detail', (req, res) => {

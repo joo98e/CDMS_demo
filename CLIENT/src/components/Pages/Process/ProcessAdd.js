@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router';
+import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios'
 import {
     Grid,
@@ -12,6 +13,7 @@ import {
     Divider,
 } from "@material-ui/core";
 
+import { main, sub } from './ProcessAddOffer'
 import Back from '../../common/Back';
 import UIPersonList from '../../common/UIPersonList'
 
@@ -29,6 +31,9 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(2)
     },
+    mb2: {
+        marginBottom: theme.spacing(2)
+    },
     mt4: {
         marginTop: theme.spacing(4)
     },
@@ -37,82 +42,61 @@ const useStyles = makeStyles(theme => ({
     },
     w50p: {
         width: "50%",
-        "&sss": {
-
-        }
     }
 }));
 
-const BtnInfo = {
-    open: "주 담당자 지정",
-    complete: "담당자 지정",
-    cancle: "담당자 지정 취소"
-};
-
-const DialogInfo = {
-    title: "새 프로세스 등록",
-    subTitle: "담당자 지정"
-};
-
-const TableColumnName = [
-    [""],
-    ["성명"],
-    [
-        "부서",
-        {
-            className: "mobile-person-row"
-        }
-    ],
-    [
-        "ID",
-        {
-            className: "mobile-person-row"
-        }
-    ],
-    [
-        "직책",
-        {
-            className: "mobile-person-row"
-        }
-    ],
-    ["구성"],
-];
-
-const ResultMessage = {
-    success: "담당자가 지정되었습니다.",
-    fail: "담당자 지정을 취소합니다."
-};
-
-const ResultAction = {
-    success: () => {
-        console.log("success");
-    },
-    fail: () => {
-        console.log("fail");
-    }
-}
-
-
-
 export default function ProcessAdd() {
-    const [processWorkForce, setProcessWorkForce] = useState();
+    const { ref_proj_id } = useParams();
+    const dispatch = useDispatch();
+    const _processInfo = useSelector((store) => store.Producer.processInfo);
+    const [processWorkForce, setProcessWorkForce] = useState(null);
+
+    const ResultAction = {
+        main: {
+            success: data => {
+                console.log(data);
+            },
+            fail: () => {
+                console.log("fail");
+            }
+        },
+        sub: {
+            success: data => {
+                console.log(data);
+            },
+            fail: () => {
+                console.log("fail");
+            }
+        }
+    }
+
 
     useEffect(() => {
+        console.log("_processInfo", _processInfo);
+
         const loadProcessWorkSpace = async () => {
+            const URL = "/api/process/colg"
             const condition = {
-                ref_proj_id : "",
-                delete_yn : "N"
+                ref_proj_id: ref_proj_id,
+                delete_yn: "N"
             }
 
-            await axios.get()
+            await axios.get(URL, {
+                params: condition
+            })
+                .then((res) => {
+                    setProcessWorkForce(res.data);
+                    console.log(res.data);
+                })
         }
+
+        loadProcessWorkSpace();
 
         return () => {
 
         }
 
-    }, []);
-
+    }, [ref_proj_id]);
 
     const classes = useStyles();
 
@@ -141,17 +125,31 @@ export default function ProcessAdd() {
                     />
                     <Divider className={classes.mv} />
 
-                    <Typography variant="h6">
-                        담당자
+                    <Typography className={classes.mb2} variant="h6">
+                        주담당자
                     </Typography>
                     <div className={classes.w50p}>
                         <UIPersonList
-                            BtnInfo={BtnInfo}
-                            DialogInfo={DialogInfo}
-                            TableColumnName={TableColumnName}
-                            TableLoadedData={[]}
-                            ResultMessage={ResultMessage}
-                            ResultAction={ResultAction}
+                            BtnInfo={main.BtnInfo}
+                            DialogInfo={main.DialogInfo}
+                            TableColumnName={main.TableColumnName}
+                            TableLoadedData={processWorkForce ? processWorkForce.result : []}
+                            ResultMessage={main.ResultMessage}
+                            ResultAction={ResultAction.main}
+                        />
+                    </div>
+                    <Divider className={classes.mv} />
+                    <Typography className={classes.mb2} variant="h6">
+                        서브 담당자
+                    </Typography>
+                    <div className={classes.w50p}>
+                        <UIPersonList
+                            BtnInfo={sub.BtnInfo}
+                            DialogInfo={sub.DialogInfo}
+                            TableColumnName={sub.TableColumnName}
+                            TableLoadedData={processWorkForce ? processWorkForce.result : []}
+                            ResultMessage={sub.ResultMessage}
+                            ResultAction={ResultAction.sub}
                         />
                     </div>
 

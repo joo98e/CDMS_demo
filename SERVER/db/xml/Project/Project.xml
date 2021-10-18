@@ -34,7 +34,7 @@
         INSERT INTO
         tb_agcy_proj_colleague
         (
-            ref_agcy_id,
+            ref_proj_id,
             ref_agcy_colleague_seq,
             `name`,
             reg_ip,
@@ -43,7 +43,7 @@
         VALUES
         <foreach collection="person" item="goods" separator=",">
         (
-            #{ref_agcy_id},
+            #{last_insert_id},
             #{goods.seq},
             #{goods.full_name},
             #{IPv4},

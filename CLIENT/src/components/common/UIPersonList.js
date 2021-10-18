@@ -16,11 +16,12 @@ import {
     Button, withStyles, Box,
     Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
     Divider, Paper,
-    TableContainer, Table, TableHead, TableBody, TableRow, TableCell
+    TableContainer, Table, TableHead, TableBody, TableRow, TableCell, InputBase, IconButton
 } from '@material-ui/core'
 
 import UICircularProgress from '../common/UICircularProgress';
 import UIPersonRow from '../common/UIPersonRow';
+import { SearchIcon } from './CustomIcons';
 
 const styles = theme => ({
     textFieldStyle: {
@@ -32,6 +33,14 @@ const styles = theme => ({
     },
     flexBox: {
         display: 'flex'
+    },
+    dialog: {
+        position: 'relative'
+    },
+    srchBox: {
+        position: "absolute",
+        top: theme.spacing(2),
+        right: theme.spacing(2),
     }
 });
 
@@ -41,9 +50,17 @@ export class UIPersonList extends Component {
 
         this.state = {
             isOpen: false,
-            data: []
+            data: [],
+            srchWord: null,
+            srchData: this.props.TableLoadedData
         }
     }
+
+    componentDidMount() {
+        this.handleSearchButton();
+    }
+
+
 
     UIPersonRowChangeData = newItem => {
         let _temp = this.state.data;
@@ -70,8 +87,6 @@ export class UIPersonList extends Component {
                 ]
             });
         }
-
-        console.log(this.state.data);
     }
 
     handleChangeStatus = (type) => {
@@ -90,6 +105,33 @@ export class UIPersonList extends Component {
         }
     }
 
+    handleChangeSrchWord = e => {
+        this.setState({
+            srchWord: e.target.value
+        });
+    }
+
+    handleSearchButton = () => {
+        let _target = [];
+
+        this.props.TableLoadedData &&
+            this.props.TableLoadedData.filter(data => {
+                if (this.state.srchWord === null || this.state.srchWord === "") {
+                    _target = this.props.TableLoadedData;
+                }
+                else if (data.full_name.toLowerCase().includes(this.state.srchWord.toLowerCase())) {
+                    _target = [
+                        ..._target,
+                        data
+                    ]
+                }
+            });
+
+        this.setState({
+            srchData: _target
+        });
+    }
+
     render() {
         const { classes } = this.props;
 
@@ -98,13 +140,30 @@ export class UIPersonList extends Component {
                 <Button className={classes.textFieldStyle} color="inherit" variant="outlined" onClick={this.handleChangeStatus}>
                     {this.props.BtnInfo.open}
                 </Button>
-
                 {
                     this.state.isOpen &&
                     <Dialog className={classes.dialog} open={this.state.isOpen} onClose={this.handleChangeStatus} fullWidth maxWidth="lg">
                         <DialogTitle>
                             {this.props.DialogInfo.title}
                         </DialogTitle>
+
+                        <Box className={classes.srchBox}>
+                            <InputBase
+                                name="srchWord"
+                                placeholder="이름으로 검색하기"
+                                onChange={this.handleChangeSrchWord}
+                                onKeyUp={e => {
+                                    if (e.key === "Enter") {
+                                        this.handleSearchButton();
+                                    }
+                                }}
+                            />
+                            <IconButton
+                                onClick={this.handleSearchButton}
+                            >
+                                <SearchIcon />
+                            </IconButton>
+                        </Box>
 
                         <DialogContent>
                             <Box className={classes.wrapper}>
@@ -135,17 +194,29 @@ export class UIPersonList extends Component {
                                                 </TableHead>
                                                 <TableBody>
                                                     {
-                                                        this.props.TableLoadedData ?
-                                                            this.props.TableLoadedData.map((item, index) => {
-                                                                return (
-                                                                    <UIPersonRow
-                                                                        key={index}
-                                                                        item={item}
-                                                                        data={this.state.data}
-                                                                        UIPersonRowChangeData={this.UIPersonRowChangeData}
-                                                                    />
-                                                                )
-                                                            })
+                                                        this.props.TableLoadedData && this.props.TableLoadedData.length !== 0 ?
+                                                            this.state.srchWord === null || this.state.srchWord === "" ?
+                                                                this.props.TableLoadedData.map((item, index) => {
+                                                                    return (
+                                                                        <UIPersonRow
+                                                                            key={index}
+                                                                            item={item}
+                                                                            data={this.state.data}
+                                                                            UIPersonRowChangeData={this.UIPersonRowChangeData}
+                                                                        />
+                                                                    )
+                                                                })
+                                                                :
+                                                                this.state.srchData.map((item, index) => {
+                                                                    return (
+                                                                        <UIPersonRow
+                                                                            key={index}
+                                                                            item={item}
+                                                                            data={this.state.data}
+                                                                            UIPersonRowChangeData={this.UIPersonRowChangeData}
+                                                                        />
+                                                                    )
+                                                                })
                                                             :
                                                             <UICircularProgress />
                                                     }
@@ -181,7 +252,7 @@ export default (withStyles(styles)(withSnackbar(UIPersonList)));
 UIPersonList.propTypes = {
     BtnInfo: PropTypes.object.isRequired,
     DialogInfo: PropTypes.object.isRequired,
-    TableColumnName: PropTypes.arrayOf(PropTypes.string).isRequired,
+    TableColumnName: PropTypes.arrayOf(PropTypes.array).isRequired,
     TableLoadedData: PropTypes.arrayOf(PropTypes.object).isRequired,
     ResultMessage: PropTypes.object.isRequired
 }

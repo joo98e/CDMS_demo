@@ -47,11 +47,21 @@ const initProjectValue = {
     additionalInfo: []
 };
 
+const initProcessValue = {
+    start_date: today(),
+    end_date: today(),
+    name: '',
+    desc: '',
+    mainPerson: {},
+    subPerson: []
+};
+
 const initialState = {
     registerMember: initRegisterValue,
     projectMember: initProjectMemberValue,
     agencyInfo: initAgencyValue,
     projectInfo: initProjectValue,
+    processInfo: initProcessValue
 };
 
 const Producer = (state = initialState, action) => {

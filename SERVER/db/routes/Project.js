@@ -23,7 +23,7 @@ router.post('/add', (req, res) => {
             } else {
                 if (Array.isArray(params.person) && params.person.length > 0) {
                     const params_sub = {
-                        ref_agcy_id: params.ref_agcy_id,
+                        last_insert_id: rows.insertId,
                         IPv4: params.IPv4,
                         person: params.person
                     };
