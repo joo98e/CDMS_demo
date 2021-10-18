@@ -16,7 +16,7 @@ import {
     Button, withStyles, Box,
     Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
     Divider, Paper,
-    TableContainer, Table, TableHead, TableBody, TableRow, TableCell, InputBase, IconButton
+    TableContainer, Table, TableHead, TableBody, TableRow, TableCell, InputBase, IconButton, Tooltip
 } from '@material-ui/core'
 
 import UICircularProgress from '../common/UICircularProgress';
@@ -109,9 +109,7 @@ export class UIPersonList extends Component {
         this.setState({
             srchWord: e.target.value
         });
-    }
 
-    handleSearchButton = () => {
         let _target = [];
 
         this.props.TableLoadedData &&
@@ -119,7 +117,7 @@ export class UIPersonList extends Component {
                 if (this.state.srchWord === null || this.state.srchWord === "") {
                     _target = this.props.TableLoadedData;
                 }
-                else if (data.full_name.toLowerCase().includes(this.state.srchWord.toLowerCase())) {
+                else if (data.full_name.toLowerCase().includes(e.target.value.toLowerCase())) {
                     _target = [
                         ..._target,
                         data
@@ -130,6 +128,10 @@ export class UIPersonList extends Component {
         this.setState({
             srchData: _target
         });
+    }
+
+    handleSearchButton = () => {
+
     }
 
     render() {
@@ -148,6 +150,13 @@ export class UIPersonList extends Component {
                         </DialogTitle>
 
                         <Box className={classes.srchBox}>
+                            <Tooltip title="이름으로 검색해보세요!">
+                                <IconButton
+                                    onClick={this.handleSearchButton}
+                                >
+                                    <SearchIcon />
+                                </IconButton>
+                            </Tooltip>
                             <InputBase
                                 name="srchWord"
                                 placeholder="이름으로 검색하기"
@@ -158,11 +167,6 @@ export class UIPersonList extends Component {
                                     }
                                 }}
                             />
-                            <IconButton
-                                onClick={this.handleSearchButton}
-                            >
-                                <SearchIcon />
-                            </IconButton>
                         </Box>
 
                         <DialogContent>
