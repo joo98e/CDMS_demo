@@ -69,17 +69,42 @@ export class MyNav extends Component {
 
     mailConfirm = () => {
         const URL = "/api/mail/send"
-        const params = {
-            _Tx: prompt("_Tx를 입력하세요."),
-            _Rx: prompt("_Rx를 입력하세요."),
-            _Subject: prompt("_Subject를 입력하세요."),
-            _Content: prompt("_Content를 입력하세요.")
-        }
 
-        axios.post(URL, params)
-            .then(res => {
-                console.log(res);
-            });
+        if (window.confirm("실행하시겠습니까?")) {
+            let _status = true;
+            let _msg = String;
+            const params = {
+                _Tx: prompt("_Tx를 입력하세요."),
+                _Rx: prompt("_Rx를 입력하세요."),
+                _Subject: prompt("_Subject를 입력하세요."),
+                _Content: prompt("_Content를 입력하세요.")
+            }
+
+            for (const props in params) {
+
+                switch (props) {
+                    case "_Content":
+
+                        break;
+
+                    default:
+                        if (params[props] === null || params[props] === "") {
+                            _status = false
+                            _msg = `${props}는 NULL이 허용되지 않습니다.`;
+                        };
+                        break;
+                }
+            }
+
+            if (_status) {
+                axios.post(URL, params)
+                    .then(res => {
+                        console.log(res);
+                    });
+            } else {
+                alert(_msg);
+            }
+        }
     }
 
     handleLogout = () => {
