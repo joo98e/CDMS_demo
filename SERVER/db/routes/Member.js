@@ -88,6 +88,7 @@ router.get('/login/dev', (req, res) => {
                 resultCode: -1,
                 resultMessage: "알 수 없는 오류"
             })
+            
         } else {
             return res.status(200).send(rows[0]);
         };
