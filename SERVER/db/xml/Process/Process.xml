@@ -45,6 +45,7 @@
     
     <!-- 새로 추가할 프로세스의 참여자를 지정하기 위한 셀렉트 쿼리 -->
     <select id="getNewColg">
-        
+        SELECT 
+            
     </select>
 </mapper>
