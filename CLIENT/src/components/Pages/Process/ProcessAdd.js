@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router';
+import axios from 'axios'
 import {
     Grid,
     Box,
@@ -97,7 +99,12 @@ export default function ProcessAdd() {
 
     useEffect(() => {
         const loadProcessWorkSpace = async () => {
-            await fetch()
+            const condition = {
+                ref_proj_id : "",
+                delete_yn : "N"
+            }
+
+            await axios.get()
         }
 
         return () => {
