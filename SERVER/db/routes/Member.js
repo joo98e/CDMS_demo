@@ -15,7 +15,7 @@ router.post('/login', (req, res) => {
         delete_yn: 'N'
     }
     const SQL = myBatisMapper.getStatement("Member", "getCompareId", condition, format);
-    
+
     let result = Boolean;
     connection.query(SQL, (err, rows, fields) => {
         if (err) {
@@ -34,7 +34,7 @@ router.post('/login', (req, res) => {
                 resultMessage: "일치하는 아이디가 없습니다."
             });
         }
-        
+
         // 비밀번호 확인
         else {
             if (rows.length !== 0) {
@@ -75,23 +75,23 @@ router.post('/login', (req, res) => {
 
 router.get('/login/dev', (req, res) => {
     const condition = {
-        id : 'dev',
-        delete_yn : 'N'
+        id: 'dev',
+        delete_yn: 'N'
     }
     const SQL = myBatisMapper.getStatement('Member', 'devLogin', condition, format);
+
     connection.query(SQL, (err, rows, fields) => {
         if (err) {
             console.log(err)
-            res.status(400).send({
+            return res.status(400).send({
                 result: false,
                 resultCode: -1,
                 resultMessage: "알 수 없는 오류"
             })
+        } else {
+            return res.status(200).send(rows[0]);
         };
-
-        res.status(200).send(rows[0]);
-    }
-    );
+    });
 });
 
 module.exports = router;
