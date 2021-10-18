@@ -47,6 +47,7 @@ const BtnInfo = {
     open: "주 담당자 지정",
     complete: "담당자 지정",
     cancle: "담당자 지정 취소"
+    
 };
 
 const DialogInfo = {
