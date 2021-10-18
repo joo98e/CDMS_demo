@@ -16,6 +16,8 @@ import {
 import { main, sub } from './ProcessAddOffer'
 import Back from '../../common/Back';
 import UIPersonList from '../../common/UIPersonList'
+import UIPersonListOnlyOne from '../../common/UIPersonListOnlyOne'
+import { setProcessInfo, setProcessInfoInit } from '../../../redux/action/ProducerAction';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -55,6 +57,10 @@ export default function ProcessAdd() {
         main: {
             success: data => {
                 console.log(data);
+                dispatch(setProcessInfo({
+                    ..._processInfo,
+                    mainPerson: data
+                }));
             },
             fail: () => {
                 console.log("fail");
@@ -62,7 +68,10 @@ export default function ProcessAdd() {
         },
         sub: {
             success: data => {
-                console.log(data);
+                dispatch(setProcessInfo({
+                    ..._processInfo,
+                    subPerson: data
+                }))
             },
             fail: () => {
                 console.log("fail");
@@ -75,7 +84,7 @@ export default function ProcessAdd() {
         console.log("_processInfo", _processInfo);
 
         const loadProcessWorkSpace = async () => {
-            const URL = "/api/process/colg"
+            const URL = "/api/process/newcolg"
             const condition = {
                 ref_proj_id: ref_proj_id,
                 delete_yn: "N"
@@ -129,7 +138,7 @@ export default function ProcessAdd() {
                         주담당자
                     </Typography>
                     <div className={classes.w50p}>
-                        <UIPersonList
+                        <UIPersonListOnlyOne
                             BtnInfo={main.BtnInfo}
                             DialogInfo={main.DialogInfo}
                             TableColumnName={main.TableColumnName}

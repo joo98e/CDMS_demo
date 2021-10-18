@@ -29,3 +29,18 @@ export const setProjectInfoInit = () => {
         type: types.SET_PROJECT_INFO_INIT
     };
 };
+
+// ─────────────────────────────────────────────────── 
+export const setProcessInfo = payload => {
+    return {
+        type: types.SET_PROCESS_INFO,
+        payload
+    };
+};
+
+// ─────────────────────────────────────────────────── 
+export const setProcessInfoInit = () => {
+    return {
+        type: types.SET_PROCESS_INFO_INIT
+    };
+};

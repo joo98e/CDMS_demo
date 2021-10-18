@@ -146,6 +146,23 @@ const Producer = (state = initialState, action) => {
                 ...state,
                 projectInfo: {}
             };
+        
+        case types.SET_PROCESS_INFO:
+
+            return {
+                ...state,
+                processInfo: {
+                    ...state.processInfo,
+                    ...action.payload
+                }
+            };
+
+        case types.SET_PROCESS_INFO_INIT:
+
+            return {
+                ...state,
+                processInfo: {}
+            };
 
         default:
             return state;
