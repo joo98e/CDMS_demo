@@ -20,7 +20,7 @@ const Project = require('./routes/Project');
 const Process = require('./routes/Process');
 const Policy = require('./routes/Policy');
 const Util = require('./routes/Util');
-
+const Mail = require('./routes/Mail');
 // ────────────────────────────────────────────────────────── 
 
 // 라우터 회원 
@@ -37,6 +37,9 @@ app.use('/api/process', Process);
 app.use('/api/menu', Menu);
 app.use('/api/policy', Policy);
 app.use('/api/util', Util);
+
+// 라우터 메일
+app.use('/api/mail', Mail);
 
 if (status === "prod") {
     // BUILD 제공

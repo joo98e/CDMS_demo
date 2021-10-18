@@ -1,4 +1,10 @@
-function fnMail(_Tx, _Rx, _Subject, _Content){
+function fnMail(_Tx, _Rx, _Subject, _Content) {
+    console.log(_Tx);
+    console.log(_Rx);
+    console.log(_Subject);
+    console.log(_Content);
+    // 여기까지 값 오는 것 확인됨
+
     const exec = require('child_process').exec;
     exec('mail -s"' + _Subject + '" -r"' + _Tx + '" "' + _Rx + '"<<<"' + _Content + '"', {windowsHide : true}, function(err, stdout, stderr){
         if(err){

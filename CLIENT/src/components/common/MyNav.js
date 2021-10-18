@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom';
 import * as actions from '../../redux/action/UserInfoAction'
-
+import axios from 'axios'
 import {
     Box, AppBar, Toolbar, IconButton, Typography, withStyles, Tooltip, Menu, MenuItem, Divider, ListItemIcon, Badge
 } from '@material-ui/core';
@@ -67,6 +67,21 @@ export class MyNav extends Component {
         console.log("함수 미정");
     }
 
+    mailConfirm = () => {
+        const URL = "/api/mail/send"
+        const params = {
+            _Tx: prompt("_Tx를 입력하세요."),
+            _Rx: prompt("_Rx를 입력하세요."),
+            _Subject: prompt("_Subject를 입력하세요."),
+            _Content: prompt("_Content를 입력하세요.")
+        }
+
+        axios.post(URL, params)
+            .then(res => {
+                console.log(res);
+            });
+    }
+
     handleLogout = () => {
         this.props.history.push('/login');
         this.props.handleSessionQuit();
@@ -94,7 +109,7 @@ export class MyNav extends Component {
             {
                 name: "Help",
                 icon: <HelpIcon />,
-                action: this.tmp
+                action: this.mailConfirm
             },
             {
                 name: "로그아웃",
