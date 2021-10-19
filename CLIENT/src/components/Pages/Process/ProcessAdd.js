@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
+import { useSnackbar } from 'notistack';
 import axios from 'axios'
 import {
     Grid, Box, Paper, makeStyles, Typography, Container, TextField, Divider,
@@ -12,7 +13,8 @@ import Back from '../../common/Back';
 import UIPersonList from '../../common/UIPersonList'
 import UIPersonListOnlyOne from '../../common/UIPersonListOnlyOne'
 import { setProcessInfo, setProcessInfoInit } from '../../../redux/action/ProducerAction';
-import { ProcessAdditionalDialog } from './ProcessAdditionalDialog';
+import ProcessAdditionalDialog from './ProcessAdditionalDialog';
+import { UIChipSet } from '../../common/UIChipSet';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -34,7 +36,7 @@ const useStyles = makeStyles(theme => ({
     mt4: {
         marginTop: theme.spacing(4)
     },
-    vw50: {
+    w100: {
         width: "100%"
     },
     w50p: {
@@ -43,6 +45,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function ProcessAdd() {
+    const { enqueueSnackbar } = useSnackbar();
     const { ref_proj_id } = useParams();
     const dispatch = useDispatch();
     const _processInfo = useSelector((store) => store.Producer.processInfo);
@@ -85,7 +88,6 @@ export default function ProcessAdd() {
 
 
     useEffect(() => {
-        console.log("_processInfo", _processInfo);
 
         const loadProcessWorkSpace = async () => {
             const URL = "/api/process/newcolg"
@@ -99,14 +101,13 @@ export default function ProcessAdd() {
             })
                 .then((res) => {
                     setProcessWorkForce(res.data);
-                    console.log(res.data);
                 })
         }
 
         loadProcessWorkSpace();
 
         return () => {
-
+            dispatch(setProcessInfoInit());
         }
 
     }, [ref_proj_id]);
@@ -120,7 +121,7 @@ export default function ProcessAdd() {
                 <Container maxWidth="lg">
                     <Divider className={classes.mv} />
                     <TextField
-                        className={classes.vw50}
+                        className={classes.w100}
                         name="name"
                         type="text"
                         variant="filled"
@@ -129,7 +130,7 @@ export default function ProcessAdd() {
                     />
                     <Divider className={classes.mv} />
                     <TextField
-                        className={classes.vw50}
+                        className={classes.w100}
                         name="desc"
                         type="text"
                         variant="filled"
@@ -152,11 +153,14 @@ export default function ProcessAdd() {
                         />
                         <Box mt={2}>
                             {
-                                _processInfo.mainPerson ?
-                                    <Chip clickable color="primary" avatar={<Avatar src={_processInfo.mainPerson.avatar_path} />} label={`${_processInfo.mainPerson.full_name}`} />
+                                !_processInfo.mainPerson ?
+                                    ""
                                     :
-                                    <div></div>
+                                    <UIChipSet
+                                        data={_processInfo.mainPerson}
+                                    />
                             }
+
                         </Box>
                     </Box>
                     <Divider className={classes.mv} />
@@ -177,7 +181,10 @@ export default function ProcessAdd() {
                                 _processInfo.subPerson &&
                                 _processInfo.subPerson.map((item, index) => {
                                     return (
-                                        <Chip key={item.seq} clickable color="primary" onClick={console.log(5)} avatar={<Avatar src={item.avatar_path} />} label={`${item.full_name}`} />
+                                        <UIChipSet
+                                            key={index}
+                                            data={item}
+                                        />
                                     )
                                 })
                             }
@@ -188,11 +195,12 @@ export default function ProcessAdd() {
                     <Typography className={classes.mb2} variant="h6">
                         추가 정보 구성
                     </Typography>
-                    <ProcessAdditionalDialog
-                        
-                    />
+                    <Box className={classes.w50p}>
+                        <ProcessAdditionalDialog />
+                    </Box>
 
                     <Divider className={classes.mv} />
+
                 </Container>
             </Paper>
         </Box>

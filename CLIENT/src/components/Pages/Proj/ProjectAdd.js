@@ -79,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
     mt4: {
         marginTop: theme.spacing(4)
     },
-    vw50: {
+    w100: {
         width: "100%"
     },
     w50p: {
@@ -173,19 +173,10 @@ export default function FullScreenDialog() {
         loadPersonRow();
 
         return () => {
-
+            dispatch(setProjectInfoInit());
         }
 
     }, []);
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        dispatch(setProjectInfoInit());
-        setOpen(false);
-    };
 
     const handleChangeDate = (value, name) => {
         const _result = name === "start_date" ? getDateFormat.YYYYMMDDHHMMSS_BEGIN(value) : getDateFormat.YYYYMMDDHHMMSS_END(value);
@@ -291,105 +282,84 @@ export default function FullScreenDialog() {
     }
 
     return (
-        <div>
-            <IconButton color="inherit" className={classes.trans} onClick={handleClickOpen}>
-                <AddCircleIcon />
-            </IconButton>
-            <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
-                <AppBar className={classes.appBar} position="fixed">
-                    <Toolbar>
-                        <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
-                            <CloseIcon />
-                        </IconButton>
-                        <Typography variant="h6" className={classes.title}>
-                            프로젝트 등록
-                        </Typography>
-                        <Button autoFocus color="inherit" onClick={handleValidateValue}>
-                            등록하기
-                        </Button>
-                    </Toolbar>
-                </AppBar>
-                <Container>
-                    <Container maxWidth="xs">
-                        <Typography className={classes.stepperTitleStyle} variant="h4" align="center">
-                            <IconButton color="inherit">
-                                <BusinessIcon />
-                            </IconButton>
-                            프로젝트 등록
-                        </Typography>
-                    </Container>
+        <Box className={classes.root}>
+            <Back />
+            <Paper className={classes.mt4} elevation={4}>
+                <Container maxWidth="lg">
+                    <Divider className={classes.mv} />
+                    <TextField
+                        className={classes.w100}
+                        variant="filled"
+                        label="프로젝트명"
+                        inputProps={TextFieldInputProps}
+                        name="name"
+                        onChange={handleChangeProjectInfos}
+                    />
+                    <Divider className={classes.mv} />
+                    <TextField
+                        className={classes.w100}
+                        variant="filled"
+                        label="프로젝트 설명"
+                        inputProps={TextFieldInputProps}
+                        name="desc"
+                        onChange={handleChangeProjectInfos}
+                    />
+                    
+                    <Divider className={classes.mv} />
+                    <ProjectDatePicker
+                        name="start_date"
+                        label="프로젝트 시작일"
+                        w100={classes.w100}
+                        resultAction={handleChangeDate}
+                    />
 
-                    <Divider />
+                    <Divider className={classes.mv} />
+                    <ProjectDatePicker
+                        name="end_date"
+                        label="프로젝트 종료일"
+                        w100={classes.w100}
+                        resultAction={handleChangeDate}
+                    />
 
-                    <Grid container spacing={3}>
-                        <Grid item xs={12} md={12} lg={12}>
-                            <List>
-                                <ListItem>
-                                    <ListItemText primary="프로젝트명" />
-                                    <TextField className={classes.textFieldStyle} variant="filled" label="프로젝트명" inputProps={TextFieldInputProps} name="name" onChange={handleChangeProjectInfos} />
-                                </ListItem>
-                                <Divider />
-                                <ListItem>
-                                    <ListItemText primary="프로젝트 설명" />
-                                    <TextField className={classes.textFieldStyle} variant="filled" label="프로젝트 설명" inputProps={TextFieldInputProps} name="desc" onChange={handleChangeProjectInfos} />
-                                </ListItem>
-                                <Divider />
-                                {/* <ListItem>
-                                    <ListItemText primary="프로젝트 썸네일" />
-                                    <TextField className={classes.textFieldStyle} variant="outlined" placeholder="프로젝트 썸네일" inputProps={TextFieldInputProps} name="name" onChange={handleChangeProjectInfos} />
-                                </ListItem> */}
-                                <Divider />
-                                <ListItem>
-                                    <ListItemText primary="프로젝트 시작일" />
-                                    <ProjectDatePicker
-                                        name="start_date"
-                                        textFieldStyle={classes.textFieldStyle}
-                                        resultAction={handleChangeDate}
-                                    />
-                                </ListItem>
-                                <Divider />
-                                <ListItem>
-                                    <ListItemText primary="프로젝트 종료일" />
-                                    <ProjectDatePicker
-                                        name="end_date"
-                                        textFieldStyle={classes.textFieldStyle}
-                                        resultAction={handleChangeDate}
-                                    />
-                                </ListItem>
-                                <Divider />
-                                <ListItem>
-                                    <ListItemText primary="추가 정보" />
-                                    <ProjectAdditionalDialog />
-                                </ListItem>
-                                <Divider />
-                                <ListItem>
-                                    <ListItemText primary="프로젝트 담당자" />
-                                    <UIPersonList
-                                        BtnInfo={BtnInfo}
-                                        DialogInfo={DialogInfo}
-                                        TableColumnName={TableColumnName}
-                                        TableLoadedData={personRow !== null ? personRow.result : {}}
-                                        ResultMessage={ResultMessage}
-                                        ResultAction={ResultAction}
-                                    />
-                                    {
-                                        _projectInfo.person &&
-                                        _projectInfo.person.map((item, index) => {
-                                            return (
-                                                <UIChipSet
-                                                    data={item}
-                                                />
-                                            )
-                                        })
-                                    }
-                                </ListItem>
-                                <Divider />
+                    <Divider className={classes.mv} />
+                    <Typography className={classes.mb2} variant="h6">
+                        추가 정보
+                    </Typography>
+                    <Box className={classes.w50p}>
+                        <ProjectAdditionalDialog />
+                    </Box>
 
-                            </List>
-                        </Grid>
-                    </Grid>
+                    <Divider className={classes.mv} />
+                    <Typography className={classes.mb2} variant="h6">
+                        프로젝트 담당자
+                    </Typography>
+
+                    <Box className={classes.w50p}>
+                        <UIPersonList
+                            BtnInfo={BtnInfo}
+                            DialogInfo={DialogInfo}
+                            TableColumnName={TableColumnName}
+                            TableLoadedData={personRow !== null ? personRow.result : {}}
+                            ResultMessage={ResultMessage}
+                            ResultAction={ResultAction}
+                        />
+                        <Box mt={2}>
+                            {
+                                _projectInfo.person &&
+                                _projectInfo.person.map((item, index) => {
+                                    return (
+                                        <UIChipSet
+                                            data={item}
+                                        />
+                                    )
+                                })
+                            }
+                        </Box>
+                    </Box>
+
+                    <Divider className={classes.mv} />
                 </Container>
-            </Dialog>
-        </div>
+            </Paper>
+        </Box>
     );
 }

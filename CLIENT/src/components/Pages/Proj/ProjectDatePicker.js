@@ -35,13 +35,14 @@ export class ProjectDatePicker extends Component {
         return (
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
-                    className={this.props.textFieldStyle}
+                    className={this.props.w100}
                     variant="inline"
                     format="yyyy/MM/dd"
-                    value={this.state.selectedDate}
+                    value={null}
                     color="primary"
                     onChange={this.handleDateChange}
-                    inputVariant="outlined"
+                    inputVariant="filled"
+                    label={this.props.label ? this.props.label : "날짜를 선택해주세요."}
                     invalidDateMessage="잘못된 날짜 형식이에요!"
                     invalidLabel="잘못된 날짜 형식이에요!"
                     keyboardIcon={<DateRangeIcon />}

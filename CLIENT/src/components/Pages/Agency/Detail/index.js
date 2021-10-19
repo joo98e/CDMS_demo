@@ -5,7 +5,7 @@ import { withRouter } from 'react-router'
 
 import {
     Grid, Box, Typography, Paper, Grow,
-    withStyles,
+    withStyles, IconButton,
     Divider
 } from "@material-ui/core"
 
@@ -14,6 +14,7 @@ import getDateFormat from '../../../common/fn/getDateFormat';
 import UICircularProgress from '../../../common/UICircularProgress'
 import ProjectAddDialog from '../../Proj/ProjectAddDialog';
 import ProjectCard from '../../Proj/ProjectCard';
+import { AddCircleIcon } from '../../../common/CustomIcons'
 
 const styles = theme => ({
     root: {
@@ -64,6 +65,12 @@ const styles = theme => ({
     },
     relative: {
         position: "relative"
+    },
+    trans: {
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform : "translate(-50%, -50%)",
     }
 });
 
@@ -398,10 +405,20 @@ export class AgencyDetail extends Component {
                                                     this.state.writeStatus &&
                                                     <Grid item xs={12} md={6} lg={4}>
                                                         <Paper elevation={4} className={`${classes.relative} + ${classes.h_294px}`}>
-                                                            <ProjectAddDialog />
+                                                            {/* <ProjectAddDialog /> */}
+                                                            <IconButton
+                                                                className={classes.trans}
+                                                                color="inherit"
+                                                                onClick={() => {
+                                                                    this.props.history.push(`/agency/project/add/${this.props.match.params.ref_agcy_id}`)
+                                                                }}
+                                                            >
+                                                                <AddCircleIcon />
+                                                            </IconButton>
                                                         </Paper>
                                                     </Grid>
                                                 }
+
                                             </Grid>
                                         </Paper>
                                     </Grow>

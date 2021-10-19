@@ -4,7 +4,7 @@ import axios from 'axios'
 import { useSnackbar } from 'notistack';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { setAgencyInfo } from '../../../redux/action/ProducerAction'
+import { setAgencyInfo, setAgencyInfoInit } from '../../../redux/action/ProducerAction'
 
 import {
     Container, TextField, FormControl, Select, Button, Dialog, Typography,
@@ -24,6 +24,7 @@ import {
     CloseIcon,
     AddCircleIcon
 } from '../../common/CustomIcons';
+import UIChipSet from '../../common/UIChipSet';
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -173,7 +174,7 @@ export default function FullScreenDialog() {
     };
 
     const handleClose = () => {
-        dispatch(setAgencyInfo(defaultState));
+        dispatch(setAgencyInfoInit());
         setOpen(false);
     };
 
@@ -397,7 +398,10 @@ export default function FullScreenDialog() {
                                                 return false
                                             } else {
                                                 return (
-                                                    <Chip key={item.seq} clickable color="primary" avatar={<Avatar src={item.avatar_path} />} label={`${item.full_name}`} />
+                                                    <UIChipSet
+                                                        key={index}
+                                                        data={item}
+                                                    />
                                                 )
                                             }
                                         })

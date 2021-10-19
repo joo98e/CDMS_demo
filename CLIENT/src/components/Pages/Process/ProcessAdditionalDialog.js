@@ -10,7 +10,7 @@ import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
 
 import {
-    Button, withStyles, 
+    Button, withStyles,
     Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
     Grid, Input, Tooltip
 } from '@material-ui/core'
@@ -22,7 +22,7 @@ const styles = theme => ({
         display: 'flex'
     },
     textFieldStyle: {
-        width: '30vw',
+        width: '100%',
         textAlign: 'right'
     },
 });
@@ -30,7 +30,6 @@ const styles = theme => ({
 export class ProcessAdditionalDialog extends Component {
     constructor(props) {
         super(props)
-
         this.state = {
             isOpen: false,
             nowLength: this.props.processInfo.additionalInfo.length !== 0 ?
@@ -49,31 +48,6 @@ export class ProcessAdditionalDialog extends Component {
         }
     }
 
-    handleChangeStatus = () => {
-
-        if (this.state.isOpen) {
-            if (this.nullCheck()) {
-                return false;
-            } else {
-                if (Array.isArray(this.state.data) && this.state.data.length !== 0) {
-                    this.props.setProjectInfo({
-                        ...this.props.processInfo,
-                        additionalInfo: JSON.stringify(this.state.data)
-                    });
-                 }
-            };
-            if (this.state.data.length !== 0) {
-                this.props.enqueueSnackbar("추가 정보 구성이 완료되었습니다.", { variant: "success" });
-            }
-        }
-        this.setState({
-            ...this.state,
-            isOpen: !this.state.isOpen ? true : false
-        });
-
-
-    }
-
     handleChangeValue = (e) => {
         const _type = e.target.name.indexOf("key") !== -1 ? "key" : "value";
         const target = e.target.name.replace(/\D/g, "") - 1;
@@ -87,22 +61,6 @@ export class ProcessAdditionalDialog extends Component {
         this.setState({
             ...this.state,
             data: nextState
-        });
-    }
-
-    handleAddField = () => {
-        if (this.nullCheck()) return;
-
-        this.setState({
-            ...this.state,
-            nowLength: this.state.nowLength + 1,
-            data: [
-                ...this.state.data,
-                {
-                    key: "",
-                    value: ""
-                }
-            ]
         });
     }
 
@@ -124,7 +82,46 @@ export class ProcessAdditionalDialog extends Component {
             console.log("this.state.data", this.state.data);
             console.log("this.props.processInfo.additionalInfo", this.props.processInfo.additionalInfo);
         }
+    }
 
+    handleAddField = () => {
+        if (this.nullCheck()) return false;
+
+        this.setState({
+            ...this.state,
+            nowLength: this.state.nowLength + 1,
+            data: [
+                ...this.state.data,
+                {
+                    key: "",
+                    value: ""
+                }
+            ]
+        });
+    }
+
+    handleChangeStatus = () => {
+        if (this.state.isOpen) {
+            if (this.nullCheck()) {
+                return false;
+            } else {
+                if (Array.isArray(this.state.data) && this.state.data.length !== 0) {
+                    this.props.setProcessInfo({
+                        ...this.props.processInfo,
+                        additionalInfo: JSON.stringify(this.state.data)
+                    });
+                }
+            };
+            this.state.data.length !== 0 ?
+                this.props.enqueueSnackbar("추가 정보 구성이 완료되었습니다.", { variant: "success" })
+                :
+                this.props.enqueueSnackbar("구성된 정보가 없습니다.", { variant: "warning" })
+        }
+
+        this.setState({
+            ...this.state,
+            isOpen: !this.state.isOpen ? true : false,
+        });
     }
 
     handleRemoveField = () => {
@@ -259,7 +256,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => {
     return {
-        setProjectInfo: payload => { dispatch(actions.setProjectInfo(payload)) }
+        setProcessInfo: payload => { dispatch(actions.setProcessInfo(payload)) }
     }
 }
 

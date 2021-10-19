@@ -22,7 +22,7 @@ const styles = theme => ({
         display: 'flex'
     },
     textFieldStyle: {
-        width: '30vw',
+        width: '100%',
         textAlign: 'right'
     },
 });

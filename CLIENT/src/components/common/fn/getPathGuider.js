@@ -47,6 +47,10 @@ const getPathGuider = data => {
             value = "프로젝트 상세";
             break;
         
+        case '/agency/project/add/':
+            value = "새 프로젝트 등록";
+            break;
+        
         case '/agency/project/notice/':
             value = "프로젝트 공지사항";
             break;
