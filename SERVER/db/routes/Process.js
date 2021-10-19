@@ -93,8 +93,6 @@ router.get('/colg', (req, res) => {
 router.get('/newcolg', (req, res) => {
     const params = req.query;
     const SQL = myBatisMapper.getStatement("Process", "getNewColg", params, format);
-    console.log(SQL);
-    return res.send(true);
 
     connection.query(SQL, (err, rows, fileds) => {
         if (err) {

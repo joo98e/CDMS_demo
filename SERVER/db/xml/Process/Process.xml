@@ -40,12 +40,36 @@
         <if test="colg_type != null">
             AND colg.type = #{colg_type}
         </if>
-            AND proc.ref_proj_id = #{ref_proj_id}
+        AND proc.ref_proj_id = #{ref_proj_id}
     </select>
-    
+
     <!-- 새로 추가할 프로세스의 참여자를 지정하기 위한 셀렉트 쿼리 -->
     <select id="getNewColg">
         SELECT 
-            
+            mem.seq,
+            mem.id,
+            mem.avatar_path,
+            org_rank.`name` AS rank_name,
+            org_dept.`name` AS dept_name,
+            mem.full_name,
+            mem.nickname,
+            mem.phone
+        FROM 
+            tb_agcy_proj_colleague AS colg
+        LEFT JOIN tb_member AS mem
+            ON colg.ref_agcy_colleague_seq = mem.seq
+        LEFT JOIN tb_org_structure AS org_rank
+            ON org_rank.id = mem.rank_no
+        LEFT JOIN tb_org_structure AS org_dept
+            ON org_dept.id = mem.dept_no
+        <where>
+            <if test="ref_proj_id != null">
+                AND colg.ref_proj_id = #{ref_proj_id}
+            </if>
+            <if test="delete_yn != null">
+                AND colg.delete_yn = "N"
+            </if>
+        </where>
+
     </select>
 </mapper>

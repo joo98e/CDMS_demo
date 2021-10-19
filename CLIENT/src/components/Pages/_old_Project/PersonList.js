@@ -90,13 +90,7 @@ export class PersonList extends Component {
                                     내부 인력 구성
                                 </DialogContentText>
                                 <Divider />
-
-                                {/* {
-                                    this.props.projectMember.map((item, idx) => {
-                                        return <Chip key={idx} variant="outlined" size="small" label="Basic" />
-                                    })
-                                } */}
-
+                                
                                 {/* TODO 검색란 / onchange로 준비된 리스트에서 filter */}
                                 {/* Chip */}
                                 {/* Chip array */}

@@ -397,7 +397,7 @@ export default function FullScreenDialog() {
                                                 return false
                                             } else {
                                                 return (
-                                                    <Chip key={item.seq} avatar={<Avatar src={item.avatar_path} />} label={`${item.full_name}`} />
+                                                    <Chip key={item.seq} clickable color="primary" avatar={<Avatar src={item.avatar_path} />} label={`${item.full_name}`} />
                                                 )
                                             }
                                         })

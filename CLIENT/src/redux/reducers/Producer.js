@@ -53,7 +53,8 @@ const initProcessValue = {
     name: '',
     desc: '',
     mainPerson: {},
-    subPerson: []
+    subPerson: [],
+    additionalInfo: []
 };
 
 const initialState = {
