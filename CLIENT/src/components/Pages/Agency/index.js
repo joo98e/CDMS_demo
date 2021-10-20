@@ -1,8 +1,10 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router';
 import axios from 'axios'
 
-import { Container, Grid, Grow, Paper, withStyles } from '@material-ui/core';
+import { Container, Grid, Grow, Paper, IconButton, withStyles } from '@material-ui/core';
+import { AddCircleIcon } from '../../common/CustomIcons';
 
 import UICircularProgress from '../../common/UICircularProgress'
 import AgencyCard from './AgencyCard'
@@ -12,6 +14,12 @@ const styles = theme => ({
     root: {
         flexGrow: 1,
         paddingTop: theme.spacing(6)
+    },
+    trans: {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)'
     },
     m2: {
         display: "inline-block",
@@ -127,8 +135,15 @@ export class Agency extends PureComponent {
                                             {...(this.state.awhile ? { timeout: 800 } : {})}
                                         >
                                             <Paper elevation={4} className={`${classes.relative}`}>
-                                                <AgencyAddDialog
-                                                />
+                                                <IconButton
+                                                    className={classes.trans}
+                                                    color="inherit"
+                                                    onClick={() => {
+                                                        this.props.history.push(`/agency/add`)
+                                                    }}
+                                                >
+                                                    <AddCircleIcon />
+                                                </IconButton>
                                             </Paper>
                                         </Grow>
                                     </Grid>
@@ -149,4 +164,4 @@ const mapDispatchToProps = {
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Agency))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withRouter(Agency)))

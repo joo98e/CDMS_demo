@@ -18,7 +18,7 @@ import {
     Divider, Paper,
     TableContainer, Table, TableHead, TableBody, TableRow, TableCell, InputBase, IconButton, Tooltip
 } from '@material-ui/core'
-
+import UIButton from './UIButton';
 import UICircularProgress from '../common/UICircularProgress';
 import UIPersonRow from '../common/UIPersonRow';
 import { SearchIcon } from './CustomIcons';
@@ -139,9 +139,13 @@ export class UIPersonList extends Component {
 
         return (
             <div>
-                <Button className={classes.textFieldStyle} color="inherit" variant="outlined" onClick={this.handleChangeStatus}>
-                    {this.props.BtnInfo.open}
-                </Button>
+                <UIButton
+                    class={classes.textFieldStyle}
+                    name="구성하기"
+                    variant="contained"
+                    color="primary"
+                    action={this.handleChangeStatus}
+                />
                 {
                     this.state.isOpen &&
                     <Dialog className={classes.dialog} open={this.state.isOpen} onClose={this.handleChangeStatus} fullWidth maxWidth="lg">

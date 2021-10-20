@@ -106,9 +106,12 @@ export const ProjectDetail = (props) => {
                 params: condition
             }).then((res) => {
                 setProjectData(...res.data.result);
-                console.log(...res.data.result);
+                if (getDateFormat.YYYYMMDD(res.data.result[0].end_date) < getDateFormat.YYYYMMDD(getNow())) {
+                    enqueueSnackbar('종료된 프로젝트입니다.', { variant: "info" })
+                }
                 return res.data;
-            });
+
+            }).catch(err => console.log(err));
         }
 
         const getProcessList = async () => {
@@ -123,7 +126,6 @@ export const ProjectDetail = (props) => {
                 params: condition
             }).then((res) => {
                 setProcessData(res.data.result);
-                console.log("processData", res.data.result);
                 return res.data;
             }).catch(err => console.log(err));
         }
@@ -131,10 +133,6 @@ export const ProjectDetail = (props) => {
         setAwhile(true);
         getProjectDetail();
         getProcessList();
-
-        if (getDateFormat.YYYYMMDD(projectData.end_date) < getDateFormat.YYYYMMDD(getNow())) {
-            enqueueSnackbar('종료된 프로젝트입니다.', { variant: "info" })
-        }
     }, [ref_proj_id])
 
     return (
@@ -191,7 +189,7 @@ export const ProjectDetail = (props) => {
                                 (
                                     (_member.ref_allow_action.indexOf('WRITE') !== -1 || projectData.writer_seq === _member.seq)
                                     &&
-                                    getDateFormat.YYYYMMDD(projectData.end_date) > getDateFormat.YYYYMMDD(getNow())
+                                    getDateFormat.YYYYMMDD(projectData.end_date) >= getDateFormat.YYYYMMDD(getNow())
                                 ) &&
                                 <Grow in={awhile} style={{ transformOrigin: '0 0 0' }} timeout={awhile ? 1000 : 0}>
                                     <Grid item xs={12} md={12} lg={12}>

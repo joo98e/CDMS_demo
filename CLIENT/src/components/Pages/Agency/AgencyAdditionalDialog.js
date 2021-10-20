@@ -14,16 +14,15 @@ import {
     Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
     Grid,  Input, Tooltip
 } from '@material-ui/core'
-
+import UIButton from '../../common/UIButton';
 import * as actions from '../../../redux/action/ProducerAction'
 
 const styles = theme => ({
     flexBox: {
         display: 'flex'
     },
-    textFieldStyle: {
-        width: '30vw',
-        textAlign: 'right'
+    w100: {
+        width: '100%'
     },
 });
 
@@ -153,9 +152,14 @@ export class AgencyAdditionalDialog extends Component {
                     }
                 }}
             >
-                <Button className={classes.textFieldStyle} color="inherit" variant="outlined" onClick={this.handleChangeStatus}>
-                    추가하기
-                </Button>
+                
+                <UIButton
+                    class={classes.w100}
+                    name="구성하기"
+                    variant="contained"
+                    color="primary"
+                    action={this.handleChangeStatus}
+                />
 
                 {
                     this.state.isOpen &&

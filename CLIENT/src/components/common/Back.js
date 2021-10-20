@@ -1,21 +1,15 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import {
-    Button
-} from "@material-ui/core"
-
+import UIButton from './UIButton';
 export default function ProcessAdd() {
     const history = useHistory();
 
     return (
-        <div>
-            <Button
-                variant="outlined"
-                color="inherit"
-                onClick={() => {history.goBack()}}
-            >
-                이전으로
-            </Button>
-        </div>
+        <UIButton
+            name="뒤로 가기"
+            variant="contained"
+            color="primary"
+            action={() => { history.goBack() }}
+        />
     )
 }

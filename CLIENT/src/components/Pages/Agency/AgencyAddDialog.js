@@ -187,47 +187,57 @@ export default function FullScreenDialog() {
     }
 
     const handleValidateValue = () => {
-        console.log(_agencyInfo);
+        const target = _agencyInfo;
 
-        for (let item in _agencyInfo) {
+        for (let item in target) {
             switch (item) {
-                case "start_date":
-                    if (_agencyInfo[item] > _agencyInfo.end_date) {
-                        enqueueSnackbar('사업 기간이 알맞지 않습니다.', { variant: 'warning' });
-                        return false;
-                    }
-                    break;
-
-                case "end_date":
-                    if (_agencyInfo[item] < _agencyInfo.start_date) {
-                        enqueueSnackbar('사업 기간이 알맞지 않습니다.', { variant: 'warning' });
-                        return false;
-                    }
-                    break;
-
                 case "name":
-                    if (!FNValidator("AGCYNAME", _agencyInfo[item])) {
+                    if (!FNValidator("AGCYNAME", target[item])) {
                         enqueueSnackbar('한글, 영문이 반드시 포함되어야 하며 한글, 영문, 숫자만 사용 가능합니다.', { variant: 'warning' });
                         return false;
                     }
                     break;
 
                 case "desc":
-                    if (_agencyInfo[item] === "" || _agencyInfo[item] === undefined) {
+                    if (target[item] === "" || target[item] === undefined) {
                         enqueueSnackbar('설명을 기재해주세요.', { variant: 'warning' });
                         return false;
                     }
                     break;
 
+                case "start_date":
+                    if (target[item] !== null) {
+                        if (target[item] > target.end_date) {
+                            enqueueSnackbar('사업 기간을 확인해주세요.', { variant: 'warning' });
+                            return false;
+                        }
+                    } else if (target[item] === null) {
+                        enqueueSnackbar('사업 시작일이 비어 있습니다.', { variant: 'warning' });
+                        return false;
+                    }
+                    break;
+
+                case "end_date":
+                    if (target[item] !== null) {
+                        if (target[item] < target.start_date) {
+                            enqueueSnackbar('사업 기간을 확인해주세요.', { variant: 'warning' });
+                            return false;
+                        }
+                    } else if (target[item] === null) {
+                        enqueueSnackbar('사업 종료일이 비어 있습니다.', { variant: 'warning' });
+                        return false;
+                    }
+                    break;
+
                 case "biz_area":
-                    if (_agencyInfo[item] === "" || _agencyInfo[item] === undefined) {
+                    if (target[item] === "" || target[item] === undefined) {
                         enqueueSnackbar('사업 구분이 필요합니다.', { variant: 'warning' });
                         return false;
                     }
                     break;
 
                 case "person":
-                    if (_agencyInfo[item].length === 0 || _agencyInfo[item].length === undefined) {
+                    if (target[item].length === 0 || target[item].length === undefined) {
                         enqueueSnackbar('기관 담당자를 구성해야 합니다.', { variant: 'warning' });
                         return false;
                     }

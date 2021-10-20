@@ -405,7 +405,6 @@ export class AgencyDetail extends Component {
                                                     this.state.writeStatus &&
                                                     <Grid item xs={12} md={6} lg={4}>
                                                         <Paper elevation={4} className={`${classes.relative} + ${classes.h_294px}`}>
-                                                            {/* <ProjectAddDialog /> */}
                                                             <IconButton
                                                                 className={classes.trans}
                                                                 color="inherit"

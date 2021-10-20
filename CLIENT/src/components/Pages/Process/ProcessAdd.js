@@ -41,6 +41,10 @@ const useStyles = makeStyles(theme => ({
     },
     w50p: {
         width: "50%",
+    },
+    pdbx: {
+        padding: theme.spacing(2),
+        boxSizing: 'border-box'
     }
 }));
 
@@ -116,8 +120,8 @@ export default function ProcessAdd() {
 
     return (
         <Box className={classes.root}>
-            <Back />
-            <Paper className={classes.mt4} elevation={4}>
+            <Paper className={classes.pdbx} elevation={4}>
+                <Back />
                 <Container maxWidth="lg">
                     <Divider className={classes.mv} />
                     <TextField

@@ -29,6 +29,10 @@ const getPathGuider = data => {
         case '/agency':
             value = "기관 리스트";
             break;
+        
+        case '/agency/add':
+            value = "새 기관 등록";
+            break;
 
         case '/agency/detail/':
             value = "기관 상세";

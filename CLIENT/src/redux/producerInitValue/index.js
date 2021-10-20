@@ -20,8 +20,8 @@ export const initRegisterValue = {
 };
 
 export const initAgencyValue = {
-    start_date: today(),
-    end_date: today(),
+    start_date: null,
+    end_date: null,
     name: '',
     desc: '',
     biz_area: '',
@@ -30,8 +30,8 @@ export const initAgencyValue = {
 };
 
 export const initProjectValue = {
-    start_date: today(),
-    end_date: today(),
+    start_date: null,
+    end_date: null,
     name: '',
     desc: '',
     person: [],
@@ -39,8 +39,8 @@ export const initProjectValue = {
 };
 
 export const initProcessValue = {
-    start_date: today(),
-    end_date: today(),
+    start_date: null,
+    end_date: null,
     name: '',
     desc: '',
     mainPerson: false,

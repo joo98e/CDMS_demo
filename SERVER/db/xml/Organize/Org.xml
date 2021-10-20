@@ -7,6 +7,7 @@
       mem.full_name,
       mem.id,
       mem.avatar_path,
+      mem.phone,
       (SELECT name FROM tb_org_structure AS org WHERE org.id = mem.dept_no AND org.`type` = "TYPE::DEPART") as dept_name,
       (SELECT name FROM tb_org_structure AS org WHERE org.id = mem.rank_no AND org.`type` = "TYPE::RANK") as rank_name
     FROM

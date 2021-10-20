@@ -2,7 +2,7 @@ import React, { useSelector, useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import {
     Box, Grow,
-    Avatar, Popover, Chip, Typography,
+    Avatar, Popover, Chip, Typography, Tooltip,
     makeStyles
 } from '@material-ui/core'
 
@@ -10,19 +10,22 @@ const useStyles = makeStyles((theme) => ({
     mainAvatar: {
         width: theme.spacing(16),
         height: theme.spacing(16),
-        margin : "0 auto"
+        margin: "0 auto"
     },
     mainBox: {
-        minWidth : theme.spacing(32),
+        minWidth: theme.spacing(32),
         minHeight: theme.spacing(32),
-        padding : theme.spacing(2),
+        padding: theme.spacing(2),
         boxSizing: "border-box"
     },
+    m1: {
+        margin: theme.spacing(.3)
+    },
     mt1: {
-        marginTop : theme.spacing(1)
+        marginTop: theme.spacing(1)
     },
     mb1: {
-        marginBottom : theme.spacing(1)
+        marginBottom: theme.spacing(1)
     }
 }));
 
@@ -53,13 +56,16 @@ export const UIChipSet = (props) => {
         <React.Fragment>
             {
                 data.avatar_path &&
-                <Chip
-                    clickable
-                    color="primary"
-                    avatar={<Avatar src={data.avatar_path ? data.avatar_path : defaultPath} />}
-                    label={data.full_name}
-                    onClick={handlePopoverOpen}
-                />
+                <Tooltip title="자세히">
+                    <Chip
+                        className={classes.m1}
+                        clickable
+                        color="primary"
+                        avatar={<Avatar src={data.avatar_path ? data.avatar_path : defaultPath} />}
+                        label={data.full_name}
+                        onClick={handlePopoverOpen}
+                    />
+                </Tooltip>
             }
             <Popover
                 open={open}

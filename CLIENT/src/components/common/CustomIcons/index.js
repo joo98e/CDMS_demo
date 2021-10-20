@@ -27,12 +27,15 @@ import {
     Info,
     Help,
     DateRange,
-    Search
+    Search,
+    ArrowDownward
 } from "@material-ui/icons";
 
 
 const useStyles = makeStyles(theme => ({
-    color: { color: theme.palette.background.button ? theme.palette.background.button : "#FFF" }
+    color: {
+        color: theme.palette.background.whiteButton ? theme.palette.background.whiteButton : "#FFF"
+    }
 }));
 
 
@@ -253,6 +256,13 @@ export const SearchIcon = () => {
     const classes = useStyles();
     return (
         <Search className={classes.color} />
+    )
+}
+
+export const ArrowDownwardIcon = () => {
+    const classes = useStyles();
+    return (
+        <ArrowDownward className={classes.color} />
     )
 }
 

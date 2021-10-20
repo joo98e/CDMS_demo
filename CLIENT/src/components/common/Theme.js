@@ -5,12 +5,12 @@ const theme = {
     nature: createTheme({
         palette: {
             action: {
-                active: "rgba(0, 0, 0, 0.8)",
+                active: "rgba(0, 0, 0, 0.04)",
                 hover: "rgba(0, 0, 0, 0.04)",
-                disabled : "rgba(0, 0, 0, 0.8)",
-                disabledBackground : "rgba(0, 0, 0, 0.8)",
-                focus : "rgba(0, 0, 0, 0.04)",
-                selected: "rgba(0, 0, 0, 0.8)"
+                disabled: "rgba(0, 0, 0, 0.04)",
+                disabledBackground: "rgba(0, 0, 0, 0.04)",
+                focus: "rgba(0, 0, 0, 0.04)",
+                selected: "rgba(0, 0, 0, 0.2)"
             },
             primary: {
                 main: "#1B2631",
@@ -25,7 +25,8 @@ const theme = {
             background: {
                 default: "#2a3c4e",
                 paper: "#3c4f64",
-                button: "#E1E1E1",
+                button: "#37485b",
+                whiteButton: "#FFF",
             },
             text: {
                 primary: "#EAEAEA",
@@ -61,6 +62,7 @@ const theme = {
             },
             background: {
                 button: "#EBEBEB",
+                whiteButton: "#FFF",
             },
             text: {
                 primary: "#FFF",
@@ -74,9 +76,9 @@ const theme = {
             action: {
                 active: "rgba(255, 255, 255, 0.8)",
                 hover: "rgba(255, 255, 255, 0.04)",
-                disabled : "rgba(255, 255, 255, 0.8)",
-                disabledBackground : "rgba(255, 255, 255, 0.8)",
-                focus : "rgba(255, 255, 255, 0.04)",
+                disabled: "rgba(255, 255, 255, 0.8)",
+                disabledBackground: "rgba(255, 255, 255, 0.8)",
+                focus: "rgba(255, 255, 255, 0.04)",
                 selected: "rgba(255, 255, 255, 0.8)"
             },
             primary: {
@@ -88,9 +90,9 @@ const theme = {
                 main: "#686868",
                 light: "#becad5",
                 dark: "#121a22",
-                
+
             },
-            info : {
+            info: {
                 main: "#686868",
                 light: "#becad5",
                 dark: "#121a22",
@@ -98,7 +100,8 @@ const theme = {
             background: {
                 default: "#FBFCFF",
                 paper: "#eff0f4",
-                button: "#606060",
+                button: "#FFFFFF",
+                whiteButton: "#FFF",
             },
             text: {
                 primary: "#333333",
@@ -123,16 +126,16 @@ const theme = {
         },
         overrides: {
             MuiCssBaseline: {
-              '@global': {
-                html: {
-                  WebkitFontSmoothing: 'auto',
+                '@global': {
+                    html: {
+                        WebkitFontSmoothing: 'auto',
+                    },
+                    "&$.MuiSpeedDial-fab": {
+                        background: "#EBEBEB !important"
+                    },
                 },
-                "&$.MuiSpeedDial-fab": {
-                    background: "#EBEBEB !important"
-                },
-              },
             },
-          },
+        },
     }),
 
     // purple: createTheme({
