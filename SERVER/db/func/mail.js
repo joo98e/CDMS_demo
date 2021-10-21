@@ -6,7 +6,8 @@ function fnMail(_Tx, _Rx, _Subject, _Content) {
     // 여기까지 값 오는 것 확인됨
 
     const exec = require('child_process').exec;
-    exec('mail -s"' + _Subject + '" -r"' + _Tx + '" "' + _Rx + '"<<<"' + _Content + '"', {windowsHide : true}, function(err, stdout, stderr){
+    const strShell = "$(echo -e '" + _Subject + "\nContent-type: text/html')";
+    exec('mail -s"' + strShell + '" -r"' + _Tx + '" "' + _Rx + '"<<<"' + _Content + '"', {windowsHide : true}, function(err, stdout, stderr){
         if(err){
             console.log('메일 발송 중 오류가 발생했습니다.')
         }
