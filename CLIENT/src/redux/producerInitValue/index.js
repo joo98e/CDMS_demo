@@ -45,5 +45,7 @@ export const initProcessValue = {
     desc: '',
     mainPerson: false,
     subPerson: [],
-    additionalInfo: []
+    additionalInfo: [],
+    total_task: 0,
+    rating : 0
 };

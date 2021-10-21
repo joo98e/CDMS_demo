@@ -106,11 +106,6 @@ export class Agency extends PureComponent {
         return (
             <Container className={classes.root}>
                 <Grid container spacing={3}>
-                    {/* <Grid item xs={12} md={12} lg={12}>
-                        <Paper className={classes.minPadding} elevation={4}>
-                            <Typography variant="h5">나의 기관 리스트</Typography>
-                        </Paper>
-                    </Grid> */}
                     {
                         this.state.agency === null ?
                             <UICircularProgress />

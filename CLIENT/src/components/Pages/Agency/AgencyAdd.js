@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { setAgencyInfo, setAgencyInfoInit } from '../../../redux/action/ProducerAction'
 import {
-    Container, TextField, Typography, Divider, Box, Paper,
+    Container, TextField, Typography, Divider, Box, Paper, Grow,
     FormControl, Select, MenuItem, InputLabel
 } from '@material-ui/core';
 
@@ -17,7 +17,6 @@ import UIPersonList from '../../common/UIPersonList';
 import UIChipSet from '../../common/UIChipSet'
 import UIDatePicker from '../../common/UIDatePicker';
 import UIButton from '../../common/UIButton';
-import { ArrowDownwardIcon } from '../../common/CustomIcons';
 import AgencyAdditionalDialog from './AgencyAdditionalDialog';
 
 const useStyles = makeStyles((theme) => ({
@@ -136,7 +135,7 @@ export default function FullScreenDialog() {
     const dispatch = useDispatch();
 
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
+    const [awhile, setAwhile] = React.useState(false);
     const [categoryList, setCategoryList] = React.useState(null);
     const [personRow, setPersonRow] = React.useState(null);
 
@@ -166,6 +165,7 @@ export default function FullScreenDialog() {
                 .catch(err => console.error(err));
         }
 
+        setAwhile(true);
         loadCategory();
         loadPersonRow();
 
@@ -174,15 +174,6 @@ export default function FullScreenDialog() {
         }
 
     }, []);
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        dispatch(setAgencyInfoInit());
-        setOpen(false);
-    };
 
     const handleChangeDate = (value, name) => {
         const _result = name === "start_date" ? getDateFormat.YYYYMMDDHHMMSS_BEGIN(value) : getDateFormat.YYYYMMDDHHMMSS_END(value);
@@ -308,84 +299,99 @@ export default function FullScreenDialog() {
         <Box className={classes.root}>
             <Paper className={classes.pdbx} elevation={4}>
                 <Back />
-                <Container maxWidth="lg">
-                    <Divider className={classes.mv} />
-                    <FormControl className={classes.w100} variant="filled">
-                        <InputLabel>사업 구분</InputLabel>
-                        {categoryList ?
-                            <Select
-                                labelId="biz_area"
-                                id="biz_area"
-                                name="biz_area"
-                                value={_agencyInfo.biz_area ? _agencyInfo.biz_area : ''}
-                                onChange={handleChangeAgencyInfos}
-                            >
-                                {categoryList.map((item, index) => {
-                                    return (
-                                        <MenuItem key={index} value={item.id}>{item.name}</MenuItem>
-                                    )
-                                })}
-                            </Select>
-                            :
-                            ''
-                        }
-                    </FormControl>
-                    <Divider className={classes.mv} />
-                    <TextField
-                        className={classes.w100}
-                        variant="filled"
-                        label="기관명"
-                        name="name"
-                        onChange={handleChangeAgencyInfos}
-                        align="left"
-                    />
-                    <Divider className={classes.mv} />
-                    <TextField
-                        className={classes.w100}
-                        variant="filled"
-                        label="설명"
-                        name="desc"
-                        onChange={handleChangeAgencyInfos}
-                        align="left"
-                    />
-                    <Divider className={classes.mv} />
-                    <UIDatePicker
-                        name="start_date"
-                        label="사업 시작일"
-                        class={classes.w100}
-                        resultAction={handleChangeDate}
-                    />
-                    <Divider className={classes.mv} />
-                    <UIDatePicker
-                        name="start_date"
-                        label="사업 종료일"
-                        class={classes.w100}
-                        resultAction={handleChangeDate}
-                    />
-
-                    <Divider className={classes.mv} />
-                    <Typography className={classes.mb2} variant="h6">
-                        추가 정보 구성하기
-                    </Typography>
-                    <Box className={classes.w50p}>
-                        <AgencyAdditionalDialog />
-                    </Box>
-
-                    <Divider className={classes.mv} />
-                    <Typography className={classes.mb2} variant="h6">
-                        사업 참여 인력 구성하기
-                    </Typography>
-                    <Box className={classes.w50p}>
-                        <UIPersonList
-                            BtnInfo={BtnInfo}
-                            DialogInfo={DialogInfo}
-                            TableColumnName={TableColumnName}
-                            TableLoadedData={personRow !== null ? personRow.result : {}}
-                            ResultMessage={ResultMessage}
-                            ResultAction={ResultAction}
+                <Grow
+                    in={awhile}
+                    timeout={awhile ? 800 : 0}
+                    style={{ transformOrigin: '0 0 0' }}
+                >
+                    <Container maxWidth="lg">
+                        <Divider className={classes.mv} />
+                        <FormControl className={classes.w100} variant="filled">
+                            <InputLabel>사업 구분</InputLabel>
+                            {categoryList ?
+                                <Select
+                                    labelId="biz_area"
+                                    id="biz_area"
+                                    name="biz_area"
+                                    value={_agencyInfo.biz_area ? _agencyInfo.biz_area : ''}
+                                    onChange={handleChangeAgencyInfos}
+                                >
+                                    {categoryList.map((item, index) => {
+                                        return (
+                                            <MenuItem key={index} value={item.id}>{item.name}</MenuItem>
+                                        )
+                                    })}
+                                </Select>
+                                :
+                                ''
+                            }
+                        </FormControl>
+                        <Divider className={classes.mv} />
+                        <TextField
+                            className={classes.w100}
+                            variant="filled"
+                            label="기관명"
+                            name="name"
+                            onChange={handleChangeAgencyInfos}
+                            align="left"
                         />
-                    </Box>
-                </Container>
+                        <Divider className={classes.mv} />
+                        <TextField
+                            className={classes.w100}
+                            variant="filled"
+                            label="설명"
+                            name="desc"
+                            onChange={handleChangeAgencyInfos}
+                            align="left"
+                        />
+                        <Divider className={classes.mv} />
+                        <UIDatePicker
+                            name="start_date"
+                            label="사업 시작일"
+                            class={classes.w100}
+                            resultAction={handleChangeDate}
+                        />
+                        <Divider className={classes.mv} />
+                        <UIDatePicker
+                            name="end_date"
+                            label="사업 종료일"
+                            class={classes.w100}
+                            resultAction={handleChangeDate}
+                        />
+
+                        <Divider className={classes.mv} />
+                        <Typography className={classes.mb2} variant="h6">
+                            추가 정보 구성하기
+                        </Typography>
+                        <Box className={classes.w50p}>
+                            <AgencyAdditionalDialog />
+                        </Box>
+
+                        <Divider className={classes.mv} />
+                        <Typography className={classes.mb2} variant="h6">
+                            사업 참여 인력 구성하기
+                        </Typography>
+                        <Box className={classes.w50p}>
+                            <UIPersonList
+                                BtnInfo={BtnInfo}
+                                DialogInfo={DialogInfo}
+                                TableColumnName={TableColumnName}
+                                TableLoadedData={personRow !== null ? personRow.result : {}}
+                                ResultMessage={ResultMessage}
+                                ResultAction={ResultAction}
+                            />
+                        </Box>
+                        <Divider className={classes.mv} />
+                        <UIButton
+                            class={classes.mauto}
+                            name="등록"
+                            variant="contained"
+                            tip="제출 버튼"
+                            color="primary"
+                            action={handleValidateValue}
+                        />
+                    </Container>
+                </Grow>
             </Paper>
         </Box>
     );

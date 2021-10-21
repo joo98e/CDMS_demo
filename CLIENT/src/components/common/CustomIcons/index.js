@@ -1,4 +1,6 @@
+import { withStyles } from '@material-ui/styles';
 import { makeStyles } from "@material-ui/core"
+
 import {
     LockOpen,
     ColorLens,
@@ -28,14 +30,15 @@ import {
     Help,
     DateRange,
     Search,
-    ArrowDownward
+    ArrowDownward,
+    Star
 } from "@material-ui/icons";
 
 
 const useStyles = makeStyles(theme => ({
     color: {
         color: theme.palette.background.whiteButton ? theme.palette.background.whiteButton : "#FFF"
-    }
+    },
 }));
 
 
@@ -54,14 +57,12 @@ export const ColorLensIcon = () => {
     )
 }
 
-
 export const CachedIcon = () => {
     const classes = useStyles();
     return (
         <Cached className={classes.color} />
     )
 }
-
 
 export const TouchAppTwoToneIcon = () => {
     const classes = useStyles();
@@ -70,14 +71,12 @@ export const TouchAppTwoToneIcon = () => {
     )
 }
 
-
 export const MenuIcon = () => {
     const classes = useStyles();
     return (
         <Menu className={classes.color} />
     )
 }
-
 
 export const HomeIcon = () => {
     const classes = useStyles();
@@ -86,14 +85,12 @@ export const HomeIcon = () => {
     )
 }
 
-
 export const NoteIcon = () => {
     const classes = useStyles();
     return (
         <Note className={classes.color} />
     )
 }
-
 
 export const CancelIcon = () => {
     const classes = useStyles();
@@ -102,14 +99,12 @@ export const CancelIcon = () => {
     )
 }
 
-
 export const KeyboardArrowLeftIcon = () => {
     const classes = useStyles();
     return (
         <KeyboardArrowLeft className={classes.color} />
     )
 }
-
 
 export const KeyboardArrowRightIcon = () => {
     const classes = useStyles();
@@ -118,14 +113,12 @@ export const KeyboardArrowRightIcon = () => {
     )
 }
 
-
 export const NotificationImportantIcon = () => {
     const classes = useStyles();
     return (
         <NotificationImportant className={classes.color} />
     )
 }
-
 
 export const CloseIcon = () => {
     const classes = useStyles();
@@ -134,14 +127,12 @@ export const CloseIcon = () => {
     )
 }
 
-
 export const AddCircleIcon = () => {
     const classes = useStyles();
     return (
-        <AddCircle className={classes.color} fontSize="large"/>
+        <AddCircle className={classes.color} fontSize="large" />
     )
 }
-
 
 export const BusinessIcon = () => {
     const classes = useStyles();
@@ -150,14 +141,12 @@ export const BusinessIcon = () => {
     )
 }
 
-
 export const MoreVertIcon = () => {
     const classes = useStyles();
     return (
         <MoreVert className={classes.color} />
     )
 }
-
 
 export const EditIcon = () => {
     const classes = useStyles();
@@ -166,14 +155,12 @@ export const EditIcon = () => {
     )
 }
 
-
 export const DeleteIcon = () => {
     const classes = useStyles();
     return (
         <Delete className={classes.color} />
     )
 }
-
 
 export const NotificationsActiveIcon = () => {
     const classes = useStyles();
@@ -182,14 +169,12 @@ export const NotificationsActiveIcon = () => {
     )
 }
 
-
 export const VisibilityIcon = () => {
     const classes = useStyles();
     return (
         <Visibility className={classes.color} />
     )
 }
-
 
 export const VisibilityOffIcon = () => {
     const classes = useStyles();
@@ -198,14 +183,12 @@ export const VisibilityOffIcon = () => {
     )
 }
 
-
 export const RadioButtonUncheckedIcon = () => {
     const classes = useStyles();
     return (
         <RadioButtonUnchecked className={classes.color} />
     )
 }
-
 
 export const CheckCircleOutlineIcon = () => {
     const classes = useStyles();
@@ -214,7 +197,6 @@ export const CheckCircleOutlineIcon = () => {
     )
 }
 
-
 export const FavoriteIcon = () => {
     const classes = useStyles();
     return (
@@ -222,6 +204,17 @@ export const FavoriteIcon = () => {
     )
 }
 
+export const RatingHeartIcon = () => {
+    return (
+        <Favorite />
+    )
+}
+
+export const RatingStarIcon = () => {
+    return (
+        <Star />
+    )
+}
 
 export const ExitToAppIcon = () => {
     const classes = useStyles();
@@ -229,7 +222,6 @@ export const ExitToAppIcon = () => {
         <ExitToApp className={classes.color} />
     )
 }
-
 
 export const InfoIcon = () => {
     const classes = useStyles();
@@ -265,4 +257,3 @@ export const ArrowDownwardIcon = () => {
         <ArrowDownward className={classes.color} />
     )
 }
-

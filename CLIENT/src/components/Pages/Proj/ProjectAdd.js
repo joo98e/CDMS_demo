@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { setProjectInfo, setProjectInfoInit } from '../../../redux/action/ProducerAction'
 import {
-    Container, TextField, Typography, Divider, Box, Paper
+    Container, TextField, Typography, Divider, Box, Paper, Grow,
 } from '@material-ui/core';
 
 import ProjectAdditionalDialog from './ProjectAdditionalDialog'
@@ -138,6 +138,7 @@ export default function FullScreenDialog() {
     const dispatch = useDispatch();
 
     const classes = useStyles();
+    const [awhile, setAwhile] = React.useState(false);
     const [personRow, setPersonRow] = React.useState(null);
 
     React.useEffect(() => {
@@ -153,6 +154,8 @@ export default function FullScreenDialog() {
                 })
                 .catch(err => console.error(err));
         }
+
+        setAwhile(true);
         loadPersonRow();
 
         return () => {
@@ -172,7 +175,7 @@ export default function FullScreenDialog() {
     const handleValidateValue = () => {
         const target = _projectInfo;
         for (let item in target) {
-            
+
             switch (item) {
                 case "name":
                     if (!FNValidator("PROJNAME", target[item])) {
@@ -187,7 +190,7 @@ export default function FullScreenDialog() {
                         return false;
                     }
                     break;
-                
+
                 case "start_date":
                     if (target[item] !== null) {
                         if (target[item] > target.end_date) {
@@ -279,88 +282,94 @@ export default function FullScreenDialog() {
         <Box className={classes.root}>
             <Paper className={classes.pdbx} elevation={4}>
                 <Back />
-                <Container maxWidth="lg">
-                    <Divider className={classes.mv} />
-                    <TextField
-                        className={classes.w100}
-                        variant="filled"
-                        label="프로젝트명"
-                        name="name"
-                        onChange={handleChangeProjectInfos}
-                        align="left"
-                    />
-                    <Divider className={classes.mv} />
-                    <TextField
-                        className={classes.w100}
-                        variant="filled"
-                        label="프로젝트 설명"
-                        name="desc"
-                        onChange={handleChangeProjectInfos}
-                        align="left"
-                    />
-
-                    <Divider className={classes.mv} />
-                    <UIDatePicker
-                        name="start_date"
-                        label="프로젝트 시작일"
-                        class={classes.w100}
-                        resultAction={handleChangeDate}
-                    />
-
-                    <Divider className={classes.mv} />
-                    <UIDatePicker
-                        name="end_date"
-                        label="프로젝트 종료일"
-                        class={classes.w100}
-                        resultAction={handleChangeDate}
-                    />
-
-                    <Divider className={classes.mv} />
-                    <Typography className={classes.mb2} variant="h6">
-                        추가 정보
-                    </Typography>
-                    <Box className={classes.w50p}>
-                        <ProjectAdditionalDialog />
-                    </Box>
-
-                    <Divider className={classes.mv} />
-                    <Typography className={classes.mb2} variant="h6">
-                        프로젝트 담당자
-                    </Typography>
-
-                    <Box className={classes.w50p}>
-                        <UIPersonList
-                            BtnInfo={BtnInfo}
-                            DialogInfo={DialogInfo}
-                            TableColumnName={TableColumnName}
-                            TableLoadedData={personRow !== null ? personRow.result : {}}
-                            ResultMessage={ResultMessage}
-                            ResultAction={ResultAction}
+                <Grow
+                    in={awhile}
+                    timeout={awhile ? 800 : 0}
+                    style={{ transformOrigin: '0 0 0' }}
+                >
+                    <Container maxWidth="lg">
+                        <Divider className={classes.mv} />
+                        <TextField
+                            className={classes.w100}
+                            variant="filled"
+                            label="프로젝트명"
+                            name="name"
+                            onChange={handleChangeProjectInfos}
+                            align="left"
                         />
-                        <Box mt={2}>
-                            {
-                                _projectInfo.person &&
-                                _projectInfo.person.map((item, index) => {
-                                    return (
-                                        <UIChipSet
-                                            data={item}
-                                        />
-                                    )
-                                })
-                            }
-                        </Box>
-                    </Box>
+                        <Divider className={classes.mv} />
+                        <TextField
+                            className={classes.w100}
+                            variant="filled"
+                            label="프로젝트 설명"
+                            name="desc"
+                            onChange={handleChangeProjectInfos}
+                            align="left"
+                        />
 
-                    <Divider className={classes.mv} />
-                    <UIButton
-                        class={classes.mauto}
-                        name="제출할래요!"
-                        variant="contained"
-                        tip="제출 버튼"
-                        color="primary"
-                        action={handleValidateValue}
-                    />
-                </Container>
+                        <Divider className={classes.mv} />
+                        <UIDatePicker
+                            name="start_date"
+                            label="프로젝트 시작일"
+                            class={classes.w100}
+                            resultAction={handleChangeDate}
+                        />
+
+                        <Divider className={classes.mv} />
+                        <UIDatePicker
+                            name="end_date"
+                            label="프로젝트 종료일"
+                            class={classes.w100}
+                            resultAction={handleChangeDate}
+                        />
+
+                        <Divider className={classes.mv} />
+                        <Typography className={classes.mb2} variant="h6">
+                            추가 정보
+                        </Typography>
+                        <Box className={classes.w50p}>
+                            <ProjectAdditionalDialog />
+                        </Box>
+
+                        <Divider className={classes.mv} />
+                        <Typography className={classes.mb2} variant="h6">
+                            프로젝트 담당자
+                        </Typography>
+
+                        <Box className={classes.w50p}>
+                            <UIPersonList
+                                BtnInfo={BtnInfo}
+                                DialogInfo={DialogInfo}
+                                TableColumnName={TableColumnName}
+                                TableLoadedData={personRow !== null ? personRow.result : {}}
+                                ResultMessage={ResultMessage}
+                                ResultAction={ResultAction}
+                            />
+                            <Box mt={2}>
+                                {
+                                    _projectInfo.person &&
+                                    _projectInfo.person.map((item, index) => {
+                                        return (
+                                            <UIChipSet
+                                                data={item}
+                                            />
+                                        )
+                                    })
+                                }
+                            </Box>
+                        </Box>
+
+                        <Divider className={classes.mv} />
+                        <UIButton
+                            class={classes.mauto}
+                            name="등록"
+                            variant="contained"
+                            tip="제출 버튼"
+                            color="primary"
+                            action={handleValidateValue}
+                        />
+                    </Container>
+                </Grow>
             </Paper>
         </Box>
     );

@@ -52,3 +52,13 @@ a {
     color: inherit;
     text-decoration: none;
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill::selection,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s !important;
+    -webkit-transition: background-color 9999s ease-out !important;
+    -webkit-text-fill-color: #fff !important;
+}

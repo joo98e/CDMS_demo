@@ -10,7 +10,7 @@ const theme = {
                 disabled: "rgba(0, 0, 0, 0.04)",
                 disabledBackground: "rgba(0, 0, 0, 0.04)",
                 focus: "rgba(0, 0, 0, 0.04)",
-                selected: "rgba(0, 0, 0, 0.2)"
+                selected: "#FFF"
             },
             primary: {
                 main: "#1B2631",
@@ -43,46 +43,78 @@ const theme = {
                     sub: "#565656"
                 }
             },
+            slider: {
+                ball: "#DCDCDC",
+                ballBorder : "#B3B3B3",
+                background: "#2c93ff",
+            },
+            rating: {
+                star: {
+                    default: "#888888",
+                    fill: "#e9b840",
+                    hover: "#ffcc50"
+                },
+                heart: {
+                    default: "#2a3c4e",
+                    fill: "#ffb400",
+                    hover: "#f55f67"
+                }
+            },
             // 실제 버튼 영역
             grey: {
-                A100: "#193048"
+                A100: "rgba(0, 0, 0, 0.04)",
             }
         },
     }),
 
-    dark: createTheme({
-        palette: {
-            type: 'dark',
-            primary: {
-                main: '#202020',
-                dark: "rgba(255, 255, 255, 0.2)"
-            },
-            secondary: {
-                main: '#FFF',
-            },
-            background: {
-                button: "#EBEBEB",
-                whiteButton: "#FFF",
-            },
-            text: {
-                primary: "#FFF",
-                secondary: "#FFF",
-            },
-        },
-    }),
+    // dark: createTheme({
+    //     palette: {
+    //         type: 'dark',
+    //         action: {
+    //             active: "rgba(0, 0, 0, 0.04)",
+    //             hover: "rgba(0, 0, 0, 0.04)",
+    //             disabled: "rgba(0, 0, 0, 0.04)",
+    //             disabledBackground: "rgba(0, 0, 0, 0.04)",
+    //             focus: "rgba(0, 0, 0, 0.04)",
+    //             selected: "#FFF"
+    //         },
+    //         primary: {
+    //             main: '#202020',
+    //             dark: "rgba(255, 255, 255, 0.2)"
+    //         },
+    //         secondary: {
+    //             main: '#FFF',
+    //         },
+    //         background: {
+    //             button: "#7a7a7a",
+    //             whiteButton: "#FFF",
+    //         },
+    //         text: {
+    //             primary: "#FFF",
+    //             secondary: "#FFF",
+    //         },
+    //         slider: {
+    //             ball: "#D7D7D7",
+    //             background: "4b5d70",
+    //         },
+    //         grey: {
+    //             A100: "rgba(0, 0, 0, 0.04)",
+    //         },
+    //     },
+    // }),
 
     white: createTheme({
         palette: {
             action: {
-                active: "rgba(255, 255, 255, 0.8)",
-                hover: "rgba(255, 255, 255, 0.04)",
-                disabled: "rgba(255, 255, 255, 0.8)",
-                disabledBackground: "rgba(255, 255, 255, 0.8)",
-                focus: "rgba(255, 255, 255, 0.04)",
-                selected: "rgba(255, 255, 255, 0.8)"
+                active: "rgba(0, 0, 0, 0.8)",
+                hover: "rgba(0, 0, 0, 0.04)",
+                disabled: "rgba(0, 0, 0, 0.8)",
+                disabledBackground: "rgba(0, 0, 0, 0.8)",
+                focus: "rgba(0, 0, 0, 0.04)",
+                selected: "rgba(0, 0, 0, 0.8)"
             },
             primary: {
-                main: "#D3D3D3",
+                main: "#FFF",
                 light: "#7d8e9e",
                 dark: "#a2b7cc",
             },
@@ -101,14 +133,14 @@ const theme = {
                 default: "#FBFCFF",
                 paper: "#eff0f4",
                 button: "#FFFFFF",
-                whiteButton: "#FFF",
+                whiteButton: "#8F8F8F",
             },
             text: {
                 primary: "#333333",
-                secondary: "#6f6f6f",
-                hint: "#6f6f6f",
-                disabled: "#6f6f6f",
-                desc: "#9d9d9d"
+                secondary: "#6F6F6F",
+                hint: "#6F6F6F",
+                disabled: "#6F6F6F",
+                desc: "#9D9D9D"
             },
             chart: {
                 main: "",
@@ -118,9 +150,26 @@ const theme = {
                     sub: "#565656"
                 }
             },
+            slider: {
+                ball: "#ffffff",
+                ballBorder: "#6a6a6a",
+                background: "#4aad44",
+            },
+            rating: {
+                star: {
+                    default: "#888888",
+                    fill: "#f4454f",
+                    hover: "#ffcc50"
+                },
+                heart: {
+                    default: "#2a3c4e",
+                    fill: "#f4454f",
+                    hover: "#f55f67"
+                }
+            },
             // 실제 버튼 영역
             grey: {
-                A100: "#474747"
+                A100: "rgba(0, 0, 0, 0.04)",
             },
 
         },

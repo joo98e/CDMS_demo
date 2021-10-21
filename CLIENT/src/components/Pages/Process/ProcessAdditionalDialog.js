@@ -8,6 +8,7 @@
 import React, { Component } from 'react';
 import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
+import * as actions from '../../../redux/action/ProducerAction'
 
 import {
     Button, withStyles,
@@ -15,7 +16,7 @@ import {
     Grid, Input, Tooltip
 } from '@material-ui/core'
 
-import * as actions from '../../../redux/action/ProducerAction'
+import UIButton from '../../common/UIButton'
 
 const styles = theme => ({
     flexBox: {
@@ -151,9 +152,15 @@ export class ProcessAdditionalDialog extends Component {
                     }
                 }}
             >
-                <Button className={classes.textFieldStyle} color="inherit" variant="outlined" onClick={this.handleChangeStatus}>
-                    추가하기
-                </Button>
+
+                <UIButton
+                    class={classes.textFieldStyle}
+                    name="추가하기"
+                    variant="contained"
+                    tip=""
+                    color="primary"
+                    action={this.handleChangeStatus}
+                />
 
                 {
                     this.state.isOpen &&
