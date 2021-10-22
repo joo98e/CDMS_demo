@@ -92,6 +92,15 @@ const FNValidator = (valueName, value) => {
                 isConfirmed = true;
             }
             break;
+        
+        // 프로세스명 / 한글 혹은 영문이 반드시 1자 이상 포함, 한영숫 사용 가능
+        case "PROCNAME":
+            if (!/^[A-za-zㄱ-ㅎ가-힣0-9]+[가-힣|ㄱ-ㅎ||A-Z|a-z]{1}/gi.test(value)) {
+                return false;
+            } else {
+                isConfirmed = true;
+            }
+            break;
 
         // 이메일 
         case "EMAIL":
@@ -130,6 +139,38 @@ const FNValidator = (valueName, value) => {
                 return false;
             } else {
                 isConfirmed = true;
+            }
+            break;
+        
+        case "TOTAL_TASK":
+            if (value === '' || value === undefined || value === 0) {
+                return false;
+            } else {
+                isConfirmed = true;
+            }
+            break;
+        
+        case "RATING":
+            if (value === '' || value === undefined || value === 0) {
+                return false;
+            } else {
+                isConfirmed = true;
+            }
+            break;
+        
+        case "EMPTY":
+            const _value = typeof value;
+            switch (_value) {
+                case  "object":
+                    if (_value.constructor === Object && Object.keys(_value).length === 0) {
+                        return false;
+                    } else {
+                        isConfirmed = true;
+                    }
+                    break;
+            
+                default:
+                    break;
             }
             break;
 

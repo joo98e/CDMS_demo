@@ -53,6 +53,8 @@ export const UIRating = (props) => {
     }))(Rating);
 
     const handleChangeValue = (event, value) => {
+        if (value === null) return;
+        
         setValue(value);
         props.resultAction && props.resultAction(value);
     }
@@ -70,7 +72,6 @@ export const UIRating = (props) => {
                 defaultValue={0}
                 precision={0.5}
                 onChange={handleChangeValue}
-                onChangeCommitted={handleChangeValue}
             />
         </Box>
     )

@@ -271,7 +271,7 @@ export default function FullScreenDialog() {
                         person: []
                     }));
                     enqueueSnackbar("프로젝트 등록에 성공했습니다.", { variant: 'success' });
-                    history.go(0);
+                    history.goBack();
                 } else {
                     enqueueSnackbar(res.data.resultCode, { variant: 'error' });
                 }

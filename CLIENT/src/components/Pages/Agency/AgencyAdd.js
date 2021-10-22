@@ -1,13 +1,12 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios'
 import { useSnackbar } from 'notistack';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { setAgencyInfo, setAgencyInfoInit } from '../../../redux/action/ProducerAction'
 import {
     Container, TextField, Typography, Divider, Box, Paper, Grow,
-    FormControl, Select, MenuItem, InputLabel
+    FormControl, Select, MenuItem, InputLabel, makeStyles
 } from '@material-ui/core';
 
 import Back from '../../common/Back'

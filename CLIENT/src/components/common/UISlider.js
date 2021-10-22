@@ -15,8 +15,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import {
-    Box, Paper, makeStyles, Typography, Container, TextField, Divider, Tooltip,
-    Grow, withStyles, Slider
+    Box, makeStyles, Typography, withStyles, Slider
 } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
@@ -27,16 +26,6 @@ const useStyles = makeStyles(theme => ({
         marginBottom: theme.spacing(2)
     },
 }));
-
-const ValueLabelComponent = (props) => {
-    const { children, open, value } = props;
-
-    return (
-        <Tooltip open={open} enterTouchDelay={0} placement="top" title={value}>
-            {children}
-        </Tooltip>
-    );
-}
 
 const MySlider = withStyles(theme => ({
     root: {

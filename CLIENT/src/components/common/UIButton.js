@@ -1,3 +1,13 @@
+/** 
+ * @param {class}               :   스타일
+ * @param {name}                :   버튼 이름
+ * @param {tip}                 :   툴팁 내용
+ * @param {variant}             :   버튼 유형
+ * @param {color}               :   컬러
+ * @param {action}              :   결과 함수
+ * @returns {UIButton}
+ */
+
 import React, { useState } from 'react'
 import {
     Button, Tooltip, makeStyles, Typography

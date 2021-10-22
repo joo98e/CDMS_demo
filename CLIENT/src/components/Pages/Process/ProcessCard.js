@@ -1,10 +1,12 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { connect } from 'react-redux'
+import { useHistory } from 'react-router'
 import { Typography, Divider, Grid, Paper, Button, makeStyles } from "@material-ui/core"
 
 import UISkeletonAvatar from "../../common/UISkeletonAvatar"
 import { Bar } from 'react-chartjs-2';
+import UIButton from '../../common/UIButton'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -91,8 +93,7 @@ const useStyles = makeStyles(theme => ({
     more: {
         position: "absolute",
         top: theme.spacing(1.5),
-        right: theme.spacing(1.5),
-        background: theme.palette.background.paper
+        right: theme.spacing(1.5)
     },
     hiddenText: {
         whiteSpace: "nowrap",
@@ -104,7 +105,12 @@ const useStyles = makeStyles(theme => ({
 
 export const ProcessCard = (props) => {
     const classes = useStyles();
+    const history = useHistory();
     const theme = useSelector(state => state.UI.theme)
+
+    const handleClickGoProcessDetail = () => {
+        history.push(`/agency/project/process/detail/${props.item.process_id}`)
+    }
 
     const data = {
         labels: [props.item.process_name],
@@ -126,7 +132,12 @@ export const ProcessCard = (props) => {
             <div className={classes.titleBox}>
                 <span className={classes.mainTitle}>{props.item.process_name}</span>
                 <span className={`${classes.subTitle} + ${classes.descColor}`}>{props.item.process_desc}</span>
-                <Button size="large" variant="outlined" className={classes.more}>MORE</Button>
+                <UIButton
+                    class={classes.more}
+                    name="자세히"
+                    variant="contained"
+                    action={handleClickGoProcessDetail}
+                />
             </div>
             <Divider />
             <Grid container spacing={3} className={classes.bdBox}>

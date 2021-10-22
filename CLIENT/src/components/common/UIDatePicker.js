@@ -1,5 +1,7 @@
 /**
  * @param       class 필수
+ * @param       name 필수
+ * @param       label 필수
  * @param       resultAction 필수
  */
 
@@ -24,13 +26,12 @@ export class UIDatePicker extends Component {
         }
     }
     componentDidMount() {
-        console.log(this.props.label);
+        console.log(this.props.name);
     }
     
 
     handleDateChange = value => {
         try {
-            console.log(value);
             this.setState({
                 selectedDate: value
             });
@@ -52,6 +53,7 @@ export class UIDatePicker extends Component {
                     variant="inline"
                     format="yyyy/MM/dd"
                     value={this.state.selectedDate}
+                    defaultValue={null}
                     color="primary"
                     onChange={this.handleDateChange}
                     inputVariant="filled"

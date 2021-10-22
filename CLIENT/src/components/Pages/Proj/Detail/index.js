@@ -126,6 +126,7 @@ export const ProjectDetail = (props) => {
                 params: condition
             }).then((res) => {
                 setProcessData(res.data.result);
+                console.log(res.data.result);
                 return res.data;
             }).catch(err => console.log(err));
         }

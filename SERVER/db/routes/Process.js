@@ -1,18 +1,20 @@
 
 const express = require('express');
 const router = express.Router();
-
+const getNow = require("../func/getNow");
 const connection = require("../db_connection");
 const myBatisMapper = require('mybatis-mapper');
 myBatisMapper.createMapper(['./db/xml/Process/Process.xml']);
 const format = require('../config/MyBatisFormat');
-const { intlFormat } = require('date-fns');
 
 router.post('/add', (req, res) => {
-    const params = req.body;
-    const SQL_PROJECT = myBatisMapper.getStatement('Process', 'insertProcess', params, format);
-
-    connection.query(SQL_PROJECT,
+    const params = {
+        ...req.body,
+        reg_date: getNow(),
+        upd_date: getNow()
+    };
+    const SQL_PROCESS = myBatisMapper.getStatement('Process', 'insertProcess', params, format);
+    connection.query(SQL_PROCESS,
         (err, rows) => {
             if (err) {
                 console.log(err);
@@ -22,15 +24,17 @@ router.post('/add', (req, res) => {
                     resultMessage: "(프로세스 생성)예기치 못한 오류",
                 })
             } else {
-                if (Array.isArray(params.person) && params.person.length > 0) {
+                if (Array.isArray(params.subPerson) && params.subPerson.length > 0) {
                     const params_sub = {
-                        ref_agcy_id: params.ref_agcy_id,
+                        ref_proj_id: params.ref_proj_id,
                         IPv4: params.IPv4,
-                        person: params.person
+                        subPerson: params.subPerson,
+                        last_insert_id: rows.insertId,
+                        reg_date: getNow(),
+                        upd_date: getNow()
                     };
-                    const SQL_PROJECT_COLLEAGUE = myBatisMapper.getStatement('Process', 'insertProcessColleague', params_sub, format);
-
-                    connection.query(SQL_PROJECT_COLLEAGUE,
+                    const SQL_PROCESS_COLLEAGUE = myBatisMapper.getStatement('Process', 'insertProcessColleague', params_sub, format);
+                    connection.query(SQL_PROCESS_COLLEAGUE,
                         (err, rows) => {
                             if (err) {
                                 return res.status(400).send({
@@ -39,11 +43,33 @@ router.post('/add', (req, res) => {
                                     resultMessage: "(프로세스 참여자 생성)예기치 못한 오류"
                                 });
                             } else {
-                                return res.status(200).send({
-                                    result: rows,
-                                    resultCode: 1,
-                                    resultMessage: "등록에 성공했습니다."
-                                });
+                                const params_main = {
+                                    ...params.mainPerson,
+                                    IPv4: params.IPv4,
+                                    type: "TYPE::MAIN",
+                                    last_insert_id: params_sub.last_insert_id,
+                                    reg_date: getNow(),
+                                    upd_date: getNow()
+                                };
+                                const SQL_PROCESS_COLG_MAIN = myBatisMapper.getStatement('Process', 'insertProcessColleagueMain', params_main, format);
+                                connection.query(SQL_PROCESS_COLG_MAIN,
+                                    (err, rows) => {
+                                        if (err) {
+                                            console.log(err);
+                                            return res.status(400).send({
+                                                result: {},
+                                                resultCode: -1,
+                                                resultMessage: "(프로세스 생성)주담당자 등록 오류",
+                                            });
+                                        } else {
+                                            return res.status(200).send({
+                                                result: rows,
+                                                resultCode: 1,
+                                                resultMessage: "등록에 성공했습니다."
+                                            });
+                                        }
+                                    }
+                                )
                             }
                         }
                     )

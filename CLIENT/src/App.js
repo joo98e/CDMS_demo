@@ -12,6 +12,7 @@ import ProjectDetail from './components/Pages/Proj/Detail'
 import AgencyAdd from './components/Pages/Agency/AgencyAdd'
 import ProjectAdd from './components/Pages/Proj/ProjectAdd'
 import ProcessAdd from './components/Pages/Process/ProcessAdd'
+import ProcessDetail from './components/Pages/Process/Detail'
 import PageNotFound from './components/Pages/Error/404'
 
 class App extends Component {
@@ -30,6 +31,7 @@ class App extends Component {
         <CustomRoute exact path="/agency/project/detail/:ref_proj_id" component={ProjectDetail} />
 
         <CustomRoute exact path="/agency/project/detail/process/add/:ref_proj_id" component={ProcessAdd} />
+        <CustomRoute exact path="/agency/project/process/detail/:ref_proc_id" component={ProcessDetail} />
         <CustomRoute component={Redirection} />
       </Switch>
     )

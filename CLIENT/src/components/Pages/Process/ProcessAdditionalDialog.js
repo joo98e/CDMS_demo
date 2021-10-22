@@ -79,9 +79,7 @@ export class ProcessAdditionalDialog extends Component {
                 }
             }
         } catch (error) {
-            console.log("error", error);
-            console.log("this.state.data", this.state.data);
-            console.log("this.props.processInfo.additionalInfo", this.props.processInfo.additionalInfo);
+            
         }
     }
 
@@ -201,6 +199,7 @@ export class ProcessAdditionalDialog extends Component {
                                                     <Input
                                                         fullWidth
                                                         placeholder="key"
+                                                        id={`key_${index + 1}`}
                                                         name={`key_${index + 1}`}
                                                         value={item.key}
                                                         onChange={this.handleChangeValue}
