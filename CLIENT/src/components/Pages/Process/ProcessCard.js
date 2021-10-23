@@ -5,7 +5,7 @@ import { useHistory } from 'react-router'
 import { Typography, Divider, Grid, Paper, Button, makeStyles } from "@material-ui/core"
 
 import UISkeletonAvatar from "../../common/UISkeletonAvatar"
-import { Bar } from 'react-chartjs-2';
+import UIPercentageChart from '../../common/Chart/UIPercentageChart'
 import UIButton from '../../common/UIButton'
 
 const useStyles = makeStyles(theme => ({
@@ -108,25 +108,15 @@ export const ProcessCard = (props) => {
     const history = useHistory();
     const theme = useSelector(state => state.UI.theme)
 
+    const chartData = [
+        props.item.cur_task === null ? 0 : props.item.cur_task,
+        props.item.total_task === null ? 0 : props.item.total_task
+    ];
+
     const handleClickGoProcessDetail = () => {
         history.push(`/agency/project/process/detail/${props.item.process_id}`)
     }
 
-    const data = {
-        labels: [props.item.process_name],
-        datasets: [
-            {
-                label: '현재 진행도',
-                backgroundColor: theme.palette.background.default,
-                borderColor: theme.palette.background.paper,
-                borderWidth: 1,
-                hoverBackgroundColor: theme.palette.background.paper,
-                hoverBorderColor: theme.palette.text.disable,
-                data: [props.item.cur_task, props.item.total_task],
-            }
-        ]
-    };
-    
     return (
         <React.Fragment>
             <div className={classes.titleBox}>
@@ -142,32 +132,12 @@ export const ProcessCard = (props) => {
             <Divider />
             <Grid container spacing={3} className={classes.bdBox}>
                 <Grid item xs={12} md={2} lg={2}>
-                    <Paper className={`${classes.minHeight} + ${classes.mt2}`}>
-                        <Bar
-                            data={data}
-                            width={25} height={25}
-                            options={{
-                                layout: { padding: 20 },
-                                maintainAspectRatio: false,
-                                plugins: {
-                                    legend: {
-                                        display: false,
-                                    }
-                                }
-                            }}
-                            style={{ background: "#FFF", borderRadius: theme.spacing(2) }}
+                    <Paper className={`${classes.minHeight} + ${classes.mt2} + ${classes.bdBox}`}>
+                        <UIPercentageChart 
+                            name={"프로세스 진행도"}
+                            min={props.item.cur_task}
+                            max={props.item.total_task}
                         />
-                        {/* <ProcessCardChart
-                            columnName={props.item.process_name}
-                            MIN={{
-                                name: "현재 진행도",
-                                value: props.item.cur_task
-                            }}
-                            MAX={{
-                                name: "전체 진행도",
-                                value: props.item.total_task
-                            }}
-                        /> */}
                     </Paper>
                 </Grid>
                 <Grid item xs={12} md={5} lg={5}>

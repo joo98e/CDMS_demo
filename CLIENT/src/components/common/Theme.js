@@ -36,8 +36,8 @@ const theme = {
                 desc: "#DDDDDD"
             },
             chart: {
-                main: "",
-                sub: "",
+                main: "#2a3c4e",
+                sub: "#6389b3",
                 text: {
                     main: "#2D2D2D",
                     sub: "#565656"
@@ -143,8 +143,8 @@ const theme = {
                 desc: "#9D9D9D"
             },
             chart: {
-                main: "",
-                sub: "",
+                main: "#2a3c4e",
+                sub: "#6389b3",
                 text: {
                     main: "#2D2D2D",
                     sub: "#565656"
