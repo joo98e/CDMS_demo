@@ -74,7 +74,6 @@ export default function ProcessAdd() {
     const _member = useSelector((store) => store.User.member);
     const [processWorkForce, setProcessWorkForce] = useState(null);
     const [awhile, setAwhile] = React.useState(false);
-
     const ResultAction = {
         main: {
             success: data => {
@@ -204,7 +203,7 @@ export default function ProcessAdd() {
 
         handleSubmitProcessInsert();
     }
-
+    console.log(history.location.state);
     const handleSubmitProcessInsert = () => {
         const URL = "/api/process/add";
         const data = {
@@ -212,6 +211,7 @@ export default function ProcessAdd() {
             ..._member,
             ..._processInfo,
             ref_proj_id: ref_proj_id,
+            status : `STATUS::${history.location.state.status}`
         }
 
         console.log(data);
@@ -256,7 +256,7 @@ export default function ProcessAdd() {
                 <Back />
                 <Grow
                     in={awhile}
-                    timeout={awhile ? 800 : 0}
+                    timeout={awhile ? 600 : 0}
                     style={{ transformOrigin: '0 0 0' }}
                 >
                     <Container maxWidth="lg">
@@ -341,9 +341,6 @@ export default function ProcessAdd() {
                         </Box>
 
                         <Divider className={classes.mv} />
-                        <Typography className={classes.mb2} variant="h6">
-                            프로세스 시작일
-                        </Typography>
                         <UIDatePicker
                             name="start_date"
                             class={classes.w100}
@@ -352,9 +349,6 @@ export default function ProcessAdd() {
                         />
 
                         <Divider className={classes.mv} />
-                        <Typography className={classes.mb2} variant="h6">
-                            프로세스 종료일
-                        </Typography>
                         <UIDatePicker
                             name="end_date"
                             class={classes.w100}
@@ -386,7 +380,6 @@ export default function ProcessAdd() {
                             class={classes.mauto}
                             name="등록"
                             variant="contained"
-                            tip="제출 버튼"
                             color="primary"
                             action={handleValidateValue}
                         />

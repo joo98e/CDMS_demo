@@ -42,9 +42,9 @@ const styles = theme => ({
     minHeight: {
         height: theme.spacing(50)
     },
-    h_294px: {
-        minHeight: '294px',
-        maxHeight: '400px',
+    h_560px: {
+        minHeight: '560px',
+        maxHeight: '560px',
     },
     bxsizing: {
         boxSizing: "border-box",
@@ -70,7 +70,7 @@ const styles = theme => ({
         position: "absolute",
         top: "50%",
         left: "50%",
-        transform : "translate(-50%, -50%)",
+        transform: "translate(-50%, -50%)",
     }
 });
 
@@ -402,20 +402,27 @@ export class AgencyDetail extends Component {
                                                 }
 
                                                 {
-                                                    this.state.writeStatus &&
-                                                    <Grid item xs={12} md={6} lg={4}>
-                                                        <Paper elevation={4} className={`${classes.relative} + ${classes.h_294px}`}>
-                                                            <IconButton
-                                                                className={classes.trans}
-                                                                color="inherit"
-                                                                onClick={() => {
-                                                                    this.props.history.push(`/agency/project/add/${this.props.match.params.ref_agcy_id}`)
-                                                                }}
-                                                            >
-                                                                <AddCircleIcon />
-                                                            </IconButton>
-                                                        </Paper>
-                                                    </Grid>
+                                                    this.state.writeStatus ?
+                                                        <Grid item xs={12} md={6} lg={4}>
+                                                            <Paper elevation={4} className={`${classes.relative} + ${classes.h_560px}`}>
+                                                                <IconButton
+                                                                    className={classes.trans}
+                                                                    color="inherit"
+                                                                    onClick={() => {
+                                                                        this.props.history.push(`/agency/project/add/${this.props.match.params.ref_agcy_id}`)
+                                                                    }}
+                                                                >
+                                                                    <AddCircleIcon />
+                                                                </IconButton>
+                                                            </Paper>
+                                                        </Grid>
+                                                        :
+                                                        this.state.projectData && this.state.projectData.length === 0 &&
+                                                        <Grid item xs={12} md={12} lg={12} className={`${classes.h_560px} + ${classes.flexBox}`}>
+                                                            <Typography variant="body1" align="center" component="div">
+                                                                데이터가 없습니다.
+                                                            </Typography>
+                                                        </Grid>
                                                 }
 
                                             </Grid>
@@ -457,7 +464,7 @@ export class AgencyDetail extends Component {
                                                             )
                                                         })
                                                         :
-                                                        <Grid item xs={12} md={12} lg={12} className={`${classes.h_294px} + ${classes.flexBox}`}>
+                                                        <Grid item xs={12} md={12} lg={12} className={`${classes.h_560px} + ${classes.flexBox}`}>
                                                             <Typography variant="body1" align="center" component="div">
                                                                 데이터가 없습니다.
                                                             </Typography>

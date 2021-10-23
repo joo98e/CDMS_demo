@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router'
-import { Typography, Divider, Grid, Paper, Button, makeStyles } from "@material-ui/core"
+import { Typography, Divider, Grid, Paper, Box, makeStyles } from "@material-ui/core"
 
 import UISkeletonAvatar from "../../common/UISkeletonAvatar"
 import UIPercentageChart from '../../common/Chart/UIPercentageChart'
@@ -10,12 +10,12 @@ import UIButton from '../../common/UIButton'
 
 const useStyles = makeStyles(theme => ({
     root: {
-        position: "relative",
-        display: "block",
-        width: "100%",
-        minHeight: "90vh",
         boxSizing: "border-box",
-        padding: theme.spacing(4)
+        padding: theme.spacing(1),
+        marginTop: theme.spacing(2),
+        marginRight: theme.spacing(4),
+        marginBottom: theme.spacing(2),
+        marginLeft: theme.spacing(4),
     },
     relative: {
         position: `relative`
@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
     mt2: {
         marginTop: theme.spacing(2)
     },
-    mt4 : {
+    mt4: {
         marginTop: theme.spacing(5)
     },
     mb1: {
@@ -80,11 +80,13 @@ const useStyles = makeStyles(theme => ({
     },
     mainTitle: {
         display: "inline-block",
+        maxWidth: "80%",
         paddingRight: theme.spacing(1),
         fontSize: "1.5em",
     },
     subTitle: {
         display: "inline-block",
+        maxWidth: "80%",
         paddingRight: theme.spacing(1),
     },
     descColor: {
@@ -101,12 +103,15 @@ const useStyles = makeStyles(theme => ({
         overflow: 'hidden',
         display: 'block',
     },
+    marginBox: {
+        marginLeft: theme.spacing(8),
+        marginRight: theme.spacing(8),
+    }
 }));
 
 export const ProcessCard = (props) => {
     const classes = useStyles();
     const history = useHistory();
-    const theme = useSelector(state => state.UI.theme)
 
     const chartData = [
         props.item.cur_task === null ? 0 : props.item.cur_task,
@@ -114,14 +119,14 @@ export const ProcessCard = (props) => {
     ];
 
     const handleClickGoProcessDetail = () => {
-        history.push(`/agency/project/process/detail/${props.item.process_id}`)
+        history.push(`/agency/project/process/detail/${props.item.process_id}`);
     }
 
     return (
-        <React.Fragment>
+        <Paper className={classes.root} elevation={4}>
             <div className={classes.titleBox}>
-                <span className={classes.mainTitle}>{props.item.process_name}</span>
-                <span className={`${classes.subTitle} + ${classes.descColor}`}>{props.item.process_desc}</span>
+                <span className={`${classes.hiddenText} + ${classes.mainTitle}`}>{props.item.process_name}</span>
+                <span className={`${classes.hiddenText} + ${classes.subTitle} + ${classes.descColor}`}>{props.item.process_desc}</span>
                 <UIButton
                     class={classes.more}
                     name="자세히"
@@ -131,28 +136,7 @@ export const ProcessCard = (props) => {
             </div>
             <Divider />
             <Grid container spacing={3} className={classes.bdBox}>
-                <Grid item xs={12} md={2} lg={2}>
-                    <Paper className={`${classes.minHeight} + ${classes.mt2} + ${classes.bdBox}`}>
-                        <UIPercentageChart 
-                            name={"프로세스 진행도"}
-                            min={props.item.cur_task}
-                            max={props.item.total_task}
-                        />
-                    </Paper>
-                </Grid>
-                <Grid item xs={12} md={5} lg={5}>
-                    <Paper className={`${classes.mt2} + ${classes.minHeight}`}>
-                        <Typography variant="h6" className={`${classes.indent} + ${classes.hiddenText}`}>
-                            최근 활동
-                        </Typography>
-                    </Paper>
-                    <Grid container spacing={1}>
-                        <Grid item xs={6} md={6} lg={6}>
-                        </Grid>
-                    </Grid>
-                </Grid>
-
-                <Grid item xs={12} md={5} lg={5}>
+                <Grid item xs={12} md={12} lg={12}>
                     <Paper className={`${classes.mt2} + ${classes.minHeight}`}>
                         <Typography variant="h6" className={`${classes.indent} + ${classes.hiddenText}`}>
                             주담당자
@@ -171,18 +155,18 @@ export const ProcessCard = (props) => {
                             </Grid>
                             <Grid item xs={8} md={8} lg={8}>
                                 <Grid container spacing={2} className={classes.mt4}>
-                                    <Grid item xs={6} md={6} lg={6}>
+                                    <Grid item xs={3} md={3} lg={3}>
                                         부서
                                     </Grid>
-                                    <Grid item xs={6} md={6} lg={6}>
+                                    <Grid item xs={9} md={9} lg={9}>
                                         <Typography variant="body1" className={classes.hiddenText}>
                                             {props.item.dept_name}
                                         </Typography>
                                     </Grid>
-                                    <Grid item xs={6} md={6} lg={6}>
+                                    <Grid item xs={3} md={3} lg={3}>
                                         직급
                                     </Grid>
-                                    <Grid item xs={6} md={6} lg={6}>
+                                    <Grid item xs={9} md={9} lg={9}>
                                         <Typography variant="body1" className={classes.hiddenText}>
                                             {props.item.rank_name}
                                         </Typography>
@@ -191,10 +175,35 @@ export const ProcessCard = (props) => {
                             </Grid>
                         </Grid>
                     </Paper>
-
                 </Grid>
+                <Grid item xs={12} md={12} lg={12}>
+                    <Paper className={`${classes.maxHeight} + ${classes.bdBox}`}>
+                        <Typography className={classes.mb1} variant="h6">
+                            프로세스 진행도
+                        </Typography>
+                        <Box className={`${classes.relative} + ${classes.marginBox}`}>
+                            <UIPercentageChart
+                                name={"프로세스 진행도"}
+                                min={chartData[0]}
+                                max={chartData[1]}
+                            />
+                        </Box>
+                    </Paper>
+                </Grid>
+
+                {/* <Grid item xs={12} md={12} lg={12}>
+                    <Paper className={`${classes.mt2} + ${classes.minHeight}`}>
+                        <Typography variant="h6" className={`${classes.indent} + ${classes.hiddenText}`}>
+                            최근 활동
+                        </Typography>
+                    </Paper>
+                    <Grid container spacing={1}>
+                        <Grid item xs={6} md={6} lg={6}>
+                        </Grid>
+                    </Grid>
+                </Grid> */}
             </Grid>
-        </React.Fragment>
+        </Paper >
     )
 }
 

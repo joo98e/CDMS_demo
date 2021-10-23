@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core/';
 
 import UICardHeader from '../../common/Card/UICardHeader';
+import UIButton from '../../common/UIButton'
 import {
     EditIcon, DeleteIcon, MoreVertIcon
 } from '../../common/CustomIcons';
@@ -38,7 +39,7 @@ const useStyles = makeStyles(theme => ({
     boxBottom: {
         width: '100%',
         height: '30px',
-        marginBottom : theme.spacing(1)
+        marginBottom: theme.spacing(1)
     },
     cardHeader: {
         display: 'flex',
@@ -98,7 +99,6 @@ function ProjectCard(props) {
         if (_member.ref_allow_action.indexOf('WRITE') !== -1 || props.item.writer_seq === _member.seq) {
             setWriteStatus(true);
         }
-        console.log(props.item);
 
     }, []);
 
@@ -117,28 +117,30 @@ function ProjectCard(props) {
                             icon={<MoreVertIcon />}
                             action={writeStatus ? headerActionList : null}
                         />
-                        {/* <CardMedia
+
+                        <CardMedia
                             className={classes.media}
                             component="img"
                             alt={props.item.name}
                             area-name={props.item.thumbnail_file_name}
                             image={props.item.thumbnail_file_path}
-                        /> */}
+                        />
+
                         <Box className={classes.boxTop}>
                             {props.item.desc}
                         </Box>
+                        
                         <CardActions>
-                            <Button
-                                className={classes.boxBottom}
-                                variant="outlined"
-                                size="small"
-                                color="inherit"
-                                onClick={() => {
+                            <UIButton
+                                class={classes.boxBottom}
+                                name="자세히"
+                                variant="contained"
+                                color="primary"
+                                action={() => {
                                     history.push(`/agency/project/detail/${props.item.id}`)
                                 }}
-                            >
-                                <Typography variant="body2" color="textPrimary">MORE</Typography>
-                            </Button>
+                            />
+
                         </CardActions>
                     </Card>
                 </Paper>

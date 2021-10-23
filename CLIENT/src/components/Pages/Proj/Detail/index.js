@@ -4,17 +4,16 @@ import { useParams, useHistory } from 'react-router';
 import { useSelector } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import axios from 'axios'
-
 import {
-    Box, Grid, Grow, makeStyles, Paper, IconButton, Typography
+    Box, Grid, Grow, makeStyles, Paper, IconButton, Typography, Divider
 } from "@material-ui/core"
 
-import Chart from "./Chart"
-import ProcessCard from '../../Process/ProcessCard';
-import UICircularProgress from '../../../common/UICircularProgress'
 import { AddCircleIcon } from '../../../common/CustomIcons';
-import getDateFormat from '../../../common/fn/getDateFormat';
+import ProcessCard from '../../Process/ProcessCard';
 import getNow from '../../../common/fn/getNow';
+import getDateFormat from '../../../common/fn/getDateFormat';
+import UICircularProgress from '../../../common/UICircularProgress'
+import UIMultiPercentageChart from '../../../common/Chart/UIMultiPercentageChart';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -31,6 +30,9 @@ const useStyles = makeStyles(theme => ({
     minHeight: {
         minHeight: theme.spacing(40)
     },
+    maxHeight: {
+        maxHeight: theme.spacing(30)
+    },
     indent: {
         textIndent: theme.spacing(2)
     },
@@ -40,17 +42,23 @@ const useStyles = makeStyles(theme => ({
     mt1: {
         marginTop: theme.spacing(1)
     },
+    mb1: {
+        marginBottom: theme.spacing(1)
+    },
     hiddenText: {
         whiteSpace: "nowrap",
         textOverflow: "ellipsis",
         overflow: 'hidden',
         display: 'block',
     },
-    m_1: {
+    m1: {
         margin: theme.spacing(2)
     },
-    p_1: {
+    p1: {
         padding: theme.spacing(2)
+    },
+    pb2: {
+        paddingBottom: theme.spacing(2)
     },
     titleBox: {
         display: "flex",
@@ -80,19 +88,35 @@ const useStyles = makeStyles(theme => ({
         left: '50%',
         transform: 'translate(-50%, -50%)'
     },
+    bdBox: {
+        boxSizing: "border-box",
+        padding: theme.spacing(2)
+    },
+    mainArea: {
+        minHeight: theme.spacing(50),
+    },
+    card: {
+        position: "relative",
+        boxSizing: "border-box",
+        padding: theme.spacing(1),
+        marginTop: theme.spacing(2),
+        marginRight: theme.spacing(4),
+        marginBottom: theme.spacing(2),
+        marginLeft: theme.spacing(4),
+    }
 }));
 
 export const ProjectDetail = (props) => {
     const classes = useStyles();
     const history = useHistory();
-    // TODO 글쓰기 권한 지정해줘야함
     const _member = useSelector((store) => store.User.member);
     const { ref_proj_id } = useParams();
     const { enqueueSnackbar } = useSnackbar();
-
     const [awhile, setAwhile] = useState(false);
     const [projectData, setProjectData] = useState([]);
     const [processData, setProcessData] = useState([]);
+    const [chartData, setChartData] = useState([]);
+    const [writeStatus, setWriteStatus] = React.useState(false);
 
     useEffect(() => {
         const getProjectDetail = async () => {
@@ -105,10 +129,13 @@ export const ProjectDetail = (props) => {
             axios.get(URL, {
                 params: condition
             }).then((res) => {
+
                 setProjectData(...res.data.result);
+
                 if (getDateFormat.YYYYMMDD(res.data.result[0].end_date) < getDateFormat.YYYYMMDD(getNow())) {
                     enqueueSnackbar('종료된 프로젝트입니다.', { variant: "info" })
                 }
+
                 return res.data;
 
             }).catch(err => console.log(err));
@@ -125,16 +152,27 @@ export const ProjectDetail = (props) => {
             axios.get(URL, {
                 params: condition
             }).then((res) => {
+
+                let data = [];
+                for (const property in res.data.result) {
+                    data.push([res.data.result[property].cur_task, res.data.result[property].total_task]);
+                }
+
+                setChartData(data);
                 setProcessData(res.data.result);
-                console.log(res.data.result);
+
                 return res.data;
             }).catch(err => console.log(err));
+        }
+
+        if (_member.ref_allow_action.indexOf('WRITE') !== -1 || projectData.writer_seq === _member.seq) {
+            setWriteStatus(true);
         }
 
         setAwhile(true);
         getProjectDetail();
         getProcessList();
-    }, [ref_proj_id])
+    }, [])
 
     return (
         <Box className={classes.root}>
@@ -152,62 +190,97 @@ export const ProjectDetail = (props) => {
                         <React.Fragment>
 
                             {/* 과업 차트 */}
-                            <Grow in={awhile} style={{ transformOrigin: '0 0 0' }} timeout={awhile ? 600 : 0} >
-                                <Grid item xs={12} md={12} lg={12}>
-                                    <Paper elevation={4}>
-                                        <Chart
-                                            data={processData}
-                                        />
-                                    </Paper>
-                                </Grid>
-                            </Grow>
-
-                            {/* 과업 목록 */}
-
-                            <Grow in={awhile} style={{ transformOrigin: '0 0 0' }} timeout={awhile ? 1000 : 0} >
-                                <Grid item xs={12} md={12} lg={12}>
-                                    <Paper elevation={4} className={`${classes.minHeight} + ${classes.relative}`}>
-                                        {
-                                            (processData && processData.length !== 0) ?
-                                                processData.map((item, index) => {
-                                                    return (
-                                                        <ProcessCard
-                                                            key={index}
-                                                            item={item}
-                                                        />
-                                                    )
-                                                })
-                                                :
-                                                <Typography className={classes.trans} variant="h6" component="div">
-                                                    진행중인 프로세스가 없습니다.
-                                                </Typography>
-                                        }
-
-                                    </Paper>
-                                </Grid>
-                            </Grow>
-                            {
-                                (
-                                    (_member.ref_allow_action.indexOf('WRITE') !== -1 || projectData.writer_seq === _member.seq)
-                                    &&
-                                    getDateFormat.YYYYMMDD(projectData.end_date) >= getDateFormat.YYYYMMDD(getNow())
-                                ) &&
-                                <Grow in={awhile} style={{ transformOrigin: '0 0 0' }} timeout={awhile ? 1000 : 0}>
-                                    <Grid item xs={12} md={12} lg={12}>
-                                        <Paper elevation={4} className={`${classes.minHeight} + ${classes.relative}`}>
-                                            <IconButton
-                                                className={classes.trans}
-                                                color="inherit"
-                                                onClick={() => {
-                                                    history.push(`/agency/project/detail/process/add/${projectData.id}`)
-                                                }}
-                                            >
-                                                <AddCircleIcon />
-                                            </IconButton>
+                            <Grow in={awhile} style={{ transformOrigin: '0 0 0' }} timeout={awhile ? 600 : 0}>
+                                <React.Fragment>
+                                    <Grid item xs={12} md={3} lg={3}>
+                                        <Paper className={`${classes.bdBox} + ${classes.mainArea} + ${classes.relative}`} elevation={4}>
+                                            <Typography className={classes.mb1} variant="h6">
+                                                프로젝트 진행도
+                                            </Typography>
+                                            <UIMultiPercentageChart
+                                                name={"전체 진행도"}
+                                                data={chartData}
+                                            />
                                         </Paper>
                                     </Grid>
-                                </Grow>
-                            }
+                                    <Grid item xs={12} md={9} lg={9}>
+                                        <Paper className={`${classes.bdBox} + ${classes.mainArea}`} elevation={4}>
+                                            <Typography className={classes.mb1} variant="h6">
+                                                안내
+                                            </Typography>
+                                        </Paper>
+                                    </Grid>
+                                </React.Fragment>
+                            </Grow>
+
+                            <Grid item xs={12} md={12} lg={12}>
+                                <Grid container spacing={4}>
+                                    {
+                                        ["TODO", "DOING", "DONE"].map((category, index) => {
+                                            let statusBy = [];
+
+                                            for (let i = 0; i < processData.length; i++) {
+                                                processData[i].status === `STATUS::${category}` && statusBy.push(processData[i]);
+                                            }
+
+                                            return (
+                                                <Grow
+                                                    key={index}
+                                                    in={awhile}
+                                                    style={{ transformOrigin: '0 0 0' }}
+                                                    timeout={category === "TODO" ? 500 : category === "DOING" ? 1000 : category === "DONE" ? 1500 : 0}
+                                                >
+                                                    <Grid item xs={12} md={4} lg={4}>
+                                                        <Paper className={`${classes.relative} + ${classes.pb2}`} elevation={4}>
+                                                            <Typography className={classes.p1} variant="h4" align="center">
+                                                                {category}
+                                                            </Typography>
+                                                            {
+                                                                (statusBy && statusBy.length !== 0) &&
+                                                                statusBy.map((item, index) => {
+                                                                    return (
+                                                                        <ProcessCard
+                                                                            key={index}
+                                                                            item={item}
+                                                                        />
+                                                                    )
+                                                                })
+                                                            }
+                                                            {
+                                                                (
+                                                                    writeStatus
+                                                                    &&
+                                                                    getDateFormat.YYYYMMDD(projectData.end_date) >= getDateFormat.YYYYMMDD(getNow())
+                                                                ) &&
+                                                                <Grow in={awhile} style={{ transformOrigin: '0 0 0' }} timeout={awhile ? 1000 : 0}>
+                                                                    <Grid item xs={12} md={12} lg={12}>
+                                                                        <Paper elevation={4} className={`${classes.minHeight} + ${classes.relative}+ ${classes.card}`}>
+                                                                            <IconButton
+                                                                                className={classes.trans}
+                                                                                color="inherit"
+                                                                                onClick={() => {
+                                                                                    history.push({
+                                                                                        pathname: `/agency/project/detail/process/add/${projectData.id}`,
+                                                                                        state: {
+                                                                                            status: category
+                                                                                        }
+                                                                                    })
+                                                                                }}
+                                                                            >
+                                                                                <AddCircleIcon />
+                                                                            </IconButton>
+                                                                        </Paper>
+                                                                    </Grid>
+                                                                </Grow>
+                                                            }
+                                                        </Paper>
+                                                    </Grid>
+                                                </Grow>
+                                            )
+                                        })
+                                    }
+                                </Grid>
+                            </Grid>
                         </React.Fragment>
                         :
                         <UICircularProgress />
