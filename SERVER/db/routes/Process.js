@@ -43,6 +43,13 @@ router.post('/add', (req, res) => {
                                     resultMessage: "(프로세스 참여자 생성)예기치 못한 오류"
                                 });
                             } else {
+                                if (!params.mainPerson || params.mainPerson === null || params.mainPerson === undefined) {
+                                    return res.status(400).send({
+                                        result: {},
+                                        resultCode: -1,
+                                        resultMessage: "(프로세스 참여자 생성)예기치 못한 오류"
+                                    });
+                                }
                                 const params_main = {
                                     ...params.mainPerson,
                                     IPv4: params.IPv4,
@@ -89,8 +96,7 @@ router.post('/add', (req, res) => {
 router.get('/colg', (req, res) => {
     const params = req.query;
     const SQL = myBatisMapper.getStatement("Process", "getColg", params, format);
-    console.log(params);
-    console.log(SQL);
+
     connection.query(SQL, (err, rows, fileds) => {
         if (err) {
             return res.status(400).send({

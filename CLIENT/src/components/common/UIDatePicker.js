@@ -15,7 +15,11 @@ import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
-import { DateRangeIcon } from './CustomIcons';
+import { 
+    DateRangeIcon,
+    KeyboardArrowLeftIcon,
+    KeyboardArrowRightIcon
+ } from './CustomIcons';
 
 export class UIDatePicker extends Component {
     constructor(props) {
@@ -50,18 +54,21 @@ export class UIDatePicker extends Component {
             <MuiPickersUtilsProvider utils={DateFnsUtils} locale={koLocale}>
                 <KeyboardDatePicker
                     className={this.props.class ? this.props.class : ""}
-                    variant="inline"
+                    variant="dialog"
                     format="yyyy/MM/dd"
                     value={this.state.selectedDate}
                     defaultValue={null}
-                    color="primary"
                     onChange={this.handleDateChange}
                     inputVariant="filled"
                     label={this.props.label ? this.props.label : "날짜를 선택해주세요."}
                     invalidDateMessage="잘못된 날짜 형식이에요!"
                     invalidLabel="잘못된 날짜 형식이에요!"
                     maxDateMessage="너무 먼 훗날인걸요...?"
+                    clearable
+                    animateYearScrolling
                     keyboardIcon={<DateRangeIcon />}
+                    leftArrowIcon={<KeyboardArrowLeftIcon />}
+                    rightArrowIcon={<KeyboardArrowRightIcon />}
                 />
             </MuiPickersUtilsProvider>
         )

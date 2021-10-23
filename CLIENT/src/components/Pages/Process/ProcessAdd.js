@@ -219,6 +219,10 @@ export default function ProcessAdd() {
             .then(res => {
                 enqueueSnackbar("프로세스 등록에 성공하였습니다.", { variant: "success" });
                 history.push(`/agency/project/detail/${ref_proj_id}`);
+            })
+            .catch(() => {
+                enqueueSnackbar("프로세스 등록에 실패하였습니다. 관리자에게 문의하십시오.", { variant: "error" });
+                history.push(`/agency/project/detail/${ref_proj_id}`);
             });
     }
 
@@ -276,6 +280,8 @@ export default function ProcessAdd() {
                             type="text"
                             variant="filled"
                             label="설명"
+                            multiline
+                            rows={4}
                             onChange={handleChangeInfos}
                         />
                         <Divider className={classes.mv} />

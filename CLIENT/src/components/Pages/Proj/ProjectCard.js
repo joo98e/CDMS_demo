@@ -25,13 +25,13 @@ const useStyles = makeStyles(theme => ({
     },
     boxTop: {
         display: "-webkit-box",
-        height: theme.spacing(20),
+        height: theme.spacing(19.5),
         boxSizing: 'border-box',
         maxHeight: theme.spacing(20),
         marginBottom: theme.spacing(2),
         paddingLeft: theme.spacing(2),
         paddingRight: theme.spacing(2),
-        lineClamp: "8",
+        lineClamp: "6",
         boxOrient: "vertical",
         overflow: 'hidden',
         textOverflow: "ellipsis"

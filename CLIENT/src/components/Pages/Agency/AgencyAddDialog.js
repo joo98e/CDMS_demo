@@ -17,7 +17,7 @@ import getDateFormat from '../../common/fn/getDateFormat';
 import FNValidator from '../../common/FNValidator';
 import UIPersonList from '../../common/UIPersonList';
 import AgencyAdditionalDialog from './AgencyAdditionalDialog';
-import AgencyDatePicker from './AgencyDatePicker';
+// import AgencyDatePicker from './AgencyDatePicker';
 
 import {
     BusinessIcon,
@@ -367,20 +367,20 @@ export default function FullScreenDialog() {
                                 <Divider />
                                 <ListItem>
                                     <ListItemText primary="사업 시작일" />
-                                    <AgencyDatePicker
+                                    {/* <AgencyDatePicker
                                         name="start_date"
                                         textFieldStyle={classes.textFieldStyle}
                                         resultAction={handleChangeDate}
-                                    />
+                                    /> */}
                                 </ListItem>
                                 <Divider />
                                 <ListItem>
                                     <ListItemText primary="사업 종료일" />
-                                    <AgencyDatePicker
+                                    {/* <AgencyDatePicker
                                         name="end_date"
                                         textFieldStyle={classes.textFieldStyle}
                                         resultAction={handleChangeDate}
-                                    />
+                                    /> */}
                                 </ListItem>
                                 <Divider />
                                 <ListItem>

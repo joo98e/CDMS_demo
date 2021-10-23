@@ -302,6 +302,8 @@ export default function FullScreenDialog() {
                             className={classes.w100}
                             variant="filled"
                             label="프로젝트 설명"
+                            multiline
+                            rows={4}
                             name="desc"
                             onChange={handleChangeProjectInfos}
                             align="left"

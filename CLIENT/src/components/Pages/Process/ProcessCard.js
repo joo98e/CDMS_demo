@@ -54,6 +54,9 @@ const useStyles = makeStyles(theme => ({
     p1: {
         padding: theme.spacing(2)
     },
+    plr2 : {
+        padding : theme.spacing(0, 2, 0, 2)
+    },
     pb1: {
         paddingBottm: theme.spacing(1)
     },
@@ -80,13 +83,13 @@ const useStyles = makeStyles(theme => ({
     },
     mainTitle: {
         display: "inline-block",
-        maxWidth: "80%",
+        maxWidth: "75%",
         paddingRight: theme.spacing(1),
         fontSize: "1.5em",
     },
     subTitle: {
         display: "inline-block",
-        maxWidth: "80%",
+        maxWidth: "75%",
         paddingRight: theme.spacing(1),
     },
     descColor: {
@@ -106,7 +109,7 @@ const useStyles = makeStyles(theme => ({
     marginBox: {
         marginLeft: theme.spacing(8),
         marginRight: theme.spacing(8),
-    }
+    },
 }));
 
 export const ProcessCard = (props) => {
@@ -148,7 +151,7 @@ export const ProcessCard = (props) => {
                                         src={props.item.avatar_path}
                                         alt={props.item.nickname}
                                     />
-                                    <Typography component="div" align="center" variant="body1">
+                                    <Typography className={`${classes.hiddenText} + ${classes.plr2}`} component="div" align="center" variant="body1">
                                         {props.item.nickname}
                                     </Typography>
                                 </div>
@@ -156,7 +159,9 @@ export const ProcessCard = (props) => {
                             <Grid item xs={8} md={8} lg={8}>
                                 <Grid container spacing={2} className={classes.mt4}>
                                     <Grid item xs={3} md={3} lg={3}>
-                                        부서
+                                        <Typography variant="body1" className={classes.hiddenText}>
+                                            부서
+                                        </Typography>
                                     </Grid>
                                     <Grid item xs={9} md={9} lg={9}>
                                         <Typography variant="body1" className={classes.hiddenText}>
@@ -164,7 +169,9 @@ export const ProcessCard = (props) => {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={3} md={3} lg={3}>
-                                        직급
+                                        <Typography variant="body1" className={classes.hiddenText}>
+                                            직급
+                                        </Typography>
                                     </Grid>
                                     <Grid item xs={9} md={9} lg={9}>
                                         <Typography variant="body1" className={classes.hiddenText}>

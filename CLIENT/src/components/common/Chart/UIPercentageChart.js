@@ -16,7 +16,7 @@ export const UIPercentageChart = (props) => {
     const propsData = [
         {
             name: props.name,
-            value: (props.min / props.max) * 100,
+            value: Math.round((props.min / props.max) * 100),
             color: theme.palette.chart.sub
         }
     ];
@@ -34,7 +34,7 @@ export const UIPercentageChart = (props) => {
                     rounded
                     animate
                     reveal={propsData[0].value}
-                    lineWidth={24}
+                    lineWidth={8}
                     lengthAngle={360}
                     label={({ dataEntry }) => getLabel(dataEntry)}
                     labelPosition={0}

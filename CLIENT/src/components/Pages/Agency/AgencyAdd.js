@@ -287,7 +287,7 @@ export default function FullScreenDialog() {
                         person: []
                     }));
                     enqueueSnackbar("기관 등록에 성공했습니다.", { variant: 'success' });
-                    history.go(0);
+                    history.push('/agency');
                 } else {
                     enqueueSnackbar(res.data.resultCode, { variant: 'error' });
                 }
@@ -340,6 +340,8 @@ export default function FullScreenDialog() {
                             variant="filled"
                             label="설명"
                             name="desc"
+                            multiline
+                            rows={4}
                             onChange={handleChangeAgencyInfos}
                             align="left"
                         />
@@ -379,6 +381,18 @@ export default function FullScreenDialog() {
                                 ResultMessage={ResultMessage}
                                 ResultAction={ResultAction}
                             />
+                            <Box mt={2}>
+                                {
+                                    _agencyInfo.person &&
+                                    _agencyInfo.person.map((item, index) => {
+                                        return (
+                                            <UIChipSet
+                                                data={item}
+                                            />
+                                        )
+                                    })
+                                }
+                            </Box>
                         </Box>
                         <Divider className={classes.mv} />
                         <UIButton

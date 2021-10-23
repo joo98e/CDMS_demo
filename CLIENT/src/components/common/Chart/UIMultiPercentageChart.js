@@ -30,7 +30,7 @@ export const UIPercentageChart = (props) => {
     React.useEffect(() => {
 
         const getPercentageByProcess = () => {
-            if(props.data.length === 0) {
+            if (props.data.length === 0) {
                 setReveal(0)
                 return false;
             }
@@ -45,7 +45,7 @@ export const UIPercentageChart = (props) => {
                 return sum + currValue;
             }, 0);
 
-            result = result / arr.length;
+            result = Math.round(result / arr.length);
             setReveal(result)
             return result;
         }
@@ -62,7 +62,7 @@ export const UIPercentageChart = (props) => {
                         rounded
                         animate
                         reveal={reveal}
-                        lineWidth={24}
+                        lineWidth={8}
                         lengthAngle={360}
                         label={({ dataEntry }) => getLabel(dataEntry)}
                         labelPosition={0}

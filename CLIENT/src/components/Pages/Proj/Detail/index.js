@@ -14,6 +14,7 @@ import getNow from '../../../common/fn/getNow';
 import getDateFormat from '../../../common/fn/getDateFormat';
 import UICircularProgress from '../../../common/UICircularProgress'
 import UIMultiPercentageChart from '../../../common/Chart/UIMultiPercentageChart';
+import HelpNoProcess from './HelpNoProcess';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -93,7 +94,11 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(2)
     },
     mainArea: {
+        height: theme.spacing(48),
         minHeight: theme.spacing(50),
+        "& svg": {
+            height: theme.spacing(36)
+        }
     },
     card: {
         position: "relative",
@@ -117,6 +122,12 @@ export const ProjectDetail = (props) => {
     const [processData, setProcessData] = useState([]);
     const [chartData, setChartData] = useState([]);
     const [writeStatus, setWriteStatus] = React.useState(false);
+    const [helpOpen, setHelpOpen] = React.useState(false);
+    const [ended, setEnded] = React.useState(false);
+
+    const handleCloseHelp = () => {
+        setHelpOpen(false)
+    }
 
     useEffect(() => {
         const getProjectDetail = async () => {
@@ -133,6 +144,7 @@ export const ProjectDetail = (props) => {
                 setProjectData(...res.data.result);
 
                 if (getDateFormat.YYYYMMDD(res.data.result[0].end_date) < getDateFormat.YYYYMMDD(getNow())) {
+                    setEnded(true);
                     enqueueSnackbar('종료된 프로젝트입니다.', { variant: "info" })
                 }
 
@@ -152,7 +164,9 @@ export const ProjectDetail = (props) => {
             axios.get(URL, {
                 params: condition
             }).then((res) => {
-
+                if (res.data.result.length === 0 && writeStatus && !ended) {
+                    setHelpOpen(true);
+                }
                 let data = [];
                 for (const property in res.data.result) {
                     data.push([res.data.result[property].cur_task, res.data.result[property].total_task]);
@@ -176,12 +190,17 @@ export const ProjectDetail = (props) => {
 
     return (
         <Box className={classes.root}>
+            <HelpNoProcess
+                open={helpOpen}
+                handleClose={handleCloseHelp}
+                ref_proj_id={ref_proj_id}
+            />
             <Grid container spacing={4}>
                 <Grid item xs={12} md={12} lg={12}>
                     <Paper elevation={4}>
                         <div className={classes.titleBox}>
-                            <span className={classes.mainTitle}>{projectData.name}</span>
-                            <span className={`${classes.subTitle} + ${classes.descColor}`}>{projectData.desc}</span>
+                            <span className={`${classes.hiddenText} + ${classes.mainTitle}`}>{projectData.name}</span>
+                            <span className={`${classes.hiddenText} + ${classes.subTitle} + ${classes.descColor}`}>{projectData.desc}</span>
                         </div>
                     </Paper>
                 </Grid>
@@ -206,7 +225,7 @@ export const ProjectDetail = (props) => {
                                     <Grid item xs={12} md={9} lg={9}>
                                         <Paper className={`${classes.bdBox} + ${classes.mainArea}`} elevation={4}>
                                             <Typography className={classes.mb1} variant="h6">
-                                                안내
+                                                최근 소식
                                             </Typography>
                                         </Paper>
                                     </Grid>
@@ -218,7 +237,6 @@ export const ProjectDetail = (props) => {
                                     {
                                         ["TODO", "DOING", "DONE"].map((category, index) => {
                                             let statusBy = [];
-
                                             for (let i = 0; i < processData.length; i++) {
                                                 processData[i].status === `STATUS::${category}` && statusBy.push(processData[i]);
                                             }
@@ -236,21 +254,29 @@ export const ProjectDetail = (props) => {
                                                                 {category}
                                                             </Typography>
                                                             {
-                                                                (statusBy && statusBy.length !== 0) &&
-                                                                statusBy.map((item, index) => {
-                                                                    return (
-                                                                        <ProcessCard
-                                                                            key={index}
-                                                                            item={item}
-                                                                        />
-                                                                    )
-                                                                })
+                                                                (statusBy && statusBy.length !== 0) ?
+
+                                                                    statusBy.map((item, index) => {
+                                                                        return (
+                                                                            <ProcessCard
+                                                                                key={index}
+                                                                                item={item}
+                                                                            />
+                                                                        )
+                                                                    })
+                                                                    :
+                                                                    (!writeStatus || (writeStatus && ended)) &&
+                                                                    <Grid item xs={12} md={12} lg={12} className={classes.minHeight}>
+                                                                        <Typography className={classes.trans} variant="body1" align="center" component="div">
+                                                                            데이터가 없습니다.
+                                                                        </Typography>
+                                                                    </Grid>
                                                             }
                                                             {
                                                                 (
                                                                     writeStatus
                                                                     &&
-                                                                    getDateFormat.YYYYMMDD(projectData.end_date) >= getDateFormat.YYYYMMDD(getNow())
+                                                                    !ended
                                                                 ) &&
                                                                 <Grow in={awhile} style={{ transformOrigin: '0 0 0' }} timeout={awhile ? 1000 : 0}>
                                                                     <Grid item xs={12} md={12} lg={12}>

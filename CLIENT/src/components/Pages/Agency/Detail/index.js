@@ -286,7 +286,7 @@ export class AgencyDetail extends Component {
                                                                 <React.Fragment key={index}>
                                                                     <Grid item xs={6} md={6} lg={6}>
                                                                         <Typography
-                                                                            className={classes.hiddenText}
+                                                                        className={`${classes.hiddenText} + ${classes.subText}`}
                                                                             variant="body1"
                                                                             align="left"
                                                                         >
@@ -343,7 +343,7 @@ export class AgencyDetail extends Component {
                                                                     <Typography
                                                                         variant="body1"
                                                                         align="left"
-                                                                        className={classes.hiddenText}
+                                                                        className={`${classes.hiddenText} + ${classes.subText}`}
                                                                     >
                                                                         {item.key}
                                                                     </Typography>
@@ -352,7 +352,7 @@ export class AgencyDetail extends Component {
                                                                     <Typography
                                                                         variant="body1"
                                                                         align="left"
-                                                                        className={`${classes.hiddenText} + ${classes.subText}`}
+                                                                        className={classes.hiddenText}
                                                                     >
                                                                         {item.value}
                                                                     </Typography>
