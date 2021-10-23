@@ -61,6 +61,10 @@ const useStyles = makeStyles(theme => ({
         display: 'block',
     },
     media: {
+        height: "200px"
+    },
+    m1 : {
+        marginTop : theme.spacing(1)
     }
 }));
 
@@ -103,7 +107,7 @@ function ProjectCard(props) {
     }, []);
 
     return (
-        <Grid item xs={12} md={6} lg={4} className={classes.pr}>
+        <Grid item xs={12} md={3} lg={3} className={classes.pr}>
             <Grow
                 in={GrowIn}
                 style={{ transformOrigin: '0 0 0' }}
@@ -127,9 +131,12 @@ function ProjectCard(props) {
                         />
 
                         <Box className={classes.boxTop}>
-                            {props.item.desc}
+                            <Typography className={classes.m1} variant="body1" color="textSecondary">
+                                {props.item.desc}
+                            </Typography>
+
                         </Box>
-                        
+
                         <CardActions>
                             <UIButton
                                 class={classes.boxBottom}

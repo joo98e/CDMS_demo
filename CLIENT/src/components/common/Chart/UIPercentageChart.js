@@ -40,7 +40,7 @@ export const UIPercentageChart = (props) => {
                     labelPosition={0}
                     labelStyle={{
                         fontSize: theme.spacing(2),
-                        fill: theme.palette.text.desc
+                        fill: theme.palette.text.primary
                     }}
                     background={theme.palette.chart.background}
                 />

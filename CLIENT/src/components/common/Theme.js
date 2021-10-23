@@ -30,10 +30,10 @@ const theme = {
             },
             text: {
                 primary: "#EAEAEA",
-                secondary: "#DDDDDD",
+                secondary: "#D2D2D2",
                 hint: "#E7E7E7",
                 disabled: "#E7E7E7",
-                desc: "#DDDDDD"
+                desc: "#C2C2C2"
             },
             chart: {
                 background: "#2a3c4e",

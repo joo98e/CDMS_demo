@@ -43,7 +43,8 @@ const styles = theme => ({
         height: theme.spacing(50)
     },
     h_560px: {
-        minHeight: '560px',
+        height : "100%",
+        minHeight: '280px',
         maxHeight: '560px',
     },
     bxsizing: {
@@ -403,7 +404,7 @@ export class AgencyDetail extends Component {
 
                                                 {
                                                     this.state.writeStatus ?
-                                                        <Grid item xs={12} md={6} lg={4}>
+                                                        <Grid item xs={12} md={3} lg={3}>
                                                             <Paper elevation={4} className={`${classes.relative} + ${classes.h_560px}`}>
                                                                 <IconButton
                                                                     className={classes.trans}

@@ -30,6 +30,11 @@ export const UIPercentageChart = (props) => {
     React.useEffect(() => {
 
         const getPercentageByProcess = () => {
+            if(props.data.length === 0) {
+                setReveal(0)
+                return false;
+            }
+
             let arr = [];
             for (let i = 0; i < props.data.length; i++) {
                 const _percentageByProcess = props.data[i][0] / props.data[i][1] * 100
@@ -63,7 +68,7 @@ export const UIPercentageChart = (props) => {
                         labelPosition={0}
                         labelStyle={{
                             fontSize: theme.spacing(2),
-                            fill: theme.palette.text.desc
+                            fill: theme.palette.text.primary
                         }}
                         background={theme.palette.chart.background}
                     />
