@@ -67,7 +67,7 @@
       </if>
     </where>
     ORDER BY news.reg_date DESC
-    LIMIT 5
+    LIMIT 4
   </select>
 
 </mapper>

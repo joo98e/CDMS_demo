@@ -16,6 +16,8 @@ import UICircularProgress from '../../../common/UICircularProgress'
 import UIMultiPercentageChart from '../../../common/Chart/UIMultiPercentageChart';
 import HelpNoProcess from './HelpNoProcess';
 import API from '../../../common/API';
+import UIButton from '../../../common/UIButton';
+import UINews from '../../../common/UINews';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -61,6 +63,11 @@ const useStyles = makeStyles(theme => ({
     },
     pb2: {
         paddingBottom: theme.spacing(2)
+    },
+    flex: {
+        display: "flex",
+        flexDirection : "column",
+        justifyContent : "center",
     },
     titleBox: {
         display: "flex",
@@ -109,7 +116,12 @@ const useStyles = makeStyles(theme => ({
         marginRight: theme.spacing(4),
         marginBottom: theme.spacing(2),
         marginLeft: theme.spacing(4),
-    }
+    },
+    more: {
+        position: "absolute",
+        top: theme.spacing(1.5),
+        right: theme.spacing(1.5)
+    },
 }));
 
 export const ProjectDetail = (props) => {
@@ -189,9 +201,7 @@ export const ProjectDetail = (props) => {
 
         API.getNews(config)
             .then((res) => {
-                console.log(res.data.result[0].reg_date);
-                console.log(getDateFormat.TOSTRING(getNow()));
-                setNewsData(res.data);
+                setNewsData(res.data.result);
             });
 
         // 프로젝트, 프로세스, awhile
@@ -241,15 +251,36 @@ export const ProjectDetail = (props) => {
                                         </Paper>
                                     </Grid>
                                     <Grid item xs={12} md={9} lg={9}>
-                                        <Paper className={`${classes.bdBox} + ${classes.mainArea}`} elevation={4}
+                                        <Paper className={`${classes.bdBox} + ${classes.mainArea} + ${classes.relative}`} elevation={4}
                                             onClick={() => console.log(newsData)}
                                         >
                                             <Typography className={classes.mb1} variant="h6">
                                                 최근 소식
                                             </Typography>
+                                            <UIButton
+                                                class={classes.more}
+                                                name="MORE"
+                                                variant="contained"
+                                                action={() => { }}
+                                            />
                                             <Divider className={classes.mb1} />
-                                            <Box>
-
+                                            <Box className={classes.flex}>
+                                                {
+                                                    (newsData && newsData.length !== 0) ?
+                                                        newsData.map((item, index) => {
+                                                            return (
+                                                                <UINews
+                                                                    key={index}
+                                                                    num={index + 1}
+                                                                    data={item}
+                                                                />
+                                                            )
+                                                        })
+                                                        :
+                                                        <Typography className={classes.trans} variant="body1" align="center" component="div">
+                                                            데이터가 없습니다.
+                                                        </Typography>
+                                                }
                                             </Box>
                                         </Paper>
                                     </Grid>
@@ -259,7 +290,7 @@ export const ProjectDetail = (props) => {
                             <Grid item xs={12} md={12} lg={12}>
                                 <Grid container spacing={4}>
                                     {
-                                        ["TODO", "DOING", "DONE"].map((category, index) => {
+                                        ["TODO", "IN PROGRESS", "DONE"].map((category, index) => {
                                             let statusBy = [];
                                             for (let i = 0; i < processData.length; i++) {
                                                 processData[i].status === `STATUS::${category}` && statusBy.push(processData[i]);

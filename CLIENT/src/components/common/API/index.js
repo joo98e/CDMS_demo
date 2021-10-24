@@ -1,18 +1,18 @@
 /**
- * @param {HAPPEND_config}  / Object, key : message, type, ref_id
+ * @param {newsConfig}  / Object, key : message, type, ref_id
  */
 
 import axios from "axios"
 const API = {
-    insertNews: (HAPPEND_config) => {
+    insertNews: newsConfig => {
         const URL = "/api/org/insertnews"
-        axios.post(URL, HAPPEND_config)
+        axios.post(URL, newsConfig)
             .then(res => {
-                console.log(res.data);
                 return res.data;
             })
             .catch(err => {
                 console.error(err);
+                return false;
             })
     },
     getNews: config => {

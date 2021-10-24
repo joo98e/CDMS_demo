@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios'
 import {
   Grid, Grow, Paper, Button, Typography, Box,
-  makeStyles,
+  makeStyles, Avatar,
   Card, CardActions
 } from '@material-ui/core/';
 
@@ -153,7 +153,7 @@ function AgencyCard(props) {
                     ?
                     agcyColleagueList.map((item, index) => {
                       return (
-                        <UISkeletonAvatar
+                        <Avatar
                           key={index}
                           src={item.avatar_path}
                           alt={item.name}

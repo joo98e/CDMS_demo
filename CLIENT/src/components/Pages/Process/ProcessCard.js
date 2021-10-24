@@ -132,7 +132,7 @@ export const ProcessCard = (props) => {
                 <span className={`${classes.hiddenText} + ${classes.subTitle} + ${classes.descColor}`}>{props.item.process_desc}</span>
                 <UIButton
                     class={classes.more}
-                    name="자세히"
+                    name="MORE"
                     variant="contained"
                     action={handleClickGoProcessDetail}
                 />

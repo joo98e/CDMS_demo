@@ -56,7 +56,7 @@ export const UIChipSet = (props) => {
         <React.Fragment>
             {
                 data.avatar_path &&
-                <Tooltip title="자세히">
+                <Tooltip title="MORE">
                     <Chip
                         className={classes.m1}
                         clickable

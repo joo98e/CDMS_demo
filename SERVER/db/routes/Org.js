@@ -98,14 +98,14 @@ router.post('/insertnews', (req, res) => {
         if (err) {
             console.error(err);
             return res.status(400).send({
-                result: {},
+                result: [],
                 resultCode: -1,
                 errorMsg: "에러입니다."
             });
         } else {
             if (rows.length === 0) {
                 return res.status(200).send({
-                    result: {},
+                    result: [],
                     resultCode: -2,
                     resultMessage: '동작은 이루어졌으나 결과값이 없습니다.'
                 });
@@ -127,19 +127,18 @@ router.get("/getnews", (req, res) => {
         if (err) {
             console.log(err);
             return res.status(400).send({
-                result: {},
+                result: [],
                 resultCode: -1,
                 resultMessage: "조회 실패"
             });
         } else {
             if (rows.length === 0) {
                 return res.status(200).send({
-                    result: {},
+                    result: [],
                     resultCode: -2,
                     resultMessage: '동작은 이루어졌으나 결과값이 없습니다.'
                 });
             } else {
-                console.log(rows);
                 return res.status(200).send({
                     result: rows,
                     resultCode: 1,

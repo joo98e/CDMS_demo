@@ -140,7 +140,7 @@ function ProjectCard(props) {
                         <CardActions>
                             <UIButton
                                 class={classes.boxBottom}
-                                name="자세히"
+                                name="MORE"
                                 variant="contained"
                                 color="primary"
                                 action={() => {

@@ -216,7 +216,7 @@ export default function ProcessAdd() {
         }
         axios.post(URL, data)
             .then(res => {
-                const news_config = {
+                const newsConfig = {
                     name: _processInfo.name,
                     type: "INCLUDE::PROJECT",
                     ref_id: ref_proj_id,
@@ -225,7 +225,7 @@ export default function ProcessAdd() {
                     url: `/agency/project/process/detail/${res.data.result.last_insert_id}`,
                     reg_date : getNow()
                 }
-                API.insertNews(news_config);
+                API.insertNews(newsConfig);
 
                 enqueueSnackbar("프로세스 등록에 성공하였습니다.", { variant: "success" });
                 history.push(`/agency/project/detail/${ref_proj_id}`);

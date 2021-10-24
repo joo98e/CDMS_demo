@@ -12,10 +12,6 @@ const getDateFormat = {
         try {
             let _target = new Date(param);
             const returnValue = `${setDigits(_target.getFullYear())}-${setDigits(_target.getMonth() + 1)}-${setDigits(_target.getDate())}`
-
-            console.log("_target", _target);
-            console.log("returnValue", returnValue);
-            
             return returnValue;
         } catch (error) {
             alert("날짜 형식이 아닐 확률이 높습니다.");
@@ -43,7 +39,8 @@ const getDateFormat = {
     },
     TOSTRING: param => {
         try {
-            const today = new Date(param);
+            const today = new Date();
+            console.log(param);
             const timeValue = new Date(param);
 
             const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
