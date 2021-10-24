@@ -166,5 +166,68 @@
 
     </select>
 
+    <select id="getDetail">
+        <!-- 프로세스 디테일 조회 쿼리 -->
+        SELECT 
+            proc.`name`,
+            proc.`desc`,
+            proc.rating,
+            proc.cur_task,
+            proc.total_task,
+            proc.add_info,
+            proc.start_date,
+            proc.end_date,
+            org_dept.`name` AS dept_name,
+            org_rank.`name` AS rank_name,
+            mem.full_name,
+            mem.followed,
+            mem.avatar_path
+        FROM tb_agcy_proj_proc AS proc
+        LEFT JOIN tb_member AS mem
+            ON mem.seq = proc.writer_seq
+        LEFT JOIN tb_org_structure AS org_dept
+            ON mem.dept_no = org_dept.id
+        LEFT JOIN tb_org_structure AS org_rank
+            ON mem.dept_no = org_rank.id
+        <where>
+            <if test="delete_yn != null">
+                AND proc.delete_yn = #{delete_yn}
+            </if>
+            <if test="delete_yn != null">
+                AND proc.id = #{ref_proc_id}
+            </if>
+        </where>
+    </select>
+
+    <select id="getDetailOfWorker">
+        SELECT 
+            procColg.`type`,
+            procColg.submit_count,
+            mem.id,
+            mem.full_name,
+            mem.phone,
+            org_dept.`name` AS dept_name,
+            org_rank.`name` AS rank_name,
+            mem.followed,
+            mem.avatar_path
+        FROM tb_agcy_proj_proc_colleague AS procColg
+        LEFT JOIN tb_member AS mem
+            ON mem.seq = procColg.ref_colleague_seq
+        LEFT JOIN tb_org_structure AS org_dept
+            ON org_dept.id = mem.dept_no
+        LEFT JOIN tb_org_structure AS org_rank
+            ON org_rank.id = mem.rank_no
+        <where>
+            <if test="delete_yn != null">
+                AND procColg.delete_yn = #{delete_yn}
+            </if>
+            <if test="ref_proc_id != null">
+                AND procColg.ref_proc_id = #{ref_proc_id}
+            </if>
+            <if test="type != null">
+                AND procColg.`type` = #{type}
+            </if>
+        </where>
+    </select>
 
 </mapper>

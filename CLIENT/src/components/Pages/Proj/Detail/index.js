@@ -17,7 +17,7 @@ import UIMultiPercentageChart from '../../../common/Chart/UIMultiPercentageChart
 import HelpNoProcess from './HelpNoProcess';
 import API from '../../../common/API';
 import UIButton from '../../../common/UIButton';
-import UINews from '../../../common/UINews';
+import UINewsByNotice from '../../../common/News/UINewsByNotice';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -155,7 +155,6 @@ export const ProjectDetail = (props) => {
             }).then((res) => {
 
                 setProjectData(...res.data.result);
-                console.log(res.data.result[0].end_date);
                 if (getDateFormat.YYYYMMDD(res.data.result[0].end_date) < getDateFormat.YYYYMMDD(getNow())) {
                     setEnded(true);
                     enqueueSnackbar('종료된 프로젝트입니다.', { variant: "info" })
@@ -177,9 +176,12 @@ export const ProjectDetail = (props) => {
             axios.get(URL, {
                 params: condition
             }).then((res) => {
-                if (res.data.result.length === 0 && writeStatus && !ended) {
-                    setHelpOpen(true);
-                }
+
+                // TODO 로드되는 과정에서 기능 오류 발견
+                // if (res.data.result.length === 0 && writeStatus && !ended) {
+                //     setHelpOpen(true);
+                // }
+
                 let data = [];
                 for (const property in res.data.result) {
                     data.push([res.data.result[property].cur_task, res.data.result[property].total_task]);
@@ -266,7 +268,7 @@ export const ProjectDetail = (props) => {
                                                     (newsData && newsData.length !== 0) ?
                                                         newsData.map((item, index) => {
                                                             return (
-                                                                <UINews
+                                                                <UINewsByNotice
                                                                     key={index}
                                                                     num={index + 1}
                                                                     data={item}

@@ -70,7 +70,7 @@ router.post('/add', (req, res) => {
                                             });
                                         } else {
                                             return res.status(200).send({
-                                                result: {...rows, last_insert_id : params_sub.last_insert_id},
+                                                result: { ...rows, last_insert_id: params_sub.last_insert_id },
                                                 resultCode: 1,
                                                 resultMessage: "등록에 성공했습니다."
                                             });
@@ -146,6 +146,66 @@ router.get('/newcolg', (req, res) => {
                     resultMessage: "성공"
                 });
             }
+        }
+    });
+});
+
+router.get("/detail", (req, res) => {
+    let result = {
+        procDetail: [],
+        procMainWorker: [],
+        procSubWorker: []
+    }
+    const params = req.query;
+    const SQL_TIMES_1 = myBatisMapper.getStatement("Process", "getDetail", params, format);
+    const SQL_TIMES_2 = myBatisMapper.getStatement("Process", "getDetailOfWorker", { ...params, type: "TYPE::MAIN" }, format)
+    const SQL_TIMES_3 = myBatisMapper.getStatement("Process", "getDetailOfWorker", { ...params, type: "TYPE::SUB" }, format)
+    
+    connection.query(SQL_TIMES_1, (err, rows) => {
+        if (err || rows.length === 0) {
+            console.log(err);
+            return res.status(400).send({
+                result: false,
+                resultCode: -1,
+                resultMessage: "프로세스 세부 정보 조회 실패, 결과가 없거나 알 수 없는 오류입니다."
+            });
+        } else {
+            // 프로세스 디테일 #1
+            result.procDetail = [...rows];
+
+            connection.query(SQL_TIMES_2, (err, rows) => {
+                if (err || rows.length === 0) {
+                    console.log(err);
+                    return res.status(400).send({
+                        result: false,
+                        resultCode: -2,
+                        resultMessage: "프로세스 주작업자 조회 실패, 결과가 없거나 알 수 없는 오류입니다."
+                    });
+                } else {
+                    // 프로세스 디테일 #2
+                    result.procMainWorker = [...rows];
+                    connection.query(SQL_TIMES_3, (err, rows) => {
+                        if (err || rows.length === 0) {
+                            console.log(err);
+                            return res.status(400).send({
+                                result: false,
+                                resultCode: -3,
+                                resultMessage: "프로세스 서브작업자 조회 실패, 결과가 없거나 알 수 없는 오류입니다."
+                            });
+                        } else {
+                            // 프로세스 디테일 #3
+                            return res.status(200).send({
+                                result: {
+                                    ...result,
+                                    procSubWorker: rows
+                                },
+                                resultCode: 1,
+                                resultMessage: "조회 성공"
+                            })
+                        }
+                    })
+                }
+            })
         }
     });
 });

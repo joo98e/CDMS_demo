@@ -276,7 +276,7 @@ export default function FullScreenDialog() {
                         type: "INCLUDE::AGENCY",
                         ref_id: ref_agcy_id,
                         writer: _member.seq,
-                        message: `${_projectInfo.name} 을(를) 생성하였습니다.`,
+                        message: `${_projectInfo.name} 프로젝트를 생성하였습니다.`,
                         url: `/agency/project/detail/${res.data.result.last_insert_id}`,
                         reg_date: getNow()
                     }

@@ -221,7 +221,7 @@ export default function ProcessAdd() {
                     type: "INCLUDE::PROJECT",
                     ref_id: ref_proj_id,
                     writer: _member.seq,
-                    message: `${_processInfo.name}을(를) 생성하였습니다.`,
+                    message: `${_processInfo.name} 프로세스를 생성하였습니다.`,
                     url: `/agency/project/process/detail/${res.data.result.last_insert_id}`,
                     reg_date : getNow()
                 }

@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import {
+    Link,
     makeStyles,
 } from '@material-ui/core'
-import UISkeletonAvatar from './UISkeletonAvatar';
-import getDateFormat from './fn/getDateFormat';
+import UISkeletonAvatar from '../UISkeletonAvatar';
+import getDateFormat from '../fn/getDateFormat';
 const useStyles = makeStyles(theme => ({
     root: {
         display: "flex",
@@ -17,18 +19,27 @@ const useStyles = makeStyles(theme => ({
         flexDirection: "column"
     },
     pr2: {
-        paddingRight : theme.spacing(2)
+        paddingRight: theme.spacing(2)
     },
-    author : {
-        color : theme.palette.text.desc
+    author: {
+        color: theme.palette.text.desc
+    },
+    color : {
+        cursor : "pointer",
+        color : theme.palette.text.primary
     }
 }));
 
-export const UINews = (props) => {
+export const UINewsByNotice = (props) => {
     const classes = useStyles();
+    const history = useHistory();
+
+    const handleClickURL = () => {
+        history.push(props.data.URL ? props.data.URL : '/agency');
+    }
 
     useEffect(() => {
-
+        
     });
 
     return (
@@ -46,9 +57,10 @@ export const UINews = (props) => {
                 <span className={classes.author}>
                     {props.data.full_name}, {getDateFormat.TOSTRING(props.data.reg_date)}
                 </span>
+                {/* <Link className={classes.color} onClick={handleClickURL}>[이동]</Link> */}
             </div>
         </div>
     )
 }
 
-export default UINews
+export default UINewsByNotice

@@ -16,7 +16,7 @@ import ProjectCard from '../../Proj/ProjectCard';
 import { AddCircleIcon } from '../../../common/CustomIcons'
 import API from '../../../common/API'
 import UIButton from '../../../common/UIButton'
-import UINews from '../../../common/UINews'
+import UINewsByNotice from '../../../common/News/UINewsByNotice'
 
 const styles = theme => ({
     root: {
@@ -302,7 +302,7 @@ export class AgencyDetail extends Component {
                                                     (this.state.newsData && this.state.newsData.length !== 0) ?
                                                         this.state.newsData.map((item, index) => {
                                                             return (
-                                                                <UINews
+                                                                <UINewsByNotice
                                                                     key={index}
                                                                     num={index + 1}
                                                                     data={item}
