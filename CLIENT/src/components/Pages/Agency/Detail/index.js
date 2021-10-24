@@ -12,9 +12,11 @@ import {
 import getNow from '../../../common/fn/getNow';
 import getDateFormat from '../../../common/fn/getDateFormat';
 import UICircularProgress from '../../../common/UICircularProgress'
-import ProjectAddDialog from '../../Proj/ProjectAddDialog';
 import ProjectCard from '../../Proj/ProjectCard';
 import { AddCircleIcon } from '../../../common/CustomIcons'
+import API from '../../../common/API'
+import UIButton from '../../../common/UIButton'
+import UINews from '../../../common/UINews'
 
 const styles = theme => ({
     root: {
@@ -28,6 +30,11 @@ const styles = theme => ({
         display: "flex",
         alignItems: "center",
         justifyContent: "center"
+    },
+    flexColumn: {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
     },
     indent: {
         textIndent: theme.spacing(2)
@@ -43,7 +50,7 @@ const styles = theme => ({
         height: theme.spacing(50)
     },
     h_560px: {
-        height : "100%",
+        height: "100%",
         minHeight: '280px',
         maxHeight: '560px',
     },
@@ -72,7 +79,19 @@ const styles = theme => ({
         top: "50%",
         left: "50%",
         transform: "translate(-50%, -50%)",
-    }
+    },
+    more: {
+        position: "absolute",
+        top: theme.spacing(1.5),
+        right: theme.spacing(1.5)
+    },
+    bdBox: {
+        boxSizing: "border-box",
+        padding: theme.spacing(2)
+    },
+    mb1: {
+        marginBottom: theme.spacing(1)
+    },
 });
 
 export class AgencyDetail extends Component {
@@ -84,6 +103,7 @@ export class AgencyDetail extends Component {
             data: {},
             projectData: [],
             endProjectData: [],
+            newsData: [],
             writeStatus: false
         }
     }
@@ -94,6 +114,24 @@ export class AgencyDetail extends Component {
         });
         this.getAgencyDetailInfo();
         this.getProjectList();
+        this.getNewsData();
+    }
+
+    getNewsData = () => {
+        // 뉴스
+        const config = {
+            type: "INCLUDE::AGENCY",
+            ref_id: this.props.match.params.ref_agcy_id
+        }
+
+        API.getNews(config)
+            .then((res) => {
+                console.log(res);
+                this.setState({
+                    ...this.state,
+                    newsData: res.data.result
+                });
+            });
     }
 
     getAgencyDetailInfo = () => {
@@ -244,15 +282,39 @@ export class AgencyDetail extends Component {
                                     >
                                         <Paper
                                             elevation={4}
-                                            className={`${classes.minHeight} + ${classes.bxsizing}`}
+                                            className={`${classes.minHeight} + ${classes.bxsizing} + ${classes.relative} + ${classes.bdBox}`}
                                         >
                                             <Typography
-                                                className={`${classes.indent} + ${classes.lh_2}`}
+                                                className={classes.mb1}
                                                 variant={"h6"}
                                             >
-
+                                                최근 활동
                                             </Typography>
-                                            {/* <Divider /> */}
+                                            <Divider />
+                                            <UIButton
+                                                class={classes.more}
+                                                name="MORE"
+                                                variant="contained"
+                                                action={() => { }}
+                                            />
+                                            <Box className={classes.flexColumn}>
+                                                {
+                                                    (this.state.newsData && this.state.newsData.length !== 0) ?
+                                                        this.state.newsData.map((item, index) => {
+                                                            return (
+                                                                <UINews
+                                                                    key={index}
+                                                                    num={index + 1}
+                                                                    data={item}
+                                                                />
+                                                            )
+                                                        })
+                                                        :
+                                                        <Typography className={classes.trans} variant="body1" align="center" component="div">
+                                                            데이터가 없습니다.
+                                                        </Typography>
+                                                }
+                                            </Box>
                                         </Paper>
                                     </Grow>
                                 </Grid>
@@ -266,49 +328,50 @@ export class AgencyDetail extends Component {
                                     >
                                         <Paper
                                             elevation={4}
-                                            className={`${classes.minHeight} + ${classes.bxsizing}`}
+                                            className={`${classes.minHeight} + ${classes.bxsizing} + ${classes.relative} + ${classes.bdBox}`}
                                         >
                                             <Typography
-                                                className={`${classes.lh_2}`}
+                                                className={`${classes.mb1}`}
                                                 variant={"h6"}
                                             >
                                                 정보
                                             </Typography>
                                             <Divider />
-                                            <Grid
-                                                container
-                                                className={classes.vertical_m_1}
-                                            >
-                                                {
-                                                    this.state.data.add_info && this.state.data.add_info.length !== 0 ?
-                                                        this.state.data.add_info.map((item, index) => {
-                                                            return (
-                                                                <React.Fragment key={index}>
-                                                                    <Grid item xs={6} md={6} lg={6}>
-                                                                        <Typography
+                                            {
+                                                this.state.data.add_info && this.state.data.add_info.length !== 0 ?
+                                                    this.state.data.add_info.map((item, index) => {
+                                                        return (
+                                                            <Grid
+                                                                key={index}
+                                                                container
+                                                                className={classes.vertical_m_1}
+                                                            >
+                                                                <Grid item xs={6} md={6} lg={6}>
+                                                                    <Typography
                                                                         className={`${classes.hiddenText} + ${classes.subText}`}
-                                                                            variant="body1"
-                                                                            align="left"
-                                                                        >
-                                                                            {item.key}
-                                                                        </Typography>
-                                                                    </Grid>
-                                                                    <Grid item xs={6} md={6} lg={6}>
-                                                                        <Typography
-                                                                            className={classes.hiddenText}
-                                                                            variant="body1"
-                                                                            align="left"
-                                                                        >
-                                                                            {item.value}
-                                                                        </Typography>
-                                                                    </Grid>
-                                                                </React.Fragment>
-                                                            )
-                                                        })
-                                                        :
-                                                        ""
-                                                }
-                                            </Grid>
+                                                                        variant="body1"
+                                                                        align="left"
+                                                                    >
+                                                                        {item.key}
+                                                                    </Typography>
+                                                                </Grid>
+                                                                <Grid item xs={6} md={6} lg={6}>
+                                                                    <Typography
+                                                                        className={classes.hiddenText}
+                                                                        variant="body1"
+                                                                        align="left"
+                                                                    >
+                                                                        {item.value}
+                                                                    </Typography>
+                                                                </Grid>
+                                                            </Grid>
+                                                        )
+                                                    })
+                                                    :
+                                                    <Typography className={classes.trans} variant="body1">
+                                                        데이터가 없습니다.
+                                                    </Typography>
+                                            }
                                         </Paper>
                                     </Grow>
                                 </Grid>
@@ -322,10 +385,10 @@ export class AgencyDetail extends Component {
                                     >
                                         <Paper
                                             elevation={4}
-                                            className={`${classes.minHeight} + ${classes.bxsizing}`}
+                                            className={`${classes.minHeight} + ${classes.bxsizing} + ${classes.bdBox}`}
                                         >
                                             <Typography
-                                                className={`${classes.lh_2}`}
+                                                className={`${classes.mb1}`}
                                                 variant={"h6"}
                                             >
                                                 등록자
@@ -481,7 +544,7 @@ export class AgencyDetail extends Component {
                             <UICircularProgress />
                     }
                 </Grid>
-            </Box>
+            </Box >
         )
     }
 }

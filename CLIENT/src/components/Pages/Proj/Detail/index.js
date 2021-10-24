@@ -102,7 +102,6 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(2)
     },
     mainArea: {
-        height: theme.spacing(48),
         minHeight: theme.spacing(50),
         "& svg": {
             height: theme.spacing(36)
@@ -251,11 +250,9 @@ export const ProjectDetail = (props) => {
                                         </Paper>
                                     </Grid>
                                     <Grid item xs={12} md={9} lg={9}>
-                                        <Paper className={`${classes.bdBox} + ${classes.mainArea} + ${classes.relative}`} elevation={4}
-                                            onClick={() => console.log(newsData)}
-                                        >
+                                        <Paper className={`${classes.bdBox} + ${classes.mainArea} + ${classes.relative}`} elevation={4}>
                                             <Typography className={classes.mb1} variant="h6">
-                                                최근 소식
+                                                최근 활동
                                             </Typography>
                                             <UIButton
                                                 class={classes.more}

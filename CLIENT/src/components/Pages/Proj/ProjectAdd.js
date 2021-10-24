@@ -17,6 +17,8 @@ import UIChipSet from '../../common/UIChipSet'
 import Back from '../../common/Back'
 import UIDatePicker from '../../common/UIDatePicker';
 import UIButton from '../../common/UIButton';
+import getNow from '../../common/fn/getNow';
+import API from '../../common/API';
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -268,6 +270,18 @@ export default function FullScreenDialog() {
         axios.post(URL, data, config)
             .then(res => {
                 if (res.data.resultCode === 1) {
+                    
+                    const newsConfig = {
+                        name: _projectInfo.name,
+                        type: "INCLUDE::AGENCY",
+                        ref_id: ref_agcy_id,
+                        writer: _member.seq,
+                        message: `${_projectInfo.name} 을(를) 생성하였습니다.`,
+                        url: `/agency/project/detail/${res.data.result.last_insert_id}`,
+                        reg_date: getNow()
+                    }
+                    API.insertNews(newsConfig);
+
                     dispatch(setProjectInfo({
                         ..._projectInfo,
                         person: []

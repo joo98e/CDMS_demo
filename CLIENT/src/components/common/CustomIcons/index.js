@@ -31,7 +31,8 @@ import {
     DateRange,
     Search,
     ArrowDownward,
-    Star
+    Star,
+    Mail
 } from "@material-ui/icons";
 
 
@@ -255,5 +256,12 @@ export const ArrowDownwardIcon = () => {
     const classes = useStyles();
     return (
         <ArrowDownward className={classes.color} />
+    )
+}
+
+export const MailIcon = () => {
+    const classes = useStyles();
+    return (
+        <Mail className={classes.color} />
     )
 }

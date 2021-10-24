@@ -40,7 +40,6 @@ const getDateFormat = {
     TOSTRING: param => {
         try {
             const today = new Date();
-            console.log(param);
             const timeValue = new Date(param);
 
             const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);

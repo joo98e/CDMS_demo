@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
 import { useSelector } from 'react-redux';
 import {
-    Grid, Grow, Paper, Button, Typography, Box,
+    Grid, Grow, Paper, Typography, Box,
     makeStyles,
     Card, CardActions, CardMedia
 } from '@material-ui/core/';
@@ -11,7 +11,7 @@ import {
 import UICardHeader from '../../common/Card/UICardHeader';
 import UIButton from '../../common/UIButton'
 import {
-    EditIcon, DeleteIcon, MoreVertIcon
+    EditIcon, DeleteIcon, MoreVertIcon, MailIcon
 } from '../../common/CustomIcons';
 
 const useStyles = makeStyles(theme => ({
@@ -75,24 +75,21 @@ function ProjectCard(props) {
     const [writeStatus, setWriteStatus] = React.useState(false);
     const [GrowIn, setGrowIn] = React.useState(false);
 
-    const alert1 = () => {
-        alert(1)
-    }
-
-    const alert2 = () => {
-        alert(2)
-    }
-
     const headerActionList = [
         {
             name: "수정하기",
             icon: <EditIcon />,
-            action: alert1
+            action: () => {console.log("수정하기")}
         },
         {
             name: "삭제하기",
             icon: <DeleteIcon />,
-            action: alert2
+            action: () => {console.log("삭제하기")}
+        },
+        {
+          name: "메일로 알리기",
+          icon: <MailIcon />,
+          action: () => {console.log("메일로 알리기")}
         },
     ]
 

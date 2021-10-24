@@ -17,10 +17,10 @@ import { CancelIcon } from '../CustomIcons';
 const useStyles = makeStyles(theme => ({
     cardHeader: {
         display: 'flex',
-        justifyContent : "space-between",
+        justifyContent: "space-between",
         boxSizing: 'border-box',
         padding: theme.spacing(2),
-        paddingRight : theme.spacing(1)
+        paddingRight: theme.spacing(1)
     },
     headerTitle: {
         maxWidth: "85%",
@@ -34,6 +34,9 @@ const useStyles = makeStyles(theme => ({
         overflow: 'hidden',
         display: 'block',
     },
+    desc : {
+        color : theme.palette.text.desc
+    }
 }));
 
 export const UICardHeader = (props) => {
@@ -57,6 +60,12 @@ export const UICardHeader = (props) => {
                     <Typography variant="h6" className={classes.hiddenText}>
                         {props.title}
                     </Typography>
+                    {
+                        props.subTitle &&
+                        <Typography variant="body2" className={`${classes.desc} + ${classes.hiddenText}`}>
+                            {props.subTitle}
+                        </Typography>
+                    }
                 </Box>
                 <Box className={classes.headerAction}>
                     <IconButton

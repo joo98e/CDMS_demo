@@ -1,5 +1,4 @@
 import { createTheme } from '@material-ui/core';
-import { purple, teal, blue, blueGrey, orange } from "@material-ui/core/colors";
 
 const theme = {
     nature: createTheme({
@@ -145,8 +144,8 @@ const theme = {
             },
             chart: {
                 background: "#C1C1C1",
-                main: "#2a3c4e",
                 sub: "#6389b3",
+                accent: "#7ca75f",
                 text: {
                     main: "#2D2D2D",
                     sub: "#565656"

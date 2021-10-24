@@ -8,16 +8,14 @@ import {
   makeStyles, Avatar,
   Card, CardActions
 } from '@material-ui/core/';
-
-
 import { AvatarGroup } from '@material-ui/lab'
-import UISkeletonAvatar from '../../common/UISkeletonAvatar';
 
 import UICardHeader from '../../common/Card/UICardHeader';
 import {
   MoreVertIcon,
   EditIcon,
-  DeleteIcon
+  DeleteIcon,
+  MailIcon
 } from '../../common/CustomIcons';
 
 const useStyles = makeStyles(theme => ({
@@ -92,28 +90,23 @@ function AgencyCard(props) {
       });
   }
 
-
-  const alert1 = () => {
-    alert(1)
-  }
-
-  const alert2 = () => {
-    alert(2)
-  }
-
   const headerActionList = [
     {
-      name: "수정하기",
-      icon: <EditIcon />,
-      action: alert1
+        name: "수정하기",
+        icon: <EditIcon />,
+        action: () => {console.log("수정하기")}
     },
     {
-      name: "삭제하기",
-      icon: <DeleteIcon />,
-      action: alert2
+        name: "삭제하기",
+        icon: <DeleteIcon />,
+        action: () => {console.log("삭제하기")}
     },
-  ]
-
+    {
+      name: "메일로 알리기",
+      icon: <MailIcon />,
+      action: () => {console.log("메일로 알리기")}
+    },
+]
 
   React.useEffect(() => {
 

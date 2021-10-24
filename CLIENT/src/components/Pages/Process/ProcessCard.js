@@ -8,6 +8,11 @@ import UISkeletonAvatar from "../../common/UISkeletonAvatar"
 import UIPercentageChart from '../../common/Chart/UIPercentageChart'
 import UIButton from '../../common/UIButton'
 
+import {
+    EditIcon, DeleteIcon, MoreVertIcon, MailIcon
+} from '../../common/CustomIcons';
+import { UICardHeader } from '../../common/Card/UICardHeader'
+
 const useStyles = makeStyles(theme => ({
     root: {
         boxSizing: "border-box",
@@ -54,8 +59,8 @@ const useStyles = makeStyles(theme => ({
     p1: {
         padding: theme.spacing(2)
     },
-    plr2 : {
-        padding : theme.spacing(0, 2, 0, 2)
+    plr2: {
+        padding: theme.spacing(0, 2, 0, 2)
     },
     pb1: {
         paddingBottm: theme.spacing(1)
@@ -95,10 +100,8 @@ const useStyles = makeStyles(theme => ({
     descColor: {
         color: theme.palette.text.desc
     },
-    more: {
-        position: "absolute",
-        top: theme.spacing(1.5),
-        right: theme.spacing(1.5)
+    fullWidth: {
+        width: "100%"
     },
     hiddenText: {
         whiteSpace: "nowrap",
@@ -115,6 +118,26 @@ const useStyles = makeStyles(theme => ({
 export const ProcessCard = (props) => {
     const classes = useStyles();
     const history = useHistory();
+    const _member = useSelector((store) => store.User.member);
+    const [writeStatus, setWriteStatus] = React.useState(false);
+
+    const headerActionList = [
+        {
+            name: "수정하기",
+            icon: <EditIcon />,
+            action: () => { console.log("수정하기") }
+        },
+        {
+            name: "삭제하기",
+            icon: <DeleteIcon />,
+            action: () => { console.log("삭제하기") }
+        },
+        {
+            name: "메일로 알리기",
+            icon: <MailIcon />,
+            action: () => { console.log("메일로 알리기") }
+        },
+    ]
 
     const chartData = [
         props.item.cur_task === null ? 0 : props.item.cur_task,
@@ -125,18 +148,22 @@ export const ProcessCard = (props) => {
         history.push(`/agency/project/process/detail/${props.item.process_id}`);
     }
 
+    React.useEffect(() => {
+
+        if (_member.ref_allow_action.indexOf('WRITE') !== -1 || props.item.writer_seq === _member.seq) {
+            setWriteStatus(true);
+        }
+
+    }, [])
+
     return (
         <Paper className={classes.root} elevation={4}>
-            <div className={classes.titleBox}>
-                <span className={`${classes.hiddenText} + ${classes.mainTitle}`}>{props.item.process_name}</span>
-                <span className={`${classes.hiddenText} + ${classes.subTitle} + ${classes.descColor}`}>{props.item.process_desc}</span>
-                <UIButton
-                    class={classes.more}
-                    name="MORE"
-                    variant="contained"
-                    action={handleClickGoProcessDetail}
-                />
-            </div>
+            <UICardHeader
+                title={props.item.process_name}
+                subTitle={props.item.process_desc}
+                icon={<MoreVertIcon />}
+                action={writeStatus ? headerActionList : null}
+            />
             <Divider />
             <Grid container spacing={3} className={classes.bdBox}>
                 <Grid item xs={12} md={12} lg={12}>
@@ -197,7 +224,14 @@ export const ProcessCard = (props) => {
                         </Box>
                     </Paper>
                 </Grid>
-
+                <Grid item xs={12} md={12} lg={12}>
+                    <UIButton
+                        class={classes.fullWidth}
+                        name="MORE"
+                        variant="contained"
+                        action={handleClickGoProcessDetail}
+                    />
+                </Grid>
                 {/* <Grid item xs={12} md={12} lg={12}>
                     <Paper className={`${classes.mt2} + ${classes.minHeight}`}>
                         <Typography variant="h6" className={`${classes.indent} + ${classes.hiddenText}`}>
