@@ -144,6 +144,7 @@ const theme = {
                 desc: "#9D9D9D"
             },
             chart: {
+                background: "#C1C1C1",
                 main: "#2a3c4e",
                 sub: "#6389b3",
                 text: {

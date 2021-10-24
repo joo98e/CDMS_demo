@@ -62,7 +62,6 @@ router.post('/add', (req, res) => {
 router.get('/list', (req, res) => {
     const params = req.query;
     const SQL = myBatisMapper.getStatement("Project", "getProject", params, format);
-    console.log(SQL);
     connection.query(SQL, (err, rows, fileds) => {
         if (err) {
             return res.status(400).send({

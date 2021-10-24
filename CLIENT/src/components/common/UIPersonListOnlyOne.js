@@ -52,7 +52,7 @@ export class UIPersonListOnlyOne extends Component {
         this.state = {
             isOpen: false,
             data: null,
-            srchWord: null,
+            srchWord: "",
             srchData: this.props.TableLoadedData
         }
     }
@@ -143,6 +143,7 @@ export class UIPersonListOnlyOne extends Component {
                             <InputBase
                                 name="srchWord"
                                 placeholder="이름으로 검색하기"
+                                value={this.state.srchWord}
                                 onChange={this.handleChangeSrchWord}
                                 onKeyUp={e => {
                                     if (e.key === "Enter") {

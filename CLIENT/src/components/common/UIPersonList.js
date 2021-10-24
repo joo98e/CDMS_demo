@@ -51,17 +51,10 @@ export class UIPersonList extends Component {
         this.state = {
             isOpen: false,
             data: [],
-            srchWord: null,
+            srchWord: "",
             srchData: this.props.TableLoadedData
         }
     }
-
-    componentDidMount() {
-        this.handleSearchButton();
-    }
-
-
-
     UIPersonRowChangeData = newItem => {
         let _temp = this.state.data;
         let status = false;
@@ -130,10 +123,6 @@ export class UIPersonList extends Component {
         });
     }
 
-    handleSearchButton = () => {
-
-    }
-
     render() {
         const { classes } = this.props;
 
@@ -164,6 +153,7 @@ export class UIPersonList extends Component {
                             <InputBase
                                 name="srchWord"
                                 placeholder="이름으로 검색하기"
+                                value={this.state.srchWord}
                                 onChange={this.handleChangeSrchWord}
                                 onKeyUp={e => {
                                     if (e.key === "Enter") {
@@ -261,6 +251,5 @@ UIPersonList.propTypes = {
     BtnInfo: PropTypes.object.isRequired,
     DialogInfo: PropTypes.object.isRequired,
     TableColumnName: PropTypes.arrayOf(PropTypes.array).isRequired,
-    TableLoadedData: PropTypes.arrayOf(PropTypes.object).isRequired,
     ResultMessage: PropTypes.object.isRequired
 }

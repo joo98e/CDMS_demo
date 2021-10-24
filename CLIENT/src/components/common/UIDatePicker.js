@@ -57,7 +57,6 @@ export class UIDatePicker extends Component {
                     variant="dialog"
                     format="yyyy/MM/dd"
                     value={this.state.selectedDate}
-                    defaultValue={null}
                     onChange={this.handleDateChange}
                     inputVariant="filled"
                     label={this.props.label ? this.props.label : "날짜를 선택해주세요."}

@@ -15,6 +15,7 @@ import getDateFormat from '../../../common/fn/getDateFormat';
 import UICircularProgress from '../../../common/UICircularProgress'
 import UIMultiPercentageChart from '../../../common/Chart/UIMultiPercentageChart';
 import HelpNoProcess from './HelpNoProcess';
+import API from '../../../common/API';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -120,6 +121,7 @@ export const ProjectDetail = (props) => {
     const [awhile, setAwhile] = useState(false);
     const [projectData, setProjectData] = useState([]);
     const [processData, setProcessData] = useState([]);
+    const [newsData, setNewsData] = useState([]);
     const [chartData, setChartData] = useState([]);
     const [writeStatus, setWriteStatus] = React.useState(false);
     const [helpOpen, setHelpOpen] = React.useState(false);
@@ -142,7 +144,7 @@ export const ProjectDetail = (props) => {
             }).then((res) => {
 
                 setProjectData(...res.data.result);
-
+                console.log(res.data.result[0].end_date);
                 if (getDateFormat.YYYYMMDD(res.data.result[0].end_date) < getDateFormat.YYYYMMDD(getNow())) {
                     setEnded(true);
                     enqueueSnackbar('종료된 프로젝트입니다.', { variant: "info" })
@@ -179,13 +181,29 @@ export const ProjectDetail = (props) => {
             }).catch(err => console.log(err));
         }
 
+        // 뉴스
+        const config = {
+            type: "INCLUDE::PROJECT",
+            ref_id: ref_proj_id
+        }
+
+        API.getNews(config)
+            .then((res) => {
+                console.log(res.data.result[0].reg_date);
+                console.log(getDateFormat.TOSTRING(getNow()));
+                setNewsData(res.data);
+            });
+
+        // 프로젝트, 프로세스, awhile
+        setAwhile(true);
+        getProjectDetail();
+        getProcessList();
+
+        // 글쓰기 권한
         if (_member.ref_allow_action.indexOf('WRITE') !== -1 || projectData.writer_seq === _member.seq) {
             setWriteStatus(true);
         }
 
-        setAwhile(true);
-        getProjectDetail();
-        getProcessList();
     }, [])
 
     return (
@@ -223,10 +241,16 @@ export const ProjectDetail = (props) => {
                                         </Paper>
                                     </Grid>
                                     <Grid item xs={12} md={9} lg={9}>
-                                        <Paper className={`${classes.bdBox} + ${classes.mainArea}`} elevation={4}>
+                                        <Paper className={`${classes.bdBox} + ${classes.mainArea}`} elevation={4}
+                                            onClick={() => console.log(newsData)}
+                                        >
                                             <Typography className={classes.mb1} variant="h6">
                                                 최근 소식
                                             </Typography>
+                                            <Divider className={classes.mb1} />
+                                            <Box>
+
+                                            </Box>
                                         </Paper>
                                     </Grid>
                                 </React.Fragment>

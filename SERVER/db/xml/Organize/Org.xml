@@ -11,18 +11,63 @@
       (SELECT name FROM tb_org_structure AS org WHERE org.id = mem.dept_no AND org.`type` = "TYPE::DEPART") as dept_name,
       (SELECT name FROM tb_org_structure AS org WHERE org.id = mem.rank_no AND org.`type` = "TYPE::RANK") as rank_name
     FROM
-      tb_member AS mem
-
-    LEFT JOIN
-      tb_auth AS auth 
-    ON mem.ref_auth_id = auth.id
+      tb_agcy_colleague AS colg
+      LEFT JOIN tb_member AS mem ON mem.seq = colg.ref_agcy_colleague_seq
+      LEFT JOIN tb_auth AS auth ON mem.ref_auth_id = auth.id
     <if test="delete_yn != null">
       WHERE
       mem.delete_yn = #{delete_yn}
     </if>
     <if test="inside_yn != null">
-      AND
-      auth.inside_yn = #{inside_yn}
+      AND auth.inside_yn = #{inside_yn}
+    </if>
+    <if test="ref_agcy_id != null">
+      AND colg.ref_agcy_id = #{ref_agcy_id}
     </if>
   </select>
+
+  <insert id="insertnews">
+    INSERT INTO 
+    tb_news
+    (
+      `type`,
+      ref_id,
+      writer_seq,
+      message,
+      url,
+      reg_date
+    ) 
+    VALUES(
+      #{type},
+      #{ref_id},
+      #{writer},
+      #{message},
+      #{url},
+      #{reg_date}
+    )
+  </insert>
+  <select id="getNews">
+    SELECT      
+      news.writer_seq,
+      news.message,
+      news.URL,
+      news.reg_date,
+      mem.full_name,
+      mem.avatar_path
+    FROM
+      tb_news AS news
+    LEFT JOIN tb_member AS mem
+      ON mem.seq = news.writer_seq
+    <where>
+      <if test="type != null">
+          AND news.type = #{type}
+      </if>
+      <if test="ref_id != null">
+          AND news.ref_id = #{ref_id}
+      </if>
+    </where>
+    ORDER BY news.reg_date DESC
+    LIMIT 5
+  </select>
+
 </mapper>

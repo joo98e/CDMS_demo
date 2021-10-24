@@ -145,6 +145,8 @@ export default function FullScreenDialog() {
         dispatch(setProjectInfoInit());
         const loadPersonRow = async () => {
             const condition = {
+                ref_agcy_id : ref_agcy_id,
+                seq : _member.seq,
                 inside_yn: 'Y',
                 delete_yn: 'N'
             };
@@ -353,6 +355,7 @@ export default function FullScreenDialog() {
                                     _projectInfo.person.map((item, index) => {
                                         return (
                                             <UIChipSet
+                                                key={index}
                                                 data={item}
                                             />
                                         )

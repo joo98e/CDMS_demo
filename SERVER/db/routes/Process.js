@@ -70,7 +70,7 @@ router.post('/add', (req, res) => {
                                             });
                                         } else {
                                             return res.status(200).send({
-                                                result: rows,
+                                                result: {...rows, last_insert_id : params_sub.last_insert_id},
                                                 resultCode: 1,
                                                 resultMessage: "등록에 성공했습니다."
                                             });
@@ -125,7 +125,6 @@ router.get('/colg', (req, res) => {
 router.get('/newcolg', (req, res) => {
     const params = req.query;
     const SQL = myBatisMapper.getStatement("Process", "getNewColg", params, format);
-
     connection.query(SQL, (err, rows, fileds) => {
         if (err) {
             return res.status(400).send({

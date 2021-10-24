@@ -15,6 +15,8 @@ import Back from '../../common/Back';
 import ProcessAdditionalDialog from './ProcessAdditionalDialog';
 import FNValidator from '../../common/FNValidator'
 import getDateFormat from '../../common/fn/getDateFormat'
+import getNow from '../../common/fn/getNow'
+import API from '../../common/API'
 
 import UIPersonList from '../../common/UIPersonList'
 import UIPersonListOnlyOne from '../../common/UIPersonListOnlyOne'
@@ -203,7 +205,6 @@ export default function ProcessAdd() {
 
         handleSubmitProcessInsert();
     }
-    console.log(history.location.state);
     const handleSubmitProcessInsert = () => {
         const URL = "/api/process/add";
         const data = {
@@ -211,12 +212,21 @@ export default function ProcessAdd() {
             ..._member,
             ..._processInfo,
             ref_proj_id: ref_proj_id,
-            status : `STATUS::${history.location.state.status}`
+            status: `STATUS::${history.location.state.status}`
         }
-
-        console.log(data);
         axios.post(URL, data)
             .then(res => {
+                const news_config = {
+                    name: _processInfo.name,
+                    type: "INCLUDE::PROJECT",
+                    ref_id: ref_proj_id,
+                    writer: _member.seq,
+                    message: `${_processInfo.name}을(를) 생성하였습니다.`,
+                    url: `/agency/project/process/detail/${res.data.result.last_insert_id}`,
+                    reg_date : getNow()
+                }
+                API.insertNews(news_config);
+
                 enqueueSnackbar("프로세스 등록에 성공하였습니다.", { variant: "success" });
                 history.push(`/agency/project/detail/${ref_proj_id}`);
             })
@@ -250,7 +260,7 @@ export default function ProcessAdd() {
             dispatch(setProcessInfoInit());
         }
 
-    }, [ref_proj_id]);
+    }, [dispatch, ref_proj_id]);
 
     const classes = useStyles();
 
@@ -294,7 +304,7 @@ export default function ProcessAdd() {
                                 BtnInfo={main.BtnInfo}
                                 DialogInfo={main.DialogInfo}
                                 TableColumnName={main.TableColumnName}
-                                TableLoadedData={processWorkForce ? processWorkForce.result : []}
+                                TableLoadedData={processWorkForce ? processWorkForce.result : [{}]}
                                 ResultMessage={main.ResultMessage}
                                 ResultAction={ResultAction.main}
                             />
@@ -319,7 +329,7 @@ export default function ProcessAdd() {
                                 BtnInfo={sub.BtnInfo}
                                 DialogInfo={sub.DialogInfo}
                                 TableColumnName={sub.TableColumnName}
-                                TableLoadedData={processWorkForce ? processWorkForce.result : []}
+                                TableLoadedData={processWorkForce ? processWorkForce.result : [{}]}
                                 ResultMessage={sub.ResultMessage}
                                 ResultAction={ResultAction.sub}
                             />

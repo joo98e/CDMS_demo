@@ -57,7 +57,7 @@ router.post('/person', (req, res) => {
     const params = req.body;
 
     const SQL = myBatisMapper.getStatement('Org', 'getInternalPerson', params, format);
-
+    console.log(SQL);
     connection.query(SQL, (err, rows, fields) => {
         if (err) {
             console.error(err);
@@ -74,6 +74,72 @@ router.post('/person', (req, res) => {
                     resultMessage: '동작은 이루어졌으나 결과값이 없습니다.'
                 });
             } else {
+                return res.status(200).send({
+                    result: rows,
+                    resultCode: 1,
+                    resultMessage: '완료'
+                });
+            }
+        }
+    });
+});
+
+
+// ──────────────────────────────────────────────── 최근 일지
+router.post('/insertnews', (req, res) => {
+
+    const params = {
+        ...req.body,
+        reg_date : getNow()
+    };
+
+    const SQL = myBatisMapper.getStatement('Org', 'insertnews', params, format);
+    connection.query(SQL, (err, rows, fields) => {
+        if (err) {
+            console.error(err);
+            return res.status(400).send({
+                result: {},
+                resultCode: -1,
+                errorMsg: "에러입니다."
+            });
+        } else {
+            if (rows.length === 0) {
+                return res.status(200).send({
+                    result: {},
+                    resultCode: -2,
+                    resultMessage: '동작은 이루어졌으나 결과값이 없습니다.'
+                });
+            } else {
+                return res.status(200).send({
+                    result: rows,
+                    resultCode: 1,
+                    resultMessage: '완료'
+                });
+            }
+        }
+    });
+});
+
+router.get("/getnews", (req, res) => {
+    const condition = { ...req.query }
+    const SQL = myBatisMapper.getStatement("Org", "getNews", condition, format);
+    connection.query(SQL, (err, rows) => {
+        if (err) {
+            console.log(err);
+            return res.status(400).send({
+                result: {},
+                resultCode: -1,
+                resultMessage: "조회 실패"
+            });
+        } else {
+            if (rows.length === 0) {
+                return res.status(200).send({
+                    result: {},
+                    resultCode: -2,
+                    resultMessage: '동작은 이루어졌으나 결과값이 없습니다.'
+                });
+            } else {
+                console.log(rows);
                 return res.status(200).send({
                     result: rows,
                     resultCode: 1,
