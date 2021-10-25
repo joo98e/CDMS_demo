@@ -30,6 +30,7 @@ export class UISkeletonAvatar extends PureComponent {
         loadImage.addEventListener('load', () => {
             this.setState({ avatarLoad: true });
         })
+        console.log(this.props);
     }
 
     render() {
@@ -39,7 +40,7 @@ export class UISkeletonAvatar extends PureComponent {
                 {
                     this.state.avatarLoad ?
                         <Avatar
-                            className={classes.center}
+                            className={this.props.class ? `${classes.center} + ${this.props.class}` : classes.center}
                             src={this.props.src}
                             alt={this.props.alt}
                         />

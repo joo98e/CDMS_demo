@@ -20,7 +20,7 @@ import { withStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        margin: theme.spacing(2)
+        margin: theme.spacing(2),
     },
     mb2: {
         marginBottom: theme.spacing(2)

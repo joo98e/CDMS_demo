@@ -6,9 +6,8 @@
 
 import React from 'react'
 import { PropTypes } from 'prop-types';
-import { connect, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { PieChart } from 'react-minimal-pie-chart'
-import UICircularProgress from '../UICircularProgress';
 
 export const UIPercentageChart = (props) => {
     const theme = useSelector(state => state.UI.theme);
@@ -16,7 +15,10 @@ export const UIPercentageChart = (props) => {
     const propsData = [
         {
             name: props.name,
-            value: Math.round((props.min / props.max) * 100),
+            value: (typeof props.min !== 'number' || typeof props.max !== 'number') ?
+                "0"
+                :
+                Math.round((props.min / props.max) * 100),
             color: theme.palette.chart.sub
         }
     ];
@@ -43,24 +45,18 @@ export const UIPercentageChart = (props) => {
                         fill: theme.palette.text.primary
                     }}
                     background={theme.palette.chart.background}
+                    style={{ maxHeight: props.mh ? props.mh + "px" : "260px" }}
                 />
             }
         </React.Fragment>
     )
 }
 
-const mapStateToProps = (state) => ({
-
-})
-
-const mapDispatchToProps = {
-
-}
-
 UIPercentageChart.propTypes = {
     min: PropTypes.number,
-    max: PropTypes.number
+    max: PropTypes.number,
+    mh: PropTypes.number
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UIPercentageChart)
+export default UIPercentageChart
 

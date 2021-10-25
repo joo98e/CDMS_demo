@@ -32,7 +32,8 @@ import {
     Search,
     ArrowDownward,
     Star,
-    Mail
+    Mail,
+    ViewList
 } from "@material-ui/icons";
 
 
@@ -211,9 +212,9 @@ export const RatingHeartIcon = () => {
     )
 }
 
-export const RatingStarIcon = () => {
+export const RatingStarIcon = (props) => {
     return (
-        <Star />
+        <Star {...props} />
     )
 }
 
@@ -263,5 +264,12 @@ export const MailIcon = () => {
     const classes = useStyles();
     return (
         <Mail className={classes.color} />
+    )
+}
+
+export const ViewListIcon = () => {
+    const classes = useStyles();
+    return (
+        <ViewList className={classes.color} />
     )
 }

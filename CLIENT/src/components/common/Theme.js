@@ -31,7 +31,7 @@ const theme = {
                 primary: "#EAEAEA",
                 secondary: "#D2D2D2",
                 hint: "#E7E7E7",
-                disabled: "#E7E7E7",
+                disabled: "#7c7c7c",
                 desc: "#C2C2C2"
             },
             chart: {
