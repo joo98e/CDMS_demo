@@ -169,7 +169,7 @@ export const ProcessCard = (props) => {
                 <Grid item xs={12} md={12} lg={12}>
                     <Paper className={`${classes.mt2} + ${classes.minHeight}`}>
                         <Typography variant="h6" className={`${classes.indent} + ${classes.hiddenText}`}>
-                            주담당자
+                            담당자
                         </Typography>
                         <Grid container spacing={1}>
                             <Grid item xs={4} md={4} lg={4}>

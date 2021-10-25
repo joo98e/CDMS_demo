@@ -5,10 +5,9 @@ import {
     makeStyles, Divider, withStyles
 } from '@material-ui/core'
 import UIPercentageChart from '../../../common/Chart/UIPercentageChart';
-import { RatingStarIcon } from '../../../common/CustomIcons';
+import { FollowStarIcon } from '../../../common/CustomIcons';
 import UICardHeader from '../../../common/Card/UICardHeader';
 import UISkeletonAvatar from '../../../common/UISkeletonAvatar';
-import { style } from '@material-ui/system';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -30,6 +29,10 @@ const useStyles = makeStyles(theme => ({
     mb1: {
         marginBottom: theme.spacing(1)
     },
+    py: {
+        paddingTop: theme.spacing(2),
+        paddingBottom: theme.spacing(2)
+    },
     pb2: {
         paddingBottom: theme.spacing(2)
     },
@@ -43,17 +46,35 @@ const useStyles = makeStyles(theme => ({
         color: theme.palette.text.disabled
     }
 }));
-const useWorkerStyles = makeStyles(theme => ({
+
+const MainWorkerStyles = makeStyles(theme => ({
     root: {
-        width : theme.spacing(12),
-        height : theme.spacing(12),
-    }
+        width: theme.spacing(12),
+        height: theme.spacing(12),
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2),
+        overflow: "hidden"
+    },
+    wrap: {
+        display: "flex",
+        alignItems: "center",
+        padding: theme.spacing(1),
+        whiteSpace: "nowrap",
+        textOverflow: "ellipsis",
+        overflow: 'hidden',
+    },
+    pl: {
+        paddingLeft: theme.spacing(3)
+    },
+    desc: {
+        color: theme.palette.text.desc
+    },
 }));
 
 const Worker = props => {
-    const styles = useWorkerStyles();
+    const styles = MainWorkerStyles();
     return (
-        <Box display="flex">
+        <Box className={styles.wrap}>
             <div>
                 <UISkeletonAvatar
                     class={styles.root}
@@ -61,8 +82,19 @@ const Worker = props => {
                     alt={props.data.full_name}
                 />
             </div>
-            <div>
-
+            <div className={styles.pl}>
+                <Typography variant="h6">
+                    {props.data.full_name}
+                </Typography>
+                <Typography className={styles.desc} variant="body2">
+                    {props.data.dept_name} {props.data.rank_name}
+                </Typography>
+                <Typography className={styles.desc} variant="body2">
+                    {props.data.id}
+                </Typography>
+                <Typography className={styles.desc} variant="body2">
+                    {props.data.phone}
+                </Typography>
             </div>
         </Box>
     )
@@ -87,7 +119,7 @@ export const DetailBoard = (props) => {
                         <Grid item xs={12} md={3} lg={3}>
                             <Grid container spacing={3} direction="column">
                                 <Grid item xs={12} md={12} lg={12}>
-                                    <Paper>
+                                    <Paper className={classes.sizing}>
                                         <UICardHeader
                                             title={"진행도"}
                                         />
@@ -102,7 +134,7 @@ export const DetailBoard = (props) => {
                                 </Grid>
 
                                 <Grid item xs={12} md={12} lg={12}>
-                                    <Paper>
+                                    <Paper className={classes.sizing}>
                                         <UICardHeader
                                             title={"현재 진행도"}
                                         />
@@ -121,7 +153,7 @@ export const DetailBoard = (props) => {
                                             프로세스 설명
                                         </Typography>
                                         <Divider className={classes.mb1} />
-                                        <Typography className={classes.m1} variant="h6">
+                                        <Typography className={classes.m1} variant="body2">
                                             {props.data.procDetail[0].desc}
                                         </Typography>
                                     </Paper>
@@ -135,7 +167,7 @@ export const DetailBoard = (props) => {
                                 <Grid item xs={12} md={12} lg={12}>
                                     <Paper className={classes.sizing}>
                                         <UICardHeader
-                                            title={"주담당자"}
+                                            title={"담당자"}
                                         />
                                         <Divider className={classes.mb1} />
                                         <Worker data={props.data.procMainWorker[0]} />
@@ -144,7 +176,7 @@ export const DetailBoard = (props) => {
                                 <Grid item xs={12} md={12} lg={12}>
                                     <Paper className={classes.sizing}>
                                         <UICardHeader
-                                            title={"서브 담당자"}
+                                            title={"참여자"}
                                         />
                                         <Divider className={classes.mb1} />
                                     </Paper>

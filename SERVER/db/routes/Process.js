@@ -66,7 +66,7 @@ router.post('/add', (req, res) => {
                                             return res.status(400).send({
                                                 result: {},
                                                 resultCode: -1,
-                                                resultMessage: "(프로세스 생성)주담당자 등록 오류",
+                                                resultMessage: "(프로세스 생성)담당자 등록 오류",
                                             });
                                         } else {
                                             return res.status(200).send({

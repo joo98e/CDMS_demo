@@ -12,15 +12,16 @@ import {
     Menu, MenuItem, ListItemIcon, ListItemText,
     makeStyles,
 } from "@material-ui/core"
-import { CancelIcon } from '../CustomIcons';
+import {
+    CancelIcon, 
+} from '../CustomIcons';
 
 const useStyles = makeStyles(theme => ({
     cardHeader: {
         display: 'flex',
         justifyContent: "space-between",
         boxSizing: 'border-box',
-        padding: theme.spacing(2),
-        paddingRight: theme.spacing(1)
+        padding: theme.spacing(2, 1, 2, 1),
     },
     headerTitle: {
         maxWidth: "85%",
@@ -56,13 +57,13 @@ export const UICardHeader = (props) => {
     return (
         <React.Fragment>
             <Box className={classes.cardHeader}>
-                <Box className={classes.headerTitle}>
-                    <Typography variant="h6" className={classes.hiddenText}>
+                <Box className={props.action ? classes.headerTitle : classes.hiddenText}>
+                    <Typography variant={props.titleVariant ? props.titleVariant : "h6"} className={classes.hiddenText}>
                         {props.title}
                     </Typography>
                     {
                         props.subTitle &&
-                        <Typography variant="body2" className={`${classes.desc} + ${classes.hiddenText}`}>
+                        <Typography variant={props.subTitleVariant ? props.subTitleVariant : "body2"} className={`${classes.desc} + ${classes.hiddenText}`}>
                             {props.subTitle}
                         </Typography>
                     }

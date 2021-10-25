@@ -39,7 +39,7 @@
     </insert>
 
     <insert id="insertProcessColleagueMain">
-        <!-- 프로세스 인설트 주담당자 쿼리 -->
+        <!-- 프로세스 인설트 담당자 쿼리 -->
         INSERT INTO
         tb_agcy_proj_proc_colleague
         (
@@ -64,7 +64,7 @@
     </insert>
 
     <insert id="insertProcessColleague">
-        <!-- 프로세스 인설트 서브 담당자 쿼리 -->
+        <!-- 프로세스 인설트 참여자 쿼리 -->
         INSERT INTO
         tb_agcy_proj_proc_colleague
         (

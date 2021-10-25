@@ -17,6 +17,7 @@ import { AddCircleIcon } from '../../../common/CustomIcons'
 import API from '../../../common/API'
 import UIButton from '../../../common/UIButton'
 import UINewsByNotice from '../../../common/News/UINewsByNotice'
+import { UICardHeader } from '../../../common/Card/UICardHeader'
 
 const styles = theme => ({
     root: {
@@ -36,8 +37,8 @@ const styles = theme => ({
         flexDirection: "column",
         justifyContent: "center",
     },
-    indent: {
-        textIndent: theme.spacing(2)
+    p1: {
+        padding: theme.spacing(2)
     },
     vertical_m_1: {
         marginTop: theme.spacing(1),
@@ -167,7 +168,7 @@ export class AgencyDetail extends Component {
             .catch((err) => {
                 console.log(err);
                 alert("잘못된 접근입니다.")
-                console.log(this.props.history.push('/'));
+                this.props.history.push('/');
             });
 
     }
@@ -222,7 +223,7 @@ export class AgencyDetail extends Component {
             .catch((err) => {
                 console.log(err);
                 alert("잘못된 접근입니다.")
-                console.log(this.props.history.push('/'));
+                this.props.history.push('/');
             });;
     }
 
@@ -262,12 +263,12 @@ export class AgencyDetail extends Component {
             <Box className={classes.root}>
                 <Grid container spacing={4}>
                     <Grid item xs={12} md={12} lg={12}>
-                        <Paper elevation={4} >
-                            <Typography
-                                className={`${classes.indent} + ${classes.lh_2}`}
-                                variant={"h4"}>
-                                {this.state.data.name ? this.state.data.name : "Loading..."}
-                            </Typography>
+                        <Paper elevation={4}>
+                            <UICardHeader
+                                title={this.state.data.name ? this.state.data.name : "Loading..."}
+                                titleVariant="h4"
+                                subTitle={this.state.data.desc && this.state.data.desc}
+                            />
                         </Paper>
                     </Grid>
                     {

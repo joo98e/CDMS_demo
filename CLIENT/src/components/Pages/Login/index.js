@@ -68,10 +68,7 @@ export class Login extends Component {
     handleChange = (e) => {
         let nextValue = { ...this.state.info };
         nextValue[e.target.name] = e.target.value;
-        console.log(nextValue);
-        this.setState({
-            info: nextValue
-        });
+        this.setState({ ...this.state, info: nextValue });
     }
 
     loginCheck = () => {
@@ -98,11 +95,10 @@ export class Login extends Component {
                     // 로그인 성공
                     const storageItem = {
                         seq: res.data.seq,
-                        ref_auth_type : res.data.ref_auth_type,
+                        ref_auth_type: res.data.ref_auth_type,
                         ref_auth_id: res.data.ref_auth_id,
-                        ref_allow_action : res.data.ref_allow_action,
+                        ref_allow_action: res.data.ref_allow_action,
                         id: res.data.id,
-                        password : res.data.password,
                         first_name: res.data.first_name,
                         last_name: res.data.last_name,
                         nickname: res.data.nickname,

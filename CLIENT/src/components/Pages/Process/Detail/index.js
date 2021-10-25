@@ -106,7 +106,6 @@ export const ProcessDetail = (props) => {
                             </Paper>
                         </Grid>
                     </Grid>
-
                 </Grow>
             }
 

@@ -1,7 +1,9 @@
 const status = process.env.NODE_ENV = (process.env.NODE_ENV && (process.env.NODE_ENV).trim().toLowerCase() == 'production') ? 'prod' : 'dev';
 const express = require("express");
+const getDest = require("./common/getDest");
 module.exports = (() => {
     const app = express();
+
 
     // static, images
     if (status === 'prod') {
@@ -9,6 +11,9 @@ module.exports = (() => {
     } else if (status === 'dev') {
         app.use('/static', express.static('./uploads'));
     }
+
+    console.log("status is", status);
+    console.log(getDest);
 
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
@@ -27,4 +32,4 @@ module.exports = (() => {
 
     // ────── Users profile
     return app;
-})(); 
+})();

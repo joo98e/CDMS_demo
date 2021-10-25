@@ -33,7 +33,8 @@ import {
     ArrowDownward,
     Star,
     Mail,
-    ViewList
+    ViewList,
+    Subject
 } from "@material-ui/icons";
 
 
@@ -41,6 +42,9 @@ const useStyles = makeStyles(theme => ({
     color: {
         color: theme.palette.background.whiteButton ? theme.palette.background.whiteButton : "#FFF"
     },
+    descColor: {
+        color : theme.palette.text.desc
+    }
 }));
 
 
@@ -218,6 +222,13 @@ export const RatingStarIcon = (props) => {
     )
 }
 
+export const FollowStarIcon = (props) => {
+    const classes = useStyles();
+    return (
+        <Star className={classes.descColor} />
+    )
+}
+
 export const ExitToAppIcon = () => {
     const classes = useStyles();
     return (
@@ -271,5 +282,12 @@ export const ViewListIcon = () => {
     const classes = useStyles();
     return (
         <ViewList className={classes.color} />
+    )
+}
+
+export const SubjectIcon = () => {
+    const classes = useStyles();
+    return (
+        <Subject className={classes.color} />
     )
 }

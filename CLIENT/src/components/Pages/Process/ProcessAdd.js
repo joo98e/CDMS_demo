@@ -179,7 +179,7 @@ export default function ProcessAdd() {
 
                 case "mainPerson":
                     if (!FNValidator("EMPTY", target[item])) {
-                        enqueueSnackbar('주담당자는 반드시 구성해야 합니다.', { variant: 'warning' });
+                        enqueueSnackbar('담당자는 반드시 구성해야 합니다.', { variant: 'warning' });
                         return false;
                     }
                     break;
@@ -297,7 +297,7 @@ export default function ProcessAdd() {
                         <Divider className={classes.mv} />
 
                         <Typography className={classes.mb2} variant="h6">
-                            주담당자
+                            담당자
                         </Typography>
                         <Box className={classes.w50p}>
                             <UIPersonListOnlyOne
@@ -322,7 +322,7 @@ export default function ProcessAdd() {
                         </Box>
                         <Divider className={classes.mv} />
                         <Typography className={classes.mb2} variant="h6">
-                            서브 담당자
+                            참여자
                         </Typography>
                         <Box className={classes.w50p}>
                             <UIPersonList

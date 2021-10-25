@@ -56,26 +56,31 @@ export class Agency extends PureComponent {
             awhile: true
         });
 
-        switch (this.props.member.ref_auth_type) {
-            /**
-             * @param {srchType}
-             * @description              : MINE / 내게 속한 것만
-             * @description              : BIZ / 특정 사업 구분으로
-             * @description              : ADMIN / 관리자 전용 / 전체 리스트
-             */
-
-            case 'M':
-                this.getAgencyList("ADMIN");
-                console.log("is admin");
-                break;
-
-            case 'U':
-                this.getAgencyList("MINE");
-
-                break;
-
-            default:
-                break;
+        try {
+            switch (this.props.member.ref_auth_type) {
+                /**
+                 * @param {srchType}
+                 * @description              : MINE / 내게 속한 것만
+                 * @description              : BIZ / 특정 사업 구분으로
+                 * @description              : ADMIN / 관리자 전용 / 전체 리스트
+                 */
+    
+                case 'M':
+                    this.getAgencyList("ADMIN");
+                    console.log("is admin");
+                    break;
+    
+                case 'U':
+                    this.getAgencyList("MINE");
+    
+                    break;
+    
+                default:
+                    break;
+            }
+        } catch (error) {
+            console.log("잘못된 접근입니다.");
+            this.props.history.push("/login");
         }
     }
 
@@ -107,7 +112,7 @@ export class Agency extends PureComponent {
             <Container className={classes.root}>
                 <Grid container spacing={3}>
                     {
-                        this.state.agency === null ?
+                        this.state.agency === null || this.state.agency.length === 0 ?
                             <UICircularProgress />
                             :
                             <React.Fragment>

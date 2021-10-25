@@ -4,7 +4,7 @@ import {
     withStyles
 } from '@material-ui/core'
 import {
-    HomeIcon, ViewListIcon
+    HomeIcon, SubjectIcon
 } from '../../../common/CustomIcons'
 
 const StyledTabs = withStyles(theme => ({
@@ -34,6 +34,7 @@ export const DetailTabs = (props) => {
     const theme = useTheme();
 
     const handleChangeValue = (e, newValue) => {
+        console.log(newValue);
         props.setValue(newValue);
     }
 
@@ -45,7 +46,7 @@ export const DetailTabs = (props) => {
         },
         {
             name: "자료",
-            icon: <ViewListIcon />,
+            icon: <SubjectIcon />,
             component: "",
         },
     ];
@@ -67,7 +68,8 @@ export const DetailTabs = (props) => {
                         return (
                             <StyledTab
                                 key={index}
-                                label={item.name}
+                                // label={item.name}
+                                icon={item.icon}
                             />
                         )
                     })
