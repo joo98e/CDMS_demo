@@ -5,4 +5,4 @@ const dest = {
     prod: `/raid/cdms/`,
 }
 
-export default status === "prod" ? dest.prod : dest.dev;
+module.exports = status === "prod" ? dest.prod : dest.dev;
