@@ -167,62 +167,58 @@ export const ProcessCard = (props) => {
             <Divider />
             <Grid container spacing={3} className={classes.bdBox}>
                 <Grid item xs={12} md={12} lg={12}>
-                    <Paper className={`${classes.mt2} + ${classes.minHeight}`}>
-                        <Typography variant="h6" className={`${classes.indent} + ${classes.hiddenText}`}>
-                            담당자
-                        </Typography>
-                        <Grid container spacing={1}>
-                            <Grid item xs={4} md={4} lg={4}>
-                                <div className={`${classes.writerBox} + ${classes.minHeight}`}>
-                                    <UISkeletonAvatar
-                                        src={props.item.avatar_path}
-                                        alt={props.item.nickname}
-                                    />
-                                    <Typography className={`${classes.hiddenText} + ${classes.plr2}`} component="div" align="center" variant="body1">
-                                        {props.item.nickname}
+                    <Typography variant="h6" className={`${classes.indent} + ${classes.hiddenText}`}>
+                        담당자
+                    </Typography>
+                    <Grid container spacing={1}>
+                        <Grid item xs={4} md={4} lg={4}>
+                            <div className={`${classes.writerBox} + ${classes.minHeight}`}>
+                                <UISkeletonAvatar
+                                    src={props.item.avatar_path}
+                                    alt={props.item.nickname}
+                                />
+                                <Typography className={`${classes.hiddenText} + ${classes.plr2}`} component="div" align="center" variant="body1">
+                                    {props.item.nickname}
+                                </Typography>
+                            </div>
+                        </Grid>
+                        <Grid item xs={8} md={8} lg={8}>
+                            <Grid container spacing={2} className={classes.mt4}>
+                                <Grid item xs={3} md={3} lg={3}>
+                                    <Typography variant="body1" className={classes.hiddenText}>
+                                        부서
                                     </Typography>
-                                </div>
-                            </Grid>
-                            <Grid item xs={8} md={8} lg={8}>
-                                <Grid container spacing={2} className={classes.mt4}>
-                                    <Grid item xs={3} md={3} lg={3}>
-                                        <Typography variant="body1" className={classes.hiddenText}>
-                                            부서
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item xs={9} md={9} lg={9}>
-                                        <Typography variant="body1" className={classes.hiddenText}>
-                                            {props.item.dept_name}
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item xs={3} md={3} lg={3}>
-                                        <Typography variant="body1" className={classes.hiddenText}>
-                                            직급
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item xs={9} md={9} lg={9}>
-                                        <Typography variant="body1" className={classes.hiddenText}>
-                                            {props.item.rank_name}
-                                        </Typography>
-                                    </Grid>
+                                </Grid>
+                                <Grid item xs={9} md={9} lg={9}>
+                                    <Typography variant="body1" className={classes.hiddenText}>
+                                        {props.item.dept_name}
+                                    </Typography>
+                                </Grid>
+                                <Grid item xs={3} md={3} lg={3}>
+                                    <Typography variant="body1" className={classes.hiddenText}>
+                                        직급
+                                    </Typography>
+                                </Grid>
+                                <Grid item xs={9} md={9} lg={9}>
+                                    <Typography variant="body1" className={classes.hiddenText}>
+                                        {props.item.rank_name}
+                                    </Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
-                    </Paper>
+                    </Grid>
                 </Grid>
                 <Grid item xs={12} md={12} lg={12}>
-                    <Paper className={`${classes.maxHeight} + ${classes.bdBox}`}>
-                        <Typography className={classes.mb1} variant="h6">
-                            프로세스 진행도
-                        </Typography>
-                        <Box className={`${classes.relative} + ${classes.marginBox}`}>
-                            <UIPercentageChart
-                                name={"프로세스 진행도"}
-                                min={chartData[0]}
-                                max={chartData[1]}
-                            />
-                        </Box>
-                    </Paper>
+                    <Typography className={classes.mb1} variant="h6">
+                        프로세스 진행도
+                    </Typography>
+                    <Box className={`${classes.relative} + ${classes.marginBox}`}>
+                        <UIPercentageChart
+                            name={"프로세스 진행도"}
+                            min={chartData[0]}
+                            max={chartData[1]}
+                        />
+                    </Box>
                 </Grid>
                 <Grid item xs={12} md={12} lg={12}>
                     <UIButton

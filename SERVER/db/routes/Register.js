@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const connection = require("../db_connection");
-
+const getDest = require("../common/getDest");
 // 암호화
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
@@ -19,12 +19,12 @@ const format = require('../config/MyBatisFormat');
 const getNow = require("../func/getNow");
 
 // 실제 클라이언트 요청 경로
-const requestDir = '\\\\static\\\\avatars\\\\items\\\\';
+const requestDir = '/static/avatars/items/';
 
 const avatarStorage = multer({
     storage: multer.diskStorage({
         // 실제 업로드 경로
-        destination: `uploads\\avatars\\items\\user\\`,
+        destination: `${getDest}/avatars/items/user/`,
         filename: function (req, file, cb) {
             cb(null, `avatar_${Date.now()}_${file.originalname}`);
         }

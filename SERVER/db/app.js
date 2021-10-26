@@ -9,7 +9,7 @@ module.exports = (() => {
     if (status === 'prod') {
         app.use('/static', express.static('/raid/cdms'));
     } else if (status === 'dev') {
-        app.use('/static', express.static('./uploads'));
+        app.use('/static', express.static('uploads'));
     }
 
     console.log("status is", status);

@@ -1,7 +1,7 @@
 const status = process.env.NODE_ENV = (process.env.NODE_ENV && (process.env.NODE_ENV).trim().toLowerCase() == 'production') ? 'prod' : 'dev';
 
 const dest = {
-    dev: `uploads/avatars/items/user/`,
+    dev: `uploads/`,
     prod: `/raid/cdms/`,
 }
 
