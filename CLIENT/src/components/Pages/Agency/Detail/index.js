@@ -35,7 +35,7 @@ const styles = theme => ({
     flexColumn: {
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-around",
+        justifyContent: "space-between",
     },
     p1: {
         padding: theme.spacing(2)
