@@ -16,7 +16,6 @@ import UIPersonList from '../../common/UIPersonList';
 import UIChipSet from '../../common/UIChipSet'
 import UIDatePicker from '../../common/UIDatePicker';
 import UIButton from '../../common/UIButton';
-import UIEditor from '../../common/Editor/UIEditor';
 import getNow from '../../common/fn/getNow';
 import Back from '../../common/Back'
 import API from '../../common/API';
@@ -388,7 +387,6 @@ export default function FullScreenDialog() {
                             color="primary"
                             action={handleValidateValue}
                         />
-                        {/* <UIEditor /> */}
                     </Container>
                 </Grow>
             </Paper>
