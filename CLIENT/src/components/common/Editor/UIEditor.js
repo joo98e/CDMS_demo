@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Editor } from 'react-draft-wysiwyg';
-import { EditorState } from 'draft-js';
+// import { Editor } from 'react-draft-wysiwyg';
+// import { EditorState } from 'draft-js';
 
 const TestEditorForm = () => {
     // useState로 상태관리하기 초기값은 EditorState.createEmpty()
@@ -14,7 +14,7 @@ const TestEditorForm = () => {
 
     return (
         <div>
-            <Editor
+            {/* <Editor
                 // 에디터와 툴바 모두에 적용되는 클래스
                 wrapperClassName="wrapper-class"
                 // 에디터 주변에 적용된 클래스
@@ -38,7 +38,7 @@ const TestEditorForm = () => {
                 editorState={editorState}
                 // 에디터의 값이 변경될 때마다 onEditorStateChange 호출
                 onEditorStateChange={onEditorStateChange}
-            />
+            /> */}
         </div>
     );
 };
