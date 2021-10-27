@@ -19,6 +19,7 @@ const useStyles = makeStyles(theme => ({
         width: '100%',
         minHeight: '200px',
         backgroundColor: theme.palette.background.default,
+        padding: theme.spacing(0, 1, 1, 1)
     },
     pr: {
         position: 'relative'
@@ -41,19 +42,6 @@ const useStyles = makeStyles(theme => ({
         height: '30px',
         marginBottom: theme.spacing(1)
     },
-    cardHeader: {
-        display: 'flex',
-        flex: "1 1 auto",
-        boxSizing: 'border-box',
-        padding: theme.spacing(2)
-    },
-    headerTitle: {
-        width: "90%",
-    },
-    headerAction: {
-        width: "10%",
-        marginTop: -theme.spacing(1),
-    },
     hiddenText: {
         whiteSpace: "nowrap",
         textOverflow: "ellipsis",
@@ -63,9 +51,6 @@ const useStyles = makeStyles(theme => ({
     media: {
         height: "200px"
     },
-    m1 : {
-        marginTop : theme.spacing(1)
-    }
 }));
 
 function ProjectCard(props) {
@@ -79,17 +64,17 @@ function ProjectCard(props) {
         {
             name: "수정하기",
             icon: <EditIcon />,
-            action: () => {console.log("수정하기")}
+            action: () => { console.log("수정하기") }
         },
         {
             name: "삭제하기",
             icon: <DeleteIcon />,
-            action: () => {console.log("삭제하기")}
+            action: () => { console.log("삭제하기") }
         },
         {
-          name: "메일로 알리기",
-          icon: <MailIcon />,
-          action: () => {console.log("메일로 알리기")}
+            name: "메일로 알리기",
+            icon: <MailIcon />,
+            action: () => { console.log("메일로 알리기") }
         },
     ]
 
@@ -119,19 +104,18 @@ function ProjectCard(props) {
                             action={writeStatus ? headerActionList : null}
                         />
 
-                        <CardMedia
+                        {/* <CardMedia
                             className={classes.media}
                             component="img"
                             alt={props.item.name}
                             area-name={props.item.thumbnail_file_name}
                             image={props.item.thumbnail_file_path}
-                        />
+                        /> */}
 
                         <Box className={classes.boxTop}>
-                            <Typography className={classes.m1} variant="body1" color="textSecondary">
+                            <Typography variant="body1" color="textSecondary">
                                 {props.item.desc}
                             </Typography>
-
                         </Box>
 
                         <CardActions>

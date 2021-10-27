@@ -31,7 +31,7 @@ const getPathGuider = data => {
             break;
         
         case '/agency/add':
-            value = "새 기관 등록";
+            value = "기관 등록";
             break;
 
         case '/agency/detail/':
@@ -52,7 +52,7 @@ const getPathGuider = data => {
             break;
         
         case '/agency/project/add/':
-            value = "새 프로젝트 등록";
+            value = "프로젝트 등록";
             break;
         
         case '/agency/project/notice/':
@@ -62,7 +62,7 @@ const getPathGuider = data => {
         // ────────────────────────────────────────────────────
 
         case '/agency/project/detail/process/add/':
-            value = "새 프로세스 등록";
+            value = "프로세스 등록";
             break;
 
         case '/agency/project/process/detail/':

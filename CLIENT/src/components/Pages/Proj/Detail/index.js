@@ -197,7 +197,8 @@ export const ProjectDetail = (props) => {
         // 뉴스
         const config = {
             type: "INCLUDE::PROJECT",
-            ref_id: ref_proj_id
+            ref_id: ref_proj_id,
+            delete_yn : "N"
         }
 
         API.getNews(config)

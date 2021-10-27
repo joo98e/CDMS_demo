@@ -12,7 +12,7 @@ const FNValidator = (valueName, value) => {
         // ID / 영문, 숫자만 사용하여 4 ~ 20글자
         case "ID":
             const email = new RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i);
-            
+
             if (!email.test(value) || value === '') {
                 return false;
             } else {
@@ -74,7 +74,7 @@ const FNValidator = (valueName, value) => {
                 isConfirmed = true;
             }
             break;
-        
+
         // 기관명 / 한글 혹은 영문이 반드시 1자 이상 포함, 한영숫 사용 가능
         case "AGCYNAME":
             if (!/^[A-za-zㄱ-ㅎ가-힣0-9]+[가-힣|ㄱ-ㅎ||A-Z|a-z]{1}/gi.test(value)) {
@@ -92,7 +92,7 @@ const FNValidator = (valueName, value) => {
                 isConfirmed = true;
             }
             break;
-        
+
         // 프로세스명 / 한글 혹은 영문이 반드시 1자 이상 포함, 한영숫 사용 가능
         case "PROCNAME":
             if (!/^[A-za-zㄱ-ㅎ가-힣0-9]+[가-힣|ㄱ-ㅎ||A-Z|a-z]{1}/gi.test(value)) {
@@ -141,7 +141,7 @@ const FNValidator = (valueName, value) => {
                 isConfirmed = true;
             }
             break;
-        
+
         case "TOTAL_TASK":
             if (value === '' || value === undefined || value === 0) {
                 return false;
@@ -149,7 +149,7 @@ const FNValidator = (valueName, value) => {
                 isConfirmed = true;
             }
             break;
-        
+
         case "RATING":
             if (value === '' || value === undefined || value === 0) {
                 return false;
@@ -157,20 +157,22 @@ const FNValidator = (valueName, value) => {
                 isConfirmed = true;
             }
             break;
-        
+
         case "EMPTY":
-            const _value = typeof value;
-            switch (_value) {
-                case  "object":
-                    if (_value.constructor === Object && Object.keys(_value).length === 0) {
-                        return false;
-                    } else {
-                        isConfirmed = true;
-                    }
-                    break;
+            const _value = value.constructor;
+            console.log(1);
             
-                default:
-                    break;
+            if (_value === Array) {
+                for (let i = 0; i < value.length; i++) {
+                    return (!value[i].key || !value[i].value) ? false : isConfirmed = true;
+                }
+            }
+            else if (_value === Object) {
+                if (Object.keys(_value).length === 0) {
+                    return false;
+                } else {
+                    isConfirmed = true;
+                }
             }
             break;
 

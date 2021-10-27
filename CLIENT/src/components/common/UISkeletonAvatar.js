@@ -30,7 +30,6 @@ export class UISkeletonAvatar extends PureComponent {
         loadImage.addEventListener('load', () => {
             this.setState({ avatarLoad: true });
         })
-        console.log(this.props);
     }
 
     render() {

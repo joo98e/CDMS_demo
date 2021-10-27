@@ -37,7 +37,7 @@ const isProdEnv = async () => {
 const initialState = {
     color: 'default',
     nowThemeNum: 0,
-    theme: Themes.nature,
+    theme: Themes.white,
     bgColor: "#424242",
     hourlyGreetings: message(),
     menuAppearPosition: 'left',

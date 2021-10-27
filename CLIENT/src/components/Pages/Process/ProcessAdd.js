@@ -115,7 +115,7 @@ export default function ProcessAdd() {
             ..._processInfo,
             total_task: value
         }));
-        enqueueSnackbar(`이 프로세스의 총 과업 수를 ${value}단계로 설정했습니다.`, { variant: "info" });
+        // enqueueSnackbar(`이 프로세스의 총 과업 수를 ${value}단계로 설정했습니다.`, { variant: "info" });
     }
 
     const handleChangeRating = value => {
@@ -123,7 +123,7 @@ export default function ProcessAdd() {
             ..._processInfo,
             rating: value
         }));
-        enqueueSnackbar(`이 프로세스의 중요도를 ${value}단계로 설정했습니다.`, { variant: "info" });
+        // enqueueSnackbar(`이 프로세스의 중요도를 ${value}단계로 설정했습니다.`, { variant: "info" });
     }
 
     const handleDateChange = (value, name) => {

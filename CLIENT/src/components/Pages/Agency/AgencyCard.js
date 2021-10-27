@@ -24,6 +24,7 @@ const useStyles = makeStyles(theme => ({
     minHeight: '200px',
     maxHeight: '400px',
     backgroundColor: theme.palette.background.default,
+    padding : theme.spacing(1)
   },
   pr: {
     position: 'relative'

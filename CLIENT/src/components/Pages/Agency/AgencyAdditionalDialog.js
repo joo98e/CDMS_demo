@@ -107,8 +107,8 @@ export class AgencyAdditionalDialog extends Component {
     nullCheck = () => {
         try {
             if (this.state.data.length !== 0) {
-                let _key = document.getElementsByName(`key_${this.state.nowLength}`)[0].value
-                let _value = document.getElementsByName(`value_${this.state.nowLength}`)[0].value
+                let _key = document.getElementsByName(`key_${this.state.nowLength}`)[0].value;
+                let _value = document.getElementsByName(`value_${this.state.nowLength}`)[0].value;
 
                 if ((!_key || !_value)) {
                     this.props.enqueueSnackbar("key 혹은 value가 비어 있습니다.", { variant: "warning" });

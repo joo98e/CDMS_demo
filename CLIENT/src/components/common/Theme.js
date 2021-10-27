@@ -1,71 +1,71 @@
 import { createTheme } from '@material-ui/core';
 
 const theme = {
-    nature: createTheme({
-        palette: {
-            action: {
-                active: "rgba(0, 0, 0, 0.04)",
-                hover: "rgba(0, 0, 0, 0.04)",
-                disabled: "rgba(0, 0, 0, 0.04)",
-                disabledBackground: "rgba(0, 0, 0, 0.04)",
-                focus: "rgba(0, 0, 0, 0.04)",
-                selected: "#FFF"
-            },
-            primary: {
-                main: "#1B2631",
-                light: "#7d8e9e",
-                dark: "rgba(0, 0, 0, 0.8)"
-            },
-            secondary: {
-                main: "#FFFFFF",
-                light: "#becad5",
-                dark: "#121a22"
-            },
-            background: {
-                default: "#2a3c4e",
-                paper: "#3c4f64",
-                button: "#37485b",
-                whiteButton: "#FFF",
-            },
-            text: {
-                primary: "#EAEAEA",
-                secondary: "#D2D2D2",
-                hint: "#E7E7E7",
-                disabled: "#7c7c7c",
-                desc: "#C2C2C2"
-            },
-            chart: {
-                background: "#2a3c4e",
-                sub: "#6c71cf",
-                accent : "#7eb188",
-                text: {
-                    main: "#2D2D2D",
-                    sub: "#565656"
-                }
-            },
-            slider: {
-                ball: "#DCDCDC",
-                ballBorder : "#B3B3B3",
-                background: "#2c93ff",
-            },
-            rating: {
-                star: {
-                    default: "#888888",
-                    fill: "#e9b840",
-                    hover: "#ffcc50"
-                },
-                heart: {
-                    default: "#2a3c4e",
-                    fill: "#ffb400",
-                    hover: "#f55f67"
-                }
-            },
-            // 실제 버튼 영역
-            grey: {
-                A100: "rgba(0, 0, 0, 0.04)",
-            }
-        },
-    }),
+    // nature: createTheme({
+    //     palette: {
+    //         action: {
+    //             active: "rgba(0, 0, 0, 0.04)",
+    //             hover: "rgba(0, 0, 0, 0.04)",
+    //             disabled: "rgba(0, 0, 0, 0.04)",
+    //             disabledBackground: "rgba(0, 0, 0, 0.04)",
+    //             focus: "rgba(0, 0, 0, 0.04)",
+    //             selected: "#FFF"
+    //         },
+    //         primary: {
+    //             main: "#1B2631",
+    //             light: "#7d8e9e",
+    //             dark: "rgba(0, 0, 0, 0.8)"
+    //         },
+    //         secondary: {
+    //             main: "#FFFFFF",
+    //             light: "#becad5",
+    //             dark: "#121a22"
+    //         },
+    //         background: {
+    //             default: "#2a3c4e",
+    //             paper: "#3c4f64",
+    //             button: "#37485b",
+    //             whiteButton: "#FFF",
+    //         },
+    //         text: {
+    //             primary: "#EAEAEA",
+    //             secondary: "#D2D2D2",
+    //             hint: "#E7E7E7",
+    //             disabled: "#7c7c7c",
+    //             desc: "#C2C2C2"
+    //         },
+    //         chart: {
+    //             background: "#2a3c4e",
+    //             sub: "#6c71cf",
+    //             accent : "#7eb188",
+    //             text: {
+    //                 main: "#2D2D2D",
+    //                 sub: "#565656"
+    //             }
+    //         },
+    //         slider: {
+    //             ball: "#DCDCDC",
+    //             ballBorder : "#B3B3B3",
+    //             background: "#2c93ff",
+    //         },
+    //         rating: {
+    //             star: {
+    //                 default: "#888888",
+    //                 fill: "#e9b840",
+    //                 hover: "#ffcc50"
+    //             },
+    //             heart: {
+    //                 default: "#2a3c4e",
+    //                 fill: "#ffb400",
+    //                 hover: "#f55f67"
+    //             }
+    //         },
+    //         // 실제 버튼 영역
+    //         grey: {
+    //             A100: "rgba(0, 0, 0, 0.04)",
+    //         }
+    //     },
+    // }),
 
     // dark: createTheme({
     //     palette: {
@@ -159,12 +159,12 @@ const theme = {
             rating: {
                 star: {
                     default: "#888888",
-                    fill: "#f4454f",
+                    fill: "#ffbe1f",
                     hover: "#ffcc50"
                 },
                 heart: {
                     default: "#2a3c4e",
-                    fill: "#f4454f",
+                    fill: "#ffbe1f",
                     hover: "#f55f67"
                 }
             },

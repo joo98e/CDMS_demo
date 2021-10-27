@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { useHistory } from 'react-router'
 import { Typography, Divider, Grid, Paper, Box, makeStyles } from "@material-ui/core"
 
+import UIMainWorker from "../../common/Worker/UIMainWorker"
 import UISkeletonAvatar from "../../common/UISkeletonAvatar"
 import UIPercentageChart from '../../common/Chart/UIPercentageChart'
 import UIButton from '../../common/UIButton'
@@ -153,6 +154,7 @@ export const ProcessCard = (props) => {
         if (_member.ref_allow_action.indexOf('WRITE') !== -1 || props.item.writer_seq === _member.seq) {
             setWriteStatus(true);
         }
+        console.log(props.item);
 
     }, [])
 
@@ -170,43 +172,7 @@ export const ProcessCard = (props) => {
                     <Typography variant="h6" className={`${classes.indent} + ${classes.hiddenText}`}>
                         담당자
                     </Typography>
-                    <Grid container spacing={1}>
-                        <Grid item xs={4} md={4} lg={4}>
-                            <div className={`${classes.writerBox} + ${classes.minHeight}`}>
-                                <UISkeletonAvatar
-                                    src={props.item.avatar_path}
-                                    alt={props.item.nickname}
-                                />
-                                <Typography className={`${classes.hiddenText} + ${classes.plr2}`} component="div" align="center" variant="body1">
-                                    {props.item.nickname}
-                                </Typography>
-                            </div>
-                        </Grid>
-                        <Grid item xs={8} md={8} lg={8}>
-                            <Grid container spacing={2} className={classes.mt4}>
-                                <Grid item xs={3} md={3} lg={3}>
-                                    <Typography variant="body1" className={classes.hiddenText}>
-                                        부서
-                                    </Typography>
-                                </Grid>
-                                <Grid item xs={9} md={9} lg={9}>
-                                    <Typography variant="body1" className={classes.hiddenText}>
-                                        {props.item.dept_name}
-                                    </Typography>
-                                </Grid>
-                                <Grid item xs={3} md={3} lg={3}>
-                                    <Typography variant="body1" className={classes.hiddenText}>
-                                        직급
-                                    </Typography>
-                                </Grid>
-                                <Grid item xs={9} md={9} lg={9}>
-                                    <Typography variant="body1" className={classes.hiddenText}>
-                                        {props.item.rank_name}
-                                    </Typography>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    </Grid>
+                    <UIMainWorker data={props.item}/>
                 </Grid>
                 <Grid item xs={12} md={12} lg={12}>
                     <Typography className={classes.mb1} variant="h6">

@@ -35,7 +35,7 @@ const styles = theme => ({
     flexColumn: {
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
+        justifyContent: "space-around",
     },
     p1: {
         padding: theme.spacing(2)
@@ -48,7 +48,7 @@ const styles = theme => ({
         lineHeight: "2em"
     },
     minHeight: {
-        height: theme.spacing(50)
+        height: "100%"
     },
     h_560px: {
         height: "100%",
@@ -275,7 +275,7 @@ export class AgencyDetail extends Component {
                         this.state.data ?
                             <React.Fragment>
                                 {/* Area #1 */}
-                                <Grid item xs={12} md={12} lg={6}>
+                                <Grid item xs={12} md={12} lg={8}>
                                     <Grow
                                         in={this.state.awhile}
                                         style={{ transformOrigin: '0 0 0' }}
@@ -321,7 +321,7 @@ export class AgencyDetail extends Component {
                                 </Grid>
 
                                 {/* Area #2 */}
-                                <Grid item xs={12} md={6} lg={3}>
+                                <Grid item xs={12} md={12} lg={4}>
                                     <Grow
                                         in={this.state.awhile}
                                         style={{ transformOrigin: '0 0 0' }}
@@ -337,6 +337,12 @@ export class AgencyDetail extends Component {
                                             >
                                                 정보
                                             </Typography>
+                                            <UIButton
+                                                class={classes.more}
+                                                name="MORE"
+                                                variant="contained"
+                                                action={() => { }}
+                                            />
                                             <Divider />
                                             {
                                                 this.state.data.add_info && this.state.data.add_info.length !== 0 ?
@@ -378,7 +384,7 @@ export class AgencyDetail extends Component {
                                 </Grid>
 
                                 {/* Area #3 */}
-                                <Grid item xs={12} md={6} lg={3}>
+                                {/* <Grid item xs={12} md={6} lg={3}>
                                     <Grow
                                         in={this.state.awhile}
                                         style={{ transformOrigin: '0 0 0' }}
@@ -429,9 +435,9 @@ export class AgencyDetail extends Component {
                                             </Grid>
                                         </Paper>
                                     </Grow>
-                                </Grid>
+                                </Grid> */}
 
-                                {/* Area #3 */}
+                                {/* Area #4 */}
                                 <Grid item xs={12} md={12} lg={12}>
                                     <Grow
                                         in={this.state.awhile}

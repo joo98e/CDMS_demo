@@ -5,9 +5,9 @@ import {
     makeStyles, Divider, withStyles
 } from '@material-ui/core'
 import UIPercentageChart from '../../../common/Chart/UIPercentageChart';
-import { FollowStarIcon } from '../../../common/CustomIcons';
 import UICardHeader from '../../../common/Card/UICardHeader';
 import UISkeletonAvatar from '../../../common/UISkeletonAvatar';
+import UIMainWorker from '../../../common/Worker/UIMainWorker'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -170,7 +170,7 @@ export const DetailBoard = (props) => {
                                             title={"담당자"}
                                         />
                                         <Divider className={classes.mb1} />
-                                        <Worker data={props.data.procMainWorker[0]} />
+                                        <UIMainWorker data={props.data.procMainWorker[0]} />
                                     </Paper>
                                 </Grid>
                                 <Grid item xs={12} md={12} lg={12}>

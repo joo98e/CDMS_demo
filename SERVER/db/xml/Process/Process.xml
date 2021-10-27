@@ -111,6 +111,7 @@
             mem.id,
             mem.full_name,
             mem.nickname,
+            mem.phone,
             org_dept.`name` AS dept_name,
             org_rank.`name` AS rank_name,
             mem.avatar_path

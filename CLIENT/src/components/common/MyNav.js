@@ -73,12 +73,26 @@ export class MyNav extends Component {
         if (window.confirm("실행하시겠습니까?")) {
             let _status = true;
             let _msg = String;
-            const params = {
-                _Tx: prompt("_Tx를 입력하세요."),
-                _Rx: prompt("_Rx를 입력하세요."),
-                _Subject: prompt("_Subject를 입력하세요."),
-                _Content: prompt("_Content를 입력하세요.")
-            }
+            const params = [
+                {
+                    receiver: "askjmyyyojqa@gmail.com",
+                    subject: "1번째",
+                    content: " 1번째 내용"
+                },
+                {
+                    receiver: "askjmyyyojqa@gmail.com",
+                    subject: "2번째",
+                    content: " 2번째 내용"
+                }, {
+                    receiver: "askjmyyyojqa@gmail.com",
+                    subject: "3번째",
+                    content: " 3번째 내용"
+                }, {
+                    receiver: "askjmyyyojqa@gmail.com",
+                    subject: "4번째",
+                    content: " 4번째 내용"
+                },
+            ];
 
             for (const props in params) {
 
@@ -179,6 +193,9 @@ export class MyNav extends Component {
                                 />
                             </IconButton>
                         </Tooltip>
+                        <Typography variant="body1">
+                            {this.props.user.member.nickname}님
+                        </Typography>
                         <Menu
                             open={this.state.open}
                             anchorEl={this.state.anchorEI}

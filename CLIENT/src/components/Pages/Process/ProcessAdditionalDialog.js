@@ -1,10 +1,3 @@
-/** 
- * @param {}
- * @param {}
- * @param {}
- * @returns {}
- */
-
 import React, { Component } from 'react';
 import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
@@ -16,6 +9,7 @@ import {
     Grid, Input, Tooltip
 } from '@material-ui/core'
 
+import FNValidator from '../../common/FNValidator'
 import UIButton from '../../common/UIButton'
 
 const styles = theme => ({
@@ -70,8 +64,9 @@ export class ProcessAdditionalDialog extends Component {
             if (this.state.data.length !== 0) {
                 let _key = document.getElementsByName(`key_${this.state.nowLength}`)[0].value
                 let _value = document.getElementsByName(`value_${this.state.nowLength}`)[0].value
+                FNValidator("EMPTY", this.state.data);
 
-                if ((!_key || !_value)) {
+                if (!_key || !_value) {
                     this.props.enqueueSnackbar("key 혹은 value가 비어 있습니다.", { variant: "warning" });
                     return true;
                 } else {
@@ -79,7 +74,7 @@ export class ProcessAdditionalDialog extends Component {
                 }
             }
         } catch (error) {
-            
+            console.log(error);
         }
     }
 
@@ -111,6 +106,7 @@ export class ProcessAdditionalDialog extends Component {
                     });
                 }
             };
+            
             this.state.data.length !== 0 ?
                 this.props.enqueueSnackbar("추가 정보 구성이 완료되었습니다.", { variant: "success" })
                 :

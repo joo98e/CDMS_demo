@@ -65,6 +65,9 @@
       <if test="ref_id != null">
           AND news.ref_id = #{ref_id}
       </if>
+      <if test="delete_yn != null">
+          AND news.delete_yn = #{delete_yn}
+      </if>
     </where>
     ORDER BY news.reg_date DESC
     LIMIT 4

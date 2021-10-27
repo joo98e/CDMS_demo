@@ -67,7 +67,7 @@ export class Layout extends Component {
                 >
                     <Component />
                 </Box>
-                <UISettingsMenu />
+                {/* <UISettingsMenu /> */}
             </>
         )
     }

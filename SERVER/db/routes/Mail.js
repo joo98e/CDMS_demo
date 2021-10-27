@@ -9,8 +9,9 @@ const format = require('../config/MyBatisFormat');
 
 router.post('/send', (req, res) => {
     const params = req.body;
+
     try {
-        fnMail(params._Tx, params._Rx, params._Subject, params._Content);
+        fnMail(params);
         return res.status(200).send({
             result: req.body,
             resultCode: 1,
@@ -24,7 +25,6 @@ router.post('/send', (req, res) => {
             resultMessage: "발송 함수 실패, 알 수 없는 오류"
         });
     }
-    
 });
 
 module.exports = router;
