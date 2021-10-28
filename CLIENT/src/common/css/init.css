@@ -60,5 +60,5 @@ input:-webkit-autofill::selection,
 input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s !important;
     -webkit-transition: background-color 9999s ease-out !important;
-    -webkit-text-fill-color: #fff !important;
+    /* -webkit-text-fill-color: #fff !important; */
 }

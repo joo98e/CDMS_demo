@@ -2,28 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Org">
   <select id="getInternalPerson">
-    SELECT
-      mem.seq,
-      mem.full_name,
-      mem.id,
-      mem.avatar_path,
-      mem.phone,
-      (SELECT name FROM tb_org_structure AS org WHERE org.id = mem.dept_no AND org.`type` = "TYPE::DEPART") as dept_name,
-      (SELECT name FROM tb_org_structure AS org WHERE org.id = mem.rank_no AND org.`type` = "TYPE::RANK") as rank_name
-    FROM
-      tb_agcy_colleague AS colg
-      LEFT JOIN tb_member AS mem ON mem.seq = colg.ref_agcy_colleague_seq
-      LEFT JOIN tb_auth AS auth ON mem.ref_auth_id = auth.id
-    <if test="delete_yn != null">
-      WHERE
-      mem.delete_yn = #{delete_yn}
-    </if>
-    <if test="inside_yn != null">
-      AND auth.inside_yn = #{inside_yn}
-    </if>
-    <if test="ref_agcy_id != null">
-      AND colg.ref_agcy_id = #{ref_agcy_id}
-    </if>
+      SELECT 
+          org_dept.`name` AS dept_name,
+          org_rank.`name` AS rank_name,
+          mem.seq,
+          mem.id,
+          mem.full_name,
+          mem.avatar_path,
+          mem.phone
+      FROM
+        tb_member AS mem
+      LEFT JOIN tb_org_structure AS org_dept ON org_dept.id = mem.dept_no
+      LEFT JOIN tb_org_structure AS org_rank ON org_rank.id = mem.rank_no
+      WHERE 
+          mem.delete_yn = #{delete_yn};
   </select>
 
   <insert id="insertnews">

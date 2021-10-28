@@ -80,11 +80,11 @@ export class index extends PureComponent {
 
         if (param > 0) {
             switch (this.state.stepNum) {
-                case 0:
-                    this.props.enqueueSnackbar(`이용약관 확인이 되었어요.`, { variant: 'info' });
-                    break;
+                // case 0:
+                //     this.props.enqueueSnackbar(`이용약관 확인이 되었어요.`, { variant: 'info' });
+                //     break;
 
-                case 1:
+                case 0:
                     for (let item in _obj) {
                         switch (item) {
 
@@ -231,7 +231,7 @@ export class index extends PureComponent {
 
                     break;
 
-                case 2:
+                case 1:
                     for (let item in _obj) {
 
                         switch (item) {
@@ -267,7 +267,7 @@ export class index extends PureComponent {
 
                     break;
 
-                case 3:
+                case 2:
                     this.props.enqueueSnackbar(`회원가입이 성공했어요!`, { variant: 'success' });
                     break;
 
@@ -384,20 +384,20 @@ export class index extends PureComponent {
         const { classes } = this.props;
 
         const StepByComponent = [
+            // {
+            //     StepNum: 1,
+            //     Component: <Policy />
+            // },
             {
                 StepNum: 1,
-                Component: <Policy />
-            },
-            {
-                StepNum: 2,
                 Component: <InputPrivacy handleClickMoveStep={this.handleClickMoveStep} errorTextField={this.state.errorTextField} handleIdDuplicateCheck={this.handleIdDuplicateCheck} />
             },
             {
-                StepNum: 3,
+                StepNum: 2,
                 Component: <InputWorkInfo />
             },
             {
-                StepNum: 4,
+                StepNum: 3,
                 Component: <Success />
             },
         ];
@@ -405,7 +405,7 @@ export class index extends PureComponent {
         return (
             <Container className={classes.columnBox} maxWidth="lg">
 
-                <StepComponent stepInfo={stepInfo} stepNum={this.state.stepNum} stepMaxNum={StepByComponent.length - 1} />
+                {/* <StepComponent stepInfo={stepInfo} stepNum={this.state.stepNum} stepMaxNum={StepByComponent.length - 1} /> */}
 
                 {
                     StepByComponent.map((item, idx) => {

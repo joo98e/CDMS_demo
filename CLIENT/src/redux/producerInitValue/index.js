@@ -20,13 +20,13 @@ export const initRegisterValue = {
 };
 
 export const initAgencyValue = {
+    name: '',
+    biz_area: '',
+    desc: '',
     start_date: null,
     end_date: null,
-    name: '',
-    desc: '',
-    biz_area: '',
     person: [],
-    additionalInfo: []
+    additionalInfo: [],
 };
 
 export const initProjectValue = {

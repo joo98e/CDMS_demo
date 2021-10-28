@@ -149,7 +149,6 @@ export default function FullScreenDialog() {
             const condition = {
                 ref_agcy_id : ref_agcy_id,
                 seq : _member.seq,
-                inside_yn: 'Y',
                 delete_yn: 'N'
             };
             await axios.post('/api/org/person', condition)

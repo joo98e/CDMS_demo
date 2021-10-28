@@ -27,20 +27,20 @@ export class InputJobs extends PureComponent {
         this.state = {
             showPassword: false,
             orgStructure: {
-                departs : null,
-                rank : null
+                departs: null,
+                rank: null
             },
             unboot: false
         }
     }
-    
+
     componentDidMount() {
         this.callApi()
             .then(res => {
                 this.setState({ orgStructure: res })
             })
             .catch(err => console.log(err));
-            
+
     }
 
     callApi = async () => {
@@ -48,10 +48,10 @@ export class InputJobs extends PureComponent {
         let resRank = await fetch('/api/org/rank');
 
         let _temp = {
-            departs : await resDepart.json(),
-            rank : await resRank.json()
+            departs: await resDepart.json(),
+            rank: await resRank.json()
         }
-        
+
         return _temp;
     }
 
@@ -73,57 +73,63 @@ export class InputJobs extends PureComponent {
                         어떤 업무를 하시나요?
                     </Typography>
                 </Box>
-
+                <Container className={classes.marginBottom3}>
+                    <Grid container justifyContent='center' spacing={4}>
+                        <Grid item xs={12} md={12} lg={12}>
+                            <Container maxWidth="sm">
+                                <Box display="flex" mt={2} style={{ alignItems: "center" }}>
+                                    <FormControl variant="filled" fullWidth>
+                                        <InputLabel id="dept_no" name="dept_no">부서 *</InputLabel>
+                                        {this.state.orgStructure.departs ?
+                                            <Select
+                                                labelId="dept_no"
+                                                id="dept_no"
+                                                name="dept_no"
+                                                value={this.props.registerMember.dept_no ? this.props.registerMember.dept_no : ''}
+                                                onChange={this.handleValueChange}
+                                            >
+                                                {this.state.orgStructure.departs.map((item, index) => {
+                                                    return (
+                                                        <MenuItem key={index} value={item.id}>{item.name}</MenuItem>
+                                                    )
+                                                })}
+                                            </Select>
+                                            :
+                                            ''
+                                        }
+                                    </FormControl>
+                                </Box>
+                                <Box display="flex" mt={2} style={{ alignItems: "center" }}>
+                                    <FormControl variant="filled" fullWidth>
+                                        <InputLabel id="MEM_DEPART_NO">직급 *</InputLabel>
+                                        {this.state.orgStructure.rank ?
+                                            <Select
+                                                labelId="rank_no"
+                                                id="rank_no"
+                                                name="rank_no"
+                                                value={this.props.registerMember.rank_no ? this.props.registerMember.rank_no : ''}
+                                                onChange={this.handleValueChange}
+                                            >
+                                                {this.state.orgStructure.rank.map((item, index) => {
+                                                    return (
+                                                        <MenuItem key={index} value={item.id}>{item.name}</MenuItem>
+                                                    )
+                                                })}
+                                            </Select>
+                                            :
+                                            ''
+                                        }
+                                    </FormControl>
+                                </Box>
+                            </Container>
+                        </Grid>
+                    </Grid>
+                </Container>
                 <Container className={classes.marginBottom3}>
                     <Grid container justifyContent='center' spacing={4}>
 
                         <Grid item xs={12}>
                             <Container>
-                                <FormControl variant="filled" fullWidth>
-                                    <InputLabel id="dept_no" name="dept_no">부서 *</InputLabel>
-                                    {this.state.orgStructure.departs ?
-                                        <Select
-                                            labelId="dept_no"
-                                            id="dept_no"
-                                            name="dept_no"
-                                            value={this.props.registerMember.dept_no ? this.props.registerMember.dept_no : ''}
-                                            onChange={this.handleValueChange}
-                                        >
-                                            {this.state.orgStructure.departs.map((item, index) => {
-                                                return (
-                                                    <MenuItem key={index} value={item.id}>{item.name}</MenuItem>
-                                                )
-                                            })}
-                                        </Select>
-                                        :
-                                        ''
-                                    }
-                                </FormControl>
-                            </Container>
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <Container>
-                                <FormControl variant="filled" fullWidth>
-                                    <InputLabel id="MEM_DEPART_NO">직급 *</InputLabel>
-                                    {this.state.orgStructure.rank ?
-                                        <Select
-                                            labelId="rank_no"
-                                            id="rank_no"
-                                            name="rank_no"
-                                            value={this.props.registerMember.rank_no ? this.props.registerMember.rank_no : ''}
-                                            onChange={this.handleValueChange}
-                                        >
-                                            {this.state.orgStructure.rank.map((item, index) => {
-                                                return (
-                                                    <MenuItem key={index} value={item.id}>{item.name}</MenuItem>
-                                                )
-                                            })}
-                                        </Select>
-                                        :
-                                        ''
-                                    }
-                                </FormControl>
                             </Container>
                         </Grid>
                     </Grid>

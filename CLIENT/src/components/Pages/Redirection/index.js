@@ -9,7 +9,7 @@ export class Redirection extends Component {
             this.props.user.auth ?
                 <Redirect
                     to={{
-                        pathname: "/landing",
+                        pathname: "/register",
                         state: {
                             from: this.props.location,
                         },

@@ -204,9 +204,8 @@ export const CheckCircleOutlineIcon = () => {
 }
 
 export const FavoriteIcon = () => {
-    const classes = useStyles();
     return (
-        <Favorite className={classes.color} />
+        <Favorite />
     )
 }
 

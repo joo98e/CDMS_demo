@@ -103,9 +103,9 @@ function AgencyCard(props) {
         action: () => {console.log("삭제하기")}
     },
     {
-      name: "메일로 알리기",
+      name: "알림 메일 보내기",
       icon: <MailIcon />,
-      action: () => {console.log("메일로 알리기")}
+      action: () => {console.log("알림 메일 보내기")}
     },
 ]
 

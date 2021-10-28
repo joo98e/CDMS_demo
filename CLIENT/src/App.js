@@ -5,7 +5,6 @@ import CustomRoute from './components/common/CustomRoutes'
 import Redirection from './components/Pages/Redirection';
 import Login from './components/Pages/Login';
 import Register from './components/Pages/Register';
-import Landing from './components/Pages/Landing'
 import Agency from './components/Pages/Agency'
 import AgencyDetail from './components/Pages/Agency/Detail'
 import ProjectDetail from './components/Pages/Proj/Detail'
@@ -13,7 +12,6 @@ import AgencyAdd from './components/Pages/Agency/AgencyAdd'
 import ProjectAdd from './components/Pages/Proj/ProjectAdd'
 import ProcessAdd from './components/Pages/Process/ProcessAdd'
 import ProcessDetail from './components/Pages/Process/Detail'
-import PageNotFound from './components/Pages/Error/404'
 
 class App extends Component {
   render() {
@@ -21,7 +19,6 @@ class App extends Component {
       <Switch>
         <CustomRoute exact path="/login" component={Login} />
         <CustomRoute exact path="/register" component={Register} />
-        <CustomRoute exact path="/landing" component={Landing} />
 
         <CustomRoute exact path="/agency" component={Agency} />
         <CustomRoute exact path="/agency/add" component={AgencyAdd} />

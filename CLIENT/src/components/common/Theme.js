@@ -1,6 +1,104 @@
 import { createTheme } from '@material-ui/core';
 
 const theme = {
+    white: createTheme({
+        palette: {
+            action: {
+                active: "rgba(0, 0, 0, 0.04)",
+                hover: "rgba(0, 0, 0, 0.04)",
+                disabled: "rgba(0, 0, 0, 0.5)",
+                disabledBackground: "rgba(0, 0, 0, 0.04)",
+                focus: "rgba(0, 0, 0, 0.04)",
+                selected: "rgba(0, 0, 0, 0.04)",
+            },
+            primary: {
+                main: "#FFF",
+                light: "#7d8e9e",
+                dark: "#a2b7cc",
+            },
+            secondary: {
+                main: "#686868",
+                light: "#becad5",
+                dark: "#121a22",
+            },
+            info: {
+                main: "#686868",
+                light: "#becad5",
+                dark: "#121a22",
+            },
+            background: {
+                default: "#FBFCFF",
+                paper: "#eff0f4",
+                button: "#FFFFFF",
+                whiteButton: "#8F8F8F",
+            },
+            text: {
+                primary: "#333333",
+                secondary: "#6F6F6F",
+                hint: "#6F6F6F",
+                disabled: "#6F6F6F",
+                desc: "#9D9D9D"
+            },
+            chart: {
+                background: "#C1C1C1",
+                sub: "#6389b3",
+                accent: "#7ca75f",
+                text: {
+                    main: "#2D2D2D",
+                    sub: "#565656"
+                }
+            },
+            slider: {
+                ball: "#ffffff",
+                ballBorder: "#6a6a6a",
+                background: "#4aad44",
+            },
+            rating: {
+                star: {
+                    default: "#888888",
+                    fill: "#ffbe1f",
+                    hover: "#ffcc50"
+                },
+                heart: {
+                    default: "#2a3c4e",
+                    fill: "#ffbe1f",
+                    hover: "#f55f67"
+                }
+            },
+            // 실제 버튼 호버
+            grey: {
+                A100: "#FFF",
+            },
+
+        },
+        overrides: {
+            MuiFormLabel: {
+                root: {
+                    "&$focused": {
+                        color: "#333",
+                        fontWeight: "bold"
+                    },
+                    "&$selected": {
+                        color: "#333",
+                        fontWeight: "bold"
+                    }
+                },
+
+                focused: {}
+            },
+            MuiCssBaseline: {
+                '@global': {
+                    html: {
+                        WebkitFontSmoothing: 'auto',
+                    },
+                    // "&$.MuiSpeedDial-fab": {
+                    //     background: "#EBEBEB !important"
+                    // },
+                },
+            },
+        },
+    }),
+    
     // nature: createTheme({
     //     palette: {
     //         action: {
@@ -102,91 +200,6 @@ const theme = {
     //         },
     //     },
     // }),
-
-    white: createTheme({
-        palette: {
-            action: {
-                active: "rgba(0, 0, 0, 0.8)",
-                hover: "rgba(0, 0, 0, 0.04)",
-                disabled: "rgba(0, 0, 0, 0.8)",
-                disabledBackground: "rgba(0, 0, 0, 0.8)",
-                focus: "rgba(0, 0, 0, 0.04)",
-                selected: "rgba(0, 0, 0, 0.8)"
-            },
-            primary: {
-                main: "#FFF",
-                light: "#7d8e9e",
-                dark: "#a2b7cc",
-            },
-            secondary: {
-                main: "#686868",
-                light: "#becad5",
-                dark: "#121a22",
-
-            },
-            info: {
-                main: "#686868",
-                light: "#becad5",
-                dark: "#121a22",
-            },
-            background: {
-                default: "#FBFCFF",
-                paper: "#eff0f4",
-                button: "#FFFFFF",
-                whiteButton: "#8F8F8F",
-            },
-            text: {
-                primary: "#333333",
-                secondary: "#6F6F6F",
-                hint: "#6F6F6F",
-                disabled: "#6F6F6F",
-                desc: "#9D9D9D"
-            },
-            chart: {
-                background: "#C1C1C1",
-                sub: "#6389b3",
-                accent: "#7ca75f",
-                text: {
-                    main: "#2D2D2D",
-                    sub: "#565656"
-                }
-            },
-            slider: {
-                ball: "#ffffff",
-                ballBorder: "#6a6a6a",
-                background: "#4aad44",
-            },
-            rating: {
-                star: {
-                    default: "#888888",
-                    fill: "#ffbe1f",
-                    hover: "#ffcc50"
-                },
-                heart: {
-                    default: "#2a3c4e",
-                    fill: "#ffbe1f",
-                    hover: "#f55f67"
-                }
-            },
-            // 실제 버튼 영역
-            grey: {
-                A100: "rgba(0, 0, 0, 0.04)",
-            },
-
-        },
-        overrides: {
-            MuiCssBaseline: {
-                '@global': {
-                    html: {
-                        WebkitFontSmoothing: 'auto',
-                    },
-                    "&$.MuiSpeedDial-fab": {
-                        background: "#EBEBEB !important"
-                    },
-                },
-            },
-        },
-    }),
 
     // purple: createTheme({
     //     palette: {

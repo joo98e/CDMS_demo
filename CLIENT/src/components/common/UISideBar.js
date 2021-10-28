@@ -31,16 +31,16 @@ const menuList = [
         MENU_ID: '1',
         MENU_NAME: '홈',
         MENU_ICON_NAME: <HomeIcon />,
-        MENU_PUSH_LINK: '/',
-        MENU_PERMISSION: 'U'
-    },
-    {
-        MENU_ID: '2',
-        MENU_NAME: '기관 보기',
-        MENU_ICON_NAME: <NoteIcon />,
         MENU_PUSH_LINK: '/agency',
         MENU_PERMISSION: 'U'
     },
+    // {
+    //     MENU_ID: '2',
+    //     MENU_NAME: '기관 보기',
+    //     MENU_ICON_NAME: <NoteIcon />,
+    //     MENU_PUSH_LINK: '/agency',
+    //     MENU_PERMISSION: 'U'
+    // },
     // {
     //     MENU_ID: '3',
     //     MENU_NAME: '대시보드',

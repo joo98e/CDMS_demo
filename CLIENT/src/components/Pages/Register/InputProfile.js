@@ -89,7 +89,7 @@ export class InputProfile extends Component {
         const { classes } = this.props;
 
         return (
-            <Container>
+            <Container maxWidth="sm">
                 <IconButton
                     className={classes.setAvatarBtn}
                     onClick={this.handleToggleAvatarDialog}
@@ -166,7 +166,7 @@ export class InputProfile extends Component {
                                                         }}
                                                         actionIcon={
                                                             <IconButton
-                                                                style={{ color: this.state.nowAvatarNum === index ? '#F58A9D' : 'white' }}
+                                                                style={{ color: this.state.nowAvatarNum !== index ? 'rgba(213, 213, 213, 0.3)' : 'rgb(255, 112, 112, 0.8)' }}
                                                                 onClick={() => { this.handleFileChange(index, item.src, item.name) }}
                                                             >
                                                                 <FavoriteIcon />

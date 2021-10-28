@@ -9,15 +9,15 @@ import { setAgencyInfo, setAgencyInfoInit } from '../../../redux/action/Producer
 import {
     Container, TextField, FormControl, Select, Button, Dialog, Typography,
     ListItemText, ListItem, List, Divider, AppBar, Toolbar, IconButton, MenuItem,
-    Grid, Chip, Avatar
+    Grid
 } from '@material-ui/core';
 
 import Slide from '@material-ui/core/Slide';
 import getDateFormat from '../../common/fn/getDateFormat';
 import FNValidator from '../../common/FNValidator';
 import UIPersonList from '../../common/UIPersonList';
+import UIDatePicker from '../../common/UIDatePicker';
 import AgencyAdditionalDialog from './AgencyAdditionalDialog';
-// import AgencyDatePicker from './AgencyDatePicker';
 
 import {
     BusinessIcon,
@@ -150,7 +150,6 @@ export default function FullScreenDialog() {
 
         const loadPersonRow = async () => {
             const condition = {
-                inside_yn: 'Y',
                 delete_yn: 'N'
             };
             await axios.post('/api/org/person', condition)
@@ -367,20 +366,22 @@ export default function FullScreenDialog() {
                                 <Divider />
                                 <ListItem>
                                     <ListItemText primary="사업 시작일" />
-                                    {/* <AgencyDatePicker
+                                    <UIDatePicker
                                         name="start_date"
-                                        textFieldStyle={classes.textFieldStyle}
+                                        label="사업 시작일"
+                                        class={classes.w100}
                                         resultAction={handleChangeDate}
-                                    /> */}
+                                    />
                                 </ListItem>
                                 <Divider />
                                 <ListItem>
                                     <ListItemText primary="사업 종료일" />
-                                    {/* <AgencyDatePicker
+                                    <UIDatePicker
                                         name="end_date"
-                                        textFieldStyle={classes.textFieldStyle}
+                                        label="사업 종료일"
+                                        class={classes.w100}
                                         resultAction={handleChangeDate}
-                                    /> */}
+                                    />
                                 </ListItem>
                                 <Divider />
                                 <ListItem>

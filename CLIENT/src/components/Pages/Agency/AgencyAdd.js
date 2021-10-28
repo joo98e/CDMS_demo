@@ -154,7 +154,6 @@ export default function FullScreenDialog() {
 
         const loadPersonRow = async () => {
             const condition = {
-                inside_yn: 'Y',
                 delete_yn: 'N'
             };
             await axios.post('/api/org/person', condition)

@@ -65,6 +65,9 @@ const styles = theme => ({
         left: '50%',
         transform: 'translate(-50%, -50%)'
     },
+    fixed: {
+        position: 'fixed',
+    }
 });
 
 export class InputAccount extends PureComponent {
@@ -107,7 +110,7 @@ export class InputAccount extends PureComponent {
             <Box>
                 <Box mt={8} mb={4}>
                     <Typography variant="h4" align='center'>
-                        어떤 분이신가요?
+                        개인 정보 입력
                     </Typography>
                 </Box>
                 <Divider />
@@ -121,9 +124,8 @@ export class InputAccount extends PureComponent {
                                 setRegisterMemberInfoInit={this.props.setRegisterMemberInfoInit}
                             />
                         </Grid>
-
-                        <Grid item xs={12}>
-                            <Container>
+                        <Grid item xs={12} md={12} lg={12}>
+                            <Container maxWidth="sm">
                                 <Box display="flex" justifyContent="flex-start" alignItems="center">
                                     <TextField
                                         variant="filled"
@@ -135,6 +137,11 @@ export class InputAccount extends PureComponent {
                                         onChange={this.handleValueChange}
                                         error={this.props.errorTextField.id}
                                     />
+                                </Box>
+                                <Box display="flex" mt={2} style={{ alignItems: "center" }}>
+                                    <Typography variant="body1">
+                                        아이디 중복 체크
+                                    </Typography>
                                     <IconButton
                                         color="inherit"
                                         className={classes.iconMargin}
@@ -143,11 +150,7 @@ export class InputAccount extends PureComponent {
                                         {this.props.registerMember.idCheck ? <CheckCircleOutlineIcon /> : <RadioButtonUncheckedIcon />}
                                     </IconButton>
                                 </Box>
-                            </Container>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Container>
-                                <Box display="flex" justifyContent="flex-start" alignItems="center">
+                                <Box display="flex" mt={2} style={{ alignItems: "center" }}>
                                     <form className={classes.fullWidth}>
                                         <TextField
                                             fullWidth
@@ -170,82 +173,69 @@ export class InputAccount extends PureComponent {
                                         {this.state.showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
                                     </IconButton>
                                 </Box>
-                            </Container>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Container>
-                                <form>
+                                <Box display="flex" mt={2} style={{ alignItems: "center" }}>
+                                    <form>
+                                        <TextField
+                                            fullWidth
+                                            variant="filled"
+                                            required
+                                            type={this.state.showPassword ? 'text' : 'password'}
+                                            name="passwordCheck"
+                                            label="비밀번호 확인"
+                                            autoComplete="off"
+                                            helperText="비밀번호 확인을 위해 한번 더 입력해주세요."
+                                            error={this.props.errorTextField.password}
+                                            onChange={this.handleValueChange}
+                                        />
+                                    </form>
+                                </Box>
+                                <Box display="flex" mt={2} style={{ alignItems: "center" }}>
                                     <TextField
-                                        fullWidth
                                         variant="filled"
+                                        fullWidth
                                         required
-                                        type={this.state.showPassword ? 'text' : 'password'}
-                                        name="passwordCheck"
-                                        label="비밀번호 확인"
-                                        autoComplete="off"
-                                        helperText="비밀번호 확인을 위해 한번 더 입력해주세요."
-                                        error={this.props.errorTextField.password}
+                                        name="first_name"
+                                        label="성"
+                                        placeholder="한글로 구성하셔야 합니다."
+                                        error={this.props.errorTextField.first_name}
                                         onChange={this.handleValueChange}
                                     />
-                                </form>
-                            </Container>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Container>
-                                <TextField
-                                    variant="filled"
-                                    fullWidth
-                                    required
-                                    name="first_name"
-                                    label="성"
-                                    placeholder="한글로 구성하셔야 합니다."
-                                    error={this.props.errorTextField.first_name}
-                                    onChange={this.handleValueChange}
-                                />
-                            </Container>
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <Container>
-                                <TextField
-                                    variant="filled"
-                                    fullWidth
-                                    required
-                                    name="last_name"
-                                    label="이름"
-                                    placeholder="한글로 구성하셔야 합니다."
-                                    error={this.props.errorTextField.last_name}
-                                    onChange={this.handleValueChange}
-                                />
-                            </Container>
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <Container>
-                                <TextField
-                                    variant="filled"
-                                    fullWidth
-                                    required
-                                    name="nickName"
-                                    label="닉네임"
-                                    placeholder="한글, 영문으로 구성하셔야 합니다."
-                                    error={this.props.errorTextField.nickName}
-                                    onChange={this.handleValueChange}
-                                />
-                            </Container>
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <Container>
-                                <TextField
-                                    variant="filled"
-                                    fullWidth
-                                    required
-                                    name="phone"
-                                    label="휴대폰"
-                                    error={this.props.errorTextField.phone}
-                                    onChange={this.handleValueChange}
-                                />
+                                </Box>
+                                <Box display="flex" mt={2} style={{ alignItems: "center" }}>
+                                    <TextField
+                                        variant="filled"
+                                        fullWidth
+                                        required
+                                        name="last_name"
+                                        label="이름"
+                                        placeholder="한글로 구성하셔야 합니다."
+                                        error={this.props.errorTextField.last_name}
+                                        onChange={this.handleValueChange}
+                                    />
+                                </Box>
+                                <Box display="flex" mt={2} style={{ alignItems: "center" }}>
+                                    <TextField
+                                        variant="filled"
+                                        fullWidth
+                                        required
+                                        name="nickName"
+                                        label="닉네임"
+                                        placeholder="한글, 영문으로 구성하셔야 합니다."
+                                        error={this.props.errorTextField.nickName}
+                                        onChange={this.handleValueChange}
+                                    />
+                                </Box>
+                                <Box display="flex" mt={2} style={{ alignItems: "center" }}>
+                                    <TextField
+                                        variant="filled"
+                                        fullWidth
+                                        required
+                                        name="phone"
+                                        label="휴대폰"
+                                        error={this.props.errorTextField.phone}
+                                        onChange={this.handleValueChange}
+                                    />
+                                </Box>
                             </Container>
                         </Grid>
                     </Grid>

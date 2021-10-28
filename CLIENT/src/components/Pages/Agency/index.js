@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router';
 import axios from 'axios'
 
-import { Container, Grid, Grow, Paper, IconButton, withStyles } from '@material-ui/core';
+import { Container, Grid, Grow, Paper, IconButton, withStyles, Typography } from '@material-ui/core';
 import { AddCircleIcon } from '../../common/CustomIcons';
 
 import UICircularProgress from '../../common/UICircularProgress'
@@ -12,7 +12,6 @@ import AgencyAddDialog from './AgencyAddDialog'
 
 const styles = theme => ({
     root: {
-        flexGrow: 1,
         paddingTop: theme.spacing(6)
     },
     trans: {
@@ -20,10 +19,6 @@ const styles = theme => ({
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)'
-    },
-    m2: {
-        display: "inline-block",
-        margin: theme.spacing(2)
     },
     relative: {
         position: 'relative',
@@ -37,6 +32,11 @@ const styles = theme => ({
         width: '100%',
         minHeight: '200px',
         maxHeight: '400px',
+    },
+    box: {
+        position : "relative",
+        minWidth : theme.spacing(48),
+        minHeight : theme.spacing(48),
     }
 });
 
@@ -64,22 +64,22 @@ export class Agency extends PureComponent {
                  * @description              : BIZ / 특정 사업 구분으로
                  * @description              : ADMIN / 관리자 전용 / 전체 리스트
                  */
-    
+
                 case 'M':
                     this.getAgencyList("ADMIN");
                     console.log("is admin");
                     break;
-    
+
                 case 'U':
                     this.getAgencyList("MINE");
-    
+
                     break;
-    
+
                 default:
                     break;
             }
         } catch (error) {
-            console.log("잘못된 접근입니다.");
+            console.log("세션이 종료되어 로그인 페이지로 이동합니다.");
             this.props.history.push("/login");
         }
     }
@@ -113,7 +113,14 @@ export class Agency extends PureComponent {
                 <Grid container spacing={3}>
                     {
                         this.state.agency === null || this.state.agency.length === 0 ?
-                            <UICircularProgress />
+                            <Grow
+                                in={this.state.awhile}
+                                timeout={this.state.awhile ? 800 : 0}
+                            >
+                                <Grid item xs={12} md={12} lg={12} className={classes.box}>
+                                    <Typography className={classes.trans} variant="h5">데이터가 없습니다.</Typography>
+                                </Grid>
+                            </Grow>
                             :
                             <React.Fragment>
                                 {
@@ -128,22 +135,14 @@ export class Agency extends PureComponent {
                                 }
                                 {
                                     this.props.member.ref_allow_action.indexOf('WRITE') !== -1 &&
-                                    <Grid item xs={12} md={6} lg={4} >
+                                    <Grid item xs={12} md={6} lg={4}>
                                         <Grow
                                             in={this.state.awhile}
                                             style={{ transformOrigin: '0 0 0' }}
                                             {...(this.state.awhile ? { timeout: 800 } : {})}
                                         >
                                             <Paper elevation={4} className={`${classes.relative}`}>
-                                                <IconButton
-                                                    className={classes.trans}
-                                                    color="inherit"
-                                                    onClick={() => {
-                                                        this.props.history.push(`/agency/add`)
-                                                    }}
-                                                >
-                                                    <AddCircleIcon />
-                                                </IconButton>
+                                                <AgencyAddDialog />
                                             </Paper>
                                         </Grow>
                                     </Grid>
@@ -151,7 +150,7 @@ export class Agency extends PureComponent {
                             </React.Fragment>
                     }
                 </Grid>
-            </Container>
+            </Container >
         )
     }
 }

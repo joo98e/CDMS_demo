@@ -167,8 +167,8 @@ export class AgencyDetail extends Component {
         })
             .catch((err) => {
                 console.log(err);
-                alert("잘못된 접근입니다.")
-                this.props.history.push('/');
+                console.log("잘못된 접근입니다.")
+                this.props.history.push("/login");
             });
 
     }
@@ -222,8 +222,8 @@ export class AgencyDetail extends Component {
         })
             .catch((err) => {
                 console.log(err);
-                alert("잘못된 접근입니다.")
-                this.props.history.push('/');
+                console.log("잘못된 접근입니다.")
+                this.props.history.push("/login");
             });;
     }
 
@@ -272,283 +272,283 @@ export class AgencyDetail extends Component {
                         </Paper>
                     </Grid>
                     {
-                        this.state.data ?
-                            <React.Fragment>
-                                {/* Area #1 */}
-                                <Grid item xs={12} md={12} lg={8}>
-                                    <Grow
-                                        in={this.state.awhile}
-                                        style={{ transformOrigin: '0 0 0' }}
-                                        timeout={this.state.awhile ? 600 : 0}
-                                    >
-                                        <Paper
-                                            elevation={4}
-                                            className={`${classes.minHeight} + ${classes.bxsizing} + ${classes.relative} + ${classes.bdBox}`}
-                                        >
-                                            <Typography
-                                                className={classes.mb1}
-                                                variant={"h6"}
-                                            >
-                                                최근 활동
-                                            </Typography>
-                                            <Divider />
-                                            <UIButton
-                                                class={classes.more}
-                                                name="MORE"
-                                                variant="contained"
-                                                action={() => { }}
-                                            />
-                                            <Box className={classes.flexColumn}>
-                                                {
-                                                    (this.state.newsData && this.state.newsData.length !== 0) ?
-                                                        this.state.newsData.map((item, index) => {
-                                                            return (
-                                                                <UINewsByNotice
-                                                                    key={index}
-                                                                    num={index + 1}
-                                                                    data={item}
-                                                                />
-                                                            )
-                                                        })
-                                                        :
-                                                        <Typography className={classes.trans} variant="body1" align="center" component="div">
-                                                            데이터가 없습니다.
-                                                        </Typography>
-                                                }
-                                            </Box>
-                                        </Paper>
-                                    </Grow>
-                                </Grid>
+                        // this.state.data ?
+                        //     <React.Fragment>
+                        //         {/* Area #1 */}
+                        //         <Grid item xs={12} md={12} lg={8}>
+                        //             <Grow
+                        //                 in={this.state.awhile}
+                        //                 style={{ transformOrigin: '0 0 0' }}
+                        //                 timeout={this.state.awhile ? 600 : 0}
+                        //             >
+                        //                 <Paper
+                        //                     elevation={4}
+                        //                     className={`${classes.minHeight} + ${classes.bxsizing} + ${classes.relative} + ${classes.bdBox}`}
+                        //                 >
+                        //                     <Typography
+                        //                         className={classes.mb1}
+                        //                         variant={"h6"}
+                        //                     >
+                        //                         최근 활동
+                        //                     </Typography>
+                        //                     <Divider />
+                        //                     <UIButton
+                        //                         class={classes.more}
+                        //                         name="MORE"
+                        //                         variant="contained"
+                        //                         action={() => { }}
+                        //                     />
+                        //                     <Box className={classes.flexColumn}>
+                        //                         {
+                        //                             (this.state.newsData && this.state.newsData.length !== 0) ?
+                        //                                 this.state.newsData.map((item, index) => {
+                        //                                     return (
+                        //                                         <UINewsByNotice
+                        //                                             key={index}
+                        //                                             num={index + 1}
+                        //                                             data={item}
+                        //                                         />
+                        //                                     )
+                        //                                 })
+                        //                                 :
+                        //                                 <Typography className={classes.trans} variant="body1" align="center" component="div">
+                        //                                     데이터가 없습니다.
+                        //                                 </Typography>
+                        //                         }
+                        //                     </Box>
+                        //                 </Paper>
+                        //             </Grow>
+                        //         </Grid>
 
-                                {/* Area #2 */}
-                                <Grid item xs={12} md={12} lg={4}>
-                                    <Grow
-                                        in={this.state.awhile}
-                                        style={{ transformOrigin: '0 0 0' }}
-                                        timeout={this.state.awhile ? 600 : 0}
-                                    >
-                                        <Paper
-                                            elevation={4}
-                                            className={`${classes.minHeight} + ${classes.bxsizing} + ${classes.relative} + ${classes.bdBox}`}
-                                        >
-                                            <Typography
-                                                className={`${classes.mb1}`}
-                                                variant={"h6"}
-                                            >
-                                                정보
-                                            </Typography>
-                                            <UIButton
-                                                class={classes.more}
-                                                name="MORE"
-                                                variant="contained"
-                                                action={() => { }}
-                                            />
-                                            <Divider />
-                                            {
-                                                this.state.data.add_info && this.state.data.add_info.length !== 0 ?
-                                                    this.state.data.add_info.map((item, index) => {
-                                                        return (
-                                                            <Grid
-                                                                key={index}
-                                                                container
-                                                                className={classes.vertical_m_1}
-                                                            >
-                                                                <Grid item xs={6} md={6} lg={6}>
-                                                                    <Typography
-                                                                        className={`${classes.hiddenText} + ${classes.subText}`}
-                                                                        variant="body1"
-                                                                        align="left"
-                                                                    >
-                                                                        {item.key}
-                                                                    </Typography>
-                                                                </Grid>
-                                                                <Grid item xs={6} md={6} lg={6}>
-                                                                    <Typography
-                                                                        className={classes.hiddenText}
-                                                                        variant="body1"
-                                                                        align="left"
-                                                                    >
-                                                                        {item.value}
-                                                                    </Typography>
-                                                                </Grid>
-                                                            </Grid>
-                                                        )
-                                                    })
-                                                    :
-                                                    <Typography className={classes.trans} variant="body1">
-                                                        데이터가 없습니다.
-                                                    </Typography>
-                                            }
-                                        </Paper>
-                                    </Grow>
-                                </Grid>
+                        //         {/* Area #2 */}
+                        //         <Grid item xs={12} md={12} lg={4}>
+                        //             <Grow
+                        //                 in={this.state.awhile}
+                        //                 style={{ transformOrigin: '0 0 0' }}
+                        //                 timeout={this.state.awhile ? 600 : 0}
+                        //             >
+                        //                 <Paper
+                        //                     elevation={4}
+                        //                     className={`${classes.minHeight} + ${classes.bxsizing} + ${classes.relative} + ${classes.bdBox}`}
+                        //                 >
+                        //                     <Typography
+                        //                         className={`${classes.mb1}`}
+                        //                         variant={"h6"}
+                        //                     >
+                        //                         정보
+                        //                     </Typography>
+                        //                     <UIButton
+                        //                         class={classes.more}
+                        //                         name="MORE"
+                        //                         variant="contained"
+                        //                         action={() => { }}
+                        //                     />
+                        //                     <Divider />
+                        //                     {
+                        //                         this.state.data.add_info && this.state.data.add_info.length !== 0 ?
+                        //                             this.state.data.add_info.map((item, index) => {
+                        //                                 return (
+                        //                                     <Grid
+                        //                                         key={index}
+                        //                                         container
+                        //                                         className={classes.vertical_m_1}
+                        //                                     >
+                        //                                         <Grid item xs={6} md={6} lg={6}>
+                        //                                             <Typography
+                        //                                                 className={`${classes.hiddenText} + ${classes.subText}`}
+                        //                                                 variant="body1"
+                        //                                                 align="left"
+                        //                                             >
+                        //                                                 {item.key}
+                        //                                             </Typography>
+                        //                                         </Grid>
+                        //                                         <Grid item xs={6} md={6} lg={6}>
+                        //                                             <Typography
+                        //                                                 className={classes.hiddenText}
+                        //                                                 variant="body1"
+                        //                                                 align="left"
+                        //                                             >
+                        //                                                 {item.value}
+                        //                                             </Typography>
+                        //                                         </Grid>
+                        //                                     </Grid>
+                        //                                 )
+                        //                             })
+                        //                             :
+                        //                             <Typography className={classes.trans} variant="body1">
+                        //                                 데이터가 없습니다.
+                        //                             </Typography>
+                        //                     }
+                        //                 </Paper>
+                        //             </Grow>
+                        //         </Grid>
 
-                                {/* Area #3 */}
-                                {/* <Grid item xs={12} md={6} lg={3}>
-                                    <Grow
-                                        in={this.state.awhile}
-                                        style={{ transformOrigin: '0 0 0' }}
-                                        timeout={this.state.awhile ? 600 : 0}
-                                    >
-                                        <Paper
-                                            elevation={4}
-                                            className={`${classes.minHeight} + ${classes.bxsizing} + ${classes.bdBox}`}
-                                        >
-                                            <Typography
-                                                className={`${classes.mb1}`}
-                                                variant={"h6"}
-                                            >
-                                                등록자
-                                            </Typography>
-                                            <Divider />
-                                            <Grid
-                                                container
-                                                className={classes.vertical_m_1}
-                                            >
-                                                {this.state.data &&
-                                                    toWrite.map((item, index) => {
-                                                        return (
-                                                            <React.Fragment key={index}>
-                                                                <Grid item xs={6} md={6} lg={6}>
-                                                                    <Typography
-                                                                        variant="body1"
-                                                                        align="left"
-                                                                        className={`${classes.hiddenText} + ${classes.subText}`}
-                                                                    >
-                                                                        {item.key}
-                                                                    </Typography>
-                                                                </Grid>
-                                                                <Grid item xs={6} md={6} lg={6}>
-                                                                    <Typography
-                                                                        variant="body1"
-                                                                        align="left"
-                                                                        className={classes.hiddenText}
-                                                                    >
-                                                                        {item.value}
-                                                                    </Typography>
-                                                                </Grid>
-                                                            </React.Fragment>
-                                                        )
-                                                    })
-                                                }
+                        //         {/* Area #3 */}
+                        //         {/* <Grid item xs={12} md={6} lg={3}>
+                        //             <Grow
+                        //                 in={this.state.awhile}
+                        //                 style={{ transformOrigin: '0 0 0' }}
+                        //                 timeout={this.state.awhile ? 600 : 0}
+                        //             >
+                        //                 <Paper
+                        //                     elevation={4}
+                        //                     className={`${classes.minHeight} + ${classes.bxsizing} + ${classes.bdBox}`}
+                        //                 >
+                        //                     <Typography
+                        //                         className={`${classes.mb1}`}
+                        //                         variant={"h6"}
+                        //                     >
+                        //                         등록자
+                        //                     </Typography>
+                        //                     <Divider />
+                        //                     <Grid
+                        //                         container
+                        //                         className={classes.vertical_m_1}
+                        //                     >
+                        //                         {this.state.data &&
+                        //                             toWrite.map((item, index) => {
+                        //                                 return (
+                        //                                     <React.Fragment key={index}>
+                        //                                         <Grid item xs={6} md={6} lg={6}>
+                        //                                             <Typography
+                        //                                                 variant="body1"
+                        //                                                 align="left"
+                        //                                                 className={`${classes.hiddenText} + ${classes.subText}`}
+                        //                                             >
+                        //                                                 {item.key}
+                        //                                             </Typography>
+                        //                                         </Grid>
+                        //                                         <Grid item xs={6} md={6} lg={6}>
+                        //                                             <Typography
+                        //                                                 variant="body1"
+                        //                                                 align="left"
+                        //                                                 className={classes.hiddenText}
+                        //                                             >
+                        //                                                 {item.value}
+                        //                                             </Typography>
+                        //                                         </Grid>
+                        //                                     </React.Fragment>
+                        //                                 )
+                        //                             })
+                        //                         }
 
-                                            </Grid>
-                                        </Paper>
-                                    </Grow>
-                                </Grid> */}
+                        //                     </Grid>
+                        //                 </Paper>
+                        //             </Grow>
+                        //         </Grid> */}
 
-                                {/* Area #4 */}
-                                <Grid item xs={12} md={12} lg={12}>
-                                    <Grow
-                                        in={this.state.awhile}
-                                        style={{ transformOrigin: '0 0 0' }}
-                                        timeout={this.state.awhile ? 400 : 0}
-                                    >
-                                        <Paper
-                                            elevation={4}
-                                            className={classes.bxsizing}
-                                        >
-                                            <Typography
-                                                className={`${classes.lh_2}`}
-                                                variant={"h5"}
-                                            >
-                                                진행중인 프로젝트
-                                            </Typography>
-                                            <Divider />
-                                            <Grid
-                                                className={classes.vertical_m_1}
-                                                container
-                                                spacing={4}
-                                            >
-                                                {
-                                                    this.state.projectData && this.state.projectData.length !== 0 &&
-                                                    this.state.projectData.map((item, index) => {
-                                                        return (
-                                                            <ProjectCard
-                                                                key={index}
-                                                                item={item}
-                                                            />
-                                                        )
-                                                    })
-                                                }
+                        //         {/* Area #4 */}
+                        //         <Grid item xs={12} md={12} lg={12}>
+                        //             <Grow
+                        //                 in={this.state.awhile}
+                        //                 style={{ transformOrigin: '0 0 0' }}
+                        //                 timeout={this.state.awhile ? 400 : 0}
+                        //             >
+                        //                 <Paper
+                        //                     elevation={4}
+                        //                     className={classes.bxsizing}
+                        //                 >
+                        //                     <Typography
+                        //                         className={`${classes.lh_2}`}
+                        //                         variant={"h5"}
+                        //                     >
+                        //                         진행중인 프로젝트
+                        //                     </Typography>
+                        //                     <Divider />
+                        //                     <Grid
+                        //                         className={classes.vertical_m_1}
+                        //                         container
+                        //                         spacing={4}
+                        //                     >
+                        //                         {
+                        //                             this.state.projectData && this.state.projectData.length !== 0 &&
+                        //                             this.state.projectData.map((item, index) => {
+                        //                                 return (
+                        //                                     <ProjectCard
+                        //                                         key={index}
+                        //                                         item={item}
+                        //                                     />
+                        //                                 )
+                        //                             })
+                        //                         }
 
-                                                {
-                                                    this.state.writeStatus ?
-                                                        <Grid item xs={12} md={3} lg={3}>
-                                                            <Paper elevation={4} className={`${classes.relative} + ${classes.h_560px}`}>
-                                                                <IconButton
-                                                                    className={classes.trans}
-                                                                    color="inherit"
-                                                                    onClick={() => {
-                                                                        this.props.history.push(`/agency/project/add/${this.props.match.params.ref_agcy_id}`)
-                                                                    }}
-                                                                >
-                                                                    <AddCircleIcon />
-                                                                </IconButton>
-                                                            </Paper>
-                                                        </Grid>
-                                                        :
-                                                        this.state.projectData && this.state.projectData.length === 0 &&
-                                                        <Grid item xs={12} md={12} lg={12} className={`${classes.h_560px} + ${classes.flexBox}`}>
-                                                            <Typography variant="body1" align="center" component="div">
-                                                                데이터가 없습니다.
-                                                            </Typography>
-                                                        </Grid>
-                                                }
+                        //                         {
+                        //                             this.state.writeStatus ?
+                        //                                 <Grid item xs={12} md={3} lg={3}>
+                        //                                     <Paper elevation={4} className={`${classes.relative} + ${classes.h_560px}`}>
+                        //                                         <IconButton
+                        //                                             className={classes.trans}
+                        //                                             color="inherit"
+                        //                                             onClick={() => {
+                        //                                                 this.props.history.push(`/agency/project/add/${this.props.match.params.ref_agcy_id}`)
+                        //                                             }}
+                        //                                         >
+                        //                                             <AddCircleIcon />
+                        //                                         </IconButton>
+                        //                                     </Paper>
+                        //                                 </Grid>
+                        //                                 :
+                        //                                 this.state.projectData && this.state.projectData.length === 0 &&
+                        //                                 <Grid item xs={12} md={12} lg={12} className={`${classes.h_560px} + ${classes.flexBox}`}>
+                        //                                     <Typography variant="body1" align="center" component="div">
+                        //                                         데이터가 없습니다.
+                        //                                     </Typography>
+                        //                                 </Grid>
+                        //                         }
 
-                                            </Grid>
-                                        </Paper>
-                                    </Grow>
-                                </Grid>
+                        //                     </Grid>
+                        //                 </Paper>
+                        //             </Grow>
+                        //         </Grid>
 
-                                {/* Area #4 */}
-                                <Grid item xs={12} md={12} lg={12}>
-                                    <Grow
-                                        in={this.state.awhile}
-                                        style={{ transformOrigin: '0 0 0' }}
-                                        timeout={this.state.awhile ? 400 : 0}
-                                    >
-                                        <Paper
-                                            elevation={4}
-                                            className={classes.bxsizing}
-                                        >
-                                            <Typography
-                                                className={`${classes.lh_2}`}
-                                                variant={"h5"}
-                                            >
-                                                종료된 프로젝트
-                                            </Typography>
-                                            <Divider />
-                                            <Grid
-                                                className={classes.vertical_m_1}
-                                                container
-                                                spacing={4}
-                                            >
-                                                {
-                                                    this.state.endProjectData && this.state.endProjectData.length !== 0 ?
-                                                        this.state.endProjectData.map((item, index) => {
-                                                            return (
-                                                                <ProjectCard
-                                                                    key={index}
-                                                                    item={item}
-                                                                />
-                                                            )
-                                                        })
-                                                        :
-                                                        <Grid item xs={12} md={12} lg={12} className={`${classes.h_560px} + ${classes.flexBox}`}>
-                                                            <Typography variant="body1" align="center" component="div">
-                                                                데이터가 없습니다.
-                                                            </Typography>
-                                                        </Grid>
-                                                }
-                                            </Grid>
-                                        </Paper>
-                                    </Grow>
-                                </Grid>
+                        //         {/* Area #4 */}
+                        //         <Grid item xs={12} md={12} lg={12}>
+                        //             <Grow
+                        //                 in={this.state.awhile}
+                        //                 style={{ transformOrigin: '0 0 0' }}
+                        //                 timeout={this.state.awhile ? 400 : 0}
+                        //             >
+                        //                 <Paper
+                        //                     elevation={4}
+                        //                     className={classes.bxsizing}
+                        //                 >
+                        //                     <Typography
+                        //                         className={`${classes.lh_2}`}
+                        //                         variant={"h5"}
+                        //                     >
+                        //                         종료된 프로젝트
+                        //                     </Typography>
+                        //                     <Divider />
+                        //                     <Grid
+                        //                         className={classes.vertical_m_1}
+                        //                         container
+                        //                         spacing={4}
+                        //                     >
+                        //                         {
+                        //                             this.state.endProjectData && this.state.endProjectData.length !== 0 ?
+                        //                                 this.state.endProjectData.map((item, index) => {
+                        //                                     return (
+                        //                                         <ProjectCard
+                        //                                             key={index}
+                        //                                             item={item}
+                        //                                         />
+                        //                                     )
+                        //                                 })
+                        //                                 :
+                        //                                 <Grid item xs={12} md={12} lg={12} className={`${classes.h_560px} + ${classes.flexBox}`}>
+                        //                                     <Typography variant="body1" align="center" component="div">
+                        //                                         데이터가 없습니다.
+                        //                                     </Typography>
+                        //                                 </Grid>
+                        //                         }
+                        //                     </Grid>
+                        //                 </Paper>
+                        //             </Grow>
+                        //         </Grid>
 
-                            </React.Fragment>
-                            :
-                            <UICircularProgress />
+                        //     </React.Fragment>
+                        //     :
+                        //     <UICircularProgress />
                     }
                 </Grid>
             </Box >
