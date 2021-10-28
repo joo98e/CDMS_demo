@@ -369,7 +369,7 @@ export default function FullScreenDialog() {
                                     <UIDatePicker
                                         name="start_date"
                                         label="사업 시작일"
-                                        class={classes.w100}
+                                        class={classes.textFieldStyle}
                                         resultAction={handleChangeDate}
                                     />
                                 </ListItem>
@@ -379,7 +379,7 @@ export default function FullScreenDialog() {
                                     <UIDatePicker
                                         name="end_date"
                                         label="사업 종료일"
-                                        class={classes.w100}
+                                        class={classes.textFieldStyle}
                                         resultAction={handleChangeDate}
                                     />
                                 </ListItem>
