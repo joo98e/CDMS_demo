@@ -39,7 +39,6 @@ const styles = theme => ({
 
 const stepInfo = {
     stepsTitle: [
-        "이용약관",
         "어떤 분이신가요?",
         "어떤 업무를 하시나요?",
         "완료",
@@ -120,7 +119,7 @@ export class index extends PureComponent {
                                     return result = false;
                                 }
                                 break;
-                            
+
                             case "passwordCheck":
                                 if (_obj[item] === "") {
                                     this.props.enqueueSnackbar("비밀번호 확인란을 입력해주세요!", { variant: "warning" });
@@ -130,7 +129,7 @@ export class index extends PureComponent {
                                             password: true
                                         }
                                     });
-                                    
+
                                     return result = false;
                                 } else if (_obj[item] !== _obj.password) {
                                     this.props.enqueueSnackbar("비밀번호가 일치하지 않습니다.", { variant: "warning" });
@@ -143,7 +142,7 @@ export class index extends PureComponent {
 
                                     return result = false;
                                 }
-                                
+
                                 break;
 
                             case "first_name":
@@ -226,7 +225,7 @@ export class index extends PureComponent {
                     this.props.setRegisterMemberInfo({
                         ...this.props.registerMember,
                         dept_no: "",
-                        rank_no : ""
+                        rank_no: ""
                     })
 
                     break;
@@ -258,7 +257,7 @@ export class index extends PureComponent {
                                 break;
                         }
                     }
-                    
+
                     if (result) {
                         this.props.enqueueSnackbar(`정말 멋진 업무에요!`, { variant: 'success' });
                         this.confirm();
@@ -295,7 +294,7 @@ export class index extends PureComponent {
             return this.props.enqueueSnackbar("ID는 이메일 형식입니다.", { variant: "warning" });
         } else {
             const URL = '/api/register/duplicateCheckId'
-    
+
             axios.post(URL, this.props.registerMember)
                 .then(res => {
                     if (res.data.resultCode === 1) {
@@ -389,15 +388,15 @@ export class index extends PureComponent {
             //     Component: <Policy />
             // },
             {
-                StepNum: 1,
+                StepNum: 0,
                 Component: <InputPrivacy handleClickMoveStep={this.handleClickMoveStep} errorTextField={this.state.errorTextField} handleIdDuplicateCheck={this.handleIdDuplicateCheck} />
             },
             {
-                StepNum: 2,
+                StepNum: 1,
                 Component: <InputWorkInfo />
             },
             {
-                StepNum: 3,
+                StepNum: 2,
                 Component: <Success />
             },
         ];
@@ -459,6 +458,6 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => ({
     registerMember: state.Producer.registerMember,
-    accessInfo : state.User.accessInfo
+    accessInfo: state.User.accessInfo
 });
 export default connect(mapStateToProps, mapDispatchToProps)(withSnackbar(withStyles(styles)(withRouter(index))))

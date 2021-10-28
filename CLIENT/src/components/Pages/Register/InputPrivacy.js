@@ -174,7 +174,7 @@ export class InputAccount extends PureComponent {
                                     </IconButton>
                                 </Box>
                                 <Box display="flex" mt={2} style={{ alignItems: "center" }}>
-                                    <form>
+                                    <form style={{ width: "100%" }}>
                                         <TextField
                                             fullWidth
                                             variant="filled"
@@ -189,6 +189,7 @@ export class InputAccount extends PureComponent {
                                         />
                                     </form>
                                 </Box>
+                                <Divider className={classes.marginBottom3} />
                                 <Box display="flex" mt={2} style={{ alignItems: "center" }}>
                                     <TextField
                                         variant="filled"
@@ -213,6 +214,7 @@ export class InputAccount extends PureComponent {
                                         onChange={this.handleValueChange}
                                     />
                                 </Box>
+                                <Divider className={classes.marginBottom3} />
                                 <Box display="flex" mt={2} style={{ alignItems: "center" }}>
                                     <TextField
                                         variant="filled"

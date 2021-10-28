@@ -2,13 +2,11 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router';
 import axios from 'axios'
-
-import { Container, Grid, Grow, Paper, IconButton, withStyles, Typography } from '@material-ui/core';
+import { Container, Grid, Grow, Paper, IconButton, withStyles, Typography, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
 import { AddCircleIcon } from '../../common/CustomIcons';
-
-import UICircularProgress from '../../common/UICircularProgress'
 import AgencyCard from './AgencyCard'
 import AgencyAddDialog from './AgencyAddDialog'
+import UIButton from '../../common/UIButton';
 
 const styles = theme => ({
     root: {
@@ -34,9 +32,13 @@ const styles = theme => ({
         maxHeight: '400px',
     },
     box: {
-        position : "relative",
-        minWidth : theme.spacing(48),
-        minHeight : theme.spacing(48),
+        position: "relative",
+        minWidth: theme.spacing(48),
+        minHeight: theme.spacing(48),
+    },
+    alertBox: {
+        position: "relative",
+        minHeight: "10vw",
     }
 });
 
@@ -46,14 +48,16 @@ export class Agency extends PureComponent {
 
         this.state = {
             agency: null,
-            awhile: false
+            awhile: false,
+            open: false
         }
     }
 
     componentDidMount() {
+        console.log(this.props.member.ref_allow_action.indexOf('WRITE'));
         this.setState({
             ...this.state,
-            awhile: true
+            awhile: true,
         });
 
         try {
@@ -97,7 +101,8 @@ export class Agency extends PureComponent {
         }).then(res => {
             this.setState({
                 ...this.state,
-                agency: res.data.result
+                agency: res.data.result,
+                open: res.data.length !== 0 ? true : false
             });
         })
             .catch(err => {
@@ -111,45 +116,77 @@ export class Agency extends PureComponent {
         return (
             <Container className={classes.root}>
                 <Grid container spacing={3}>
-                    {
-                        this.state.agency === null || this.state.agency.length === 0 ?
-                            <Grow
-                                in={this.state.awhile}
-                                timeout={this.state.awhile ? 800 : 0}
-                            >
+                    <Grow
+                        in={this.state.awhile}
+                        timeout={this.state.awhile ? 800 : 0}
+                    >
+                        {
+                            this.state.agency === null || this.state.agency.length === 0 ?
                                 <Grid item xs={12} md={12} lg={12} className={classes.box}>
-                                    <Typography className={classes.trans} variant="h5">데이터가 없습니다.</Typography>
+                                    {
+                                        this.props.member.ref_allow_action.indexOf('WRITE') === -1 ?
+                                            <Typography className={classes.trans} variant="h5">참여하고 있는 프로젝트가 없습니다.</Typography>
+                                            :
+                                            <Grow
+                                                in={this.state.awhile}
+                                                style={{ transformOrigin: '0 0 0' }}
+                                                timeout={this.state.awhile ? 800 : 0}
+                                            >
+                                                <Grid item xs={12} md={6} lg={4}>
+                                                    <Paper elevation={4} className={`${classes.relative}`}>
+                                                        <AgencyAddDialog />
+                                                    </Paper>
+                                                </Grid>
+                                            </Grow>
+                                    }
                                 </Grid>
-                            </Grow>
-                            :
-                            <React.Fragment>
-                                {
-                                    this.state.agency.map((item, index) => {
-                                        return (
-                                            <AgencyCard
-                                                key={item.id}
-                                                item={item}
-                                            />
-                                        )
-                                    })
-                                }
-                                {
-                                    this.props.member.ref_allow_action.indexOf('WRITE') !== -1 &&
-                                    <Grid item xs={12} md={6} lg={4}>
-                                        <Grow
-                                            in={this.state.awhile}
-                                            style={{ transformOrigin: '0 0 0' }}
-                                            {...(this.state.awhile ? { timeout: 800 } : {})}
-                                        >
+                                :
+                                <React.Fragment>
+                                    {
+                                        this.state.agency.map((item, index) => {
+                                            return (
+                                                <AgencyCard
+                                                    key={item.id}
+                                                    item={item}
+                                                />
+                                            )
+                                        })
+                                    }
+                                    <Grow
+                                        in={this.state.awhile}
+                                        style={{ transformOrigin: '0 0 0' }}
+                                        timeout={this.state.awhile ? 800 : 0}
+                                    >
+                                        <Grid item xs={12} md={6} lg={4}>
                                             <Paper elevation={4} className={`${classes.relative}`}>
                                                 <AgencyAddDialog />
                                             </Paper>
-                                        </Grow>
-                                    </Grid>
-                                }
-                            </React.Fragment>
-                    }
+                                        </Grid>
+                                    </Grow>
+                                </React.Fragment>
+                        }
+                    </Grow>
                 </Grid>
+
+                {
+                    (this.state.agency === null || this.state.agency.length === 0) && this.props.member.ref_allow_action.indexOf('WRITE') !== -1
+                    &&
+                    <Dialog open={this.state.open} fullWidth>
+                        <DialogContent className={classes.alertBox}>
+                            <Typography className={classes.trans} variant="h6" align="center" style={{ width: "100%" }}>
+                                플러스 버튼을 클릭해 프로젝트를 생성해보세요.
+                            </Typography>
+                        </DialogContent>
+                        <DialogActions>
+                            <UIButton
+                                name="닫기"
+                                variant="contained"
+                                action={() => this.setState({ ...this.state, open: false })}
+                            />
+                        </DialogActions>
+                    </Dialog>
+                }
+
             </Container >
         )
     }

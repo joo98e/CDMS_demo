@@ -6,14 +6,17 @@ export class Success extends PureComponent {
     render() {
 
         return (
-            <Box>
-                <Divider />
+            <Box
+                style={{
+                    marginTop : "350px"
+                }}
+            >
                 <Box mt={8} mb={4}>
                     <Typography variant="h4" align='center'>
                         회원가입 성공!
                     </Typography>
                     <Typography variant="h6" align='center'>
-                        단, 권한을 부여 받기 전까지는 로그인이 되지 않아요.
+                        관리자로부터 권한을 받은 뒤 로그인이 가능합니다.
                     </Typography>
                 </Box>
             </Box>

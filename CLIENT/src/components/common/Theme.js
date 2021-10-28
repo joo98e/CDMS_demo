@@ -12,7 +12,7 @@ const theme = {
                 selected: "rgba(0, 0, 0, 0.04)",
             },
             primary: {
-                main: "#FFF",
+                main: "#5a5a5a",
                 light: "#7d8e9e",
                 dark: "#a2b7cc",
             },
@@ -76,7 +76,8 @@ const theme = {
                 root: {
                     "&$focused": {
                         color: "#333",
-                        fontWeight: "bold"
+                        fontWeight: "bold",
+                        borderColor : "#000"
                     },
                     "&$selected": {
                         color: "#333",

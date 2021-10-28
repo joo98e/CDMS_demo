@@ -356,12 +356,12 @@ export default function FullScreenDialog() {
                                 <Divider />
                                 <ListItem>
                                     <ListItemText primary="기관명" />
-                                    <TextField className={classes.textFieldStyle} variant="outlined" placeholder="기관명" inputProps={TextFieldInputProps} name="name" onChange={handleChangeAgencyInfos} />
+                                    <TextField className={classes.textFieldStyle} variant="filled" placeholder="기관명" inputProps={TextFieldInputProps} name="name" onChange={handleChangeAgencyInfos} />
                                 </ListItem>
                                 <Divider />
                                 <ListItem>
                                     <ListItemText primary="기관 설명" />
-                                    <TextField className={classes.textFieldStyle} variant="outlined" placeholder="기관 설명" inputProps={TextFieldInputProps} name="desc" onChange={handleChangeAgencyInfos} />
+                                    <TextField className={classes.textFieldStyle} variant="filled" placeholder="기관 설명" inputProps={TextFieldInputProps} name="desc" onChange={handleChangeAgencyInfos} />
                                 </ListItem>
                                 <Divider />
                                 <ListItem>

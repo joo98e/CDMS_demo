@@ -70,55 +70,55 @@ export class MyNav extends Component {
     mailConfirm = () => {
         const URL = "/api/mail/send"
 
-        if (window.confirm("실행하시겠습니까?")) {
-            let _status = true;
-            let _msg = String;
-            const params = [
-                {
-                    receiver: "askjmyyyojqa@gmail.com",
-                    subject: "1번째",
-                    content: " 1번째 내용"
-                },
-                {
-                    receiver: "askjmyyyojqa@naver.com",
-                    subject: "2번째",
-                    content: " 2번째 내용"
-                }, {
-                    receiver: "askjmyyyojqa@daum.net",
-                    subject: "3번째",
-                    content: " 3번째 내용"
-                }, {
-                    receiver: "askjmyyyojqa@mirimmedialab.co.kr",
-                    subject: "4번째",
-                    content: " 4번째 내용"
-                },
-            ];
+        // if (window.confirm("실행하시겠습니까?")) {
+        //     let _status = true;
+        //     let _msg = String;
+        //     const params = [
+        //         {
+        //             receiver: "askjmyyyojqa@gmail.com",
+        //             subject: "1번째",
+        //             content: " 1번째 내용"
+        //         },
+        //         {
+        //             receiver: "askjmyyyojqa@naver.com",
+        //             subject: "2번째",
+        //             content: " 2번째 내용"
+        //         }, {
+        //             receiver: "askjmyyyojqa@daum.net",
+        //             subject: "3번째",
+        //             content: " 3번째 내용"
+        //         }, {
+        //             receiver: "askjmyyyojqa@mirimmedialab.co.kr",
+        //             subject: "4번째",
+        //             content: " 4번째 내용"
+        //         },
+        //     ];
 
-            for (const props in params) {
+        //     for (const props in params) {
 
-                switch (props) {
-                    case "_Content":
+        //         switch (props) {
+        //             case "_Content":
 
-                        break;
+        //                 break;
 
-                    default:
-                        if (params[props] === null || params[props] === "") {
-                            _status = false
-                            _msg = `${props}는 NULL이 허용되지 않습니다.`;
-                        };
-                        break;
-                }
-            }
+        //             default:
+        //                 if (params[props] === null || params[props] === "") {
+        //                     _status = false
+        //                     _msg = `${props}는 NULL이 허용되지 않습니다.`;
+        //                 };
+        //                 break;
+        //         }
+        //     }
 
-            if (_status) {
-                axios.post(URL, params)
-                    .then(res => {
-                        console.log(res);
-                    });
-            } else {
-                alert(_msg);
-            }
-        }
+        //     if (_status) {
+        //         axios.post(URL, params)
+        //             .then(res => {
+        //                 console.log(res);
+        //             });
+        //     } else {
+        //         alert(_msg);
+        //     }
+        // }
     }
 
     handleLogout = () => {
@@ -159,7 +159,7 @@ export class MyNav extends Component {
 
         return (
             <div className={classes.root}>
-                <AppBar position='fixed'>
+                <AppBar color="default" position='fixed'>
                     <Toolbar>
                         <UISidebar />
 

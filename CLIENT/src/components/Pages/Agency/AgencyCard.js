@@ -92,21 +92,21 @@ function AgencyCard(props) {
   }
 
   const headerActionList = [
-    {
-        name: "수정하기",
-        icon: <EditIcon />,
-        action: () => {console.log("수정하기")}
-    },
-    {
-        name: "삭제하기",
-        icon: <DeleteIcon />,
-        action: () => {console.log("삭제하기")}
-    },
-    {
-      name: "알림 메일 보내기",
-      icon: <MailIcon />,
-      action: () => {console.log("알림 메일 보내기")}
-    },
+    // {
+    //     name: "수정하기",
+    //     icon: <EditIcon />,
+    //     action: () => {console.log("수정하기")}
+    // },
+    // {
+    //     name: "삭제하기",
+    //     icon: <DeleteIcon />,
+    //     action: () => {console.log("삭제하기")}
+    // },
+    // {
+    //   name: "알림 메일 보내기",
+    //   icon: <MailIcon />,
+    //   action: () => {console.log("알림 메일 보내기")}
+    // },
 ]
 
   React.useEffect(() => {
