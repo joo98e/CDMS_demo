@@ -80,15 +80,15 @@ export class MyNav extends Component {
                     content: " 1번째 내용"
                 },
                 {
-                    receiver: "askjmyyyojqa@gmail.com",
+                    receiver: "askjmyyyojqa@naver.com",
                     subject: "2번째",
                     content: " 2번째 내용"
                 }, {
-                    receiver: "askjmyyyojqa@gmail.com",
+                    receiver: "askjmyyyojqa@daum.net",
                     subject: "3번째",
                     content: " 3번째 내용"
                 }, {
-                    receiver: "askjmyyyojqa@gmail.com",
+                    receiver: "askjmyyyojqa@mirimmedialab.co.kr",
                     subject: "4번째",
                     content: " 4번째 내용"
                 },
