@@ -34,19 +34,12 @@ export class Layout extends Component {
         window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     }
 
-    // redirectEvent = () => {
-    //     if (!this.props.user.auth || !this.props.user.member === null) {
-    //         this.props.history.location.pathname !== "/login" && this.props.history.push('/login');
-    //     }
-    // }
-
     componentDidMount() {
         this.props.handleSetPathGuider(getPathGuider(this.props.history.location.pathname));
     }
     
     componentDidUpdate() {
         this.scrollEvent();
-        // this.redirectEvent();
         this.props.handleSetPathGuider(getPathGuider(this.props.history.location.pathname));
     }
 

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import {
     Container, Grow, Typography, withStyles,
-    Box, Divider, Button, ButtonGroup
+    Box, Button, ButtonGroup
 } from '@material-ui/core'
 import { withSnackbar } from 'notistack';
 import { withRouter } from 'react-router-dom';
@@ -70,6 +70,10 @@ export class index extends PureComponent {
             ...this.state,
             awhile: true
         });
+
+        if (this.props.auth || this.props.member) {
+            this.props.history.push("/agency");
+        }
     }
 
     handleClickMoveStep = param => {
@@ -458,6 +462,8 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => ({
     registerMember: state.Producer.registerMember,
-    accessInfo: state.User.accessInfo
+    accessInfo: state.User.accessInfo,
+    member: state.User.member,
+    auth: state.User.auth,
 });
 export default connect(mapStateToProps, mapDispatchToProps)(withSnackbar(withStyles(styles)(withRouter(index))))

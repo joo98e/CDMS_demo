@@ -54,7 +54,6 @@ export class Agency extends PureComponent {
     }
 
     componentDidMount() {
-        console.log(this.props.member.ref_allow_action.indexOf('WRITE'));
         this.setState({
             ...this.state,
             awhile: true,
