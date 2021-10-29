@@ -38,6 +38,12 @@ function UIButton(props) {
                 onClick={props.action ? props.action : () => {
                     console.error("오류, action이 정의되지 않았습니다.");
                 }}
+                style={
+                    props.inputStyle &&
+                    {
+                        ...props.inputStyle
+                    }
+                }
             >
                 <Typography variant="body1">
                     {props.name}

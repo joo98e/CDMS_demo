@@ -39,6 +39,7 @@ export class Layout extends Component {
     }
     
     componentDidUpdate() {
+        console.clear();
         this.scrollEvent();
         this.props.handleSetPathGuider(getPathGuider(this.props.history.location.pathname));
     }

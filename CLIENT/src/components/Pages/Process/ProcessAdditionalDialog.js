@@ -27,12 +27,12 @@ export class ProcessAdditionalDialog extends Component {
         super(props)
         this.state = {
             isOpen: false,
-            nowLength: this.props.processInfo.additionalInfo.length !== 0 ?
-                this.props.processInfo.additionalInfo.length
+            nowLength: this.props.processInfo.addInfo.length !== 0 ?
+                this.props.processInfo.addInfo.length
                 :
                 1,
-            data: this.props.processInfo.additionalInfo.length !== 0 ?
-                this.props.processInfo.additionalInfo
+            data: this.props.processInfo.addInfo.length !== 0 ?
+                this.props.processInfo.addInfo
                 :
                 [
                     {
@@ -102,7 +102,7 @@ export class ProcessAdditionalDialog extends Component {
                 if (Array.isArray(this.state.data) && this.state.data.length !== 0) {
                     this.props.setProcessInfo({
                         ...this.props.processInfo,
-                        additionalInfo: JSON.stringify(this.state.data)
+                        addInfo: JSON.stringify(this.state.data)
                     });
                 }
             };

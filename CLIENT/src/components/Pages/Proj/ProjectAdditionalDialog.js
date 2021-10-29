@@ -33,12 +33,12 @@ export class ProjectAdditionalDialog extends Component {
 
         this.state = {
             isOpen: false,
-            nowLength: this.props.projectInfo.additionalInfo.length !== 0 ?
-                this.props.projectInfo.additionalInfo.length
+            nowLength: this.props.projectInfo.addInfo.length !== 0 ?
+                this.props.projectInfo.addInfo.length
                 :
                 1,
-            data: this.props.projectInfo.additionalInfo.length !== 0 ?
-                this.props.projectInfo.additionalInfo
+            data: this.props.projectInfo.addInfo.length !== 0 ?
+                this.props.projectInfo.addInfo
                 :
                 [
                     {
@@ -58,7 +58,7 @@ export class ProjectAdditionalDialog extends Component {
                 if (Array.isArray(this.state.data) && this.state.data.length !== 0) {
                     this.props.setProjectInfo({
                         ...this.props.projectInfo,
-                        additionalInfo: JSON.stringify(this.state.data)
+                        addInfo: JSON.stringify(this.state.data)
                     });
                  }
             };
@@ -122,7 +122,7 @@ export class ProjectAdditionalDialog extends Component {
         } catch (error) {
             console.log("error", error);
             console.log("this.state.data", this.state.data);
-            console.log("this.props.projectInfo.additionalInfo", this.props.projectInfo.additionalInfo);
+            console.log("this.props.projectInfo.addInfo", this.props.projectInfo.addInfo);
         }
 
     }

@@ -85,7 +85,7 @@ const Producer = (state = initialState, action) => {
             return {
                 ...state,
                 agencyInfo: {
-                    additionalInfo: initAgencyValue
+                    addInfo: initAgencyValue
                 }
             };
 

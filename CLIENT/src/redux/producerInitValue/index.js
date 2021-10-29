@@ -17,6 +17,7 @@ export const initRegisterValue = {
     last_name: '',
     nickName: '',
     phone: '',
+    email : "mirimmedialab.co.kr"
 };
 
 export const initAgencyValue = {
@@ -26,7 +27,7 @@ export const initAgencyValue = {
     start_date: null,
     end_date: null,
     person: [],
-    additionalInfo: [],
+    addInfo: [],
 };
 
 export const initProjectValue = {
@@ -35,7 +36,7 @@ export const initProjectValue = {
     name: '',
     desc: '',
     person: [],
-    additionalInfo: []
+    addInfo: []
 };
 
 export const initProcessValue = {
@@ -45,7 +46,7 @@ export const initProcessValue = {
     desc: '',
     mainPerson: false,
     subPerson: [],
-    additionalInfo: [],
+    addInfo: [],
     total_task: 0,
     rating : 0
 };

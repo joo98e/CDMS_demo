@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
         color: theme.palette.background.whiteButton ? theme.palette.background.whiteButton : "#FFF"
     },
     descColor: {
-        color : theme.palette.text.desc
+        color: theme.palette.text.desc
     }
 }));
 
@@ -140,10 +140,10 @@ export const AddCircleIcon = () => {
     )
 }
 
-export const BusinessIcon = () => {
+export const BusinessIcon = props => {
     const classes = useStyles();
     return (
-        <Business className={classes.color} />
+        <Business className={classes.color} fontSize={props.fontSize && props.fontSize} />
     )
 }
 

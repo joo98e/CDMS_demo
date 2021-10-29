@@ -27,7 +27,7 @@
             #{desc},
             #{rating},
             #{total_task},
-            #{additionalInfo},
+            #{addInfo},
             #{status},
             #{start_date},
             #{end_date},

@@ -7,8 +7,6 @@ import { withSnackbar } from 'notistack';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import StepComponent from '../../common/StepComponent'
-import Policy from './Policy'
 import InputPrivacy from './InputPrivacy'
 import InputWorkInfo from './InputWorkInfo';
 import Success from './Success';
@@ -61,6 +59,7 @@ export class index extends PureComponent {
                 last_name: false,
                 nickName: false,
                 phone: false,
+                email: false
             },
         }
     }
@@ -83,9 +82,6 @@ export class index extends PureComponent {
 
         if (param > 0) {
             switch (this.state.stepNum) {
-                // case 0:
-                //     this.props.enqueueSnackbar(`이용약관 확인이 되었어요.`, { variant: 'info' });
-                //     break;
 
                 case 0:
                     for (let item in _obj) {
@@ -93,13 +89,27 @@ export class index extends PureComponent {
 
                             case "id":
                                 if (!FNValidator("ID", _obj[item])) {
-                                    this.props.enqueueSnackbar("ID는 이메일 형식이에요!", { variant: "warning" });
+                                    this.props.enqueueSnackbar("ID를 확인해주세요.", { variant: "warning" });
                                     this.setState({
                                         ...this.state,
                                         errorTextField: {
                                             id: true
                                         }
                                     });
+                                    return result = false;
+                                }
+                                break;
+
+                            case "email":
+                                if (!FNValidator("EMAIL", `${_obj.id}@${_obj[item]}`)) {
+                                    this.props.enqueueSnackbar("이메일을 확인해주세요.", { variant: "warning" });
+                                    this.setState({
+                                        ...this.state,
+                                        errorTextField: {
+                                            email: true
+                                        }
+                                    });
+                                    console.log(this.props.errorTextField.email);
                                     return result = false;
                                 }
                                 break;
@@ -113,7 +123,7 @@ export class index extends PureComponent {
 
                             case "password":
                                 if (!FNValidator("PASSWORD", _obj[item])) {
-                                    this.props.enqueueSnackbar("비밀번호를 확인해주세요!", { variant: "warning" });
+                                    this.props.enqueueSnackbar("비밀번호를 확인해주세요.", { variant: "warning" });
                                     this.setState({
                                         ...this.state,
                                         errorTextField: {
@@ -126,15 +136,15 @@ export class index extends PureComponent {
 
                             case "passwordCheck":
                                 if (_obj[item] === "") {
-                                    this.props.enqueueSnackbar("비밀번호 확인란을 입력해주세요!", { variant: "warning" });
+                                    this.props.enqueueSnackbar("비밀번호 확인란을 입력해주세요.", { variant: "warning" });
                                     this.setState({
                                         ...this.state,
                                         errorTextField: {
                                             password: true
                                         }
                                     });
-
                                     return result = false;
+
                                 } else if (_obj[item] !== _obj.password) {
                                     this.props.enqueueSnackbar("비밀번호가 일치하지 않습니다.", { variant: "warning" });
                                     this.setState({
@@ -143,7 +153,6 @@ export class index extends PureComponent {
                                             password: true
                                         }
                                     });
-
                                     return result = false;
                                 }
 
@@ -151,7 +160,7 @@ export class index extends PureComponent {
 
                             case "first_name":
                                 if (!FNValidator("FIRST_NAME", _obj[item])) {
-                                    this.props.enqueueSnackbar("성, 이름을 확인해주세요!", { variant: "warning" });
+                                    this.props.enqueueSnackbar("성, 이름을 확인해주세요.", { variant: "warning" });
                                     this.setState({
                                         ...this.state,
                                         errorTextField: {
@@ -164,7 +173,7 @@ export class index extends PureComponent {
 
                             case "last_name":
                                 if (!FNValidator("LAST_NAME", _obj[item])) {
-                                    this.props.enqueueSnackbar("이름을 입력해주세요!", { variant: "warning" });
+                                    this.props.enqueueSnackbar("이름을 입력해주세요.", { variant: "warning" });
                                     this.setState({
                                         ...this.state,
                                         errorTextField: {
@@ -177,7 +186,7 @@ export class index extends PureComponent {
 
                             case "nickName":
                                 if (!FNValidator("NICKNAME", _obj[item])) {
-                                    this.props.enqueueSnackbar("닉네임은 한글, 영문만 사용 가능해요!", { variant: "warning" });
+                                    this.props.enqueueSnackbar("닉네임은 한글, 영문만 사용 가능합니다.", { variant: "warning" });
                                     this.setState({
                                         ...this.state,
                                         errorTextField: {
@@ -190,7 +199,7 @@ export class index extends PureComponent {
 
                             case "phone":
                                 if (!FNValidator("PHONE", _obj[item])) {
-                                    this.props.enqueueSnackbar("휴대폰 번호를 확인해주세요!", { variant: "warning" });
+                                    this.props.enqueueSnackbar("휴대폰 번호를 확인해주세요.", { variant: "warning" });
                                     this.setState({
                                         ...this.state,
                                         errorTextField: {
@@ -223,8 +232,8 @@ export class index extends PureComponent {
                                 phone: false,
                             }
                         });
-                        this.props.enqueueSnackbar(`멋진 분이시군요!`, { variant: 'success' });
-                    } else this.props.enqueueSnackbar(`오류입니다!`, { variant: 'error' });
+                        this.props.enqueueSnackbar(`확인되었습니다.`, { variant: 'success' });
+                    } else this.props.enqueueSnackbar(`알 수 없는 오류입니다.`, { variant: 'error' });
 
                     this.props.setRegisterMemberInfo({
                         ...this.props.registerMember,
@@ -240,14 +249,14 @@ export class index extends PureComponent {
                         switch (item) {
                             case "dept_no":
                                 if (!FNValidator("DEPT_NO", _obj[item])) {
-                                    this.props.enqueueSnackbar("부서는 반드시 필요해요!", { variant: "warning" });
+                                    this.props.enqueueSnackbar("부서를 확인해주세요.", { variant: "warning" });
                                     return result = false;
                                 }
                                 break;
 
                             case "rank_no":
                                 if (!FNValidator("RANK", _obj[item])) {
-                                    this.props.enqueueSnackbar("직급은 반드시 필요해요!", { variant: "warning" });
+                                    this.props.enqueueSnackbar("직급를 확인해주세요.", { variant: "warning" });
                                     return result = false;
                                 }
                                 break;
@@ -263,15 +272,15 @@ export class index extends PureComponent {
                     }
 
                     if (result) {
-                        this.props.enqueueSnackbar(`정말 멋진 업무에요!`, { variant: 'success' });
+                        this.props.enqueueSnackbar(`확인되었습니다.`, { variant: 'success' });
                         this.confirm();
                     }
-                    else this.props.enqueueSnackbar(`오류입니다!`, { variant: 'error' });
+                    else this.props.enqueueSnackbar(`알 수 없는 오류입니다.`, { variant: 'error' });
 
                     break;
 
                 case 2:
-                    this.props.enqueueSnackbar(`회원가입이 성공했어요!`, { variant: 'success' });
+                    this.props.enqueueSnackbar(`회원가입을 성공적으로 마쳤습니다.`, { variant: 'success' });
                     break;
 
                 default:
@@ -294,9 +303,32 @@ export class index extends PureComponent {
     }
 
     handleIdDuplicateCheck = () => {
-        if (!FNValidator("id", this.props.registerMember.id)) {
-            return this.props.enqueueSnackbar("ID는 이메일 형식입니다.", { variant: "warning" });
-        } else {
+        const _id = this.props.registerMember.id;
+        const _email = this.props.registerMember.email;
+        
+        if (!FNValidator("ID", _id)) {
+            this.setState({
+                ...this.state,
+                errorTextField : {
+                    ...this.state.errorTextField,
+                    id : true
+                }
+            });
+            return this.props.enqueueSnackbar("ID는 영문자 혹은 숫자로 5~15자로 구성해야 합니다.", { variant: "warning" });
+        } 
+
+        else if (this.props.registerMember.email !== null && !FNValidator("DOMAIN", _email)) {
+            this.setState({
+                ...this.state,
+                errorTextField : {
+                    ...this.state.errorTextField,
+                    email : true
+                }
+            });
+            return this.props.enqueueSnackbar("도메인 형식이 아닙니다.", { variant: "warning" });
+        } 
+
+        else {
             const URL = '/api/register/duplicateCheckId'
 
             axios.post(URL, this.props.registerMember)
@@ -320,8 +352,8 @@ export class index extends PureComponent {
                                 phone: false,
                             }
                         });
+                        return this.props.enqueueSnackbar("사용 가능한 아이디입니다.", { variant: "success" });;
 
-                        return this.props.enqueueSnackbar("회원가입이 가능한 아이디입니다.", { variant: "success" });;
                     } else if (res.data.resultCode === -1) {
                         this.setState({
                             ...this.state,
@@ -351,6 +383,7 @@ export class index extends PureComponent {
         formData.append("avatar_file", this.props.registerMember.avatar_file);
         formData.append("avatar_name", this.props.registerMember.avatar_name !== undefined ? this.props.registerMember.avatar_name : "34.png");
         formData.append("id", this.props.registerMember.id);
+        formData.append("email", this.props.registerMember.email);
         formData.append("password", this.props.registerMember.password);
         formData.append("first_name", this.props.registerMember.first_name);
         formData.append("last_name", this.props.registerMember.last_name);
@@ -365,7 +398,7 @@ export class index extends PureComponent {
 
         return axios.post(URL, formData, config)
             .then((req, res) => {
-                this.props.enqueueSnackbar("회원가입이 성공하였습니다. 권한을 부여받아주세요.", { variant: "success" });
+                this.props.enqueueSnackbar("회원가입이 성공하였습니다. 권한 부여가 필요합니다. 관리자에게 문의하십시오.", { variant: "success" });
             })
             .catch(err => {
                 console.warn(err);
@@ -407,9 +440,6 @@ export class index extends PureComponent {
 
         return (
             <Container className={classes.columnBox} maxWidth="lg">
-
-                {/* <StepComponent stepInfo={stepInfo} stepNum={this.state.stepNum} stepMaxNum={StepByComponent.length - 1} /> */}
-
                 {
                     StepByComponent.map((item, idx) => {
                         return (
@@ -441,7 +471,7 @@ export class index extends PureComponent {
                                 <Typography>이전</Typography>
                             </Button>
                             <Button variant="outlined" onClick={this.handleClickMoveLoginPage}>
-                                <Typography>메인으로 돌아가기</Typography>
+                                <Typography>로그인</Typography>
                             </Button>
                             <Button variant="outlined" disabled={this.state.stepNum === stepInfo.stepsTitle.length - 1} onClick={() => { this.handleClickMoveStep(1) }}>
                                 <Typography>다음</Typography>

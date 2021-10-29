@@ -52,10 +52,12 @@ router.post('/signUp', avatarStorage.single('avatar_file'), (req, res) => {
                 });
             };
             
+            console.log(req.body.email);
             const params = {
                 avatar_name: !req.file ? req.body.avatar_name : req.file.filename,
-                avatar_path: !req.file ? `${requestDir}default\\\\${req.body.avatar_name}` : `${requestDir}${req.file.filename}`,
+                avatar_path: !req.file ? `${requestDir}default/${req.body.avatar_name}` : `${requestDir}${req.file.filename}`,
                 id: req.body.id,
+                email : req.body.email,
                 password: hash,
                 first_name: req.body.first_name,
                 last_name: req.body.last_name,
@@ -97,7 +99,7 @@ router.post('/signUp', avatarStorage.single('avatar_file'), (req, res) => {
 
 router.post('/duplicateCheckId', (req, res) => {
     const SQL = "SELECT tb_member.id FROM tb_member WHERE tb_member.id = ?"
-    const param = req.body.id;
+    const param = `${req.body.id}@${req.body.email}`;
 
     connection.query(SQL, param, (err, rows) => {
         if (err) {

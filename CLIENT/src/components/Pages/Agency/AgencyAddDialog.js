@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 import { setAgencyInfo, setAgencyInfoInit } from '../../../redux/action/ProducerAction'
 
 import {
-    Container, TextField, FormControl, Select, Button, Dialog, Typography,
+    Container, TextField, FormControl, Select, Dialog, Typography,
     ListItemText, ListItem, List, Divider, AppBar, Toolbar, IconButton, MenuItem,
     Grid
 } from '@material-ui/core';
@@ -17,22 +17,32 @@ import getDateFormat from '../../common/fn/getDateFormat';
 import FNValidator from '../../common/FNValidator';
 import UIPersonList from '../../common/UIPersonList';
 import UIDatePicker from '../../common/UIDatePicker';
+import UIButton from '../../common/UIButton';
+import UIChipSet from '../../common/UIChipSet';
 import AgencyAdditionalDialog from './AgencyAdditionalDialog';
 
 import {
-    BusinessIcon,
     CloseIcon,
     AddCircleIcon
 } from '../../common/CustomIcons';
-import UIChipSet from '../../common/UIChipSet';
+import UIAddInfoDialog from '../../common/Producer/UIAddInfoDialog';
 
 const useStyles = makeStyles((theme) => ({
-    appBar: {
+    header: {
         position: 'relative',
+        backgroundColor: theme.palette.background.paper
     },
     title: {
-        marginLeft: theme.spacing(2),
         flex: 1,
+        marginLeft: theme.spacing(2),
+    },
+    mainTitle: {
+        display: 'block',
+        paddingTop: theme.spacing(4),
+        paddingBottom: theme.spacing(4)
+    },
+    mh2: {
+        margin: theme.spacing(2, 0, 2, 0)
     },
     trans: {
         position: 'absolute',
@@ -40,39 +50,11 @@ const useStyles = makeStyles((theme) => ({
         left: '50%',
         transform: 'translate(-50%, -50%)'
     },
-    flexBox: {
-        display: 'flex',
-        justifyContent: 'space-between',
-    },
-    textFieldStyle: {
-        width: '30vw',
-        textAlign: 'right'
-    },
-    stepperTitleStyle: {
-        display: 'block',
-        paddingTop: theme.spacing(4),
-        paddingBottom: theme.spacing(4)
-    },
-    buttonStyle: {
-        display: 'block',
-        margin: '0 auto'
-    },
-    center: {
-        width: "15em",
-        margin: '0 auto 2em auto'
-    }
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
-
-const TextFieldInputProps = {
-    min: 0,
-    style: {
-        textAlign: 'right'
-    }
-}
 
 const defaultState = {
     name: "",
@@ -120,7 +102,7 @@ const ResultMessage = {
     fail: "담당자 지정을 취소합니다."
 };
 
-export default function FullScreenDialog() {
+export default function AgencyAddDialog() {
     const { enqueueSnackbar } = useSnackbar();
     const history = useHistory();
 
@@ -256,6 +238,11 @@ export default function FullScreenDialog() {
         dispatch(setAgencyInfo({ ...nextValue }));
     }
 
+    const handleSetAddInfo = data => {
+        
+        dispatch(setAgencyInfo({ ..._agencyInfo, addInfo: data }));
+    }
+
     const ResultAction = {
         success: data => {
             dispatch(setAgencyInfo({
@@ -303,126 +290,202 @@ export default function FullScreenDialog() {
                 <AddCircleIcon />
             </IconButton>
             <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
-                <AppBar className={classes.appBar} position="fixed">
+                <AppBar className={classes.header} position="fixed">
                     <Toolbar>
                         <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
                             <CloseIcon />
                         </IconButton>
-                        <Typography variant="h6" className={classes.title}>
-                            기관 등록
-                        </Typography>
-                        <Button autoFocus color="inherit" onClick={handleValidateValue}>
-                            등록하기
-                        </Button>
+                        <div className={classes.title}></div>
+                        <UIButton
+                            name="등록하기"
+                            variant="contained"
+                            action={handleValidateValue}
+                            inputStyle={{ justifyContent: "flex-end" }}
+                        />
                     </Toolbar>
                 </AppBar>
-                <Container>
-                    <Container maxWidth="xs">
-                        <Typography className={classes.stepperTitleStyle} variant="h4" align="center">
-                            <IconButton color="inherit">
-                                <BusinessIcon />
-                            </IconButton>
-                            기관 등록
-                        </Typography>
-                    </Container>
-
-                    <Divider />
-
-                    <Grid container spacing={3}>
-                        <Grid item xs={12} md={12} lg={12}>
-                            <List>
-                                <ListItem>
-                                    <ListItemText primary="사업 구분" />
-                                    <FormControl className={classes.textFieldStyle} variant="filled">
-                                        {categoryList ?
-                                            <Select
-                                                labelId="biz_area"
-                                                id="biz_area"
-                                                name="biz_area"
-                                                value={_agencyInfo.biz_area ? _agencyInfo.biz_area : ''}
-                                                onChange={handleChangeAgencyInfos}
-                                            >
-                                                {categoryList.map((item, index) => {
-                                                    return (
-                                                        <MenuItem key={index} value={item.id}>{item.name}</MenuItem>
-                                                    )
-                                                })}
-                                            </Select>
-                                            :
-                                            ''
-                                        }
-                                    </FormControl>
-                                </ListItem>
-                                <Divider />
-                                <ListItem>
-                                    <ListItemText primary="기관명" />
-                                    <TextField className={classes.textFieldStyle} variant="filled" placeholder="기관명" inputProps={TextFieldInputProps} name="name" onChange={handleChangeAgencyInfos} />
-                                </ListItem>
-                                <Divider />
-                                <ListItem>
-                                    <ListItemText primary="기관 설명" />
-                                    <TextField className={classes.textFieldStyle} variant="filled" placeholder="기관 설명" inputProps={TextFieldInputProps} name="desc" onChange={handleChangeAgencyInfos} />
-                                </ListItem>
-                                <Divider />
-                                <ListItem>
-                                    <ListItemText primary="사업 시작일" />
-                                    <UIDatePicker
-                                        name="start_date"
-                                        label="사업 시작일"
-                                        class={classes.textFieldStyle}
-                                        resultAction={handleChangeDate}
-                                    />
-                                </ListItem>
-                                <Divider />
-                                <ListItem>
-                                    <ListItemText primary="사업 종료일" />
-                                    <UIDatePicker
-                                        name="end_date"
-                                        label="사업 종료일"
-                                        class={classes.textFieldStyle}
-                                        resultAction={handleChangeDate}
-                                    />
-                                </ListItem>
-                                <Divider />
-                                <ListItem>
-                                    <ListItemText primary="추가 정보" />
-                                    <AgencyAdditionalDialog />
-                                </ListItem>
-                                <Divider />
-                                <ListItem>
-                                    <ListItemText primary="기관 담당자" />
-                                    <UIPersonList
-                                        BtnInfo={BtnInfo}
-                                        DialogInfo={DialogInfo}
-                                        TableColumnName={TableColumnName}
-                                        TableLoadedData={personRow !== null ? personRow.result : {}}
-                                        ResultMessage={ResultMessage}
-                                        ResultAction={ResultAction}
-                                    />
-                                </ListItem>
-                                <ListItem>
-                                    <ListItemText />
-                                    {
-                                        _agencyInfo.person &&
-                                        _agencyInfo.person.map((item, index) => {
-                                            if (index > 5) {
-                                                return false
-                                            } else {
+                <Container maxWidth="md">
+                    <Typography className={classes.mainTitle} variant="h4" align="center">
+                        기관 등록
+                    </Typography>
+                    <Divider className={classes.mh2} />
+                    <Container maxWidth="sm">
+                        <Grid container justifyContent="center" alignItems="center">
+                            <Grid item xs={12} md={4} lg={4}>
+                                <Typography component="div">
+                                    사업 구분
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12} md={8} lg={8}>
+                                <FormControl variant="filled" fullWidth>
+                                    {categoryList ?
+                                        <Select
+                                            native
+                                            labelId="biz_area"
+                                            id="biz_area"
+                                            name="biz_area"
+                                            value={_agencyInfo.biz_area ? _agencyInfo.biz_area : ""}
+                                            onChange={handleChangeAgencyInfos}
+                                        >
+                                            {categoryList.map((item, index) => {
                                                 return (
-                                                    <UIChipSet
-                                                        key={index}
-                                                        data={item}
-                                                    />
+                                                    <option key={index} value={item.id}>{item.name}</option>
                                                 )
-                                            }
-                                        })
+                                            })}
+                                        </Select>
+                                        :
+                                        ''
                                     }
-                                </ListItem>
-                                <Divider />
-
-                            </List>
+                                </FormControl>
+                            </Grid>
                         </Grid>
-                    </Grid>
+
+                        <Divider className={classes.mh2} />
+
+                        <Grid container justifyContent="center" alignItems="center">
+                            <Grid item xs={12} md={4} lg={4}>
+                                <Typography component="div">
+                                    사업명 혹은 기관명
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12} md={8} lg={8}>
+                                <TextField
+                                    fullWidth
+                                    variant="filled"
+                                    placeholder="사업명 혹은 기관명"
+                                    name="name"
+                                    onChange={handleChangeAgencyInfos}
+                                />
+                            </Grid>
+                        </Grid>
+
+                        <Divider className={classes.mh2} />
+
+                        <Grid container justifyContent="center" alignItems="center">
+                            <Grid item xs={12} md={4} lg={4}>
+                                <Typography component="div">
+                                    설명
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12} md={8} lg={8}>
+                                <TextField
+                                    fullWidth
+                                    variant="filled"
+                                    placeholder="설명"
+                                    name="desc"
+                                    multiline
+                                    minRows={4}
+                                    onChange={handleChangeAgencyInfos}
+                                    onKeyUp={e => {
+                                        if (e.key === "Enter") {
+                                            console.log(e.target);
+                                        }
+                                    }}
+                                    style={{ whiteSpace: "pre-wrap" }}
+                                />
+                            </Grid>
+                        </Grid>
+
+                        <Divider className={classes.mh2} />
+
+                        <Grid container justifyContent="center" alignItems="center">
+                            <Grid item xs={12} md={4} lg={4}>
+                                <Typography component="div">
+                                    시작일
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12} md={8} lg={8}>
+                                <UIDatePicker
+                                    fullWidth
+                                    name="start_date"
+                                    resultAction={handleChangeDate}
+                                />
+                            </Grid>
+                        </Grid>
+
+                        <Divider className={classes.mh2} />
+
+                        <Grid container justifyContent="center" alignItems="center">
+                            <Grid item xs={12} md={4} lg={4}>
+                                <Typography component="div">
+                                    종료일
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12} md={8} lg={8}>
+                                <UIDatePicker
+                                    fullWidth
+                                    name="end_date"
+                                    resultAction={handleChangeDate}
+                                />
+                            </Grid>
+                        </Grid>
+
+                        <Divider className={classes.mh2} />
+
+                        <Grid container justifyContent="center" alignItems="center">
+                            <Grid item xs={12} md={4} lg={4}>
+                                <Typography component="div">
+                                    추가 구성
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12} md={8} lg={8}>
+                                <UIAddInfoDialog
+                                    btnProps={{
+                                        start: {
+                                            name: "구성하기",
+                                            fullWidth: true
+                                        },
+                                        end: {
+                                            name: "완료",
+                                        }
+                                    }}
+                                    title="추가 구성"
+                                    fullWidth
+                                    maxWidth="md"
+                                    subTitle="추가 정보를 구성해보세요."
+                                    data={_agencyInfo.addInfo}
+                                    action={handleSetAddInfo}
+                                />
+                            </Grid>
+                            {
+                                _agencyInfo.addInfo !== "" &&
+                                <React.Fragment>
+                                    <Grid item xs={12} md={4} lg={4}>
+
+                                    </Grid>
+                                    <Grid item xs={12} md={8} lg={8}>
+                                        <Grid container>
+
+                                        </Grid>
+                                    </Grid>
+                                </React.Fragment>
+                            }
+                        </Grid>
+
+                        <Divider className={classes.mh2} />
+
+                        <Grid container justifyContent="center" alignItems="center">
+                            <Grid item xs={12} md={4} lg={4}>
+                                <Typography component="div">
+                                    담당자
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12} md={8} lg={8}>
+                                <UIPersonList
+                                    BtnInfo={BtnInfo}
+                                    DialogInfo={DialogInfo}
+                                    TableColumnName={TableColumnName}
+                                    TableLoadedData={personRow !== null ? personRow.result : {}}
+                                    ResultMessage={ResultMessage}
+                                    ResultAction={ResultAction}
+                                />
+                            </Grid>
+                            <Grid item xs={12} md={12} lg={12}>
+
+                            </Grid>
+                        </Grid>
+
+                    </Container>
                 </Container>
             </Dialog>
         </div>

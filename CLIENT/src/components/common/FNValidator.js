@@ -11,7 +11,7 @@ const FNValidator = (valueName, value) => {
     switch (valueName.toUpperCase()) {
         // ID / 영문, 숫자만 사용하여 4 ~ 20글자
         case "ID":
-            const email = new RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i);
+            const email = new RegExp( /^[A-za-z0-9]{5,15}$/g);
 
             if (!email.test(value) || value === '') {
                 return false;
@@ -111,6 +111,15 @@ const FNValidator = (valueName, value) => {
             }
             break;
 
+        // 이메일 
+        case "DOMAIN":
+            if (!/^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z0-9]{2,})+(?:\:[0-9]{1,})*$/i.test(value)) {
+                return false;
+            } else {
+                isConfirmed = true;
+            }
+            break;
+
         // 연락처 형식 ( - 포함 )
         case "PHONE":
             if (value !== '') {
@@ -160,7 +169,6 @@ const FNValidator = (valueName, value) => {
 
         case "EMPTY":
             const _value = value.constructor;
-            console.log(1);
             
             if (_value === Array) {
                 for (let i = 0; i < value.length; i++) {

@@ -32,12 +32,12 @@ export class AgencyAdditionalDialog extends Component {
 
         this.state = {
             isOpen: false,
-            nowLength: this.props.agencyInfo.additionalInfo.length !== 0 ?
-                this.props.agencyInfo.additionalInfo.length
+            nowLength: this.props.agencyInfo.addInfo.length !== 0 ?
+                this.props.agencyInfo.addInfo.length
                 :
                 1,
-            data: this.props.agencyInfo.additionalInfo.length !== 0 ?
-                this.props.agencyInfo.additionalInfo
+            data: this.props.agencyInfo.addInfo.length !== 0 ?
+                this.props.agencyInfo.addInfo
                 :
                 [
                     {
@@ -57,7 +57,7 @@ export class AgencyAdditionalDialog extends Component {
                 if (Array.isArray(this.state.data) && this.state.data.length !== 0) {
                     this.props.setAgencyInfo({
                         ...this.props.agencyInfo,
-                        additionalInfo: JSON.stringify(this.state.data)
+                        addInfo: JSON.stringify(this.state.data)
                     });
                  }
             };
@@ -68,8 +68,6 @@ export class AgencyAdditionalDialog extends Component {
             ...this.state,
             isOpen: !this.state.isOpen ? true : false
         });
-
-
     }
 
     handleChangeValue = (e) => {
@@ -120,7 +118,7 @@ export class AgencyAdditionalDialog extends Component {
         } catch (error) {
             console.log("error", error);
             console.log("this.state.data", this.state.data);
-            console.log("this.props.agencyInfo.additionalInfo", this.props.agencyInfo.additionalInfo);
+            console.log("this.props.agencyInfo.addInfo", this.props.agencyInfo.addInfo);
         }
 
     }

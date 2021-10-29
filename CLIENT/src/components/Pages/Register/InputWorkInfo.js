@@ -82,6 +82,7 @@ export class InputJobs extends PureComponent {
                                         <InputLabel id="dept_no" name="dept_no">부서 *</InputLabel>
                                         {this.state.orgStructure.departs ?
                                             <Select
+                                                native
                                                 labelId="dept_no"
                                                 id="dept_no"
                                                 name="dept_no"
@@ -90,7 +91,7 @@ export class InputJobs extends PureComponent {
                                             >
                                                 {this.state.orgStructure.departs.map((item, index) => {
                                                     return (
-                                                        <MenuItem key={index} value={item.id}>{item.name}</MenuItem>
+                                                        <option key={index} value={item.id}>{item.name}</option>
                                                     )
                                                 })}
                                             </Select>
@@ -104,6 +105,7 @@ export class InputJobs extends PureComponent {
                                         <InputLabel id="MEM_DEPART_NO">직급 *</InputLabel>
                                         {this.state.orgStructure.rank ?
                                             <Select
+                                                native
                                                 labelId="rank_no"
                                                 id="rank_no"
                                                 name="rank_no"
@@ -112,7 +114,7 @@ export class InputJobs extends PureComponent {
                                             >
                                                 {this.state.orgStructure.rank.map((item, index) => {
                                                     return (
-                                                        <MenuItem key={index} value={item.id}>{item.name}</MenuItem>
+                                                        <option key={index} value={item.id}>{item.name}</option>
                                                     )
                                                 })}
                                             </Select>
@@ -121,15 +123,6 @@ export class InputJobs extends PureComponent {
                                         }
                                     </FormControl>
                                 </Box>
-                            </Container>
-                        </Grid>
-                    </Grid>
-                </Container>
-                <Container className={classes.marginBottom3}>
-                    <Grid container justifyContent='center' spacing={4}>
-
-                        <Grid item xs={12}>
-                            <Container>
                             </Container>
                         </Grid>
                     </Grid>

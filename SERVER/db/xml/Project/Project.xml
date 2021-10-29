@@ -22,7 +22,7 @@
             (SELECT biz_area FROM tb_agcy WHERE tb_agcy.id = #{ref_agcy_id}),
             #{name},
             #{desc},
-            #{additionalInfo},
+            #{addInfo},
             #{start_date},
             #{end_date},
             #{IPv4},

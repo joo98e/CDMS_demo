@@ -135,7 +135,6 @@ export class Login extends Component {
                                     variant="filled"
                                     name="id"
                                     label="아이디"
-                                    placeholder="example@example.com"
                                     onChange={this.handleChange}
                                     onKeyUp={(e) => {
                                         if (e.key === 'Enter') {

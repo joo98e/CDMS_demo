@@ -30,7 +30,7 @@ export class UIDatePicker extends Component {
         }
     }
     componentDidMount() {
-        console.log(this.props.name);
+        
     }
     
 
@@ -55,6 +55,7 @@ export class UIDatePicker extends Component {
                 <KeyboardDatePicker
                     className={this.props.class ? this.props.class : ""}
                     variant="dialog"
+                    fullWidth={this.props.fullWidth ? true : false}
                     format="yyyy/MM/dd"
                     value={this.state.selectedDate}
                     onChange={this.handleDateChange}

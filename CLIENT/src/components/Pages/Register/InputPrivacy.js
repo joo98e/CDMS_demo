@@ -4,17 +4,18 @@ import { withRouter } from 'react-router-dom';
 import * as actions from '../../../redux/action/UserInfoAction'
 import {
     Container, Grid, TextField, IconButton, Typography,
-    Box, withStyles, Divider
+    Box, withStyles, Divider, Select,
+    FormControl, InputLabel, InputAdornment,
 } from '@material-ui/core'
 
 import {
     VisibilityIcon,
     VisibilityOffIcon,
-    RadioButtonUncheckedIcon,
     CheckCircleOutlineIcon,
 } from "../../common/CustomIcons";
 
 import InputProfile from './InputProfile';
+import UIButton from '../../common/UIButton';
 
 const styles = theme => ({
     fullWidth: {
@@ -76,7 +77,8 @@ export class InputAccount extends PureComponent {
         this.state = {
             showPassword: false,
             departs: "",
-            idCheck: false
+            idCheck: false,
+            email: 0
         }
     }
 
@@ -104,13 +106,35 @@ export class InputAccount extends PureComponent {
         });
     }
 
+    handleChangeMailAddress = e => {
+        const _val = e.target.value;
+
+        let _result =
+            _val === "0" ? "mirimmedialab.co.kr"
+                : _val === "1" ? "naver.com"
+                    : _val === "2" ? "daum.net"
+                        : _val === "3" ? ""
+                            : _val === "4" ? "nate.com" : "gmail.com"
+                            
+        this.props.setRegisterMemberInfo({
+            ...this.props.registerMember,
+            email: _result,
+            idCheck : false
+        });
+
+        this.setState({
+            ...this.state,
+            email: e.target.value
+        });
+    }
+
     render() {
         const { classes } = this.props;
         return (
             <Box>
                 <Box mt={8} mb={4}>
                     <Typography variant="h4" align='center'>
-                        개인 정보 입력
+                        어떤 분이신가요?
                     </Typography>
                 </Box>
                 <Divider />
@@ -127,30 +151,77 @@ export class InputAccount extends PureComponent {
                         <Grid item xs={12} md={12} lg={12}>
                             <Container maxWidth="sm">
                                 <Box display="flex" justifyContent="flex-start" alignItems="center">
-                                    <TextField
-                                        variant="filled"
-                                        fullWidth
-                                        required
-                                        name="id"
-                                        label="ID"
-                                        placeholder="example@example.com"
-                                        onChange={this.handleValueChange}
-                                        error={this.props.errorTextField.id}
-                                    />
+                                    <Grid container>
+                                        <Grid item xs={6}>
+                                            <TextField
+                                                variant="filled"
+                                                fullWidth
+                                                required
+                                                name="id"
+                                                label="ID"
+                                                helperText="영문, 숫자를 사용하여 5 ~ 15자"
+                                                onChange={this.handleValueChange}
+                                                error={this.props.errorTextField.id}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <Grid container style={{ display: "flex", alignItems: "center" }}>
+                                                <Grid item xs={2}>
+                                                    <Typography variant="h6" align="center" style={{ margin: "0 8px" }}>@</Typography>
+                                                </Grid>
+                                                <Grid xs={10}>
+                                                    <TextField
+                                                        variant="filled"
+                                                        fullWidth
+                                                        required
+                                                        name="email"
+                                                        label="e-mail"
+                                                        focused
+                                                        onChange={this.handleValueChange}
+                                                        value={this.props.registerMember.email}
+                                                        error={this.props.errorTextField.email}
+                                                        inputProps={{
+                                                            readOnly: this.state.email === "3" ? false : true,
+                                                        }}
+                                                    />
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
                                 </Box>
-                                <Box display="flex" mt={2} style={{ alignItems: "center" }}>
-                                    <Typography variant="body1">
-                                        아이디 중복 체크
-                                    </Typography>
-                                    <IconButton
-                                        color="inherit"
-                                        className={classes.iconMargin}
-                                        onClick={this.props.handleIdDuplicateCheck}
-                                    >
-                                        {this.props.registerMember.idCheck ? <CheckCircleOutlineIcon /> : <RadioButtonUncheckedIcon />}
-                                    </IconButton>
+                                <Box display="flex" mt={2} justifyContent="flex-start" alignItems="center">
+                                    <Grid container spacing={1}>
+                                        <Grid item xs={12} md={6} lg={6}>
+                                            <FormControl variant="filled" fullWidth>
+                                                <InputLabel id="email">메일 선택</InputLabel>
+                                                <Select
+                                                    native
+                                                    value={this.state.email}
+                                                    onChange={this.handleChangeMailAddress}
+                                                >
+                                                    <option value={0}>미림미디어랩</option>
+                                                    <option value={1}>네이버</option>
+                                                    <option value={2}>다음</option>
+                                                    <option value={4}>네이트</option>
+                                                    <option value={5}>구글</option>
+                                                    <option value={3}>직접 입력</option>
+                                                </Select>
+                                            </FormControl>
+                                        </Grid>
+                                        <Grid item xs={12} md={6} lg={6} style={{ display: "flex", justifyContent: "flex-end", alignItems: "center" }}>
+                                            <UIButton
+                                                name={this.props.registerMember.idCheck ? "사용 가능한 아이디입니다." : "아이디 중복 체크"}
+                                                variant="contained"
+                                                action={this.props.handleIdDuplicateCheck}
+                                            />
+                                        </Grid>
+                                    </Grid>
                                 </Box>
-                                <Box display="flex" mt={2} style={{ alignItems: "center" }}>
+
+                                <Box display="flex" mt={2} alignItems="center">
+
+                                </Box>
+                                <Box display="flex" mt={2} alignItems="center">
                                     <form className={classes.fullWidth}>
                                         <TextField
                                             fullWidth
@@ -160,7 +231,7 @@ export class InputAccount extends PureComponent {
                                             name="password"
                                             label="비밀번호"
                                             autoComplete="off"
-                                            placeholder="영문자, 숫자, 특수문자(!, @, #, $, %, &, *)를 각 1자 이상 포함하여 8 ~ 16자"
+                                            helperText="영문자, 숫자, 특수문자(!, @, #, $, %, &, *)를 각 1자 이상 포함하여 8 ~ 16자"
                                             error={this.props.errorTextField.password}
                                             onChange={this.handleValueChange}
                                         />
@@ -173,7 +244,7 @@ export class InputAccount extends PureComponent {
                                         {this.state.showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
                                     </IconButton>
                                 </Box>
-                                <Box display="flex" mt={2} style={{ alignItems: "center" }}>
+                                <Box display="flex" mt={2} alignItems="center">
                                     <form style={{ width: "100%" }}>
                                         <TextField
                                             fullWidth
@@ -190,7 +261,7 @@ export class InputAccount extends PureComponent {
                                     </form>
                                 </Box>
                                 <Divider className={classes.marginBottom3} />
-                                <Box display="flex" mt={2} style={{ alignItems: "center" }}>
+                                <Box display="flex" mt={2} alignItems="center">
                                     <TextField
                                         variant="filled"
                                         fullWidth
@@ -202,7 +273,7 @@ export class InputAccount extends PureComponent {
                                         onChange={this.handleValueChange}
                                     />
                                 </Box>
-                                <Box display="flex" mt={2} style={{ alignItems: "center" }}>
+                                <Box display="flex" mt={2} alignItems="center">
                                     <TextField
                                         variant="filled"
                                         fullWidth
@@ -215,7 +286,7 @@ export class InputAccount extends PureComponent {
                                     />
                                 </Box>
                                 <Divider className={classes.marginBottom3} />
-                                <Box display="flex" mt={2} style={{ alignItems: "center" }}>
+                                <Box display="flex" mt={2} alignItems="center">
                                     <TextField
                                         variant="filled"
                                         fullWidth
@@ -227,7 +298,7 @@ export class InputAccount extends PureComponent {
                                         onChange={this.handleValueChange}
                                     />
                                 </Box>
-                                <Box display="flex" mt={2} style={{ alignItems: "center" }}>
+                                <Box display="flex" mt={2} alignItems="center">
                                     <TextField
                                         variant="filled"
                                         fullWidth
@@ -243,7 +314,7 @@ export class InputAccount extends PureComponent {
                     </Grid>
                 </Container>
                 <Divider className={classes.marginBottom3} />
-            </Box>
+            </Box >
         )
     }
 }

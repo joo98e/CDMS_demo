@@ -29,7 +29,7 @@
             #{biz_area},
             #{name},
             #{desc},
-            #{additionalInfo},
+            #{addInfo},
             #{start_date},
             #{end_date},
             #{IPv4},
