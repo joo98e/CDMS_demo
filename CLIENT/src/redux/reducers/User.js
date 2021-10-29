@@ -25,8 +25,21 @@ const getIp = async () => {
     }).then(res => {
         console.log(res);
         return initialState.accessInfo = res.data;
-    }).catch(err => console.log(err));
-    
+    }).catch(err => {
+        console.log(err)
+        console.log("임시");
+        initialState.accessInfo = {
+            IPv4: "51.7.120.184",
+            city: null,
+            country_code: "KR",
+            country_name: "South Korea",
+            latitude: 37.5112,
+            longitude: 126.97409999999999,
+            postal: null,
+            state: null
+        }
+    });
+
     // await fetch(URL,
     //     {
     //         method: 'get'
