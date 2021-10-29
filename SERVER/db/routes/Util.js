@@ -59,30 +59,6 @@ router.get("/getIp", (req, res) => {
             resultMessage : "실패"
         })
     }
-    
-    // const params = {
-    //     method: "GET",
-    //     uri: "http://geolocation-db.com/json/",
-    //     json: true
-    // }
-
-    // request(params, (err, response, body) => {
-    //     if (err) {
-    //         console.log(1);
-    //         return res.status(400).send({
-    //             result: {},
-    //             resultCode: -1,
-    //             resultMessage: "실패"
-    //         });
-    //     } else {
-    //         console.log(2);
-    //         return res.status(200).send({
-    //             result: body,
-    //             resultCode: 1,
-    //             resultMessage: "성공"
-    //         })
-    //     }
-    // });
 });
 
 module.exports = router;

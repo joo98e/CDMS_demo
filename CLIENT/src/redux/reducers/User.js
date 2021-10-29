@@ -17,9 +17,8 @@ const getIp = async URL => {
             if (res.resultCode < 0) {
                 console.error("IP를 받아오지 못했습니다.");
             } else {
-                console.log(res.result);
                 initialState.accessInfo = {
-                    IPv4: "192.168.0.111"
+                    IPv4: res.result
                 }
             }
         })
