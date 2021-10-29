@@ -3,6 +3,7 @@ const status = process.env.NODE_ENV = (process.env.NODE_ENV && (process.env.NODE
 const express = require('express');
 const router = express.Router();
 const request = require('request');
+const requestIp = require('request-ip');
 const myBatisMapper = require('mybatis-mapper');
 myBatisMapper.createMapper(['./db/xml/Util/Util.xml']);
 const format = require('../config/MyBatisFormat');
@@ -43,28 +44,45 @@ router.get('/process/isProd', (req, res) => {
 });
 
 router.get("/getIp", (req, res) => {
-    const params = {
-        method: "GET",
-        uri: "http://geolocation-db.com/json/",
-        json: true
+    try {
+        const IP = requestIp.getClientIp(req);
+        return res.status(200).send({
+            result : IP,
+            resultCode : 1,
+            resultMessage : "성공"
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(400).send({
+            result : null,
+            resultCode : -1,
+            resultMessage : "실패"
+        })
     }
+    
+    // const params = {
+    //     method: "GET",
+    //     uri: "http://geolocation-db.com/json/",
+    //     json: true
+    // }
 
-    request(params, (err, response, body) => {
-        if (err) {
-            console.log(1);
-            return res.status(400).send({
-                result: {},
-                resultCode: -1,
-                resultMessage: "실패"
-            });
-        } else {
-            console.log(2);
-            return res.status(200).send({
-                result: body,
-                resultCode: 1,
-                resultMessage: "성공"
-            })
-        }
-    });
+    // request(params, (err, response, body) => {
+    //     if (err) {
+    //         console.log(1);
+    //         return res.status(400).send({
+    //             result: {},
+    //             resultCode: -1,
+    //             resultMessage: "실패"
+    //         });
+    //     } else {
+    //         console.log(2);
+    //         return res.status(200).send({
+    //             result: body,
+    //             resultCode: 1,
+    //             resultMessage: "성공"
+    //         })
+    //     }
+    // });
 });
+
 module.exports = router;

@@ -1,18 +1,8 @@
 import * as types from '../types';
 
-/**
- * @constant initRegisterValue            : 초기값
- * @constant getAuthLocalStorage          : 세션 스토리지로부터 멤버 정보를 받아온다.
- * @constant getIp                        : 접속 IP 및 위치 정보
- * @returns 
- */
-
-
-
 const getAuthLocalStorage = () => {
     return localStorage.getItem('member') !== null ? true : false
 }
-
 const getMemberLocalStorage = () => {
     return localStorage.getItem('member') !== null ? JSON.parse(localStorage.getItem('member')) : null
 }
@@ -28,7 +18,9 @@ const getIp = async URL => {
                 console.error("IP를 받아오지 못했습니다.");
             } else {
                 console.log(res.result);
-                initialState.accessInfo = res.result;
+                initialState.accessInfo = {
+                    IPv4: "192.168.0.111"
+                }
             }
         })
         .catch(err => {

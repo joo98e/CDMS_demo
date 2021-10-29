@@ -104,7 +104,7 @@ export class Login extends Component {
             .then(res => {
                 localStorage.setItem('member', JSON.stringify(res.data));
                 this.props.devAuth(res.data);
-                this.props.enqueueSnackbar(`개발 로그인입니다.`, { variant: 'success' });
+                this.props.enqueueSnackbar(`개발`, { variant: 'success' });
                 this.props.history.push('/agency');
             }).catch((err) => {
                 this.props.enqueueSnackbar(`${err}`, { variant: 'error' });

@@ -393,8 +393,6 @@ export class index extends PureComponent {
         formData.append("dept_no", this.props.registerMember.dept_no);
         formData.append("reg_ip", this.props.accessInfo.IPv4);
         formData.append("upd_ip", this.props.accessInfo.IPv4);
-        formData.append("country_name", this.props.accessInfo.country_name);
-        formData.append("country_code", this.props.accessInfo.country_code);
 
         return axios.post(URL, formData, config)
             .then((req, res) => {

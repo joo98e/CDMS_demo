@@ -69,9 +69,7 @@ router.post('/signUp', avatarStorage.single('avatar_file'), (req, res) => {
                 reg_date: getNow(),
                 upd_date: getNow(),
                 reg_ip: req.body.reg_ip,
-                upd_ip: req.body.upd_ip,
-                country_name: req.body.country_name,
-                country_code: req.body.country_code
+                upd_ip: req.body.upd_ip
             }
 
             const SQL = myBatisMapper.getStatement('RegisterMember', 'insertMember', params, format);

@@ -29,7 +29,10 @@ module.exports = (() => {
         res.status(504).send("잘못된 요청.");
     });
 
-    app.use(cors());
+    app.use(cors({
+        origin : "http://geolocation-db.com"
+    }));
+    
     // ────── Users profile
     return app;
 })();
