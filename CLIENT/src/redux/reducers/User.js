@@ -24,30 +24,23 @@ const getIp = async URL => {
         })
         .then(res => res.json())
         .then(res => {
-            initialState.accessInfo = res;
+            if (res.resultCode < 0) {
+                console.error("IP를 받아오지 못했습니다.");
+            } else {
+                console.log(res.result);
+                initialState.accessInfo = JSON.parse(res.result);
+            }
         })
         .catch(err => {
-            console.log(err);
-            initialState.accessInfo = {
-                IPv4: "106.248.61.60",
-                city: "Seoul",
-                country_code: "KR",
-                country_name: "South Korea",
-                latitude: 37.5985,
-                longitude: 126.9783,
-                postal: null,
-                state: "Seoul",
-            }
+            console.error(err);
         });
 }
 
 const initialState = {
     auth: getAuthLocalStorage(),
     member: getMemberLocalStorage(),
-    accessInfo: null,
+    accessInfo: getIp("/api/Util/getIp"),
 };
-
-getIp('/api/Util/getIp');
 
 const User = (state = initialState, action) => {
 

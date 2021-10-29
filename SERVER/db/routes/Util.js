@@ -2,7 +2,7 @@ const status = process.env.NODE_ENV = (process.env.NODE_ENV && (process.env.NODE
 
 const express = require('express');
 const router = express.Router();
-
+const request = require('request');
 const myBatisMapper = require('mybatis-mapper');
 myBatisMapper.createMapper(['./db/xml/Util/Util.xml']);
 const format = require('../config/MyBatisFormat');
@@ -23,7 +23,6 @@ router.get('/menu/info', (req, res) => {
                     resultMessage: "알 수 없는 오류"
                 });
             }
-
             else {
                 return res.status(200).send({
                     result: rows,
@@ -43,20 +42,26 @@ router.get('/process/isProd', (req, res) => {
     });
 });
 
-router.get("/getIp", () => {
-    fetch("http://geolocation-db.com/json/",
-        {
-            method: 'get'
-        })
-        .then(res => res.json())
-        .then(res => {
-            initialState.accessInfo = res;
-        })
-        .catch(err => {
-            console.log(err);
-            initialState.accessInfo = {
+router.get("/getIp", (req, res) => {
+    const params = {
+        method : "GET",
+        uri: "http://geolocation-db.com/json/"
+    }
 
-            }
-        });
+    request(params, (err, response, body) => {
+        if (err) {
+            return res.status(400).send({
+                result: {},
+                resultCode: -1,
+                resultMessage : "실패"
+            });
+        } else {
+            return res.status(200).send({
+                result: body,
+                resultCode: 1,
+                resultMessage : "성공"
+            })
+        }
+    });
 });
 module.exports = router;

@@ -70,7 +70,6 @@ export class Agency extends PureComponent {
 
                 case 'M':
                     this.getAgencyList("ADMIN");
-                    console.log("is admin");
                     break;
 
                 case 'U':
