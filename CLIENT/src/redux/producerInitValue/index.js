@@ -22,7 +22,7 @@ export const initRegisterValue = {
 
 export const initAgencyValue = {
     name: '',
-    biz_area: '',
+    biz_area: '1',
     desc: '',
     start_date: null,
     end_date: null,

@@ -9,7 +9,7 @@ import { setAgencyInfo, setAgencyInfoInit } from '../../../redux/action/Producer
 import {
     Container, TextField, FormControl, Select, Dialog, Typography,
     ListItemText, ListItem, List, Divider, AppBar, Toolbar, IconButton, MenuItem,
-    Grid
+    Grid, Box
 } from '@material-ui/core';
 
 import Slide from '@material-ui/core/Slide';
@@ -235,11 +235,14 @@ export default function AgencyAddDialog() {
     const handleChangeAgencyInfos = (e) => {
         let nextValue = { ..._agencyInfo }
         nextValue[e.target.name] = e.target.value;
+
+        if (e.target.name === "desc") console.log(e.target.value);
+        
         dispatch(setAgencyInfo({ ...nextValue }));
     }
 
     const handleSetAddInfo = data => {
-        
+
         dispatch(setAgencyInfo({ ..._agencyInfo, addInfo: data }));
     }
 
@@ -262,7 +265,7 @@ export default function AgencyAddDialog() {
             ..._member,
             ..._agencyInfo
         };
-
+        
         const config = {
             headers: {
                 "content-type": "application/json"
@@ -277,7 +280,7 @@ export default function AgencyAddDialog() {
                         person: []
                     }));
                     enqueueSnackbar("기관 등록에 성공했습니다.", { variant: 'success' });
-                    history.go(0);
+                    history.goBack();
                 } else {
                     enqueueSnackbar(res.data.resultCode, { variant: 'error' });
                 }
@@ -295,13 +298,6 @@ export default function AgencyAddDialog() {
                         <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
                             <CloseIcon />
                         </IconButton>
-                        <div className={classes.title}></div>
-                        <UIButton
-                            name="등록하기"
-                            variant="contained"
-                            action={handleValidateValue}
-                            inputStyle={{ justifyContent: "flex-end" }}
-                        />
                     </Toolbar>
                 </AppBar>
                 <Container maxWidth="md">
@@ -484,7 +480,14 @@ export default function AgencyAddDialog() {
 
                             </Grid>
                         </Grid>
-
+                        <Box display="flex" justifyContent="center" alignItems="center" mt={8}>
+                            <UIButton
+                                name="등록하기"
+                                variant="contained"
+                                action={handleValidateValue}
+                                inputStyle={{ justifyContent: "flex-end" }}
+                            />
+                        </Box>
                     </Container>
                 </Container>
             </Dialog>

@@ -102,11 +102,12 @@ router.get('/category', (req, res) => {
 });
 
 router.post('/add', (req, res) => {
-    const params = req.body;
-    console.log(params);
+    const params = {
+        ...req.body,
+        desc: req.body.desc.replace("\\n", "<br />")
+    };
     const SQL_AGENCY = myBatisMapper.getStatement('Agency', 'insertAgency', params, format);
-    console.log(SQL_AGENCY);
-    return res.send(true)
+
     connection.query(SQL_AGENCY,
         (err, rows) => {
             if (err) {

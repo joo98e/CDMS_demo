@@ -20,7 +20,7 @@ const getMemberLocalStorage = () => {
 const getIp = async URL => {
     await fetch(URL,
         {
-            method: 'get',
+            method: 'get'
         })
         .then(res => res.json())
         .then(res => {
@@ -28,6 +28,16 @@ const getIp = async URL => {
         })
         .catch(err => {
             console.log(err);
+            initialState.accessInfo = {
+                IPv4: "106.248.61.60",
+                city: "Seoul",
+                country_code: "KR",
+                country_name: "South Korea",
+                latitude: 37.5985,
+                longitude: 126.9783,
+                postal: null,
+                state: "Seoul",
+            }
         });
 }
 
@@ -37,7 +47,7 @@ const initialState = {
     accessInfo: null,
 };
 
-getIp('http://geolocation-db.com/json/');
+getIp('/api/Util/getIp');
 
 const User = (state = initialState, action) => {
 

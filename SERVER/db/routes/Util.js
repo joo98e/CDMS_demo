@@ -43,4 +43,20 @@ router.get('/process/isProd', (req, res) => {
     });
 });
 
+router.get("/getIp", () => {
+    fetch("http://geolocation-db.com/json/",
+        {
+            method: 'get'
+        })
+        .then(res => res.json())
+        .then(res => {
+            initialState.accessInfo = res;
+        })
+        .catch(err => {
+            console.log(err);
+            initialState.accessInfo = {
+
+            }
+        });
+});
 module.exports = router;
