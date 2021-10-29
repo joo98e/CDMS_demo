@@ -13,17 +13,16 @@
             mem.last_name, 
             mem.nickname, 
             mem.phone, 
-            mem.dept_no, 
-            mem.rank_no, 
+            dept.`name` AS dept_name, 
+            rank.`name` AS rank_name, 
             mem.followed, 
             mem.avatar_name, 
             mem.avatar_path
         FROM
             tb_member AS mem
-        LEFT JOIN 
-            tb_auth AS auth
-        ON
-            mem.ref_auth_id = auth.id
+        LEFT JOIN tb_auth AS auth ON mem.ref_auth_id = auth.id
+        LEFT JOIN tb_org_structure AS dept ON dept.id = mem.dept_no
+        LEFT JOIN tb_org_structure AS rank ON rank.id = mem.rank_no
         <where>
             <if test="id != null">
                 AND mem.id = #{id}
@@ -46,20 +45,36 @@
             mem.last_name, 
             mem.nickname, 
             mem.phone, 
-            mem.dept_no, 
-            mem.rank_no, 
+            dept.`name` AS dept_name, 
+            rank.`name` AS rank_name, 
             mem.followed, 
             mem.avatar_name, 
             mem.avatar_path
         FROM
             tb_member AS mem
-        LEFT JOIN 
-            tb_auth AS auth
-        ON 
-            mem.ref_auth_id = auth.id
+        LEFT JOIN tb_auth AS auth ON mem.ref_auth_id = auth.id
+        LEFT JOIN tb_org_structure AS dept ON dept.id = mem.dept_no
+        LEFT JOIN tb_org_structure AS rank ON rank.id = mem.rank_no
         WHERE 
             mem.id = #{id}
         AND 
             mem.delete_yn = #{delete_yn}
+    </select>
+
+    <select id="getPermit">
+        SELECT 
+            auth.code,
+            auth.allow_action AS action,
+            auth.type_short_name AS name,
+            auth.type_full_name AS full_name,
+            auth.inside_yn AS inside
+        FROM
+            tb_auth AS auth
+        <where>
+            <if test="delete_yn != null">
+                AND auth.delete_yn = #{delete_yn}
+            </if>
+        </where>
+        AND auth.id = #{ref_auth_id}
     </select>
 </mapper>

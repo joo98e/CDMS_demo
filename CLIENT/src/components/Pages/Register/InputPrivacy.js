@@ -293,7 +293,7 @@ export class InputAccount extends PureComponent {
                                         required
                                         name="nickName"
                                         label="닉네임"
-                                        placeholder="한글, 영문으로 구성하셔야 합니다."
+                                        placeholder="한글이나 영문으로 구성하셔야 합니다."
                                         error={this.props.errorTextField.nickName}
                                         onChange={this.handleValueChange}
                                     />

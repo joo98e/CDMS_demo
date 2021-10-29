@@ -35,7 +35,7 @@ router.get('/menu/info', (req, res) => {
 
 });
 
-router.get('/process/isProd', (req, res) => {
+router.get('/process/prod', (req, res) => {
     return res.status(200).send({
         result: status === 'prod' ? true : false,
         resultCode: 1,
@@ -45,7 +45,7 @@ router.get('/process/isProd', (req, res) => {
 
 router.get("/getIp", (req, res) => {
     try {
-        const IP = requestIp.getClientIp(req);
+        const IP = requestIp.getClientIp(req).substr(7);
         return res.status(200).send({
             result : IP,
             resultCode : 1,

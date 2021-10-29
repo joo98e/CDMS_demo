@@ -305,28 +305,28 @@ export class index extends PureComponent {
     handleIdDuplicateCheck = () => {
         const _id = this.props.registerMember.id;
         const _email = this.props.registerMember.email;
-        
+
         if (!FNValidator("ID", _id)) {
             this.setState({
                 ...this.state,
-                errorTextField : {
+                errorTextField: {
                     ...this.state.errorTextField,
-                    id : true
+                    id: true
                 }
             });
             return this.props.enqueueSnackbar("ID는 영문자 혹은 숫자로 5~15자로 구성해야 합니다.", { variant: "warning" });
-        } 
+        }
 
         else if (this.props.registerMember.email !== null && !FNValidator("DOMAIN", _email)) {
             this.setState({
                 ...this.state,
-                errorTextField : {
+                errorTextField: {
                     ...this.state.errorTextField,
-                    email : true
+                    email: true
                 }
             });
             return this.props.enqueueSnackbar("도메인 형식이 아닙니다.", { variant: "warning" });
-        } 
+        }
 
         else {
             const URL = '/api/register/duplicateCheckId'
@@ -378,6 +378,16 @@ export class index extends PureComponent {
                 "content-type": "multipart/form-data"
             }
         }
+        
+        let phone = this.props.registerMember.phone;
+
+        if (phone.match(/^[0-9]{11}/) !== null) {
+            phone = `${phone.substr(0, 3)}-${phone.substr(3, 4)}-${phone.substr(7, 4)}`
+        } else if (phone.match(/^[0-9]{10}/) !== null) {
+            phone = `${phone.substr(0, 2)}-${phone.substr(2, 4)}-${phone.substr(6, 4)}`
+        } else if (phone.match(/^[0-9]{9}/) !== null) {
+            phone = `${phone.substr(0, 2)}-${phone.substr(2, 3)}-${phone.substr(5, 4)}`
+        }
 
         const formData = new FormData();
         formData.append("avatar_file", this.props.registerMember.avatar_file);
@@ -388,7 +398,7 @@ export class index extends PureComponent {
         formData.append("first_name", this.props.registerMember.first_name);
         formData.append("last_name", this.props.registerMember.last_name);
         formData.append("nickName", this.props.registerMember.nickName);
-        formData.append("phone", this.props.registerMember.phone.replace(/-/gi, ""));
+        formData.append("phone", phone);
         formData.append("rank_no", this.props.registerMember.rank_no);
         formData.append("dept_no", this.props.registerMember.dept_no);
         formData.append("reg_ip", this.props.accessInfo.IPv4);
@@ -469,7 +479,7 @@ export class index extends PureComponent {
                                 <Typography>이전</Typography>
                             </Button>
                             <Button variant="outlined" onClick={this.handleClickMoveLoginPage}>
-                                <Typography>로그인</Typography>
+                                <Typography>메인으로</Typography>
                             </Button>
                             <Button variant="outlined" disabled={this.state.stepNum === stepInfo.stepsTitle.length - 1} onClick={() => { this.handleClickMoveStep(1) }}>
                                 <Typography>다음</Typography>

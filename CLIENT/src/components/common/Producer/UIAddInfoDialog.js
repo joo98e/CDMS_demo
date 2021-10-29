@@ -11,23 +11,38 @@ export const UIAddInfoDialog = (props) => {
     const { enqueueSnackbar } = useSnackbar();
     const [open, setOpen] = useState(false);
     const [infos, setInfos] = useState([]);
-    const keyForm = useRef();
-    const valueForm = useRef();
+    const [length, setLength] = useState(null);
 
-    const handleFormCalc = e => {
-        if (e.key === "Enter") {
-            if (keyForm.current.value === "" || valueForm.current.value === "") {
-                return enqueueSnackbar("한 가지 이상의 값이 비어 있습니다.", { variant: "error" });
-            } else {
-                // 추가
-                let nextState = [...infos, { key: "", value: "" }];
-                setInfos(nextState);
-            }
+    const handleFormCalc = type => {
+        let keyForm = document.getElementsByName(`key_${length}`)[0];
+        let valueForm = document.getElementsByName(`value_${length}`)[0];
 
-            setTimeout(() => {
-                keyForm.current.focus();
-            }, 50);
+        switch (type) {
+            case "push":
+                if (keyForm.value === "" || valueForm.value === "") {
+                    return enqueueSnackbar("한 가지 이상의 값이 비어 있습니다.", { variant: "error" });
+                } else {
+                    // 추가
+                    let nextState = [...infos, { key: "", value: "" }];
+                    setInfos(nextState);
+                    setLength(length + 1);
+                }
+
+                setTimeout(() => {
+                    document.getElementsByName(`key_${length + 1}`)[0].focus();
+                }, 50);
+                break;
+
+            case "pop":
+                let nextState = [...infos];
+                nextState.pop();
+                props.action(nextState);
+                break;
+
+            default:
+                break;
         }
+
     }
 
     const handleChangeValue = (e) => {
@@ -54,8 +69,10 @@ export const UIAddInfoDialog = (props) => {
     useEffect(() => {
         if (!FNValidator("EMPTY", props.data)) {
             setInfos([{ key: "", value: "" }]);
+            setLength(1);
         } else {
             setInfos(props.data);
+            setLength(props.data.length);
         }
 
         return () => {
@@ -113,7 +130,6 @@ export const UIAddInfoDialog = (props) => {
                                                 name={`key_` + (index + 1)}
                                                 value={item.key}
                                                 onChange={handleChangeValue}
-                                                inputRef={keyForm}
                                             />
                                         </Grid>
                                         <Grid item xs={6} md={6} lg={6}>
@@ -123,8 +139,7 @@ export const UIAddInfoDialog = (props) => {
                                                 name={`value_` + (index + 1)}
                                                 value={item.value}
                                                 onChange={handleChangeValue}
-                                                onKeyUp={handleFormCalc}
-                                                inputRef={valueForm}
+                                                onKeyUp={e => e.key === "Enter" && handleFormCalc("push")}
                                             />
                                         </Grid>
                                     </React.Fragment>
@@ -134,6 +149,16 @@ export const UIAddInfoDialog = (props) => {
                     </Grid>
                 </DialogContent>
                 <DialogActions>
+                    <UIButton
+                        name="항목 추가"
+                        variant="contained"
+                        action={() => handleFormCalc("push")}
+                    />
+                    <UIButton
+                        name="항목 삭제"
+                        variant="contained"
+                        action={() => handleFormCalc("pop")}
+                    />
                     <UIButton
                         name={props.btnProps.end.name}
                         variant="contained"

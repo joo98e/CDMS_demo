@@ -5,13 +5,14 @@ import Axios from 'axios';
 import * as actions from '../../../redux/action/UserInfoAction'
 import { withSnackbar } from 'notistack'
 
-import { Box, Button, TextField, withStyles, Grow, Container, Grid } from '@material-ui/core'
+import { Button, TextField, withStyles, Grow, Container, Grid } from '@material-ui/core'
+import UIButton from "../../common/UIButton"
 
 const styles = theme => ({
     root: {
-        maxWidth : "100vw",
+        maxWidth: "100vw",
         paddingTop: theme.spacing(24),
-        overflow : "hidden"
+        overflow: "hidden"
     },
     logo: {
         width: theme.spacing(48),
@@ -20,7 +21,7 @@ const styles = theme => ({
         marginBottom: theme.spacing(2)
     },
     container: {
-        width : theme.spacing(64)
+        width: theme.spacing(64)
     }
 });
 
@@ -81,8 +82,8 @@ export class Login extends Component {
                         last_name: res.data.last_name,
                         nickname: res.data.nickname,
                         phone: res.data.phone,
-                        dept_no: res.data.dept_no,
-                        rank_no: res.data.rank_no,
+                        dept: res.data.dept_name,
+                        rank: res.data.rank_name,
                         followed: res.data.followed,
                         avatar_name: res.data.avatar_name,
                         avatar_path: res.data.avatar_path
@@ -132,7 +133,7 @@ export class Login extends Component {
                                 <TextField
                                     fullWidth
                                     required
-                                    variant="filled"
+                                    variant="outlined"
                                     name="id"
                                     label="아이디"
                                     onChange={this.handleChange}
@@ -146,7 +147,7 @@ export class Login extends Component {
                                     style={{ marginTop: '20px' }}
                                     fullWidth
                                     required
-                                    variant="filled"
+                                    variant="outlined"
                                     name="password"
                                     label="비밀번호"
                                     type="password"
@@ -161,35 +162,29 @@ export class Login extends Component {
                             </form>
                         </Grid>
                         <Grid item xs={12} md={12} lg={12}>
-                            <Button
-                                className={classes.buttonMargin}
+                            <UIButton
+                                name="로그인"
+                                class={classes.buttonMargin}
                                 fullWidth
-                                variant="outlined"
-                                onClick={this.loginCheck}
-                                color="inherit"
-                            >
-                                로그인하기
-                            </Button>
-                            <Button
-                                className={classes.buttonMargin}
+                                variant="contained"
+                                action={this.loginCheck}
+                            />
+                            <UIButton
+                                name="회원가입"
+                                class={classes.buttonMargin}
                                 fullWidth
-                                variant="outlined"
-                                onClick={this.pushRegister}
-                                color="inherit"
-                            >
-                                회원가입
-                            </Button>
+                                variant="contained"
+                                action={this.pushRegister}
+                            />
                             {
-                                !this.props.isProd &&
-                                <Button
-                                    className={classes.buttonMargin}
+                                process.env.NODE_ENV === 'development' &&
+                                <UIButton
+                                    name="개발 환경 로그인"
+                                    class={classes.buttonMargin}
                                     fullWidth
-                                    variant="outlined"
-                                    onClick={this.devLogin}
-                                    color="inherit"
-                                >
-                                    개발 환경 로그인
-                                </Button>
+                                    variant="contained"
+                                    action={this.devLogin}
+                                />
                             }
                         </Grid>
                     </Grid>

@@ -1,12 +1,11 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router';
-import axios from 'axios'
-import { Container, Grid, Grow, Paper, IconButton, withStyles, Typography, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
-import { AddCircleIcon } from '../../common/CustomIcons';
+import { Container, Grid, Grow, Paper, withStyles, Typography, Dialog, DialogContent, DialogActions } from '@material-ui/core';
 import AgencyCard from './AgencyCard'
 import AgencyAddDialog from './AgencyAddDialog'
 import UIButton from '../../common/UIButton';
+import API from '../../common/API';
 
 const styles = theme => ({
     root: {
@@ -49,15 +48,20 @@ export class Agency extends PureComponent {
         this.state = {
             agency: null,
             awhile: false,
-            open: false
+            open: false,
+            write: null,
         }
     }
 
     componentDidMount() {
-        this.setState({
-            ...this.state,
-            awhile: true,
-        });
+        API.permit(this.props.member)
+            .then(res => {
+                this.setState({
+                    ...this.state,
+                    write: API.permitted("WRITE", res),
+                    awhile : true
+                });
+            });
 
         try {
             switch (this.props.member.ref_auth_type) {
@@ -87,22 +91,21 @@ export class Agency extends PureComponent {
     }
 
     getAgencyList = srchType => {
-        const URL = '/api/agency/list';
+        const config = {
+            mem_seq: this.props.member.seq,
+            delete_yn: 'N',
+            status: "STATUS::OPEN",
+            srchType: srchType !== (undefined || null) ? srchType : null
+        }
 
-        axios.get(URL, {
-            params: {
-                mem_seq: this.props.member.seq,
-                delete_yn: 'N',
-                status: "STATUS::OPEN",
-                srchType: srchType !== (undefined || null) ? srchType : null
-            }
-        }).then(res => {
-            this.setState({
-                ...this.state,
-                agency: res.data.result,
-                open: res.data.length !== 0 ? true : false
-            });
-        })
+        API.get('/api/agency/list', config)
+            .then(res => {
+                this.setState({
+                    ...this.state,
+                    agency: res.data.result,
+                    open: res.data.length !== 0 ? true : false
+                });
+            })
             .catch(err => {
                 console.log(err);
             });
@@ -122,7 +125,7 @@ export class Agency extends PureComponent {
                             this.state.agency === null || this.state.agency.length === 0 ?
                                 <Grid item xs={12} md={12} lg={12} className={classes.box}>
                                     {
-                                        this.props.member.ref_allow_action.indexOf('WRITE') === -1 ?
+                                        !this.state.write ?
                                             <Typography className={classes.trans} variant="h5">참여하고 있는 프로젝트가 없습니다.</Typography>
                                             :
                                             <Grow
@@ -131,7 +134,7 @@ export class Agency extends PureComponent {
                                                 timeout={this.state.awhile ? 800 : 0}
                                             >
                                                 <Grid item xs={12} md={6} lg={4}>
-                                                    <Paper elevation={4} className={`${classes.relative}`}>
+                                                    <Paper elevation={4} className={classes.relative}>
                                                         <AgencyAddDialog />
                                                     </Paper>
                                                 </Grid>
@@ -156,7 +159,7 @@ export class Agency extends PureComponent {
                                         timeout={this.state.awhile ? 800 : 0}
                                     >
                                         <Grid item xs={12} md={6} lg={4}>
-                                            <Paper elevation={4} className={`${classes.relative}`}>
+                                            <Paper className={classes.relative} elevation={4}>
                                                 <AgencyAddDialog />
                                             </Paper>
                                         </Grid>
@@ -167,7 +170,7 @@ export class Agency extends PureComponent {
                 </Grid>
 
                 {
-                    (this.state.agency === null || this.state.agency.length === 0) && this.props.member.ref_allow_action.indexOf('WRITE') !== -1
+                    (this.state.agency === null || this.state.agency.length === 0) && this.state.write
                     &&
                     <Dialog open={this.state.open} fullWidth>
                         <DialogContent className={classes.alertBox}>

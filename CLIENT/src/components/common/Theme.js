@@ -29,7 +29,7 @@ const theme = {
             background: {
                 default: "#FBFCFF",
                 paper: "#eff0f4",
-                button: "#FFFFFF",
+                button: "#DFDFDF",
                 whiteButton: "#8F8F8F",
             },
             text: {
@@ -67,7 +67,7 @@ const theme = {
             },
             // 실제 버튼 호버
             grey: {
-                A100: "#FFF",
+                A100: "rgba(0, 0, 0, 0.1)",
             },
 
         },

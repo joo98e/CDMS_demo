@@ -1,5 +1,6 @@
 import * as types from '../types';
 import Themes from '../../components/common/Theme'
+import API from '../../components/common/API';
 
 const message = function () {
     const date = new Date();
@@ -14,26 +15,6 @@ const message = function () {
                             : greeting >= 6 ? '너무 이른데요..' : '굿밤!'
 }
 
-const isProdEnv = async () => {
-    const config = {
-        method: "GET",
-        header: {
-            'content-type': "application/json"
-        }
-    }
-
-    await fetch('/api/util/process/isProd', config)
-        .then(res => {
-            return res.json();
-        })
-        .then(res => {
-            initialState.isProd = res.result;
-        })
-        .catch(err => {
-            console.log(err);
-        });
-
-}
 const initialState = {
     color: 'default',
     nowThemeNum: 0,
@@ -41,11 +22,9 @@ const initialState = {
     bgColor: "#424242",
     hourlyGreetings: message(),
     menuAppearPosition: 'left',
-    isProd: undefined,
+    isProd: null,
     pathGuider: ""
 };
-
-isProdEnv();
 
 const UI = (state = initialState, action) => {
 

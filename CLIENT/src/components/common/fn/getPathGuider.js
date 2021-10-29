@@ -69,8 +69,8 @@ const getPathGuider = data => {
             value = "프로세스 상세";
             break;
 
-        case '/04':
-            value = "설정";
+        case '/mail/edit':
+            value = "메일로 알리기";
             break;
 
         case '/05':

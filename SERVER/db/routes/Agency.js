@@ -102,10 +102,7 @@ router.get('/category', (req, res) => {
 });
 
 router.post('/add', (req, res) => {
-    const params = {
-        ...req.body,
-        desc: req.body.desc.replace("\\n", "<br />")
-    };
+    const params = { ...req.body, desc: req.body.desc.replace(/\n/g, "<br />") };
     const SQL_AGENCY = myBatisMapper.getStatement('Agency', 'insertAgency', params, format);
 
     connection.query(SQL_AGENCY,
@@ -181,7 +178,7 @@ router.get('/detail', (req, res) => {
                         resultMessage: "기관 디테일 조회 성공"
                     });
                 }
-                
+
             }
         });
 });

@@ -8,7 +8,7 @@ import { setAgencyInfo, setAgencyInfoInit } from '../../../redux/action/Producer
 
 import {
     Container, TextField, FormControl, Select, Dialog, Typography,
-    ListItemText, ListItem, List, Divider, AppBar, Toolbar, IconButton, MenuItem,
+    Divider, AppBar, Toolbar, IconButton,
     Grid, Box
 } from '@material-ui/core';
 
@@ -19,13 +19,12 @@ import UIPersonList from '../../common/UIPersonList';
 import UIDatePicker from '../../common/UIDatePicker';
 import UIButton from '../../common/UIButton';
 import UIChipSet from '../../common/UIChipSet';
-import AgencyAdditionalDialog from './AgencyAdditionalDialog';
-
+import UIAddInfoDialog from '../../common/Producer/UIAddInfoDialog';
 import {
     CloseIcon,
     AddCircleIcon
 } from '../../common/CustomIcons';
-import UIAddInfoDialog from '../../common/Producer/UIAddInfoDialog';
+
 
 const useStyles = makeStyles((theme) => ({
     header: {
@@ -39,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
     mainTitle: {
         display: 'block',
         paddingTop: theme.spacing(4),
-        paddingBottom: theme.spacing(4)
     },
     mh2: {
         margin: theme.spacing(2, 0, 2, 0)
@@ -50,17 +48,14 @@ const useStyles = makeStyles((theme) => ({
         left: '50%',
         transform: 'translate(-50%, -50%)'
     },
+    desc: {
+        color: theme.palette.text.desc
+    }
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
-
-const defaultState = {
-    name: "",
-    desc: "",
-    biz_area: ""
-}
 
 const BtnInfo = {
     open: "구성하기",
@@ -236,13 +231,14 @@ export default function AgencyAddDialog() {
         let nextValue = { ..._agencyInfo }
         nextValue[e.target.name] = e.target.value;
 
-        if (e.target.name === "desc") console.log(e.target.value);
-        
+        if (e.target.name === "desc") {
+            console.log(e.target.value);
+        };
+
         dispatch(setAgencyInfo({ ...nextValue }));
     }
 
     const handleSetAddInfo = data => {
-
         dispatch(setAgencyInfo({ ..._agencyInfo, addInfo: data }));
     }
 
@@ -265,7 +261,8 @@ export default function AgencyAddDialog() {
             ..._member,
             ..._agencyInfo
         };
-        
+        console.log(data);
+
         const config = {
             headers: {
                 "content-type": "application/json"
@@ -275,10 +272,7 @@ export default function AgencyAddDialog() {
         axios.post(URL, data, config)
             .then(res => {
                 if (res.data.resultCode === 1) {
-                    dispatch(setAgencyInfo({
-                        ..._agencyInfo,
-                        person: []
-                    }));
+                    dispatch(setAgencyInfoInit());
                     enqueueSnackbar("기관 등록에 성공했습니다.", { variant: 'success' });
                     history.goBack();
                 } else {
@@ -442,20 +436,28 @@ export default function AgencyAddDialog() {
                                     data={_agencyInfo.addInfo}
                                     action={handleSetAddInfo}
                                 />
+                                {
+                                    (_agencyInfo.addInfo !== "" || _agencyInfo.addInfo.length !== 0) &&
+                                    <Grid className={classes.mh2} container>
+                                        {_agencyInfo.addInfo.map((item, index) => {
+                                            return (
+                                                <React.Fragment key={index}>
+                                                    <Grid item xs={6} md={6} lg={6}>
+                                                        <Typography className={classes.desc} variant="body1">
+                                                            {item.key}
+                                                        </Typography>
+                                                    </Grid>
+                                                    <Grid item xs={6} md={6} lg={6}>
+                                                        <Typography variant="body1">
+                                                            {item.value}
+                                                        </Typography>
+                                                    </Grid>
+                                                </React.Fragment>
+                                            )
+                                        })}
+                                    </Grid>
+                                }
                             </Grid>
-                            {
-                                _agencyInfo.addInfo !== "" &&
-                                <React.Fragment>
-                                    <Grid item xs={12} md={4} lg={4}>
-
-                                    </Grid>
-                                    <Grid item xs={12} md={8} lg={8}>
-                                        <Grid container>
-
-                                        </Grid>
-                                    </Grid>
-                                </React.Fragment>
-                            }
                         </Grid>
 
                         <Divider className={classes.mh2} />
@@ -475,12 +477,22 @@ export default function AgencyAddDialog() {
                                     ResultMessage={ResultMessage}
                                     ResultAction={ResultAction}
                                 />
-                            </Grid>
-                            <Grid item xs={12} md={12} lg={12}>
-
+                                <Box mt={2}>
+                                    {
+                                        _agencyInfo.person.map((item, index) => {
+                                            return (
+                                                <UIChipSet
+                                                    key={index}
+                                                    data={item}
+                                                />
+                                            )
+                                        })
+                                    }
+                                </Box>
                             </Grid>
                         </Grid>
-                        <Box display="flex" justifyContent="center" alignItems="center" mt={8}>
+
+                        <Box display="flex" justifyContent="center" alignItems="center" mt={8} mb={8}>
                             <UIButton
                                 name="등록하기"
                                 variant="contained"
@@ -488,6 +500,7 @@ export default function AgencyAddDialog() {
                                 inputStyle={{ justifyContent: "flex-end" }}
                             />
                         </Box>
+
                     </Container>
                 </Container>
             </Dialog>

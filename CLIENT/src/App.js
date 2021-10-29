@@ -8,10 +8,10 @@ import Register from './components/Pages/Register';
 import Agency from './components/Pages/Agency'
 import AgencyDetail from './components/Pages/Agency/Detail'
 import ProjectDetail from './components/Pages/Proj/Detail'
-import AgencyAdd from './components/Pages/Agency/AgencyAdd'
 import ProjectAdd from './components/Pages/Proj/ProjectAdd'
 import ProcessAdd from './components/Pages/Process/ProcessAdd'
 import ProcessDetail from './components/Pages/Process/Detail'
+import UIMailEditor from './components/common/UIMailEditor'
 
 class App extends Component {
   render() {
@@ -21,7 +21,6 @@ class App extends Component {
         <CustomRoute exact path="/register" component={Register} />
 
         <CustomRoute exact path="/agency" component={Agency} />
-        <CustomRoute exact path="/agency/add" component={AgencyAdd} />
         <CustomRoute exact path="/agency/detail/:ref_agcy_id" component={AgencyDetail} />
 
         <CustomRoute exact path="/agency/project/add/:ref_agcy_id" component={ProjectAdd} />
@@ -29,6 +28,9 @@ class App extends Component {
 
         <CustomRoute exact path="/agency/project/detail/process/add/:ref_proj_id" component={ProcessAdd} />
         <CustomRoute exact path="/agency/project/process/detail/:ref_proc_id" component={ProcessDetail} />
+        
+        <CustomRoute exact path="/common/mail/edit" component={UIMailEditor} />
+
         <CustomRoute component={Redirection} />
       </Switch>
     )

@@ -49,7 +49,7 @@ export const UIChipSet = (props) => {
     }
 
     useEffect(() => {
-        console.log(data)
+        
     }, [data]);
 
     return (

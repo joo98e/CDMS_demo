@@ -84,9 +84,7 @@ const Producer = (state = initialState, action) => {
 
             return {
                 ...state,
-                agencyInfo: {
-                    addInfo: initAgencyValue
-                }
+                agencyInfo: initAgencyValue
             };
 
         case types.SET_PROJECT_INFO:

@@ -88,9 +88,31 @@ router.get('/login/dev', (req, res) => {
                 resultCode: -1,
                 resultMessage: "알 수 없는 오류"
             })
-            
+
         } else {
             return res.status(200).send(rows[0]);
+        };
+    });
+});
+
+router.get("/permit", (req, res) => {
+    const condition = { ...req.query, delete_yn: "N" };
+    const SQL = myBatisMapper.getStatement("Member", "getPermit", condition, format);
+    connection.query(SQL, (err, rows, fields) => {
+        if (err) {
+            console.log(err)
+            return res.status(400).send({
+                result: false,
+                resultCode: -1,
+                resultMessage: "알 수 없는 오류입니다."
+            })
+
+        } else {
+            return res.status(200).send({
+                result: { ...rows },
+                resultCode : 1,
+                resultMessage : "성공하였습니다."
+            });
         };
     });
 });

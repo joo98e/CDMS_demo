@@ -12,7 +12,6 @@ import React, { useState } from 'react'
 import {
     Button, Tooltip, makeStyles, Typography
 } from "@material-ui/core"
-import PropTypes from 'prop-types'
 
 const useStyles = makeStyles(theme => ({
     root: {

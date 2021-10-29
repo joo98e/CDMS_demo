@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
 import { useSelector } from 'react-redux';
@@ -11,12 +11,15 @@ import {
 import { AvatarGroup } from '@material-ui/lab'
 
 import UICardHeader from '../../common/Card/UICardHeader';
+import API from "../../common/API"
+
 import {
   MoreVertIcon,
   EditIcon,
   DeleteIcon,
   MailIcon
 } from '../../common/CustomIcons';
+import UIButton from '../../common/UIButton';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     minHeight: '200px',
     maxHeight: '400px',
     backgroundColor: theme.palette.background.default,
-    padding : theme.spacing(1)
+    padding: theme.spacing(0, 1, 1, 1)
   },
   pr: {
     position: 'relative'
@@ -71,54 +74,47 @@ function AgencyCard(props) {
   const classes = useStyles();
   const history = useHistory();
   const _member = useSelector((store) => store.User.member);
-  const [writeStatus, setWriteStatus] = React.useState(false);
-  const [GrowIn, setGrowIn] = React.useState(false);
-  const [agcyColleagueList, setAgcyColleagueList] = React.useState(null);
-
-  const getColleagueList = () => {
-    const URL = '/api/agency/getColleague';
-    const condition = {
-      agcy_id: props.item.id,
-      delete_yn: 'N'
-    }
-    axios.get(URL, {
-      params: {
-        ...condition
-      }
-    })
-      .then(res => {
-        setAgcyColleagueList(res.data.result);
-      });
-  }
+  const [write, setWrite] = useState(false);
+  const [GrowIn, setGrowIn] = useState(false);
+  const [agcyColleagueList, setAgcyColleagueList] = useState(null);
 
   const headerActionList = [
-    // {
-    //     name: "수정하기",
-    //     icon: <EditIcon />,
-    //     action: () => {console.log("수정하기")}
-    // },
-    // {
-    //     name: "삭제하기",
-    //     icon: <DeleteIcon />,
-    //     action: () => {console.log("삭제하기")}
-    // },
+    {
+      name: "수정하기",
+      icon: <EditIcon />,
+      action: () => { alert("수정하기") }
+    },
+    {
+      name: "삭제하기",
+      icon: <DeleteIcon />,
+      action: () => { alert("삭제하기") }
+    },
     // {
     //   name: "알림 메일 보내기",
     //   icon: <MailIcon />,
     //   action: () => {console.log("알림 메일 보내기")}
     // },
-]
+  ]
 
-  React.useEffect(() => {
-
-    setGrowIn(true);
-    getColleagueList();
-
-    if (_member.ref_allow_action.indexOf('WRITE') !== -1 || props.item.writer_seq === _member.seq) {
-      setWriteStatus(true);
+  const returnHTML = HTML => {
+    return {
+      __html: HTML
     }
+  }
 
-  }, []);
+  useEffect(() => {
+    API.get("/api/agency/getColleague", { agcy_id: props.item.id, delete_yn: 'N' })
+      .then(res => {
+        setAgcyColleagueList(res.data.result);
+      });
+
+    API.permit(_member)
+      .then(res => {
+        setWrite(true);
+        setGrowIn(true);
+      });
+
+  }, [_member, props.item.id]);
 
   return (
     <Grid item xs={12} md={6} lg={4} className={classes.pr}>
@@ -129,16 +125,13 @@ function AgencyCard(props) {
       >
         <Paper elevation={4}>
           <Card className={classes.root}>
-
             <UICardHeader
               title={props.item.name}
               icon={<MoreVertIcon />}
-              action={writeStatus ? headerActionList : null}
+              action={write ? headerActionList : null}
             />
 
-            <Box className={classes.boxTop}>
-              {props.item.desc}
-            </Box>
+            <Box className={classes.boxTop} dangerouslySetInnerHTML={returnHTML(props.item.desc)} />
 
             <CardActions>
               <AvatarGroup max={4}>
@@ -156,21 +149,19 @@ function AgencyCard(props) {
                     })
                     :
                     <Typography variant="body1">
-                      데이터가 없습니다.
+                      담당자 혹은 참여자가 없습니다.
                     </Typography>
                 }
               </AvatarGroup>
             </CardActions>
 
             <CardActions>
-              <Button
-                className={classes.boxBottom}
-                variant="outlined"
-                size="small"
-                onClick={() => { history.push(`/agency/detail/${props.item.id}`) }}
-              >
-                <Typography variant="body2" color="textPrimary">MORE</Typography>
-              </Button>
+              <UIButton
+                name="자세히"
+                fullWidth
+                variant="contained"
+                action={() => { history.push(`/agency/detail/${props.item.id}`) }}
+              />
             </CardActions>
           </Card>
         </Paper>
