@@ -11,13 +11,14 @@ import {
 
 import getNow from '../../../common/fn/getNow';
 import getDateFormat from '../../../common/fn/getDateFormat';
+
+import UINewsByNotice from '../../../common/News/UINewsByNotice'
 import UICircularProgress from '../../../common/UICircularProgress'
 import ProjectCard from '../../Proj/ProjectCard';
-import { AddCircleIcon } from '../../../common/CustomIcons'
-import API from '../../../common/API'
 import UIButton from '../../../common/UIButton'
-import UINewsByNotice from '../../../common/News/UINewsByNotice'
-import { UICardHeader } from '../../../common/Card/UICardHeader'
+import UICardHeader from '../../../common/Card/UICardHeader'
+import API from '../../../common/API'
+import { AddCircleIcon } from '../../../common/CustomIcons'
 
 const styles = theme => ({
     root: {
@@ -267,10 +268,12 @@ export class AgencyDetail extends Component {
                             <UICardHeader
                                 title={this.state.data.name ? this.state.data.name : "Loading..."}
                                 titleVariant="h4"
-                                subTitle={this.state.data.desc && this.state.data.desc}
                             />
                         </Paper>
                     </Grid>
+
+                    {/* 설명 */}
+                    {/* subHTML={this.state.data.desc && this.state.data.desc} */}
                     {
                         // this.state.data ?
                         //     <React.Fragment>
