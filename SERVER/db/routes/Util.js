@@ -43,31 +43,28 @@ router.get('/process/isProd', (req, res) => {
 });
 
 router.get("/getIp", (req, res) => {
-    // const params = {
-    //     method: "GET",
-    //     uri: "http://geolocation-db.com/json/",
-    //     headers: {
-    //         "Access-Control-Allow-Origin": "http://geolocation-db.com/json/"
-    //     },
-    //     json: true
-    // }
+    const params = {
+        method: "GET",
+        uri: "http://geolocation-db.com/json/",
+        json: true
+    }
 
-    // request(params, (err, response, body) => {
-    //     if (err) {
-    //         console.log(1);
-    //         return res.status(400).send({
-    //             result: {},
-    //             resultCode: -1,
-    //             resultMessage: "실패"
-    //         });
-    //     } else {
-    //         console.log(2);
-    //         return res.status(200).send({
-    //             result: body,
-    //             resultCode: 1,
-    //             resultMessage: "성공"
-    //         })
-    //     }
-    // });
+    request(params, (err, response, body) => {
+        if (err) {
+            console.log(1);
+            return res.status(400).send({
+                result: {},
+                resultCode: -1,
+                resultMessage: "실패"
+            });
+        } else {
+            console.log(2);
+            return res.status(200).send({
+                result: body,
+                resultCode: 1,
+                resultMessage: "성공"
+            })
+        }
+    });
 });
 module.exports = router;
