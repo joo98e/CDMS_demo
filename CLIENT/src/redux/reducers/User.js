@@ -28,7 +28,7 @@ const getIp = async URL => {
                 console.error("IP를 받아오지 못했습니다.");
             } else {
                 console.log(res.result);
-                initialState.accessInfo = JSON.parse(res.result);
+                initialState.accessInfo = res.result;
             }
         })
         .catch(err => {
