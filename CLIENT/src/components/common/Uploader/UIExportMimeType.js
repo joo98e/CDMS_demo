@@ -1,6 +1,4 @@
-
-
-const UIExportFileExtensionIcon = props => {
+const UIExportMimeType = props => {
     const index = props.name.lastIndexOf(".");
     const target = props.name.substring(index + 1);
     let src = "";
@@ -68,8 +66,8 @@ const UIExportFileExtensionIcon = props => {
     }
 
     return (
-        <img width="36px" src={src} alt={props.name} />
+        <img width="72px" src={src} alt={props.name} />
     )
 }
 
-export default UIExportFileExtensionIcon;
+export default UIExportMimeType;

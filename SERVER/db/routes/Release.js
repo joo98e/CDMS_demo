@@ -1,16 +1,17 @@
 
 const express = require('express');
 const router = express.Router();
-const connection = require("../db_connection");
+const multer = require('multer');
+const connection = require("../config/db_connection");
 const format = require('../config/MyBatisFormat');
 const myBatisMapper = require('mybatis-mapper');
+const ReleaseStorage = require("../storage/ReleaseStorage");
 
-myBatisMapper.createMapper(['./db/xml/Board/Board.xml']);
+myBatisMapper.createMapper(['./db/xml/Release/Release.xml']);
 
-router.post("/test", (req, res) => {
-    console.log(123);
-
-    return res.send(true);
+router.post("/test/:agency/:project", ReleaseStorage.array("files"), (req, res) => {
+    console.log("is release");
+    return res.status(204).end();
 });
 
 module.exports = router;

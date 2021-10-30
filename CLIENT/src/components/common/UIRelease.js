@@ -3,6 +3,7 @@ import UIEditor from './Editor/UIEditor'
 import UIButton from './UIButton'
 import { Box, Divider, Typography } from '@material-ui/core'
 import UIUploader from './Uploader/UIUploader'
+import API from './API'
 
 export const UIRelease = (props) => {
     const [HTML, setHTML] = useState(null);
@@ -12,9 +13,30 @@ export const UIRelease = (props) => {
         setFiles(result);
     }
 
-    const handleSubmitFiles = () => {
-        const dest = "/release/test/";
+    const handleSubmitFiles = files => {
+        const baseURL = "/api/release/test"
+        const config = {
+            headers: {
+                "content-type": "multipart/form-data",
+                "dest" : {
+                    agency : "1",
+                    project : "14",
+                    process : "17",
+                    board : "2"
+                }
+            }
+        }
         
+        const formData = new FormData();
+        for(let i =0; i < files.length; i++){
+            formData.append(`files`, files[i]);
+        }
+
+        API.files(baseURL, formData, config)
+            .then(res => console.log(res))
+            .catch(err => console.error(err))
+
+            // 에러처리
     }
 
     return (
@@ -59,7 +81,7 @@ export const UIRelease = (props) => {
                         <UIButton
                             name="전송"
                             variant="contained"
-                            action={handleSubmitFiles}
+                            action={() => handleSubmitFiles(files)}
                         />
                     </Box>
                 </Box>

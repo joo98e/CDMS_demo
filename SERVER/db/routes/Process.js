@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const getNow = require("../func/getNow");
-const connection = require("../db_connection");
+const connection = require("../config/db_connection");
 const myBatisMapper = require('mybatis-mapper');
 myBatisMapper.createMapper(['./db/xml/Process/Process.xml']);
 const format = require('../config/MyBatisFormat');

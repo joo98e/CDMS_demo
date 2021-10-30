@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require("bcrypt");
-const connection = require("../db_connection");
+const connection = require("../config/db_connection");
 
 // MyBatis
 const myBatisMapper = require('mybatis-mapper');

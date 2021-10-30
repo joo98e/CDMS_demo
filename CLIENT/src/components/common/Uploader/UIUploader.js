@@ -14,11 +14,8 @@ import {
 import UIButton from '../UIButton'
 import fileSizeCalc from "../fn/getFileSize"
 import { AddCircleIcon, CloseIcon } from "../CustomIcons"
-import UIExportFileExtensionIcon from './UIExportFileExtensionIcon';
-
-const setDigits = param => {
-    return param < 10 ? `0${param}` : param
-}
+import UIExportMimeType from './UIExportMimeType';
+import getDateFormat from "../fn/getDateFormat"
 
 const useStyles = makeStyles(theme => ({
     dropzone: {
@@ -53,7 +50,6 @@ export const UIUploader = (props) => {
     const { enqueueSnackbar } = useSnackbar();
 
     const onDrop = useCallback(acceptedFiles => {
-        console.log(acceptedFiles);
         if (props.data && props.action) {
             const nextState = [...props.data, ...acceptedFiles];
             if (nextState.length > 10) {
@@ -112,7 +108,8 @@ export const UIUploader = (props) => {
                                         <TableCell width={60}></TableCell>
                                         <TableCell width={60}></TableCell>
                                         <TableCell><Typography variant="body1">파일명</Typography></TableCell>
-                                        <TableCell align="right"><Typography variant="body1">파일 사이즈</Typography></TableCell>
+                                        <TableCell width={120}><Typography variant="body1"></Typography></TableCell>
+                                        <TableCell width={120} align="right"><Typography variant="body1">파일 사이즈</Typography></TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -127,12 +124,15 @@ export const UIUploader = (props) => {
                                                         </IconButton>
                                                     </TableCell>
                                                     <TableCell>
-                                                        <UIExportFileExtensionIcon name={item.name} />
+                                                        <UIExportMimeType name={item.name} />
                                                     </TableCell>
                                                     <TableCell>
                                                         <Typography variant="body2">
                                                             {item.name}
                                                         </Typography>
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {getDateFormat.YYYYMMDD(item.lastModifiedDate)}
                                                     </TableCell>
                                                     <TableCell align="right"><Typography className={classes.desc} variant="body2">{fileSizeCalc(item.size)}</Typography></TableCell>
                                                 </TableRow>

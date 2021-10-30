@@ -8,7 +8,7 @@ const myBatisMapper = require('mybatis-mapper');
 myBatisMapper.createMapper(['./db/xml/Util/Util.xml']);
 const format = require('../config/MyBatisFormat');
 
-const connection = require("../db_connection");
+const connection = require("../config/db_connection");
 
 router.get('/menu/info', (req, res) => {
     const params = req.query;

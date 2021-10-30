@@ -50,16 +50,24 @@ const getDateFormat = {
             }
 
             const betweenTimeHour = Math.floor(betweenTime / 60);
+            console.log(betweenTimeHour);
             if (betweenTimeHour < 24) {
                 return `${betweenTimeHour}시간 전`;
             }
 
             const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
-            if (betweenTimeDay < 365) {
+            console.log(betweenTimeDay);
+            if (betweenTimeDay < 7) {
                 return `${betweenTimeDay}일 전`;
             }
 
-            return `${Math.floor(betweenTimeDay / 365)}년 전`;
+            const betweenTimeWeek = Math.floor(betweenTime / 60 / 24 / 7);
+            console.log(betweenTimeWeek);
+            if (betweenTimeWeek < 5) {
+                return `${betweenTimeWeek + 1}주 전`;
+            }
+
+            return `${setDigits(timeValue.getFullYear())}-${setDigits(timeValue.getMonth() + 1)}-${setDigits(timeValue.getDate())}`
         } catch (error) {
 
         }

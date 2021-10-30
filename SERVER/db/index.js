@@ -21,6 +21,6 @@ app.use("/api/process", Process);
 app.use("/api/util", Util);
 app.use("/api/menu", Menu);
 app.use("/api/mail", Mail);
-app.use("/api/board", Release);
+app.use("/api/release", Release);
 
 app.listen(port, () => console.log(`Listening on PORT ${port}`));

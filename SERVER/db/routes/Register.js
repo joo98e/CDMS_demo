@@ -1,34 +1,19 @@
 const express = require('express');
 const router = express.Router();
-const connection = require("../db_connection");
-const getDest = require("../common/getDest");
+const connection = require("../config/db_connection");
+const getDest = require("../func/getDest");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
-
-// 업로더
 const multer = require('multer');
-
-// MyBatis
 const myBatisMapper = require('mybatis-mapper');
-myBatisMapper.createMapper(['./db/xml/Register/RegisterMember.xml']);
 const format = require('../config/MyBatisFormat');
-
 const getNow = require("../func/getNow");
-
-// 실제 클라이언트 요청 경로
 const requestDir = '/static/avatars/items/user/';
+const AvatarStorage = require("../storage/AvatarStorage");
 
-const avatarStorage = multer({
-    storage: multer.diskStorage({
-        // 실제 업로드 경로
-        destination: `${getDest}/avatars/items/user/`,
-        filename: function (req, file, cb) {
-            cb(null, `avatar_${Date.now()}_${file.originalname}`);
-        }
-    }),
-});
+myBatisMapper.createMapper(['./db/xml/Register/RegisterMember.xml']);
 
-router.post('/signUp', avatarStorage.single('avatar_file'), (req, res) => {
+router.post('/signUp', AvatarStorage.single('avatar_file'), (req, res) => {
     bcrypt.genSalt(saltRounds, (err, salt) => {
         if (err) {
             return res.status(500).send({

@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 
-const connection = require("../db_connection");
+const connection = require("../config/db_connection");
 
 router.get('/category', (req, res) => {
     const sql = `SELECT * FROM TB_PROJECT_CATEGORY`
