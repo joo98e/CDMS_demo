@@ -4,18 +4,8 @@ const path = require('path');
 
 module.exports = (() => {
     const app = express();
-    if (status === 'prod') 
-    {
-        app.use('/static', express.static('/raid/cdms'));
-        app.use(express.static("client/build"));
-        app.get("*", (req, res) => {
-            res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
-        });
-    } 
-    else if (status === 'dev') 
-    {
-        app.use('/static', express.static('uploads'));
-    }
+    status === 'prod' && app.use('/static', express.static('/raid/cdms'));
+    status === 'dev' && app.use('/static', express.static('uploads'));
 
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));

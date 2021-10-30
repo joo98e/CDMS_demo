@@ -1,5 +1,7 @@
 const status = process.env.NODE_ENV = (process.env.NODE_ENV && (process.env.NODE_ENV).trim().toLowerCase() == 'production') ? 'prod' : 'dev';
 const app = require('./app');
+const express = require('express');
+const path = require('path');
 const port = status === "prod" ? process.env.PORT || 80 : process.env.PORT || 5005;
 const Member = require('./routes/Member');
 const Org = require('./routes/Org');
@@ -23,4 +25,10 @@ app.use("/api/menu", Menu);
 app.use("/api/mail", Mail);
 app.use("/api/release", Release);
 
+if (status === 'prod') {
+    app.use(express.static("client/build"));
+    app.get("*", (req, res) => {
+        res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
+    });
+}
 app.listen(port, () => console.log(`Listening on PORT ${port}`));
