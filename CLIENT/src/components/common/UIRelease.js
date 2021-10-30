@@ -11,6 +11,12 @@ export const UIRelease = (props) => {
     const handleSetFileList = result => {
         setFiles(result);
     }
+
+    const handleSubmitFiles = () => {
+        const dest = "/release/test/";
+        
+    }
+
     return (
         <Box style={{ width: "960px", margin: "0 auto" }} alignItems="center" >
             <UIEditor
@@ -48,8 +54,18 @@ export const UIRelease = (props) => {
                     data={files}
                     action={handleSetFileList}
                 />
+                <Box width={160} style={{ margin: "0 auto" }}>
+                    <Box width={160} mt={2} mb={2} display="flex" alignItems="center" justifyContent="center">
+                        <UIButton
+                            name="전송"
+                            variant="contained"
+                            action={handleSubmitFiles}
+                        />
+                    </Box>
+                </Box>
+
             </Box>
-            <Box height={1280}>
+            <Box height={480}>
 
             </Box>
         </Box>
