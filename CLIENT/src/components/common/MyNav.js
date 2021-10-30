@@ -131,25 +131,25 @@ export class MyNav extends Component {
 
 
         const menuList = [
-            {
-                name: "프로필",
-                icon:
-                    <Badge badgeContent={0} color="secondary">
-                        {<InfoIcon />}
-                    </Badge>,
-                action: this.tmp,
-                Divider: true
-            },
+            // {
+            //     name: "프로필",
+            //     icon:
+            //         <Badge badgeContent={0} color="secondary">
+            //             {<InfoIcon />}
+            //         </Badge>,
+            //     action: this.tmp,
+            //     Divider: true
+            // },
             {
                 name: "알림",
                 icon: <NotificationsActiveIcon />,
                 action: this.tmp
             },
-            {
-                name: "Help",
-                icon: <HelpIcon />,
-                action: this.mailConfirm
-            },
+            // {
+            //     name: "Help",
+            //     icon: <HelpIcon />,
+            //     action: this.mailConfirm
+            // },
             {
                 name: "로그아웃",
                 icon: <ExitToAppIcon />,

@@ -11,7 +11,7 @@ import ProjectDetail from './components/Pages/Proj/Detail'
 import ProjectAdd from './components/Pages/Proj/ProjectAdd'
 import ProcessAdd from './components/Pages/Process/ProcessAdd'
 import ProcessDetail from './components/Pages/Process/Detail'
-import UIMailEditor from './components/common/UIMailEditor'
+import UIRelease from './components/common/UIRelease'
 
 class App extends Component {
   render() {
@@ -29,7 +29,7 @@ class App extends Component {
         <CustomRoute exact path="/agency/project/detail/process/add/:ref_proj_id" component={ProcessAdd} />
         <CustomRoute exact path="/agency/project/process/detail/:ref_proc_id" component={ProcessDetail} />
         
-        <CustomRoute exact path="/common/mail/edit" component={UIMailEditor} />
+        <CustomRoute exact path="/common/release" component={UIRelease} />
 
         <CustomRoute component={Redirection} />
       </Switch>

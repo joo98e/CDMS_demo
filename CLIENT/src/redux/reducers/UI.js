@@ -1,6 +1,5 @@
 import * as types from '../types';
 import Themes from '../../components/common/Theme'
-import API from '../../components/common/API';
 
 const message = function () {
     const date = new Date();
@@ -22,7 +21,6 @@ const initialState = {
     bgColor: "#424242",
     hourlyGreetings: message(),
     menuAppearPosition: 'left',
-    isProd: null,
     pathGuider: ""
 };
 
