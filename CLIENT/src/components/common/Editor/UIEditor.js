@@ -1,3 +1,8 @@
+/**
+ * @param {data}        : HTML를 담는 변수
+ * @param {setData}     : HTML를 담는 함수
+ */
+
 import React, { useState } from 'react';
 import { Editor } from 'react-draft-wysiwyg';
 import { EditorState, convertToRaw } from 'draft-js';
@@ -12,8 +17,8 @@ const UIEditor = props => {
 
         setEditorState(editorState);
 
-        if (props.setData) {
-            props.setData(editToHTML);
+        if (props.action) {
+            props.action(editToHTML);
         }else console.error("결과값을 담을 변수 혹은 함수가 없습니다.");
     };
 

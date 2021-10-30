@@ -21,9 +21,7 @@
             reg_date,
             upd_date,
             reg_ip,
-            upd_ip,
-            country_name,
-            country_code
+            upd_ip
         )
         VALUES
         (
@@ -42,9 +40,7 @@
             #{reg_date},
             #{upd_date},
             #{reg_ip},
-            #{upd_ip},
-            #{country_name},
-            #{country_code}
+            #{upd_ip}
         );
     </insert>
 

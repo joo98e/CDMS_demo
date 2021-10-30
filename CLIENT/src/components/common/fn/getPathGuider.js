@@ -21,6 +21,11 @@ const getPathGuider = data => {
 
     let value = String;
     switch (_target) {
+
+        case '/common/release':
+            value = "릴리즈 직전 테스팅용 라우트";
+            break;
+            
         case '/landing':
             value = landingGreeting();
             break;
@@ -67,10 +72,6 @@ const getPathGuider = data => {
 
         case '/agency/project/process/detail/':
             value = "프로세스 상세";
-            break;
-
-        case '/mail/edit':
-            value = "메일로 알리기";
             break;
 
         case '/05':

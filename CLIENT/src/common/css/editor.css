@@ -147,7 +147,9 @@
   }
   
   .rdw-fontfamily-wrapper {
-    display: flex;
+    /* MIRIM */
+    /* flex */
+    display: none !important;
     align-items: center;
     margin-bottom: 6px;
     flex-wrap: wrap

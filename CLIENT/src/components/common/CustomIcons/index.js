@@ -34,7 +34,8 @@ import {
     Star,
     Mail,
     ViewList,
-    Subject
+    Subject,
+    Attachment
 } from "@material-ui/icons";
 
 
@@ -47,89 +48,87 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-
-
-export const LockOpenIcon = () => {
+export const LockOpenIcon = props => {
     const classes = useStyles();
     return (
-        <LockOpen className={classes.color} />
+        <LockOpen className={classes.color} {...props} />
     )
 }
 
-export const ColorLensIcon = () => {
+export const ColorLensIcon = props => {
     const classes = useStyles();
     return (
-        <ColorLens className={classes.color} />
+        <ColorLens className={classes.color} {...props} />
     )
 }
 
-export const CachedIcon = () => {
+export const CachedIcon = props => {
     const classes = useStyles();
     return (
-        <Cached className={classes.color} />
+        <Cached className={classes.color} {...props} />
     )
 }
 
-export const TouchAppTwoToneIcon = () => {
+export const TouchAppTwoToneIcon = props => {
     const classes = useStyles();
     return (
-        <TouchAppTwoTone className={classes.color} />
+        <TouchAppTwoTone className={classes.color} {...props} />
     )
 }
 
-export const MenuIcon = () => {
+export const MenuIcon = props => {
     const classes = useStyles();
     return (
-        <Menu className={classes.color} />
+        <Menu className={classes.color} {...props} />
     )
 }
 
-export const HomeIcon = () => {
+export const HomeIcon = props => {
     const classes = useStyles();
     return (
-        <Home className={classes.color} />
+        <Home className={classes.color} {...props} />
     )
 }
 
-export const NoteIcon = () => {
+export const NoteIcon = props => {
     const classes = useStyles();
     return (
-        <Note className={classes.color} />
+        <Note className={classes.color} {...props} />
     )
 }
 
-export const CancelIcon = () => {
+export const CancelIcon = props => {
     const classes = useStyles();
     return (
-        <Cancel className={classes.color} />
+        <Cancel className={classes.color} {...props} />
     )
 }
 
-export const KeyboardArrowLeftIcon = () => {
+export const KeyboardArrowLeftIcon = props => {
     const classes = useStyles();
     return (
-        <KeyboardArrowLeft className={classes.color} />
+        <KeyboardArrowLeft className={classes.color} {...props} />
     )
 }
 
-export const KeyboardArrowRightIcon = () => {
+export const KeyboardArrowRightIcon = props => {
     const classes = useStyles();
     return (
-        <KeyboardArrowRight className={classes.color} />
+        <KeyboardArrowRight className={classes.color} {...props} />
     )
 }
 
-export const NotificationImportantIcon = () => {
+export const NotificationImportantIcon = props => {
     const classes = useStyles();
     return (
-        <NotificationImportant className={classes.color} />
+        <NotificationImportant className={classes.color} {...props} />
     )
 }
 
-export const CloseIcon = () => {
+export const CloseIcon = props => {
     const classes = useStyles();
     return (
-        <Close className={classes.color} />
+        <Close className={classes.color} {...props} />
     )
 }
 
@@ -143,63 +142,63 @@ export const AddCircleIcon = () => {
 export const BusinessIcon = props => {
     const classes = useStyles();
     return (
-        <Business className={classes.color} fontSize={props.fontSize && props.fontSize} />
+        <Business className={classes.color} fontSize={props.fontSize && props.fontSize} {...props} />
     )
 }
 
-export const MoreVertIcon = () => {
+export const MoreVertIcon = props => {
     const classes = useStyles();
     return (
-        <MoreVert className={classes.color} />
+        <MoreVert className={classes.color} {...props} />
     )
 }
 
-export const EditIcon = () => {
+export const EditIcon = props => {
     const classes = useStyles();
     return (
-        <Edit className={classes.color} />
+        <Edit className={classes.color} {...props} />
     )
 }
 
-export const DeleteIcon = () => {
+export const DeleteIcon = props => {
     const classes = useStyles();
     return (
-        <Delete className={classes.color} />
+        <Delete className={classes.color} {...props} />
     )
 }
 
-export const NotificationsActiveIcon = () => {
+export const NotificationsActiveIcon = props => {
     const classes = useStyles();
     return (
-        <NotificationsActive className={classes.color} />
+        <NotificationsActive className={classes.color} {...props} />
     )
 }
 
-export const VisibilityIcon = () => {
+export const VisibilityIcon = props => {
     const classes = useStyles();
     return (
-        <Visibility className={classes.color} />
+        <Visibility className={classes.color} {...props} />
     )
 }
 
-export const VisibilityOffIcon = () => {
+export const VisibilityOffIcon = props => {
     const classes = useStyles();
     return (
-        <VisibilityOff className={classes.color} />
+        <VisibilityOff className={classes.color} {...props} />
     )
 }
 
-export const RadioButtonUncheckedIcon = () => {
+export const RadioButtonUncheckedIcon = props => {
     const classes = useStyles();
     return (
-        <RadioButtonUnchecked className={classes.color} />
+        <RadioButtonUnchecked className={classes.color} {...props} />
     )
 }
 
-export const CheckCircleOutlineIcon = () => {
+export const CheckCircleOutlineIcon = props => {
     const classes = useStyles();
     return (
-        <CheckCircleOutline className={classes.color} />
+        <CheckCircleOutline className={classes.color} {...props} />
     )
 }
 
@@ -224,69 +223,76 @@ export const RatingStarIcon = (props) => {
 export const FollowStarIcon = (props) => {
     const classes = useStyles();
     return (
-        <Star className={classes.descColor} />
+        <Star className={classes.descColor} {...props} />
     )
 }
 
-export const ExitToAppIcon = () => {
+export const ExitToAppIcon = props => {
     const classes = useStyles();
     return (
-        <ExitToApp className={classes.color} />
+        <ExitToApp className={classes.color} {...props} />
     )
 }
 
-export const InfoIcon = () => {
+export const InfoIcon = props => {
     const classes = useStyles();
     return (
-        <Info className={classes.color} />
+        <Info className={classes.color} {...props} />
     )
 }
 
-export const HelpIcon = () => {
+export const HelpIcon = props => {
     const classes = useStyles();
     return (
-        <Help className={classes.color} />
+        <Help className={classes.color} {...props} />
     )
 }
 
-export const DateRangeIcon = () => {
+export const DateRangeIcon = props => {
     const classes = useStyles();
     return (
-        <DateRange className={classes.color} />
+        <DateRange className={classes.color} {...props} />
     )
 }
 
-export const SearchIcon = () => {
+export const SearchIcon = props => {
     const classes = useStyles();
     return (
-        <Search className={classes.color} />
+        <Search className={classes.color} {...props} />
     )
 }
 
-export const ArrowDownwardIcon = () => {
+export const ArrowDownwardIcon = props => {
     const classes = useStyles();
     return (
-        <ArrowDownward className={classes.color} />
+        <ArrowDownward className={classes.color} {...props} />
     )
 }
 
-export const MailIcon = () => {
+export const MailIcon = props => {
     const classes = useStyles();
     return (
-        <Mail className={classes.color} />
+        <Mail className={classes.color} {...props} />
     )
 }
 
-export const ViewListIcon = () => {
+export const ViewListIcon = props => {
     const classes = useStyles();
     return (
-        <ViewList className={classes.color} />
+        <ViewList className={classes.color} {...props} />
     )
 }
 
-export const SubjectIcon = () => {
+export const SubjectIcon = props => {
     const classes = useStyles();
     return (
-        <Subject className={classes.color} />
+        <Subject className={classes.color} {...props} />
+    )
+}
+
+export const AttachmentIcon = props => {
+    const classes = useStyles();
+    return (
+        <Attachment className={classes.color} {...props} {...props} />
     )
 }

@@ -38,6 +38,7 @@
     "react-colorful": "^5.5.0",
     "react-dom": "^17.0.1",
     "react-draft-wysiwyg": "^1.14.7",
+    "react-dropzone": "^11.4.2",
     "react-icons": "^4.2.0",
     "react-minimal-pie-chart": "^8.2.0",
     "react-redux": "^7.2.4",
