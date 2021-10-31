@@ -44,4 +44,17 @@
         );
     </insert>
 
+    <select id="duplicateCheckId">
+        SELECT 
+            mem.id,
+            mem.email
+        FROM    
+            tb_member AS mem
+        <where>
+            <if test="id != null">
+                AND mem.id = #{id}
+            </if>
+        </where>
+    </select>
+
 </mapper>

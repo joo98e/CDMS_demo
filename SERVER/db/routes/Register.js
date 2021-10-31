@@ -78,12 +78,15 @@ router.post('/signUp', AvatarStorage.single('avatar_file'), (req, res) => {
 });
 
 router.post('/duplicateCheckId', (req, res) => {
-    const SQL = "SELECT tb_member.id FROM tb_member WHERE tb_member.id = ?"
-    const param = `${req.body.id}@${req.body.email}`;
+    const param = {
+        id: req.body.id,
+        email: req.body.email,
+        concat : `${req.body.id}@${req.body.email}`
+    };
+    const SQL = myBatisMapper.getStatement("RegisterMember", "duplicateCheckId", param, format);
 
     connection.query(SQL, param, (err, rows) => {
         if (err) {
-            console.log(err.status);
             console.log(err);
         }
 
