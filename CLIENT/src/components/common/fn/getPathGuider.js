@@ -32,7 +32,7 @@ const getPathGuider = data => {
         
         // ────────────────────────────────────────────────────
         case '/agency':
-            value = "기관 리스트";
+            value = "프로젝트 리스트";
             break;
         
         case '/agency/add':

@@ -29,6 +29,8 @@ html, body {
     border: 0;
     box-sizing: border-box;
     scroll-behavior: smooth;
+    word-wrap: break-word;
+    word-break: break-all;
 }
 
 *::-webkit-scrollbar {

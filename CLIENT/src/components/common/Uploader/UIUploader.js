@@ -106,7 +106,7 @@ export const UIUploader = (props) => {
                                 <TableHead>
                                     <TableRow>
                                         <TableCell width={60}></TableCell>
-                                        <TableCell width={60}></TableCell>
+                                        {/* <TableCell width={60}></TableCell> */}
                                         <TableCell><Typography variant="body1">파일명</Typography></TableCell>
                                         <TableCell width={120}><Typography variant="body1"></Typography></TableCell>
                                         <TableCell width={120} align="right"><Typography variant="body1">파일 사이즈</Typography></TableCell>
@@ -123,9 +123,9 @@ export const UIUploader = (props) => {
                                                             <CloseIcon style={{ cursor: "pointer" }} />
                                                         </IconButton>
                                                     </TableCell>
-                                                    <TableCell>
+                                                    {/* <TableCell>
                                                         <UIExportMimeType name={item.name} />
-                                                    </TableCell>
+                                                    </TableCell> */}
                                                     <TableCell>
                                                         <Typography variant="body2">
                                                             {item.name}
