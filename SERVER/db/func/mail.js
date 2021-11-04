@@ -8,27 +8,25 @@ function fnMail() {
     // -b : 숨은 참조
     // -a : 참조 파일
     let arrMailInfomation = [
-        [
-            {
-                transmitter : "mirimCDMS",                          //	보내는 사람 메일주소. 공백이면 기본값 [mirimCDMS]로 변환
-                name : "알림메일",                                   //	보내는사람 메일주소 앞대가리에 붙는 이름
-                receiver : "jtbeok@gmail.com",                      //	받는사람 메일주소
-                reference : [				                        //	참조 목록. 공백이면 보내지 않음.
-                    "qvud00@gmail.com",
-                ],
-                secret : [					                        //	숨은 참조 목록. 공백이면 기본값 [strSecretDefault]로만 보냄.
-                    "askjmyyyojqa@gmail.com"	
-                ],
-                attach : [					                        //	첨부파일 경로. 공백이면 첨부하지 않음.
-                    // "/raid/cdms/avatars/items/default/01.jpg",
-                    // "/raid/cdms/avatars/items/default/02.jpg",
-                ],
-                subject : "[CDMS] 알림메일 입니다.",		         //	메일 제목
-                url : "www.naver.com",	                            //	게시판 url주소.
-                sender : "유선재",				                    // 알림메일을 보내는 사람.
-                content : "안녕하세요. 저는 ~~ 입니다...",	         //	메일을 보내는 사람이 적은 본문추가내용. 공백이면 기본내용만 전달.
-            }
-        ]
+        {
+            transmitter : "mirimCDMS",                          //	보내는 사람 메일주소. 공백이면 기본값 [mirimCDMS]로 변환
+            name : "알림메일",                                   //	보내는사람 메일주소 앞대가리에 붙는 이름
+            receiver : "jtbeok@gmail.com",                      //	받는사람 메일주소
+            reference : [				                        //	참조 목록. 공백이면 보내지 않음.
+                "qvud00@gmail.com",
+            ],
+            secret : [					                        //	숨은 참조 목록. 공백이면 기본값 [strSecretDefault]로만 보냄.
+                "askjmyyyojqa@gmail.com"	
+            ],
+            attach : [					                        //	첨부파일 경로. 공백이면 첨부하지 않음.
+                // "/raid/cdms/avatars/items/default/01.jpg",
+                // "/raid/cdms/avatars/items/default/02.jpg",
+            ],
+            subject : "[CDMS] 알림메일 입니다.",		         //	메일 제목
+            url : "www.naver.com",	                            //	게시판 url주소.
+            sender : "유선재",				                    // 알림메일을 보내는 사람.
+            content : "안녕하세요. 저는 ~~ 입니다...",	         //	메일을 보내는 사람이 적은 본문추가내용. 공백이면 기본내용만 전달.
+        }   
     ]
 
     let _json = arrMailInfomation;
