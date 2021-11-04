@@ -391,7 +391,7 @@ export class index extends PureComponent {
 
         const formData = new FormData();
         formData.append("avatar_file", this.props.registerMember.avatar_file);
-        formData.append("avatar_name", this.props.registerMember.avatar_name !== undefined ? this.props.registerMember.avatar_name : "34.png");
+        formData.append("avatar_name", this.props.registerMember.avatar_name !== undefined ? this.props.registerMember.avatar_name : "");
         formData.append("id", this.props.registerMember.id);
         formData.append("email", this.props.registerMember.email);
         formData.append("password", this.props.registerMember.password);

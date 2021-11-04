@@ -5,7 +5,6 @@ import { useHistory } from 'react-router'
 import { Typography, Divider, Grid, Paper, Box, makeStyles } from "@material-ui/core"
 
 import UIMainWorker from "../../common/Worker/UIMainWorker"
-import UISkeletonAvatar from "../../common/UISkeletonAvatar"
 import UIPercentageChart from '../../common/Chart/UIPercentageChart'
 import UIButton from '../../common/UIButton'
 

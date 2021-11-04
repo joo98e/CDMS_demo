@@ -45,7 +45,7 @@ export class PersonRow extends Component {
                     <TableCell>
                         <UISkeletonAvatar
                             src={this.props.item.avatar_path}
-                            alt={this.props.item.full_name}
+                            alt={this.props.item.last_name}
                         />
                     </TableCell>
                     <TableCell align="left">

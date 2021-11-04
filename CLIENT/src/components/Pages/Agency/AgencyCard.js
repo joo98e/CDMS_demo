@@ -1,33 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { useHistory } from 'react-router';
 import { useSelector } from 'react-redux';
-import axios from 'axios'
+import { useHistory } from 'react-router';
 import {
-  Grid, Grow, Paper, Button, Typography, Box,
+  Grid, Grow, Paper, Divider, Box,
   makeStyles, Avatar,
   Card, CardActions
 } from '@material-ui/core/';
 import { AvatarGroup } from '@material-ui/lab'
 
 import UICardHeader from '../../common/Card/UICardHeader';
-import API from "../../common/API"
-
-import {
-  MoreVertIcon,
-  EditIcon,
-  DeleteIcon,
-  MailIcon
-} from '../../common/CustomIcons';
 import UIButton from '../../common/UIButton';
+import API from "../../common/API"
 
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
-    minHeight: '200px',
-    maxHeight: '400px',
-    backgroundColor: theme.palette.background.default,
+    minHeight: '325px',
+    maxHeight: '325px',
+    backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(0, 1, 1, 1)
+  },
+  columnFlexBox: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems : "flex-start"
+  },
+  mb1: {
+    margin: theme.spacing(1)
   },
   pr: {
     position: 'relative'
@@ -37,36 +36,15 @@ const useStyles = makeStyles(theme => ({
     height: theme.spacing(20),
     boxSizing: 'border-box',
     maxHeight: theme.spacing(20),
+    marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
     lineClamp: "8",
     boxOrient: "vertical",
     overflow: 'hidden',
-    textOverflow: "ellipsis"
-  },
-  boxBottom: {
-    width: '100%',
-    height: '30px'
-  },
-  cardHeader: {
-    display: 'flex',
-    flex: "1 1 auto",
-    boxSizing: 'border-box',
-    padding: theme.spacing(2)
-  },
-  headerTitle: {
-    width: "90%",
-  },
-  headerAction: {
-    width: "10%",
-    marginTop: -theme.spacing(1),
-  },
-  hiddenText: {
-    whiteSpace: "nowrap",
     textOverflow: "ellipsis",
-    overflow: 'hidden',
-    display: 'block',
+    color: theme.palette.text.desc
   },
 }));
 
@@ -74,27 +52,8 @@ function AgencyCard(props) {
   const classes = useStyles();
   const history = useHistory();
   const _member = useSelector((store) => store.User.member);
-  const [write, setWrite] = useState(false);
-  const [GrowIn, setGrowIn] = useState(false);
+  const [growIn, setGrowIn] = useState(false);
   const [agcyColleagueList, setAgcyColleagueList] = useState(null);
-
-  const headerActionList = [
-    {
-      name: "수정하기",
-      icon: <EditIcon />,
-      action: () => { alert("수정하기") }
-    },
-    {
-      name: "삭제하기",
-      icon: <DeleteIcon />,
-      action: () => { alert("삭제하기") }
-    },
-    // {
-    //   name: "알림 메일 보내기",
-    //   icon: <MailIcon />,
-    //   action: () => {console.log("알림 메일 보내기")}
-    // },
-  ]
 
   const returnHTML = HTML => {
     return {
@@ -103,41 +62,36 @@ function AgencyCard(props) {
   }
 
   useEffect(() => {
+    setGrowIn(true);
     API.get("/api/agency/getColleague", { agcy_id: props.item.id, delete_yn: 'N' })
       .then(res => {
         setAgcyColleagueList(res.data.result);
       });
-
-    API.permit(_member)
-      .then(res => {
-        setWrite(true);
-        setGrowIn(true);
-      });
-
+      
   }, [_member, props.item.id]);
 
   return (
     <Grid item xs={12} md={6} lg={4} className={classes.pr}>
       <Grow
-        in={GrowIn}
+        in={growIn}
         style={{ transformOrigin: '0 0 0' }}
-        {...(GrowIn ? { timeout: 400 } : {})}
+        {...(growIn ? { timeout: 400 } : {})}
       >
         <Paper elevation={4}>
           <Card className={classes.root}>
             <UICardHeader
               title={props.item.name}
-              icon={<MoreVertIcon />}
-              action={write ? headerActionList : null}
+              titleVariant="h4"
             />
+            <Divider />
 
             <Box className={classes.boxTop} dangerouslySetInnerHTML={returnHTML(props.item.desc)} />
 
-            <CardActions>
-              <AvatarGroup max={4}>
-                {
-                  (Array.isArray(agcyColleagueList) && agcyColleagueList.length !== 0)
-                    ?
+            {
+              (Array.isArray(agcyColleagueList) && agcyColleagueList.length !== 0) &&
+              <CardActions className={classes.columnFlexBox}>
+                <AvatarGroup max={4}>
+                  {
                     agcyColleagueList.map((item, index) => {
                       return (
                         <Avatar
@@ -147,22 +101,16 @@ function AgencyCard(props) {
                         />
                       )
                     })
-                    :
-                    <Typography variant="body1">
-                      담당자 혹은 참여자가 없습니다.
-                    </Typography>
-                }
-              </AvatarGroup>
-            </CardActions>
+                  }
+                </AvatarGroup>
+                <UIButton
+                  name="자세히"
+                  variant="contained"
+                  action={() => { history.push(`/agency/detail/${props.item.id}`) }}
+                />
+              </CardActions>
+            }
 
-            <CardActions>
-              <UIButton
-                name="자세히"
-                fullWidth
-                variant="contained"
-                action={() => { history.push(`/agency/detail/${props.item.id}`) }}
-              />
-            </CardActions>
           </Card>
         </Paper>
       </Grow>
@@ -170,6 +118,4 @@ function AgencyCard(props) {
   );
 }
 
-export default connect(state => ({
-  theme: state.UI.theme
-}))(AgencyCard)
+export default AgencyCard

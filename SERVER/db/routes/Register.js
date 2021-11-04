@@ -34,7 +34,6 @@ router.post('/signUp', AvatarStorage.single('avatar_file'), (req, res) => {
                 });
             };
             
-            console.log(req.body.email);
             const params = {
                 avatar_name: !req.file ? req.body.avatar_name : req.file.filename,
                 avatar_path: !req.file ? `${requestDir}default/${req.body.avatar_name}` : `${requestDir}user/${req.file.filename}`,

@@ -11,7 +11,9 @@ import { Skeleton } from '@material-ui/lab';
 
 const style = theme => ({
     center: {
-        margin: "0 auto"
+        margin: "0 auto",
+        color : theme.palette.text.primary,
+        backgroundColor : theme.palette.background.default
     }
 });
 
@@ -42,14 +44,23 @@ export class UISkeletonAvatar extends PureComponent {
                             className={this.props.class ? `${classes.center} + ${this.props.class}` : classes.center}
                             src={this.props.src}
                             alt={this.props.alt}
-                        />
+                        >
+                            {this.props.alt}
+                        </Avatar>
                         :
-                        <Skeleton
-                            className={classes.center}
-                            variant="circle"
-                            width={40}
-                            height={40}
-                        />
+                        // <Skeleton
+                        //     className={classes.center}
+                        //     variant="circle"
+                        //     width={40}
+                        //     height={40}
+                        // />
+                        <Avatar
+                            className={this.props.class ? `${classes.center} + ${this.props.class}` : classes.center}
+                            src={this.props.src}
+                            alt={this.props.alt}
+                        >
+                            {this.props.alt}
+                        </Avatar>
                 }
             </React.Fragment>
         )

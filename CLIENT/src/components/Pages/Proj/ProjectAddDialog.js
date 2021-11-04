@@ -1,37 +1,36 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import axios from 'axios'
+import React, { useState, useEffect } from 'react'
 import { useSnackbar } from 'notistack';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { setProjectInfo, setProjectInfoInit } from '../../../redux/action/ProducerAction'
-import {
-    Container, TextField, Button, Dialog, Typography,
-    ListItemText, ListItem, List, Divider, AppBar, Toolbar, IconButton,
-    Grid, Box, Paper
-} from '@material-ui/core';
 
-import ProjectAdditionalDialog from './ProjectAdditionalDialog'
-import ProjectDatePicker from './ProjectDatePicker';
-import Slide from '@material-ui/core/Slide';
-import getDateFormat from '../../common/fn/getDateFormat';
-import FNValidator from '../../common/FNValidator';
-import UIPersonList from '../../common/UIPersonList';
-import UIChipSet from '../../common/UIChipSet'
-import Back from '../../common/Back'
 import {
-    BusinessIcon,
+    Grid, Box, Container, TextField, Dialog, Typography, Divider, AppBar,
+    Toolbar, IconButton, Slide, makeStyles,
+} from '@material-ui/core';
+import {
     CloseIcon,
     AddCircleIcon
 } from '../../common/CustomIcons';
 
-const useStyles = makeStyles((theme) => ({
-    appBar: {
-        position: 'relative',
+import { main, sub } from './ProjectAddOffer'
+import FNValidator from '../../common/FNValidator';
+import getDateFormat from '../../common/fn/getDateFormat';
+import UIChipSet from '../../common/UIChipSet'
+import UIDatePicker from '../../common/UIDatePicker'
+import UIAddInfoDialog from '../../common/Producer/UIAddInfoDialog';
+import UIPersonList from '../../common/UIPersonList';
+import UIPersonListOnlyOne from '../../common/UIPersonListOnlyOne';
+import API from '../../common/API';
+import UIButton from '../../common/UIButton';
+
+const useStyles = makeStyles(theme => ({
+    root: {
+
     },
-    title: {
-        marginLeft: theme.spacing(2),
-        flex: 1,
+    header: {
+        position: 'relative',
+        backgroundColor: theme.palette.background.paper
     },
     trans: {
         position: 'absolute',
@@ -39,51 +38,15 @@ const useStyles = makeStyles((theme) => ({
         left: '50%',
         transform: 'translate(-50%, -50%)'
     },
-    flexBox: {
-        display: 'flex',
-        justifyContent: 'space-between',
-    },
-    textFieldStyle: {
-        width: '30vw',
-        textAlign: 'right'
-    },
-    stepperTitleStyle: {
+    mainTitle: {
         display: 'block',
         paddingTop: theme.spacing(4),
-        paddingBottom: theme.spacing(4)
     },
-    buttonStyle: {
-        display: 'block',
-        margin: '0 auto'
+    mh2: {
+        margin: theme.spacing(2, 0, 2, 0)
     },
-    center: {
-        width: "15em",
-        margin: '0 auto 2em auto'
-    },
-    root: {
-        position: "relative",
-        display: "block",
-        width: "100%",
-        minHeight: "90vh",
-        boxSizing: "border-box",
-        padding: theme.spacing(4),
-        paddingTop: theme.spacing(2)
-    },
-    mv: {
-        marginTop: theme.spacing(2),
-        marginBottom: theme.spacing(2)
-    },
-    mb2: {
-        marginBottom: theme.spacing(2)
-    },
-    mt4: {
-        marginTop: theme.spacing(4)
-    },
-    vw50: {
-        width: "100%"
-    },
-    w50p: {
-        width: "50%",
+    desc: {
+        color: theme.palette.text.desc
     }
 }));
 
@@ -91,100 +54,34 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const TextFieldInputProps = {
-    min: 0,
-    style: {
-        textAlign: 'right'
-    }
-}
-
-const defaultState = {
-    name: "",
-    desc: "",
-    biz_area: ""
-}
-
-const BtnInfo = {
-    open: "구성하기",
-    complete: "완료",
-    cancle: "취소"
-};
-
-const DialogInfo = {
-    title: "프로젝트 등록",
-    subTitle: "담당자 지정"
-};
-
-const TableColumnName = [
-    [""],
-    ["성명"],
-    [
-        "부서",
-        {
-            className: "mobile-person-row"
-        }
-    ],
-    [
-        "ID",
-        {
-            className: "mobile-person-row"
-        }
-    ],
-    [
-        "직책",
-        {
-            className: "mobile-person-row"
-        }
-    ],
-    ["구성"],
-];
-
-const ResultMessage = {
-    success: "담당자가 지정되었습니다.",
-    fail: "담당자 지정을 취소합니다."
-};
-
-export default function FullScreenDialog() {
-    const { enqueueSnackbar } = useSnackbar();
-    const history = useHistory();
-    const { ref_agcy_id } = useParams();
-    const _accessInfo = useSelector((store) => store.User.accessInfo);
-    const _member = useSelector((store) => store.User.member);
-    const _projectInfo = useSelector((store) => store.Producer.projectInfo);
-    const dispatch = useDispatch();
-
+const ProjectAddDialog = () => {
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
-    const [personRow, setPersonRow] = React.useState(null);
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const { enqueueSnackbar } = useSnackbar();
+    const _member = useSelector((store) => store.User.member);
+    const _accessInfo = useSelector((store) => store.User.accessInfo);
+    const _projectInfo = useSelector((store) => store.Producer.projectInfo);
+    const { ref_agcy_id } = useParams();
+    const [open, setOpen] = useState(false);
+    const [worker, setWorker] = useState([]);
 
-    React.useEffect(() => {
-
-        const loadPersonRow = async () => {
-            const condition = {
-                delete_yn: 'N'
-            };
-            await axios.post('/api/org/person', condition)
-                .then(res => {
-                    setPersonRow(res.data);
-                })
-                .catch(err => console.error(err));
-        }
-        loadPersonRow();
-
-        return () => {
-
-        }
-
-    }, []);
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
+    const handleClickOpen = () => setOpen(true);
     const handleClose = () => {
         dispatch(setProjectInfoInit());
         setOpen(false);
     };
+
+    const handleChangeProjectInfos = (e) => {
+        let nextValue = { ..._projectInfo }
+        nextValue[e.target.name] = e.target.value;
+
+        if (e.target.name === "desc") {
+            console.log(e.target.value);
+        };
+
+        dispatch(setProjectInfo({ ...nextValue }));
+    }
 
     const handleChangeDate = (value, name) => {
         const _result = name === "start_date" ? getDateFormat.YYYYMMDDHHMMSS_BEGIN(value) : getDateFormat.YYYYMMDDHHMMSS_END(value);
@@ -194,41 +91,82 @@ export default function FullScreenDialog() {
         dispatch(setProjectInfo({ ...nextValue }));
     }
 
+    const handleSetAddInfo = data => {
+        dispatch(setProjectInfo({ ..._projectInfo, addInfo: data }));
+    }
+
+    const ResultAction = {
+        main: {
+            success: data => {
+                dispatch(setProjectInfo({
+                    ..._projectInfo,
+                    mainPerson: data
+                }));
+            },
+            fail: () => {
+                console.log("fail");
+            }
+        },
+        sub: {
+            success: data => {
+                dispatch(setProjectInfo({
+                    ..._projectInfo,
+                    subPerson: data
+                }))
+            },
+            fail: () => {
+                console.log("fail");
+            }
+        }
+    }
     const handleValidateValue = () => {
+        const target = _projectInfo;
+        for (let item in target) {
 
-        for (let item in _projectInfo) {
             switch (item) {
-                case "start_date":
-                    if (_projectInfo[item] > _projectInfo.end_date) {
-                        enqueueSnackbar('프로젝트 기간이 알맞지 않습니다.', { variant: 'warning' });
-                        return false;
-                    }
-                    break;
-
-                case "end_date":
-                    if (_projectInfo[item] < _projectInfo.start_date) {
-                        enqueueSnackbar('프로젝트 기간이 알맞지 않습니다.', { variant: 'warning' });
-                        return false;
-                    }
-                    break;
-
                 case "name":
-                    if (!FNValidator("PROJNAME", _projectInfo[item])) {
+                    if (!FNValidator("PROJNAME", target[item])) {
                         enqueueSnackbar('한글, 영문이 반드시 포함되어야 하며 한글, 영문, 숫자만 사용 가능합니다.', { variant: 'warning' });
                         return false;
                     }
                     break;
 
                 case "desc":
-                    if (_projectInfo[item] === "" || _projectInfo[item] === undefined) {
+                    if (target[item] === "" || target[item] === undefined) {
                         enqueueSnackbar('설명을 기재해주세요.', { variant: 'warning' });
                         return false;
                     }
                     break;
 
-                case "person":
-                    if (_projectInfo[item].length === 0 || _projectInfo[item].length === undefined) {
-                        enqueueSnackbar('프로젝트 담당자를 구성해야 합니다.', { variant: 'warning' });
+                case "start_date":
+                    if (target[item] !== null) {
+                        if (target[item] > target.end_date) {
+                            enqueueSnackbar('과정 기간을 확인해주세요.', { variant: 'warning' });
+                            return false;
+                        }
+                    } else if (target[item] === null) {
+                        enqueueSnackbar('과정 시작일이 비어 있습니다.', { variant: 'warning' });
+                        return false;
+                    }
+                    break;
+
+                case "end_date":
+                    if (target[item] !== null) {
+                        if (target[item] < target.start_date) {
+                            enqueueSnackbar('과정 기간을 확인해주세요.', { variant: 'warning' });
+                            return false;
+                        }
+                    } else if (target[item] === null) {
+                        enqueueSnackbar('과정 종료일이 비어 있습니다.', { variant: 'warning' });
+                        return false;
+                    }
+                    break;
+
+                case "mainPerson":
+                    console.log(target[item]);
+                    
+                    if (!FNValidator("EMPTY", target[item])) {
+                        enqueueSnackbar('담당자는 반드시 구성해야 합니다.', { variant: 'warning' });
                         return false;
                     }
                     break;
@@ -238,157 +176,238 @@ export default function FullScreenDialog() {
             }
         }
 
-        handleClickAddProject();
+        handleSubmitProjectInsert();
     }
 
-    const handleChangeProjectInfos = (e) => {
-        let nextValue = { ..._projectInfo }
-        nextValue[e.target.name] = e.target.value;
-        dispatch(setProjectInfo({ ...nextValue }));
-    }
-
-    const ResultAction = {
-        success: data => {
-            dispatch(setProjectInfo({
-                ..._projectInfo,
-                person: data
-            }))
-        },
-        fail: () => {
-
-        }
-    }
-
-    const handleClickAddProject = () => {
-        const URL = '/api/project/add';
+    const handleSubmitProjectInsert = () => {
+        const URL = "/api/project/add";
         const data = {
             ..._accessInfo,
             ..._member,
             ..._projectInfo,
             ref_agcy_id: ref_agcy_id,
-        };
-
-        const config = {
-            headers: {
-                "content-type": "application/json"
-            }
         }
-
-        axios.post(URL, data, config)
-            .then(res => {
-                if (res.data.resultCode === 1) {
-                    dispatch(setProjectInfo({
-                        ..._projectInfo,
-                        person: []
-                    }));
-                    enqueueSnackbar("프로젝트 등록에 성공했습니다.", { variant: 'success' });
-                    history.go(0);
-                } else {
-                    enqueueSnackbar(res.data.resultCode, { variant: 'error' });
-                }
-            });
+        API.post(URL, data)
+            .then(res => console.log(res));
     }
 
+    useEffect(() => {
+        API.post("/api/org/person", { delete_yn: "N" })
+            .then(res => setWorker(res.data.result));
+
+    }, [_member, ref_agcy_id, _accessInfo])
+
     return (
-        <div>
+        <React.Fragment>
             <IconButton color="inherit" className={classes.trans} onClick={handleClickOpen}>
                 <AddCircleIcon />
             </IconButton>
             <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
-                <AppBar className={classes.appBar} position="fixed">
+                <AppBar className={classes.header} position="fixed">
                     <Toolbar>
                         <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
                             <CloseIcon />
                         </IconButton>
-                        <Typography variant="h6" className={classes.title}>
-                            프로젝트 등록
-                        </Typography>
-                        <Button autoFocus color="inherit" onClick={handleValidateValue}>
-                            등록하기
-                        </Button>
                     </Toolbar>
                 </AppBar>
-                <Container>
-                    <Container maxWidth="xs">
-                        <Typography className={classes.stepperTitleStyle} variant="h4" align="center">
-                            <IconButton color="inherit">
-                                <BusinessIcon />
-                            </IconButton>
-                            프로젝트 등록
-                        </Typography>
-                    </Container>
+                <Container maxWidth="md">
+                    <Typography className={classes.mainTitle} variant="h4" align="center">
+                        과정 등록
+                    </Typography>
+                    <Divider className={classes.mh2} />
 
-                    <Divider />
+                    <Container maxWidth="sm">
+                        <Grid container justifyContent="center" alignItems="center">
+                            <Grid item xs={12} md={4} lg={4}>
+                                <Typography component="div">
+                                    과정명
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12} md={8} lg={8}>
+                                <TextField
+                                    fullWidth
+                                    variant="outlined"
+                                    name="name"
+                                    onChange={handleChangeProjectInfos}
+                                />
+                            </Grid>
+                        </Grid>
+                        <Divider className={classes.mh2} />
+                        <Grid container justifyContent="center" alignItems="center">
+                            <Grid item xs={12} md={4} lg={4}>
+                                <Typography component="div">
+                                    설명
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12} md={8} lg={8}>
+                                <TextField
+                                    fullWidth
+                                    variant="filled"
+                                    placeholder="설명"
+                                    name="desc"
+                                    multiline
+                                    minRows={4}
+                                    onChange={handleChangeProjectInfos}
+                                    style={{ whiteSpace: "pre-wrap" }}
+                                />
+                            </Grid>
+                        </Grid>
+                        <Divider className={classes.mh2} />
+                        <Grid container justifyContent="center" alignItems="center">
+                            <Grid item xs={12} md={4} lg={4}>
+                                <Typography component="div">
+                                    시작일
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12} md={8} lg={8}>
+                                <UIDatePicker
+                                    fullWidth
+                                    name="start_date"
+                                    resultAction={handleChangeDate}
+                                />
+                            </Grid>
+                        </Grid>
+                        <Divider className={classes.mh2} />
+                        <Grid container justifyContent="center" alignItems="center">
+                            <Grid item xs={12} md={4} lg={4}>
+                                <Typography component="div">
+                                    종료일
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12} md={8} lg={8}>
+                                <UIDatePicker
+                                    fullWidth
+                                    name="end_date"
+                                    resultAction={handleChangeDate}
+                                />
+                            </Grid>
+                        </Grid>
+                        <Divider className={classes.mh2} />
+                        <Grid container justifyContent="center" alignItems="center">
+                            <Grid item xs={12} md={4} lg={4}>
+                                <Typography component="div">
+                                    추가 정보 구성
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12} md={8} lg={8}>
+                                <UIAddInfoDialog
+                                    btnProps={{
+                                        start: {
+                                            name: "구성하기",
+                                            fullWidth: true
+                                        },
+                                        end: {
+                                            name: "완료",
+                                        }
+                                    }}
+                                    title="추가 구성"
+                                    fullWidth
+                                    maxWidth="md"
+                                    subTitle="추가 정보를 구성해보세요."
+                                    data={_projectInfo.addInfo}
+                                    action={handleSetAddInfo}
+                                />
+                                {
+                                    (_projectInfo.addInfo !== "" || _projectInfo.addInfo.length !== 0) &&
+                                    <Grid className={classes.mh2} container>
+                                        {_projectInfo.addInfo.map((item, index) => {
+                                            return (
+                                                <React.Fragment key={index}>
+                                                    <Grid item xs={6} md={6} lg={6}>
+                                                        <Typography className={classes.desc} variant="body1">
+                                                            {item.key}
+                                                        </Typography>
+                                                    </Grid>
+                                                    <Grid item xs={6} md={6} lg={6}>
+                                                        <Typography variant="body1">
+                                                            {item.value}
+                                                        </Typography>
+                                                    </Grid>
+                                                </React.Fragment>
+                                            )
+                                        })}
+                                    </Grid>
+                                }
+                            </Grid>
+                        </Grid>
 
-                    <Grid container spacing={3}>
-                        <Grid item xs={12} md={12} lg={12}>
-                            <List>
-                                <ListItem>
-                                    <ListItemText primary="프로젝트명" />
-                                    <TextField className={classes.textFieldStyle} variant="filled" label="프로젝트명" inputProps={TextFieldInputProps} name="name" onChange={handleChangeProjectInfos} />
-                                </ListItem>
-                                <Divider />
-                                <ListItem>
-                                    <ListItemText primary="프로젝트 설명" />
-                                    <TextField className={classes.textFieldStyle} variant="filled" label="프로젝트 설명" inputProps={TextFieldInputProps} name="desc" onChange={handleChangeProjectInfos} />
-                                </ListItem>
-                                <Divider />
-                                {/* <ListItem>
-                                    <ListItemText primary="프로젝트 썸네일" />
-                                    <TextField className={classes.textFieldStyle} variant="outlined" placeholder="프로젝트 썸네일" inputProps={TextFieldInputProps} name="name" onChange={handleChangeProjectInfos} />
-                                </ListItem> */}
-                                <Divider />
-                                <ListItem>
-                                    <ListItemText primary="프로젝트 시작일" />
-                                    <ProjectDatePicker
-                                        name="start_date"
-                                        textFieldStyle={classes.textFieldStyle}
-                                        resultAction={handleChangeDate}
-                                    />
-                                </ListItem>
-                                <Divider />
-                                <ListItem>
-                                    <ListItemText primary="프로젝트 종료일" />
-                                    <ProjectDatePicker
-                                        name="end_date"
-                                        textFieldStyle={classes.textFieldStyle}
-                                        resultAction={handleChangeDate}
-                                    />
-                                </ListItem>
-                                <Divider />
-                                <ListItem>
-                                    <ListItemText primary="추가 정보" />
-                                    <ProjectAdditionalDialog />
-                                </ListItem>
-                                <Divider />
-                                <ListItem>
-                                    <ListItemText primary="프로젝트 담당자" />
-                                    <UIPersonList
-                                        BtnInfo={BtnInfo}
-                                        DialogInfo={DialogInfo}
-                                        TableColumnName={TableColumnName}
-                                        TableLoadedData={personRow !== null ? personRow.result : {}}
-                                        ResultMessage={ResultMessage}
-                                        ResultAction={ResultAction}
-                                    />
+                        <Divider className={classes.mh2} />
+
+                        <Grid container justifyContent="center" alignItems="center">
+                            <Grid item xs={12} md={4} lg={4}>
+                                <Typography component="div">
+                                    주담당자
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12} md={8} lg={8}>
+                                <UIPersonListOnlyOne
+                                    BtnInfo={main.BtnInfo}
+                                    DialogInfo={main.DialogInfo}
+                                    TableColumnName={main.TableColumnName}
+                                    TableLoadedData={worker ? worker : [{}]}
+                                    ResultMessage={main.ResultMessage}
+                                    ResultAction={ResultAction.main}
+                                />
+                                <Box mt={2}>
                                     {
-                                        _projectInfo.person &&
-                                        _projectInfo.person.map((item, index) => {
+                                        !_projectInfo.mainPerson ?
+                                            ""
+                                            :
+                                            <UIChipSet
+                                                data={_projectInfo.mainPerson}
+                                            />
+                                    }
+                                </Box>
+                            </Grid>
+                        </Grid>
+
+                        <Divider className={classes.mh2} />
+
+                        <Grid container justifyContent="center" alignItems="center">
+                            <Grid item xs={12} md={4} lg={4}>
+                                <Typography component="div">
+                                    참여자
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12} md={8} lg={8}>
+                                <UIPersonList
+                                    BtnInfo={sub.BtnInfo}
+                                    DialogInfo={sub.DialogInfo}
+                                    TableColumnName={sub.TableColumnName}
+                                    TableLoadedData={worker ? worker : [{}]}
+                                    ResultMessage={sub.ResultMessage}
+                                    ResultAction={ResultAction.sub}
+                                />
+                                <Box mt={2}>
+                                    {
+                                        _projectInfo.subPerson &&
+                                        _projectInfo.subPerson.map((item, index) => {
                                             return (
                                                 <UIChipSet
+                                                    key={index}
                                                     data={item}
                                                 />
                                             )
                                         })
                                     }
-                                </ListItem>
-                                <Divider />
-
-                            </List>
+                                </Box>
+                            </Grid>
                         </Grid>
-                    </Grid>
+
+                        <Divider className={classes.mh2} />
+
+                        <Box mt={4} mb={4} align="center">
+                            <UIButton
+                                name="등록하기"
+                                variant="contained"
+                                action={handleValidateValue}
+                            />
+                        </Box>
+                    </Container>
                 </Container>
             </Dialog>
-        </div>
-    );
+        </React.Fragment>
+    )
 }
+
+export default ProjectAddDialog

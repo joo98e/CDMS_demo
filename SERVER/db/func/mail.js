@@ -1,6 +1,6 @@
 const e = require('express');
 const fnDate = require('../func/getNow');
-function fnMail(_json) {
+function fnMail() {
     // mail -s"$(echo -e '제목정도\nContent-type: text/html')" -r"icemira@mirimmedialab.co.kr" "askjmyyyojqa@gmail.com"<<<"<a href = 'www.naver.com'>내용정도</a>"
     // -s : 메일 제목
     // -r : 발신자 주소
@@ -30,8 +30,8 @@ function fnMail(_json) {
             }
         ]
     ]
-    _json = arrMailInfomation;
 
+    let _json = arrMailInfomation;
 
     const exec = require('child_process').exec;
     const strTransmitterDefault = 'mirimCDMS';
@@ -44,7 +44,7 @@ function fnMail(_json) {
                                 + "<span>지금 바로 확인하시려면 <a href = '" + _json[i].url + "'>여기</a>를 눌러주세요.</span>"
                                 + _json[i].sender == undefined || _json[i].sender == "" ? "<span>다음은 " + json[i].sender + "님이 보내는 메세지 입니다.\n</span>" : "<span>\n</span>";
 
-        const strMiddleText = _json[i].sender == undefined || _json[i].sender == "" ? "<span>" + json[i].content + "\n</span>" : "";
+        const strMiddleText = _json[i].sender == undefined || _json[i].sender == "" ? "<span>" + _json[i].content + "\n</span>" : "";
 
         const strBottomText =     "<span>확인 부탁드리겠습니다.</span>"
                                 + "<span>오늘도 좋은 하루 되세요.</span>"

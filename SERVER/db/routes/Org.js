@@ -57,7 +57,7 @@ router.post('/person', (req, res) => {
     const params = req.body;
 
     const SQL = myBatisMapper.getStatement('Org', 'getInternalPerson', params, format);
-    
+    console.log(SQL);
     connection.query(SQL, (err, rows, fields) => {
         if (err) {
             console.error(err);

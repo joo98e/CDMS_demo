@@ -30,7 +30,7 @@ const getIp = async URL => {
 const initialState = {
     auth: getAuthLocalStorage(),
     member: getMemberLocalStorage(),
-    accessInfo: getIp("/api/Util/getIp"),
+    accessInfo: getIp("/api/Util/ip"),
 };
 
 const User = (state = initialState, action) => {

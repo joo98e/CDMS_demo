@@ -83,8 +83,8 @@
                     </if>
             <if test="status != null">
                 <choose>
-                    <when test="status = 'STATUS::OPEN'">
-                        AND agcy.`status` = 'STATUS::OPEN'
+                    <when test="status != null">
+                        AND agcy.`status` = #{status}
                     </when>
                 </choose>
             </if>
@@ -99,7 +99,8 @@
             agcy.biz_area,
             agcy.writer_seq,
             agcy.`name`,
-            agcy.`desc`
+            agcy.`desc`,
+            agcy_colg.*
         FROM
             tb_agcy AS agcy
         <where>

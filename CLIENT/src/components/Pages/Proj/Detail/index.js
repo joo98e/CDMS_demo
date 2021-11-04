@@ -14,7 +14,6 @@ import getNow from '../../../common/fn/getNow';
 import getDateFormat from '../../../common/fn/getDateFormat';
 import UICircularProgress from '../../../common/UICircularProgress'
 import UIMultiPercentageChart from '../../../common/Chart/UIMultiPercentageChart';
-import HelpNoProcess from './HelpNoProcess';
 import API from '../../../common/API';
 import UIButton from '../../../common/UIButton';
 import UINewsByNotice from '../../../common/News/UINewsByNotice';
@@ -220,11 +219,6 @@ export const ProjectDetail = (props) => {
 
     return (
         <Box className={classes.root}>
-            <HelpNoProcess
-                open={helpOpen}
-                handleClose={handleCloseHelp}
-                ref_proj_id={ref_proj_id}
-            />
             <Grid container spacing={4}>
                 <Grid item xs={12} md={12} lg={12}>
                     <Paper elevation={4}>

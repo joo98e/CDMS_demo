@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import { useParams } from 'react-router';
+import { useHistory } from 'react-router';
 import {
     Container, Grid, Grow, Paper, Typography,
     Dialog, DialogContent, DialogActions, makeStyles
 } from '@material-ui/core';
 
 import API from '../../common/API';
-import AgencyCard from './AgencyCard'
-import AgencyAddDialog from './AgencyAddDialog'
+import getNow from '../../common/fn/getNow';
 import UIButton from '../../common/UIButton';
+
+import AgencyCard from './AgencyCard'
+import ProjectAddDialog from '../Proj/ProjectAddDialog'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -20,6 +24,9 @@ const useStyles = makeStyles(theme => ({
         left: '50%',
         transform: 'translate(-50%, -50%)'
     },
+    backbtn : {
+        top: '100%',
+    },
     card: {
         position: 'relative',
         height: '325px',
@@ -27,12 +34,14 @@ const useStyles = makeStyles(theme => ({
     emptyBox: {
         position: "relative",
         height: "30vh"
-    }
+    },
 }));
 
-function Agency(props) {
+function AgencyDetail(props) {
     const classes = useStyles();
+    const history = useHistory();
     const _member = useSelector(state => state.User.member);
+    const { ref_agcy_id } = useParams();
     const [list, setList] = useState([]);
     const [grow, setGrow] = useState(false);
     const [open, setOpen] = useState(false);
@@ -42,27 +51,33 @@ function Agency(props) {
         API.permit(_member)
             .then(res => setWriter(API.permitted("WRITE", res)));
 
-        const URL = "/api/agency/list";
+        const URL = '/api/project/list';
         const condition = {
-            mem_seq: _member.seq,
-            status: "STATUS::OPEN",
-            delete_yn: "N"
+            ref_agcy_id: ref_agcy_id,
+            unretired: getNow(),
+            order_by: "DESC",
+            delete_yn: 'N'
         }
 
         API.get(URL, condition)
             .then(res => {
-                if(res.data.result.length === 0) setOpen(true);
+                if (res.data.result.length === 0) setOpen(true);
                 setList(res.data.result);
                 setGrow(true);
             });
+        
+        return () => {
+            setOpen(false);
+            setGrow(false);
+        }
 
-    }, [_member]);
+    }, [_member, ref_agcy_id]);
 
     return (
         <Container className={classes.root}>
             {
                 Array.isArray(list) && list.length !== 0 ?
-                    // 사업 있음
+                    // 과정 정보 있음
                     <Grow
                         in={grow}
                         timeout={800}
@@ -82,14 +97,14 @@ function Agency(props) {
                                 writer &&
                                 <Grid item xs={12} md={6} lg={4}>
                                     <Paper className={classes.card} elevation={4}>
-                                        <AgencyAddDialog />
+                                        <ProjectAddDialog />
                                     </Paper>
                                 </Grid>
                             }
                         </Grid>
                     </Grow>
                     :
-                    // 사업 없음
+                    // 과정 정보 없음
                     <Grow
                         in={grow}
                         timeout={800}
@@ -98,14 +113,20 @@ function Agency(props) {
                             writer ?
                                 <Grid item xs={12} md={6} lg={4}>
                                     <Paper className={classes.card} elevation={4}>
-                                        <AgencyAddDialog />
+                                        <ProjectAddDialog />
                                     </Paper>
                                 </Grid>
                                 :
                                 <Grid className={classes.emptyBox} item xs={12} md={12} lg={12}>
                                     <Typography className={classes.trans} variant="h4">
-                                        지금은 참여하고 있는 사업이 없습니다.
+                                        지금은 참여하고 있는 과정 정보가 없습니다.
                                     </Typography>
+                                    <UIButton
+                                        class={`${classes.trans} ${classes.backbtn}`}
+                                        name="돌아가기"
+                                        variant="contained"
+                                        action={() => { history.goBack() }}
+                                    />
                                 </Grid>
                         }
                     </Grow>
@@ -117,7 +138,8 @@ function Agency(props) {
                 <Dialog open={open} fullWidth>
                     <DialogContent className={classes.emptyBox}>
                         <Typography className={classes.trans} variant="h6" align="center" style={{ width: "100%" }}>
-                            플러스 버튼을 클릭해 사업 정보를 생성해보세요.
+                            아직 과정 정보가 없습니다.<br />
+                            플러스 버튼을 클릭해 과정 정보를 생성해보세요.
                         </Typography>
                     </DialogContent>
                     <DialogActions>
@@ -132,4 +154,4 @@ function Agency(props) {
         </Container>
     )
 }
-export default Agency
+export default AgencyDetail

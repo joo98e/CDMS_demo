@@ -13,7 +13,7 @@ import {
     makeStyles,
 } from "@material-ui/core"
 import {
-    CancelIcon, 
+    CancelIcon,
 } from '../CustomIcons';
 
 const useStyles = makeStyles(theme => ({
@@ -35,8 +35,8 @@ const useStyles = makeStyles(theme => ({
         overflow: 'hidden',
         display: 'block',
     },
-    desc : {
-        color : theme.palette.text.desc
+    desc: {
+        color: theme.palette.text.desc
     }
 }));
 
@@ -68,47 +68,49 @@ export const UICardHeader = (props) => {
                         </Typography>
                     }
                 </Box>
-                <Box className={classes.headerAction}>
-                    <IconButton
-                        onClick={handleOpen}
-                    >
-                        {props.icon}
-                    </IconButton>
-                    <Menu
-                        open={open}
-                        onClose={handleClose}
-                        anchorEl={anchorEl}
-                    >
-                        {
-                            (props.action && props.action.length !== 0) &&
-                            props.action.map((item, index) => {
-                                return (
-                                    <MenuItem
-                                        key={index}
-                                        onClick={item.action}
-                                    >
-                                        <ListItemIcon>
-                                            {item.icon}
-                                        </ListItemIcon>
-                                        <ListItemText>
-                                            {item.name}
-                                        </ListItemText>
-                                    </MenuItem>
-                                )
-                            })
-                        }
-                        <MenuItem
-                            onClick={handleClose}
+                {
+                    (props.action && props.action.length !== 0) &&
+                    <Box className={classes.headerAction}>
+                        <IconButton
+                            onClick={handleOpen}
                         >
-                            <ListItemIcon>
-                                <CancelIcon />
-                            </ListItemIcon>
-                            <ListItemText>
-                                닫기
-                            </ListItemText>
-                        </MenuItem>
-                    </Menu>
-                </Box>
+                            {props.icon}
+                        </IconButton>
+                        <Menu
+                            open={open}
+                            onClose={handleClose}
+                            anchorEl={anchorEl}
+                        >
+                            {
+                                props.action.map((item, index) => {
+                                    return (
+                                        <MenuItem
+                                            key={index}
+                                            onClick={item.action}
+                                        >
+                                            <ListItemIcon>
+                                                {item.icon}
+                                            </ListItemIcon>
+                                            <ListItemText>
+                                                {item.name}
+                                            </ListItemText>
+                                        </MenuItem>
+                                    )
+                                })
+                            }
+                            <MenuItem
+                                onClick={handleClose}
+                            >
+                                <ListItemIcon>
+                                    <CancelIcon />
+                                </ListItemIcon>
+                                <ListItemText>
+                                    닫기
+                                </ListItemText>
+                            </MenuItem>
+                        </Menu>
+                    </Box>
+                }
             </Box>
         </React.Fragment>
     )

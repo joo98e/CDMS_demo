@@ -9,19 +9,13 @@ myBatisMapper.createMapper(['./db/xml/Agency/Agency.xml']);
 const format = require('../config/MyBatisFormat');
 
 router.get('/list', (req, res) => {
-
     const condition = {
         mem_seq: req.query.mem_seq,
         status: req.query.status,
-        srchType: req.query.srchType,
         delete_yn: req.query.delete_yn
     };
-    const selectId = condition.srchType === "MINE" ? "getAgcyListSrchTypeMine"
-        : condition.srchType === "ADMIN" ? "getAgcyListSrchTypeAdmin"
-            : "getAgcyListSrchTypeBiz";
 
-    const SQL = myBatisMapper.getStatement('Agency', selectId, condition, format);
-
+    const SQL = myBatisMapper.getStatement('Agency', "getAgcyListSrchTypeMine", condition, format);
     connection.query(SQL,
         (err, rows, fields) => {
             if (err) {

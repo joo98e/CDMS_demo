@@ -38,7 +38,7 @@ export const MainWorker = (props) => {
                 <UISkeletonAvatar
                     class={styles.root}
                     src={props.data.avatar_path}
-                    alt={props.data.full_name}
+                    alt={props.data.last_name}
                 />
             </div>
             <div className={styles.pl}>

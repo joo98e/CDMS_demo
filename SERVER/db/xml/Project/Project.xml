@@ -8,7 +8,6 @@
         (
             writer_seq,
             ref_agcy_id,
-            ref_biz_area,
             `name`,
             `desc`,
             add_info,
@@ -19,7 +18,6 @@
         ) VALUES(
             #{seq},
             #{ref_agcy_id},
-            (SELECT biz_area FROM tb_agcy WHERE tb_agcy.id = #{ref_agcy_id}),
             #{name},
             #{desc},
             #{addInfo},
@@ -35,21 +33,50 @@
         tb_agcy_proj_colleague
         (
             ref_proj_id,
-            ref_agcy_colleague_seq,
+            ref_colg_seq,
             `name`,
             reg_ip,
-            upd_ip
+            upd_ip,
+            reg_date,
+            upd_date
         )
         VALUES
-        <foreach collection="person" item="goods" separator=",">
+        <foreach collection="subPerson" item="goods" separator=",">
         (
             #{last_insert_id},
             #{goods.seq},
             #{goods.full_name},
             #{IPv4},
-            #{IPv4}
+            #{IPv4},
+            #{reg_date},
+            #{upd_date}
         )
         </foreach>
+    </insert>
+
+    <insert id="insertProjectColleagueMain">
+        <!-- 프로젝트 메인 담당자 쿼리 -->
+        INSERT INTO
+        tb_agcy_proj_colleague
+        (
+            ref_proc_id,
+            ref_colg_seq,
+            `type`,
+            reg_ip,
+            upd_ip,
+            reg_date,
+            upd_date
+        )
+        VALUES
+        (
+            #{last_insert_id},
+            #{seq},
+            #{type},
+            #{IPv4},
+            #{IPv4},
+            #{reg_date},
+            #{upd_date}
+        )
     </insert>
 
     <select id="getProject">
@@ -60,8 +87,6 @@
             proj.`name`,
             proj.`desc`,
             proj.add_info,
-            proj.thumbnail_file_name,
-            proj.thumbnail_file_path,
             proj.reg_date,
             proj.upd_date,
             proj.start_date,

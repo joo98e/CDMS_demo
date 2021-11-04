@@ -32,7 +32,7 @@ export const UIRelease = (props) => {
             formData.append(`files`, files[i]);
         }
 
-        API.files(baseURL, formData, config)
+        API.uploads(baseURL, formData, config)
             .then(res => console.log(res))
             .catch(err => console.error(err))
 

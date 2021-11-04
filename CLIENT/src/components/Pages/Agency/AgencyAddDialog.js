@@ -64,8 +64,7 @@ const BtnInfo = {
 };
 
 const DialogInfo = {
-    title: "기관 등록",
-    subTitle: "담당자 지정"
+    title: "PM 지정",
 };
 
 const TableColumnName = [
@@ -188,7 +187,7 @@ export default function AgencyAddDialog() {
                             return false;
                         }
                     } else if (target[item] === null) {
-                        enqueueSnackbar('사업 시작일이 비어 있습니다.', { variant: 'warning' });
+                        enqueueSnackbar('시작일이 비어 있습니다.', { variant: 'warning' });
                         return false;
                     }
                     break;
@@ -200,7 +199,7 @@ export default function AgencyAddDialog() {
                             return false;
                         }
                     } else if (target[item] === null) {
-                        enqueueSnackbar('사업 종료일이 비어 있습니다.', { variant: 'warning' });
+                        enqueueSnackbar('종료일이 비어 있습니다.', { variant: 'warning' });
                         return false;
                     }
                     break;
@@ -214,7 +213,7 @@ export default function AgencyAddDialog() {
 
                 case "person":
                     if (target[item].length === 0 || target[item].length === undefined) {
-                        enqueueSnackbar('기관 담당자를 구성해야 합니다.', { variant: 'warning' });
+                        enqueueSnackbar('PM은 반드시 구성해야 합니다.', { variant: 'warning' });
                         return false;
                     }
                     break;
@@ -273,7 +272,7 @@ export default function AgencyAddDialog() {
             .then(res => {
                 if (res.data.resultCode === 1) {
                     dispatch(setAgencyInfoInit());
-                    enqueueSnackbar("기관 등록에 성공했습니다.", { variant: 'success' });
+                    enqueueSnackbar("등록에 성공했습니다.", { variant: 'success' });
                     history.goBack();
                 } else {
                     enqueueSnackbar(res.data.resultCode, { variant: 'error' });
@@ -296,14 +295,14 @@ export default function AgencyAddDialog() {
                 </AppBar>
                 <Container maxWidth="md">
                     <Typography className={classes.mainTitle} variant="h4" align="center">
-                        기관 등록
+                        기관/사업 등록
                     </Typography>
                     <Divider className={classes.mh2} />
                     <Container maxWidth="sm">
                         <Grid container justifyContent="center" alignItems="center">
                             <Grid item xs={12} md={4} lg={4}>
                                 <Typography component="div">
-                                    사업 구분
+                                    기관/사업 구분
                                 </Typography>
                             </Grid>
                             <Grid item xs={12} md={8} lg={8}>
@@ -335,14 +334,14 @@ export default function AgencyAddDialog() {
                         <Grid container justifyContent="center" alignItems="center">
                             <Grid item xs={12} md={4} lg={4}>
                                 <Typography component="div">
-                                    사업명 혹은 기관명
+                                    기관명 혹은 사업명
                                 </Typography>
                             </Grid>
                             <Grid item xs={12} md={8} lg={8}>
                                 <TextField
                                     fullWidth
                                     variant="filled"
-                                    placeholder="사업명 혹은 기관명"
+                                    placeholder="기관명 혹은 사업명"
                                     name="name"
                                     onChange={handleChangeAgencyInfos}
                                 />
@@ -366,11 +365,6 @@ export default function AgencyAddDialog() {
                                     multiline
                                     minRows={4}
                                     onChange={handleChangeAgencyInfos}
-                                    onKeyUp={e => {
-                                        if (e.key === "Enter") {
-                                            console.log(e.target);
-                                        }
-                                    }}
                                     style={{ whiteSpace: "pre-wrap" }}
                                 />
                             </Grid>
@@ -415,7 +409,7 @@ export default function AgencyAddDialog() {
                         <Grid container justifyContent="center" alignItems="center">
                             <Grid item xs={12} md={4} lg={4}>
                                 <Typography component="div">
-                                    추가 구성
+                                    추가 정보 구성
                                 </Typography>
                             </Grid>
                             <Grid item xs={12} md={8} lg={8}>
@@ -465,7 +459,7 @@ export default function AgencyAddDialog() {
                         <Grid container justifyContent="center" alignItems="center">
                             <Grid item xs={12} md={4} lg={4}>
                                 <Typography component="div">
-                                    담당자
+                                    PM
                                 </Typography>
                             </Grid>
                             <Grid item xs={12} md={8} lg={8}>

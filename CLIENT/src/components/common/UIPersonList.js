@@ -90,11 +90,8 @@ export class UIPersonList extends Component {
 
         if (type === "SUBMIT") {
             if (this.props.ResultAction) this.props.ResultAction.success(this.state.data);
-            this.props.enqueueSnackbar(this.props.ResultMessage.success, { variant: 'success' });
-
         } else if (type === "CANCLE") {
             if (this.props.ResultAction) this.props.ResultAction.fail();
-            this.props.enqueueSnackbar(this.props.ResultMessage.fail, { variant: 'warning' });
         }
     }
 
@@ -130,7 +127,7 @@ export class UIPersonList extends Component {
             <div>
                 <UIButton
                     class={classes.textFieldStyle}
-                    name="구성하기"
+                    name={this.props.BtnInfo.open}
                     variant="contained"
                     color="primary"
                     action={this.handleChangeStatus}

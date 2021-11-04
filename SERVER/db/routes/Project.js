@@ -8,7 +8,7 @@ myBatisMapper.createMapper(['./db/xml/Project/Project.xml']);
 const format = require('../config/MyBatisFormat');
 
 router.post('/add', (req, res) => {
-    const params = req.body;
+    const params = { ...req.body, desc: req.body.desc.replace(/\n/g, "<br />") };
     const SQL_PROJECT = myBatisMapper.getStatement('Project', 'insertProject', params, format);
 
     connection.query(SQL_PROJECT,
@@ -21,11 +21,13 @@ router.post('/add', (req, res) => {
                     resultMessage: "(프로젝트 생성)예기치 못한 오류",
                 })
             } else {
-                if (Array.isArray(params.person) && params.person.length > 0) {
+                if (Array.isArray(params.subPerson) && params.subPerson.length > 0) {
                     const params_sub = {
                         last_insert_id: rows.insertId,
                         IPv4: params.IPv4,
-                        person: params.person
+                        person: params.subPerson,
+                        reg_date: getNow(),
+                        upd_date: getNow()
                     };
                     const SQL_PROJECT_COLLEAGUE = myBatisMapper.getStatement('Project', 'insertProjectColleague', params_sub, format);
 
@@ -38,11 +40,40 @@ router.post('/add', (req, res) => {
                                     resultMessage: "(프로젝트 참여자 생성)예기치 못한 오류"
                                 });
                             } else {
-                                return res.status(200).send({
-                                    result: { ...rows, last_insert_id: params_sub.last_insert_id },
-                                    resultCode: 1,
-                                    resultMessage: "등록에 성공했습니다."
-                                });
+                                if (!params.mainPerson || params.mainPerson === null || params.mainPerson === undefined) {
+                                    return res.status(400).send({
+                                        result: {},
+                                        resultCode: -1,
+                                        resultMessage: "(프로젝트 담당자 생성)예기치 못한 오류"
+                                    });
+                                }
+                                const params_main = {
+                                    ...params.mainPerson,
+                                    IPv4: params.IPv4,
+                                    type: "TYPE::MAIN",
+                                    last_insert_id: params_sub.last_insert_id,
+                                    reg_date: getNow(),
+                                    upd_date: getNow()
+                                };
+                                const SQL_PROCESS_COLG_MAIN = myBatisMapper.getStatement('Project', 'insertProjectColleagueMain', params_main, format);
+                                connection.query(SQL_PROCESS_COLG_MAIN,
+                                    (err, rows) => {
+                                        if (err) {
+                                            console.log(err);
+                                            return res.status(400).send({
+                                                result: {},
+                                                resultCode: -1,
+                                                resultMessage: "(프로세스 생성)담당자 등록 오류",
+                                            });
+                                        } else {
+                                            return res.status(200).send({
+                                                result: { ...rows, last_insert_id: params_sub.last_insert_id },
+                                                resultCode: 1,
+                                                resultMessage: "등록에 성공했습니다."
+                                            });
+                                        }
+                                    }
+                                )
                             }
                         }
                     )
@@ -62,6 +93,7 @@ router.post('/add', (req, res) => {
 router.get('/list', (req, res) => {
     const params = req.query;
     const SQL = myBatisMapper.getStatement("Project", "getProject", params, format);
+    
     connection.query(SQL, (err, rows, fileds) => {
         if (err) {
             return res.status(400).send({

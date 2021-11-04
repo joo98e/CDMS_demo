@@ -5,7 +5,7 @@ const theme = {
         palette: {
             action: {
                 active: "rgba(0, 0, 0, 0.04)",
-                hover: "rgba(0, 0, 0, 0.04)",
+                hover: "rgba(0, 0, 0, 0.05)",
                 disabled: "rgba(0, 0, 0, 0.5)",
                 disabledBackground: "rgba(0, 0, 0, 0.04)",
                 focus: "rgba(0, 0, 0, 0.04)",
@@ -27,17 +27,19 @@ const theme = {
                 dark: "#121a22",
             },
             background: {
-                default: "#FBFCFF",
-                paper: "#eff0f4",
-                button: "#DFDFDF",
-                whiteButton: "#8F8F8F",
+                default: "#edf1f5",
+                paper: "#ffffff",
+                button: "#4f5466",
+                whiteButton: "#7d8598",
+                nav: "#4f5467"
             },
             text: {
                 primary: "#333333",
                 secondary: "#6F6F6F",
                 hint: "#6F6F6F",
                 disabled: "#6F6F6F",
-                desc: "#9D9D9D"
+                desc: "#9D9D9D",
+                white: "#FFFFFF"
             },
             chart: {
                 background: "#C1C1C1",
@@ -65,9 +67,21 @@ const theme = {
                     hover: "#f55f67"
                 }
             },
-            // 실제 버튼 호버
             grey: {
-                A100: "rgba(0, 0, 0, 0.1)",
+                "50": "rgb(79 84 102 / 0.9)",
+                "100": "rgb(79 84 102 / 0.9)",
+                "200": "rgb(79 84 102 / 0.9)",
+                "300": "rgb(79 84 102 / 0.9)",
+                "400": "rgb(79 84 102 / 0.9)",
+                "500": "rgb(79 84 102 / 0.9)",
+                "600": "rgb(79 84 102 / 0.9)",
+                "700": "rgb(79 84 102 / 0.9)",
+                "800": "rgb(79 84 102 / 0.9)",
+                "900": "rgb(79 84 102 / 0.9)",
+                A100: "rgb(79 84 102 / 0.9)",
+                A200: "rgb(79 84 102 / 0.9)",
+                A400: "rgb(79 84 102 / 0.9)",
+                A700: "rgb(79 84 102 / 0.9)"
             },
 
         },
@@ -77,15 +91,18 @@ const theme = {
                     "&$focused": {
                         color: "#333",
                         fontWeight: "bold",
-                        borderColor : "#000"
+                        borderColor: "#000"
                     },
                     "&$selected": {
                         color: "#333",
                         fontWeight: "bold"
                     }
                 },
-
                 focused: {}
+            },
+            "MuiButton-contained:hover" : {
+                boxShadow : "unset !important",
+                backgroundColor : "unset !important"
             },
             MuiCssBaseline: {
                 '@global': {
@@ -99,7 +116,7 @@ const theme = {
             },
         },
     }),
-    
+
     // nature: createTheme({
     //     palette: {
     //         action: {

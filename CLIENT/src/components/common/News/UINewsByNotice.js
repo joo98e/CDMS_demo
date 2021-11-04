@@ -47,7 +47,7 @@ export const UINewsByNotice = (props) => {
             <div className={classes.pr2}>
                 <UISkeletonAvatar
                     src={props.data.avatar_path}
-                    alt={props.data.full_name}
+                    alt={props.data.last_name}
                 />
             </div>
             <div className={classes.flexColumn}>

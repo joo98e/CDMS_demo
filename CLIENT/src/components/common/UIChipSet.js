@@ -49,23 +49,21 @@ export const UIChipSet = (props) => {
     }
 
     useEffect(() => {
-        
+
     }, [data]);
 
     return (
         <React.Fragment>
             {
                 data.avatar_path &&
-                <Tooltip title="MORE">
-                    <Chip
-                        className={classes.m1}
-                        clickable
-                        color="primary"
-                        avatar={<Avatar src={data.avatar_path ? data.avatar_path : defaultPath} />}
-                        label={data.full_name}
-                        onClick={handlePopoverOpen}
-                    />
-                </Tooltip>
+                <Chip
+                    className={classes.m1}
+                    clickable
+                    color="primary"
+                    avatar={<Avatar src={data.avatar_path ? data.avatar_path : defaultPath} />}
+                    label={data.full_name}
+                    onClick={handlePopoverOpen}
+                />
             }
             <Popover
                 open={open}

@@ -43,22 +43,43 @@ router.get('/process/prod', (req, res) => {
     });
 });
 
-router.get("/getIp", (req, res) => {
+router.get("/ip", (req, res) => {
     try {
         const IP = requestIp.getClientIp(req).substr(7);
         return res.status(200).send({
-            result : IP,
-            resultCode : 1,
-            resultMessage : "성공"
+            result: IP,
+            resultCode: 1,
+            resultMessage: "성공"
         });
     } catch (error) {
         console.log(error);
         return res.status(400).send({
-            result : null,
-            resultCode : -1,
-            resultMessage : "실패"
+            result: null,
+            resultCode: -1,
+            resultMessage: "실패"
         })
     }
+});
+
+router.get("/name", (req, res) => {
+    let type =
+        req.query.type === "agency" ? "getAgencyName"
+            : req.query.type === "project" ? "getProjectName"
+                : "unknown";
+
+    if(type === "unknown"){
+        return res.status(400).send({
+            result: undefined,
+            resultCode: -1,
+            resultMessage: "타입이 불분명하여 조회가 실패했습니다.",
+        });
+    }else{
+        const params = req.query;
+        const SQL = myBatisMapper.getStatement("Util", type, params, format);
+        console.log(SQL);
+        return res.send(200)
+    }
+
 });
 
 module.exports = router;

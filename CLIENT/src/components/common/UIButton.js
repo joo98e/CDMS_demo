@@ -8,7 +8,7 @@
  * @returns {UIButton}
  */
 
-import React, { useState } from 'react'
+import React from 'react'
 import {
     Button, Tooltip, makeStyles, Typography
 } from "@material-ui/core"
@@ -18,8 +18,10 @@ const useStyles = makeStyles(theme => ({
 
     },
     buttonColor: {
-        color: theme.palette.text.primary,
-        backgroundColor: theme.palette.background.button
+        backgroundColor: theme.palette.background.whiteButton
+    },
+    textColor: {
+        color: theme.palette.text.white,
     }
 }));
 
@@ -44,7 +46,7 @@ function UIButton(props) {
                     }
                 }
             >
-                <Typography variant="body1">
+                <Typography className={classes.textColor} variant="body1">
                     {props.name}
                 </Typography>
             </Button>

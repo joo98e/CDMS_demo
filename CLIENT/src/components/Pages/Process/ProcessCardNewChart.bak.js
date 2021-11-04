@@ -192,9 +192,9 @@ export const ProcessCard = (props) => {
                                 >
                                     <UISkeletonAvatar
                                         src={props.item.avatar_path}
-                                        alt={props.item.nickname}
+                                        alt={props.item.last_name}
                                     />
-                                    {props.item.nickname}
+                                    {props.item.last_name}
                                 </div>
                             </Grid>
                             <Grid item xs={9} md={9} lg={9}>

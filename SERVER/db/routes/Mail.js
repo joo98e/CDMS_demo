@@ -3,15 +3,10 @@ const router = express.Router();
 const fnMail = require('../func/mail');
 const connection = require("../config/db_connection");
 
-const myBatisMapper = require('mybatis-mapper');
-// myBatisMapper.createMapper(['./db/xml/Agency/Agency.xml']);
-const format = require('../config/MyBatisFormat');
-
 router.post('/send', (req, res) => {
-    const params = req.body;
 
     try {
-        fnMail(params);
+        fnMail();
         return res.status(200).send({
             result: req.body,
             resultCode: 1,

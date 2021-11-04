@@ -7,12 +7,12 @@ import { CancelIcon } from './CustomIcons';
 export class UISnackBar extends Component {
     constructor(props) {
         super(props)
-    
+
         this.state = {
-             
+
         }
     }
-    
+
     handleCloseSnackBar = () => {
         this.props.closeSnackbar(this.props.goods);
     }
@@ -23,7 +23,7 @@ export class UISnackBar extends Component {
                 color="inherit"
                 onClick={this.handleCloseSnackBar}
             >
-                {<CancelIcon />}
+                {<CancelIcon style={{ color: "white" }} />}
             </Button>
         )
     }

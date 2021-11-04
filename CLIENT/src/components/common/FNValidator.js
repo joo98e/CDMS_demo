@@ -169,13 +169,14 @@ const FNValidator = (valueName, value) => {
 
         case "EMPTY":
             const _value = value.constructor;
-            
+            console.log(12312312312);
             if (_value === Array) {
                 for (let i = 0; i < value.length; i++) {
                     return (!value[i].key || !value[i].value) ? false : isConfirmed = true;
                 }
             }
             else if (_value === Object) {
+                console.log(1232132131231212);
                 if (Object.keys(_value).length === 0) {
                     return false;
                 } else {
@@ -185,9 +186,7 @@ const FNValidator = (valueName, value) => {
             break;
 
         default:
-            /**
-             * @description 정규식을 거치지 않음
-             */
+            console.log("정규식을 거치지 않았음");
             break;
     }
     return isConfirmed;

@@ -31,12 +31,13 @@ export const initAgencyValue = {
 };
 
 export const initProjectValue = {
-    start_date: null,
-    end_date: null,
     name: '',
     desc: '',
-    person: [],
-    addInfo: []
+    mainPerson: false,
+    subPerson: [],
+    addInfo: [],
+    start_date: null,
+    end_date: null,
 };
 
 export const initProcessValue = {

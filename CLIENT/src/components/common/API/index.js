@@ -36,7 +36,8 @@ const API = {
     del: () => {
 
     },
-    files: (baseURL, files, config) => {
+
+    uploads: (baseURL, files, config) => {
         const URL = `${baseURL}/${config.headers.dest.agency}/${config.headers.dest.project}`
         console.log(URL)
         const promise = axios.post(URL, files, config);
