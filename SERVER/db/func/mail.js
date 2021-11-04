@@ -36,15 +36,15 @@ function fnMail() {
     const strDomain = 'cdms.mirimmedialab.co.kr';
     const strSecretDefault = 'askjmyyyojqa@gmail.com';
     for(i = 0; i < _json.length; i++){
-        const strTopText =        "<div>"
+        let strTopText =        "<div>"
                                 + "<span>안녕하세요. <b>미림미디어랩 CDMS</b> 입니다.</span>"
                                 + "<span>" + _json[i].sender + "님이 새로운 게시판을 작성하였습니다.</span>"
                                 + "<span>지금 바로 확인하시려면 <a href = '" + _json[i].url + "'>여기</a>를 눌러주세요.</span>"
                                 + _json[i].sender == undefined || _json[i].sender == "" ? "<span>다음은 " + json[i].sender + "님이 보내는 메세지 입니다.\n</span>" : "<span>\n</span>";
 
-        const strMiddleText = _json[i].sender == undefined || _json[i].sender == "" ? "<span>" + _json[i].content + "\n</span>" : "";
+        let strMiddleText = _json[i].sender == undefined || _json[i].sender == "" ? "<span>" + _json[i].content + "\n</span>" : "";
 
-        const strBottomText =     "<span>확인 부탁드리겠습니다.</span>"
+        let strBottomText =     "<span>확인 부탁드리겠습니다.</span>"
                                 + "<span>오늘도 좋은 하루 되세요.</span>"
                                 + "<span>감사합니다.</span>"
                                 + "</div>";
