@@ -40,7 +40,7 @@ function fnMail() {
                                 + "<span>안녕하세요. <b>미림미디어랩 CDMS</b> 입니다.</span>"
                                 + "<span>" + _json[i].sender + "님이 새로운 게시판을 작성하였습니다.</span>"
                                 + "<span>지금 바로 확인하시려면 <a href = '" + _json[i].url + "'>여기</a>를 눌러주세요.</span>"
-                                + _json[i].content == undefined || _json[i].content == "" ? "<span>\n</span>" : "<span>다음은 " + _json[i].sender + "님이 보내는 메세지 입니다.\n</span>";
+                                _json[i].content == undefined || _json[i].content == "" ? + "<span>\n</span>" : + "<span>다음은 " + _json[i].sender + "님이 보내는 메세지 입니다.\n</span>";
 
         const strMiddleText = _json[i].content == undefined || _json[i].content == "" ? "" : "<span>" + _json[i].content + "\n</span>";
 
@@ -62,20 +62,20 @@ function fnMail() {
 
         if(_json[i].reference != undefined && _json[i].reference.length != 0){
             for(a = 0; a < _json[i].reference.length; a++){
-                strReference += '-c "' + _json[i].reference[a] + '" ';
+                strReference += '-c"' + _json[i].reference[a] + '" ';
             }
         }
         if(_json[i].secret != undefined && _json[i].secret.length != 0){
             for(b = 0; b < _json[i].secret.length; b++){
-                strSecret += '-b "' + _json[i].secret[b] + '" ';
+                strSecret += '-b"' + _json[i].secret[b] + '" ';
             }
         }
         if(_json[i].attach != undefined && _json[i].attach.length != 0){
             for(c = 0; c < _json[i].attach.length; c++){
-                strAttach += '-a "' + _json[i].attach[c] + '" ';
+                strAttach += '-a"' + _json[i].attach[c] + '" ';
             }
         }
-        console.log('mail -s"' + strSubject + '"' + strReference + strSecret + strAttach + ' -r"' + strName + '<' + strTransmitter + '@' + strDomain + '>" "' + strReceiver + '"<<<"' + strTopText + strMiddleText + strBottomText + '"');
+        console.log('mail -s"' + strSubject + '" ' + strReference + strSecret + strAttach + ' -r"' + strName + '<' + strTransmitter + '@' + strDomain + '>" "' + strReceiver + '"<<<"' + strTopText + strMiddleText + strBottomText + '"');
         exec('mail -s"' + strSubject + '"' + strReference + strSecret + strAttach + ' -r"' + strName + '<' + strTransmitter + '@' + strDomain + '>" "' + strReceiver + '"<<<"' + strTopText + strMiddleText + strBottomText + '"', {windowsHide : true}, function(err, stdout, stderr){
             if(err){
                 console.log(i + '번째 메일 발송 중 오류가 발생했습니다.')
