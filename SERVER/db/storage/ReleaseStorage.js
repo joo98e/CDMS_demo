@@ -1,6 +1,6 @@
 const multer = require('multer');
 const getDest = require("../func/getDest");
-const readDestination = require("./readDestination");
+const readDestination = require("./ReadDestination");
 
 const ReleaseStorage = multer({
     storage: multer.diskStorage({
