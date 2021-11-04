@@ -55,7 +55,7 @@ function fnMail() {
         const strName = _json[i].name == undefined || _json[i].name == '' ? "알림메일" : _json[i].name;
         const strReceiver = _json[i].receiver;
         let strReference = '';
-        let strSecret = '-b "' + strSecretDefault + '"';
+        let strSecret = '-b "' + strSecretDefault + '" ';
         let strAttach = '';
         const strSubject = '$(echo -e "' + _json[i].subject + '\nContent-type: text/html")';
         // const strUrl = _json[i].url;
@@ -64,19 +64,20 @@ function fnMail() {
 
         if(_json[i].reference != undefined && _json[i].reference.length != 0){
             for(a = 0; a < _json[i].reference.length; a++){
-                strReference += '-c "' + _json[i].reference[a] + '"';
+                strReference += '-c "' + _json[i].reference[a] + '" ';
             }
         }
         if(_json[i].secret != undefined && _json[i].secret.length != 0){
-            for(a = 0; a < _json[i].secret.length; a++){
-                strSecret += '-b "' + _json[i].secret[a] + '"';
+            for(b = 0; b < _json[i].secret.length; b++){
+                strSecret += '-b "' + _json[i].secret[b] + '" ';
             }
         }
         if(_json[i].attach != undefined && _json[i].attach.length != 0){
-            for(a = 0; a < _json[i].attach.length; a++){
-                strAttach += '-a "' + _json[i].attach[a] + '"';
+            for(c = 0; c < _json[i].attach.length; c++){
+                strAttach += '-a "' + _json[i].attach[c] + '" ';
             }
         }
+        console.log('mail -s"' + strSubject + '"' + strReference + strSecret + strAttach + ' -r"' + strName + '<' + strTransmitter + '@' + strDomain + '>" "' + strReceiver + '"<<<"' + strTopText + strMiddleText + strBottomText + '"');
         exec('mail -s"' + strSubject + '"' + strReference + strSecret + strAttach + ' -r"' + strName + '<' + strTransmitter + '@' + strDomain + '>" "' + strReceiver + '"<<<"' + strTopText + strMiddleText + strBottomText + '"', {windowsHide : true}, function(err, stdout, stderr){
             if(err){
                 console.log(i + '번째 메일 발송 중 오류가 발생했습니다.')
