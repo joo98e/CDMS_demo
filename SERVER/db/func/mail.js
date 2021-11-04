@@ -36,7 +36,7 @@ function fnMail() {
     const strDomain = 'cdms.mirimmedialab.co.kr';
     const strSecretDefault = 'askjmyyyojqa@gmail.com';
     for(i = 0; i < _json.length; i++){
-        const strTopText =    "<div>"
+        const strTopText =        "<div>"
                                 + "<span>안녕하세요. <b>미림미디어랩 CDMS</b> 입니다.</span>"
                                 + "<span>" + _json[i].sender + "님이 새로운 게시판을 작성하였습니다.</span>"
                                 + "<span>지금 바로 확인하시려면 <a href = '" + _json[i].url + "'>여기</a>를 눌러주세요.</span>"
@@ -47,7 +47,7 @@ function fnMail() {
         const strBottomText =     "<span>확인 부탁드리겠습니다.</span>"
                                 + "<span>오늘도 좋은 하루 되세요.</span>"
                                 + "<span>감사합니다.</span>"
-                            + "</div>";
+                                + "</div>";
 
         const strTransmitter = _json[i].transmitter == undefined || _json[i].transmitter == '' ? strTransmitterDefault : _json[i].transmitter;
         const strName = _json[i].name == undefined || _json[i].name == '' ? "알림메일" : _json[i].name;
@@ -55,7 +55,7 @@ function fnMail() {
         let strReference = '';
         let strSecret = '-b "' + strSecretDefault + '" ';
         let strAttach = '';
-        const strSubject = '$(echo -e "' + _json[i].subject + '\nContent-type: text/html")';
+        const strSubject = "$(echo -e '" + _json[i].subject + "\nContent-type: text/html')";
         // const strUrl = _json[i].url;
         // const strSender = _json[i].sender;
         // const strContent = _json[i].transmitter == undefined || _json[i].transmitter == '' ? 'mirimCDMS' : _json[i].transmitter;
@@ -75,7 +75,7 @@ function fnMail() {
                 strAttach += '-a "' + _json[i].attach[c] + '" ';
             }
         }
-        console.log('mail -s"' + strSubject + '"' + strReference + strSecret + strAttach + ' -r"' + strName + '<' + strTransmitter + '@' + strDomain + '>" "' + strReceiver + '"<<<"' + strTopText + strMiddleText + strBottomText + '"');
+        console.log(strTopText + strMiddleText + strBottomText);
         exec('mail -s"' + strSubject + '"' + strReference + strSecret + strAttach + ' -r"' + strName + '<' + strTransmitter + '@' + strDomain + '>" "' + strReceiver + '"<<<"' + strTopText + strMiddleText + strBottomText + '"', {windowsHide : true}, function(err, stdout, stderr){
             if(err){
                 console.log(i + '번째 메일 발송 중 오류가 발생했습니다.')
