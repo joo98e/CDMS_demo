@@ -55,7 +55,7 @@ function fnMail() {
         let strReference = '';
         let strSecret = '-b"' + strSecretDefault + '" ';
         let strAttach = '';
-        const strSubject = "$(echo -e '" + _json[i].subject + "\nContent-type: text/html')";
+        const strSubject = "$(echo -e '" + _json[i].subject + "\nContent-type: text/plain')";
         // const strUrl = _json[i].url;
         // const strSender = _json[i].sender;
         // const strContent = _json[i].transmitter == undefined || _json[i].transmitter == '' ? 'mirimCDMS' : _json[i].transmitter;
