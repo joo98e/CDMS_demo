@@ -75,7 +75,7 @@ function fnMail() {
                 strAttach += '-a"' + _json[i].attach[c] + '" ';
             }
         }
-        exec('mail -s"' + strSubject + '"' + strReference + strSecret + strAttach + '-r"' + strName + '<' + strTransmitter + '@' + strDomain + '>" "' + strReceiver + '"<<<"aaaaaaaaaaaaaa"', {windowsHide : true}, function(stdout, err, stderr){
+        exec('mail -s"' + strSubject + '"' + strReference + strSecret + strAttach + '-r"' + strName + '<' + strTransmitter + '@' + strDomain + '>" "' + strReceiver + '"<<<"aaaaaaaaaaaaaa"', {windowsHide : true}, function(err, stdout, stderr){
             if(err){
                 console.log(i + '번째 메일 발송 중 오류가 발생했습니다.')
             }
