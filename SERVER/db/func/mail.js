@@ -16,7 +16,7 @@ function fnMail() {
                 "qvud00@gmail.com",
             ],
             secret : [					                        //	숨은 참조 목록. 공백이면 기본값 [strSecretDefault]로만 보냄.
-                "askjmyyyojqa@gmail.com"	
+                // "askjmyyyojqa@gmail.com"	
             ],
             attach : [					                        //	첨부파일 경로. 공백이면 첨부하지 않음.
                 // "/raid/cdms/avatars/items/default/01.jpg",
@@ -53,7 +53,7 @@ function fnMail() {
         const strName = _json[i].name == undefined || _json[i].name == '' ? "알림메일" : _json[i].name;
         const strReceiver = _json[i].receiver;
         let strReference = '';
-        let strSecret = '-b "' + strSecretDefault + '" ';
+        let strSecret = '-b"' + strSecretDefault + '" ';
         let strAttach = '';
         const strSubject = "$(echo -e '" + _json[i].subject + "\nContent-type: text/html')";
         // const strUrl = _json[i].url;
@@ -75,8 +75,7 @@ function fnMail() {
                 strAttach += '-a"' + _json[i].attach[c] + '" ';
             }
         }
-        console.log('mail -s"' + strSubject + '" ' + strReference + strSecret + strAttach + ' -r"' + strName + '<' + strTransmitter + '@' + strDomain + '>" "' + strReceiver + '"<<<"' + strTopText + strMiddleText + strBottomText + '"');
-        exec('mail -s"' + strSubject + '"' + strReference + strSecret + strAttach + ' -r"' + strName + '<' + strTransmitter + '@' + strDomain + '>" "' + strReceiver + '"<<<"' + strTopText + strMiddleText + strBottomText + '"', {windowsHide : true}, function(err, stdout, stderr){
+        exec('mail -s"' + strSubject + '"' + strReference + strSecret + strAttach + '-r"' + strName + '<' + strTransmitter + '@' + strDomain + '>" "' + strReceiver + '"<<<"aaaaaaaaaaaaaa"', {windowsHide : true}, function(stdout, err, stderr){
             if(err){
                 console.log(i + '번째 메일 발송 중 오류가 발생했습니다.')
             }
