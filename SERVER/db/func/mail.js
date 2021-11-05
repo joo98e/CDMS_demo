@@ -40,7 +40,7 @@ function fnMail() {
                                 + "<span>안녕하세요. <b>미림미디어랩 CDMS</b> 입니다.</span>"
                                 + "<span>" + _json[i].sender + "님이 새로운 게시판을 작성하였습니다.</span>"
                                 + "<span>지금 바로 확인하시려면 <a href = '" + _json[i].url + "'>여기</a>를 눌러주세요.</span>"
-                                _json[i].content == undefined || _json[i].content == "" ? + "<span>\n</span>" : + "<span>다음은 " + _json[i].sender + "님이 보내는 메세지 입니다.\n</span>";
+                                + _json[i].content == undefined || _json[i].content == "" ? + "<span>\n</span>" : + "<span>다음은 " + _json[i].sender + "님이 보내는 메세지 입니다.\n</span>";
 
         const strMiddleText = _json[i].content == undefined || _json[i].content == "" ? "" : "<span>" + _json[i].content + "\n</span>";
 
@@ -75,6 +75,8 @@ function fnMail() {
                 strAttach += '-a"' + _json[i].attach[c] + '" ';
             }
         }
+
+        console.log(strTopText)
         exec('mail -s"' + strSubject + '"' + strReference + strSecret + strAttach + '-r"' + strName + '<' + strTransmitter + '@' + strDomain + '>" "' + strReceiver + '"<<<"aaaaaaaaaaaaaa"', {windowsHide : true}, function(err, stdout, stderr){
             if(err){
                 console.log(i + '번째 메일 발송 중 오류가 발생했습니다.')
