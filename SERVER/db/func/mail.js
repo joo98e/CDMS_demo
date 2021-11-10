@@ -84,10 +84,10 @@ function fnMail() {
         }
         exec('mail -s"' + strSubject + '"' + strReference + strSecret + strAttach + '-r"' + strName + '<' + strTransmitter + '@' + strDomain + '>" "' + strReceiver + '"<<<"' + strTopText + strMiddleText + strBottomText + '"', {windowsHide : true}, function(err, stdout, stderr){
             if(err){
-                console.log(i + '번째 메일 발송 중 오류가 발생했습니다. 메일 발송자 : ' + _json[i].sender);
+                console.log(i + '번째 메일 발송 중 오류가 발생했습니다.');
             }
             if(stdout){
-                console.log(i + '번째 메일 발송이 완료되었습니다. 메일 발송자 : ' + _json[i].sender);
+                console.log(i + '번째 메일 발송이 완료되었습니다.');
             }
         });
     }
