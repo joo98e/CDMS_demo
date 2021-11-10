@@ -14,6 +14,7 @@ function fnMail() {
     // \nContent-Type: text/html -> 실패. 쉘스크립트로 바로 보내주거나 보낸사람에 이름을 지정하지 않고 보내는거면 성공함.
     // \nMIME-Version: 1.0; -> 실패.
     // \nMIME-Version: 1.0;Content-Type: multipart/alternative') -> 실패.
+    // \nMIME-Version: 1.0;Content-Type: multipart/related') -> 실패.
     let arrMailInfomation = [
         {
             transmitter : "mirimCDMS",                          //	보내는 사람 메일주소. 공백이면 기본값 [mirimCDMS]로 변환
@@ -43,7 +44,8 @@ function fnMail() {
     const strDomain = 'cdms.mirimmedialab.co.kr';
     const strSecretDefault = 'askjmyyyojqa@gmail.com';
     for(i = 0; i < _json.length; i++){
-        const strTopText =        "<div>"
+        const strTopText =        "--frontier"
+                                + "<div>"
                                 + "<span>안녕하세요. <b>미림미디어랩 CDMS</b> 입니다.</span>"
                                 + "<span>" + _json[i].sender + "님이 새로운 게시판을 작성하였습니다.</span>"
                                 + "<span>지금 바로 확인하시려면 <a href = '" + _json[i].url + "'>여기</a>를 눌러주세요.</span>";
@@ -54,6 +56,7 @@ function fnMail() {
                                 + "<span>오늘도 좋은 하루 되세요.</span>"
                                 + "<span>감사합니다.</span>"
                                 + "</div>";
+                                + "--frontier--";
 
         const strTransmitter = _json[i].transmitter == undefined || _json[i].transmitter == '' ? strTransmitterDefault : _json[i].transmitter;
         const strName = _json[i].name == undefined || _json[i].name == '' ? "알림메일" : _json[i].name;
@@ -62,7 +65,7 @@ function fnMail() {
         let strSecret = '-b"' + strSecretDefault + '" ';
         let strAttach = '';
         // const strSubject = _json[i].subject + '$(echo -e \nContent-Type: text/html)'
-        const strSubject = "$(echo -e '" + _json[i].subject + "\nMIME-Version: 1.0;Content-Type: multipart/related')";
+        const strSubject = "$(echo -e '" + _json[i].subject + "\nMIME-Version: 1.0\nContent-Type: multipart/related; boundary=frontier')";
 
         if(_json[i].reference != undefined && _json[i].reference.length != 0){
             for(a = 0; a < _json[i].reference.length; a++){
@@ -79,16 +82,6 @@ function fnMail() {
                 strAttach += '-a"' + _json[i].attach[c] + '" ';
             }
         }
-
-        console.log(strTopText)
-        console.log(strMiddleText)
-        console.log(strBottomText)
-        console.log(strTransmitter)
-        console.log(strName)
-        console.log(strReference)
-        console.log(strSecret)
-        console.log(strAttach)
-        console.log(strSubject)
         exec('mail -s"' + strSubject + '"' + strReference + strSecret + strAttach + '-r"' + strName + '<' + strTransmitter + '@' + strDomain + '>" "' + strReceiver + '"<<<"' + strTopText + strMiddleText + strBottomText + '"', {windowsHide : true}, function(err, stdout, stderr){
             if(err){
                 console.log(i + '번째 메일 발송 중 오류가 발생했습니다.')
