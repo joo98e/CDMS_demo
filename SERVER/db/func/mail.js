@@ -7,6 +7,13 @@ function fnMail() {
     // -c : 참조 목록
     // -b : 숨은 참조
     // -a : 참조 파일
+
+    // 메일 테스트 이력
+    // const strSubject = _json[i].subject + '$(echo -e \nContent-Type: text/html)' -> 실패. 결과 : [CDMS] 알림메일 입니다.-cqvud00@gmail.com
+    // \nContent-Type: text/plain -> 실패. 당연히 안됨.
+    // \nContent-Type: text/html -> 실패. 쉘스크립트로 바로 보내주거나 보낸사람에 이름을 지정하지 않고 보내는거면 성공함.
+    // \nMIME-Version: 1.0; -> 실패.
+    // \nMIME-Version: 1.0;Content-Type: multipart/alternative') -> 실패.
     let arrMailInfomation = [
         {
             transmitter : "mirimCDMS",                          //	보내는 사람 메일주소. 공백이면 기본값 [mirimCDMS]로 변환
@@ -55,7 +62,7 @@ function fnMail() {
         let strSecret = '-b"' + strSecretDefault + '" ';
         let strAttach = '';
         // const strSubject = _json[i].subject + '$(echo -e \nContent-Type: text/html)'
-        const strSubject = "$(echo -e '" + _json[i].subject + "\nMIME-Version: 1.0;Content-Type: multipart/alternative')";
+        const strSubject = "$(echo -e '" + _json[i].subject + "\nMIME-Version: 1.0;Content-Type: multipart/related')";
 
         if(_json[i].reference != undefined && _json[i].reference.length != 0){
             for(a = 0; a < _json[i].reference.length; a++){
