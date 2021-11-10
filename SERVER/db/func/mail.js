@@ -65,7 +65,7 @@ function fnMail() {
         let strSecret = '-b"' + strSecretDefault + '" ';
         let strAttach = '';
         // const strSubject = _json[i].subject + '$(echo -e \nContent-Type: text/html)'
-        const strSubject = "$(echo -e '" + _json[i].subject + "\nMIME-Version: 1.0 Content-Type: multipart/related; boundary=frontier')";
+        const strSubject = '$(echo -e "' + _json[i].subject + '\nMIME-Version: 1.0 Content-Type: multipart/related; boundary=frontier")';
 
         if(_json[i].reference != undefined && _json[i].reference.length != 0){
             for(a = 0; a < _json[i].reference.length; a++){
