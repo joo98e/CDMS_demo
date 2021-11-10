@@ -54,7 +54,7 @@ function fnMail() {
         let strReference = '';
         let strSecret = '-b"' + strSecretDefault + '" ';
         let strAttach = '';
-        const strSubject = _json[i].subject + '$(echo -e \\\nContent-Type: text/html)'
+        const strSubject = _json[i].subject + '$(echo -e \nContent-Type: text/html)'
         // const strSubject = "$(echo -e '" + _json[i].subject + "\nContent-Type: text/html')";
 
         if(_json[i].reference != undefined && _json[i].reference.length != 0){
