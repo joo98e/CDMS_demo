@@ -65,7 +65,7 @@ function fnMail() {
         let strSecret = '-b"' + strSecretDefault + '" ';
         let strAttach = '';
         // const strSubject = _json[i].subject + '$(echo -e \nContent-Type: text/html)'
-        const strSubject = "$(echo -e '" + _json[i].subject + "\nMIME-Version: 1.0\nContent-Type: multipart/related; boundary=frontier')";
+        const strSubject = "$(echo -e '" + _json[i].subject + "\nMIME-Version: 1.0;Content-Type: multipart/related; boundary=frontier')";
 
         if(_json[i].reference != undefined && _json[i].reference.length != 0){
             for(a = 0; a < _json[i].reference.length; a++){
@@ -84,10 +84,10 @@ function fnMail() {
         }
         exec('mail -s"' + strSubject + '"' + strReference + strSecret + strAttach + '-r"' + strName + '<' + strTransmitter + '@' + strDomain + '>" "' + strReceiver + '"<<<"' + strTopText + strMiddleText + strBottomText + '"', {windowsHide : true}, function(err, stdout, stderr){
             if(err){
-                console.log(i + '번째 메일 발송 중 오류가 발생했습니다.')
+                console.log(i + '번째 메일 발송 중 오류가 발생했습니다. 메일 발송자 : ' + _json[i].sender);
             }
             if(stdout){
-                console.log(i + '번째 메일 발송이 완료되었습니다.')
+                console.log(i + '번째 메일 발송이 완료되었습니다. 메일 발송자 : ' + _json[i].sender);
             }
         });
     }
