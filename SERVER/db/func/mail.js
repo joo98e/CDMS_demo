@@ -44,7 +44,7 @@ function fnMail() {
     const strDomain = 'cdms.mirimmedialab.co.kr';
     const strSecretDefault = 'askjmyyyojqa@gmail.com';
     for(i = 0; i < _json.length; i++){
-        const strTopText =        "--frontier\nContent-Type: text/html\n"
+        const strTopText =        "--frontier\n"
                                 + "<div>"
                                 + "<span>안녕하세요. <b>미림미디어랩 CDMS</b> 입니다.</span>"
                                 + "<span>" + _json[i].sender + "님이 새로운 게시판을 작성하였습니다.</span>"
@@ -65,7 +65,7 @@ function fnMail() {
         let strSecret = '-b"' + strSecretDefault + '" ';
         let strAttach = '';
         // const strSubject = _json[i].subject + '$(echo -e \nContent-Type: text/html)'
-        const strSubject = "$(echo -e '" + _json[i].subject + "\nMIME-Version: 1.0;Content-Type: multipart/mixed; boundary=frontier')";
+        const strSubject = "$(echo -e '" + _json[i].subject + "\nMIME-Version: 1.0;Content-Type: multipart/related; boundary=frontier')";
 
         if(_json[i].reference != undefined && _json[i].reference.length != 0){
             for(a = 0; a < _json[i].reference.length; a++){
