@@ -55,7 +55,7 @@ function fnMail() {
         const strBottomText =     "<span>확인 부탁드리겠습니다.</span>"
                                 + "<span>오늘도 좋은 하루 되세요.</span>"
                                 + "<span>감사합니다.</span>"
-                                + "</div>";
+                                + "</div>"
                                 + "--frontier--";
 
         const strTransmitter = _json[i].transmitter == undefined || _json[i].transmitter == '' ? strTransmitterDefault : _json[i].transmitter;
