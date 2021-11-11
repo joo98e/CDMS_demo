@@ -27,7 +27,7 @@ function fnMail() {
                 // "askjmyyyojqa@gmail.com"	
             ],
             attach : [					                        //	첨부파일 경로. 공백이면 첨부하지 않음.
-                // "/raid/cdms/avatars/items/default/01.jpg",
+                "/raid/cdms/avatars/items/default/01.jpg",
                 // "/raid/cdms/avatars/items/default/02.jpg",
             ],
             subject : "[CDMS] 알림메일 입니다.",		         //	메일 제목
