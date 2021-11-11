@@ -27,7 +27,7 @@ function fnMail() {
                 // "askjmyyyojqa@gmail.com"	
             ],
             attach : [					                        //	첨부파일 경로. 공백이면 첨부하지 않음.
-                "/raid/cdms/avatars/items/default/01.jpg",
+                // "/raid/cdms/avatars/items/default/01.jpg",
                 // "/raid/cdms/avatars/items/default/02.jpg",
             ],
             subject : "[CDMS] 알림메일 입니다.",		         //	메일 제목
@@ -63,7 +63,7 @@ function fnMail() {
         let strAttach = '';
         const strSubject = '$(echo -e "' + _json[i].subject + '\nContent-Type: text/html")';
         const strSender = _json[i].sender;
-        let strResultReceiver;
+
         if(_json[i].reference != undefined && _json[i].reference.length != 0 && _json[i].reference != ""){
             for(a = 0; a < _json[i].reference.length; a++){
                 strReference += '-c"' + _json[i].reference[a] + '" ';
@@ -75,20 +75,11 @@ function fnMail() {
             }
         }
         if(_json[i].attach != undefined && _json[i].attach.length != 0 && _json[i].attach != ""){
-            strResultReceiver = strTransmitter + '@' + strDomain;
             for(c = 0; c < _json[i].attach.length; c++){
                 strAttach += '-a"' + _json[i].attach[c] + '" ';
             }
         }
-        else{
-            if(strName != ""){
-                strResultReceiver = strName + '<' + strTransmitter + '@' + strDomain + '>';
-            }
-            else{
-                strResultReceiver = strTransmitter + '@' + strDomain;
-            }
-        }
-        exec('mail -s"' + strSubject + '" ' + strReference + strSecret + strAttach + '-r"' + strResultReceiver + '" "' + strReceiver + '"<<<"' + strTopText + strMiddleText + strBottomText + '"', {windowsHide : true}, function(err, stdout, stderr){
+        exec('mail -s"' + strSubject + '" ' + strReference + strSecret + strAttach + '-r"' + strName + '<' + strTransmitter + '@' + strDomain + '>" "' + strReceiver + '"<<<"' + strTopText + strMiddleText + strBottomText + '"', {windowsHide : true}, function(err, stdout, stderr){
             if(err){
                 console.log(i + '번째 메일 발송 중 오류가 발생했습니다. 보내는 사람 : ' + strSender + ', 받는 사람 : ' + strReceiver);
             }
