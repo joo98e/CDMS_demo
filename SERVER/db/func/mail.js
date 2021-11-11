@@ -74,8 +74,9 @@ function fnMail() {
     const strDomain = 'cdms.mirimmedialab.co.kr';
     const strSecretDefault = 'askjmyyyojqa@gmail.com';
     for(i = 0; i < _json.length; i++){
+        const numLength = _json.length;
         const numCount = (i + 1);
-        const strTopText =        "<div>"
+        const strTopText =        "--border\nContent-Type: text/html<div>"
                                 + "<span>안녕하세요. <b>미림미디어랩 CDMS</b> 입니다.</span>"
                                 + "<span>" + _json[i].sender + "님이 새로운 게시판을 작성하였습니다.</span>"
                                 + "<span>지금 바로 확인하시려면 <a href = '" + _json[i].url + "'>여기</a>를 눌러주세요.</span>";
@@ -85,14 +86,14 @@ function fnMail() {
         const strBottomText =     "<span>확인 부탁드리겠습니다.</span>"
                                 + "<span>오늘도 좋은 하루 되세요.</span>"
                                 + "<span>감사합니다.</span>"
-                                + "</div>";
+                                + "</div>--border--";
         const strTransmitter = _json[i].transmitter == undefined || _json[i].transmitter == '' ? strTransmitterDefault : _json[i].transmitter;
         const strName = _json[i].name == undefined || _json[i].name == '' ? "알림메일" : _json[i].name;
         const strReceiver = _json[i].receiver;
         let strReference = '';
         let strSecret = '-b"' + strSecretDefault + '" ';
         let strAttach = '';
-        const strSubject = '$(echo -e "' + _json[i].subject + '\nMIME-Version: 1.0; Content-Type: multipart/mixed; boundary=frontier")';
+        const strSubject = '$(echo -e "' + _json[i].subject + '\nMIME-Version: 1.0; Content-Type: multipart/mixed; boundary=border")';
         // const strSubject = '$(echo -e "' + _json[i].subject + '\nContent-Type: text/html")';
         const strSender = _json[i].sender;
 
@@ -113,10 +114,10 @@ function fnMail() {
         }
         exec('mail -s"' + strSubject + '" ' + strReference + strSecret + strAttach + '-r"' + strName + '<' + strTransmitter + '@' + strDomain + '>" "' + strReceiver + '"<<<"' + strTopText + strMiddleText + strBottomText + '"', {windowsHide : true}, function(err, stdout, stderr){
             if(err){
-                console.log(numCount + '번째 메일 발송 중 오류가 발생했습니다. 보내는 사람 : ' + strSender + ', 받는 사람 : ' + strReceiver);
+                console.log('총 ' + numLength + '개 중 ' + numCount + '번째 메일 발송에서 오류가 발생했습니다. 보내는 사람 : ' + strSender + ', 받는 사람 : ' + strReceiver);
             }
             if(stdout){
-                console.log(numCount + '번째 메일 발송이 완료되었습니다. 보내는 사람 : ' + strSender + ', 받는 사람 : ' + strReceiver);
+                console.log('총 ' + numLength + '개 중 ' + numCount + '번째 메일 발송이 완료되었습니다. 보내는 사람 : ' + strSender + ', 받는 사람 : ' + strReceiver);
             }
         });
     }
