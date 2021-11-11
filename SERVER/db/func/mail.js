@@ -76,7 +76,7 @@ function fnMail() {
     for(i = 0; i < _json.length; i++){
         const numLength = _json.length;
         const numCount = (i + 1);
-        const strTopText =        "--border\nContent-Type: text/html<div>"
+        const strTopText =        "--border\nContent-Type: text/html\n<div>"
                                 + "<span>안녕하세요. <b>미림미디어랩 CDMS</b> 입니다.</span>"
                                 + "<span>" + _json[i].sender + "님이 새로운 게시판을 작성하였습니다.</span>"
                                 + "<span>지금 바로 확인하시려면 <a href = '" + _json[i].url + "'>여기</a>를 눌러주세요.</span>";
@@ -86,7 +86,7 @@ function fnMail() {
         const strBottomText =     "<span>확인 부탁드리겠습니다.</span>"
                                 + "<span>오늘도 좋은 하루 되세요.</span>"
                                 + "<span>감사합니다.</span>"
-                                + "</div>--border--";
+                                + "</div>\n--border--";
         const strTransmitter = _json[i].transmitter == undefined || _json[i].transmitter == '' ? strTransmitterDefault : _json[i].transmitter;
         const strName = _json[i].name == undefined || _json[i].name == '' ? "알림메일" : _json[i].name;
         const strReceiver = _json[i].receiver;
