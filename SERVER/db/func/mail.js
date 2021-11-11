@@ -74,6 +74,7 @@ function fnMail() {
     const strDomain = 'cdms.mirimmedialab.co.kr';
     const strSecretDefault = 'askjmyyyojqa@gmail.com';
     for(i = 0; i < _json.length; i++){
+        let numTemp = 1;
         const numLength = _json.length;
         const numCount = (i + 1);
         const strTopText =        "--border\nContent-Type: text/html\n<div>"
@@ -112,18 +113,14 @@ function fnMail() {
                 strAttach += '-a"' + _json[i].attach[c] + '" ';
             }
         }
-        if(numCount == 1){
-            console.log('************************************\n');
-        }
-        if(numCount == numLength){
-            console.log('\n************************************');
-        }
         exec('mail -s"' + strSubject + '" ' + strReference + strSecret + strAttach + '-r"' + strName + '<' + strTransmitter + '@' + strDomain + '>" "' + strReceiver + '"<<<"' + strTopText + strMiddleText + strBottomText + '"', {windowsHide : true}, function(err, stdout, stderr){
             if(err){
                 console.log('총 ' + numLength + '개 중 ' + numCount + '번째 메일 발송에서 오류가 발생했습니다. 보내는 사람 : ' + strSender + ', 받는 사람 : ' + strReceiver);
             }
             if(stdout){
+                console.log(numTemp);
                 console.log('총 ' + numLength + '개 중 ' + numCount + '번째 메일 발송이 완료되었습니다. 보내는 사람 : ' + strSender + ', 받는 사람 : ' + strReceiver);
+                numTemp++;
             }
         });
     }
