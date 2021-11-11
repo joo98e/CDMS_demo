@@ -11,8 +11,8 @@ import API from '../../common/API';
 import getNow from '../../common/fn/getNow';
 import UIButton from '../../common/UIButton';
 
-import AgencyCard from './AgencyCard'
-import ProjectAddDialog from '../Proj/ProjectAddDialog'
+import ProjectCard from '../Proj/ProjectCard';
+import ProjectAddDialog from '../Proj/ProjectAddDialog';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -86,7 +86,7 @@ function AgencyDetail(props) {
                             {
                                 list.map((item, index) => {
                                     return (
-                                        <AgencyCard
+                                        <ProjectCard
                                             key={index}
                                             item={item}
                                         />
