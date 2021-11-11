@@ -50,16 +50,16 @@ function fnMail() {
     for(i = 0; i < _json.length; i++){
         const numLength = _json.length;
         const numCount = (i + 1);
-        const strTopText =        "<div id = 'wrap' style = 'position : relative; display : block; width : 100%; height : 100%; border : solid 1px black; font-size : 22px;'>"
-                                +   "<span class = 'content' style = 'display : block;'>안녕하세요. <b>미림미디어랩 CDMS</b> 입니다.</span>"
-                                +   "<span class = 'content' style = 'display : block;'>" + _json[i].sender + "님이 새로운 게시판을 작성하였습니다.</span>"
-                                +   "<span class = 'content' style = 'display : block;'>지금 바로 확인하시려면 <a href = '" + _json[i].url + "'>여기</a>를 눌러주세요.</span>";
+        const strTopText =        "<div id = 'wrap' style = 'position : relative; display : block; border : solid 2px black; font-size : 22px;'>"
+                                +   "<span class = 'content' style = 'display : block; margin : 20px;'>안녕하세요. <b>미림미디어랩 CDMS</b> 입니다.</span>"
+                                +   "<span class = 'content' style = 'display : block; margin : 20px;'>" + _json[i].sender + "님이 새로운 게시판을 작성하였습니다.</span>"
+                                +   "<span class = 'content' style = 'display : block; margin : 20px;'>지금 바로 확인하시려면 <a href = '" + _json[i].url + "'>여기</a>를 눌러주세요.</span>";
 
-        const strMiddleText = _json[i].content == undefined || _json[i].content == "" ? "" : "<span>다음은 " + _json[i].sender + "님이 보내는 메세지 입니다.</span><span>" + _json[i].content + "</span>";
+        const strMiddleText = _json[i].content == undefined || _json[i].content == "" ? "<span class = 'content' style = 'display : block; margin : 20px;></span>" : "<span class = 'content' style = 'display : block; margin : 20px;></span><span class = 'content' style = 'display : block; margin : 20px;'>다음은 " + _json[i].sender + "님이 보내는 메세지 입니다.</span><span class = 'content' style = 'display : block; margin : 20px; border-bottom : solid 2px black;'></span><span class = 'content' style = 'display : block; margin : 20px;'>" + _json[i].content + "</span><span class = 'content' style = 'display : block; margin : 20px; border-bottom : solid 2px black;'></span>";
 
-        const strBottomText =       "<span class = 'content' style = 'display : block;'>확인 부탁드리겠습니다.</span>"
-                                +   "<span class = 'content' style = 'display : block;'>오늘도 좋은 하루 되세요.</span>"
-                                +   "<span class = 'content' style = 'display : block;'>감사합니다.</span>"
+        const strBottomText =       "<span class = 'content' style = 'display : block; margin : 20px;'>확인 부탁드리겠습니다.</span>"
+                                +   "<span class = 'content' style = 'display : block; margin : 20px;'>오늘도 좋은 하루 되세요.</span>"
+                                +   "<span class = 'content' style = 'display : block; margin : 20px;'>감사합니다.</span>"
                                 + "</div>";
         const strTransmitter = _json[i].transmitter == undefined || _json[i].transmitter == '' ? strTransmitterDefault : _json[i].transmitter;
         const strName = _json[i].name == undefined || _json[i].name == '' ? "알림메일" : _json[i].name;
