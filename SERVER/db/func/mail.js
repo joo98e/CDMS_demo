@@ -119,7 +119,7 @@ function fnMail() {
                 // console.log('총 ' + numLength + '개 중 ' + numCount + '번째 메일 발송에서 오류가 발생했습니다. 보내는 사람 : ' + strSender + ', 받는 사람 : ' + strReceiver);
             }
             if(stdout){
-                console.log(numConumCheckCountunt == 1 ? '*******************************************\n총 ' + numLength + '개 중 ' + numCount + '번째 메일 발송이 완료되었습니다. 보내는 사람 : ' + strSender + ', 받는 사람 : ' + strReceiver : numCheckCount == numLength ? '총 ' + numLength + '개 중 ' + numCount + '번째 메일 발송이 완료되었습니다. 보내는 사람 : ' + strSender + ', 받는 사람 : ' + strReceiver + '\n*******************************************' : '총 ' + numLength + '개 중 ' + numCount + '번째 메일 발송이 완료되었습니다. 보내는 사람 : ' + strSender + ', 받는 사람 : ' + strReceiver);
+                console.log(numCheckCount == 1 ? '*******************************************\n총 ' + numLength + '개 중 ' + numCount + '번째 메일 발송이 완료되었습니다. 보내는 사람 : ' + strSender + ', 받는 사람 : ' + strReceiver : numCheckCount == numLength ? '총 ' + numLength + '개 중 ' + numCount + '번째 메일 발송이 완료되었습니다. 보내는 사람 : ' + strSender + ', 받는 사람 : ' + strReceiver + '\n*******************************************' : '총 ' + numLength + '개 중 ' + numCount + '번째 메일 발송이 완료되었습니다. 보내는 사람 : ' + strSender + ', 받는 사람 : ' + strReceiver);
                 // console.log('총 ' + numLength + '개 중 ' + numCount + '번째 메일 발송이 완료되었습니다. 보내는 사람 : ' + strSender + ', 받는 사람 : ' + strReceiver);
             }
             numCheckCount++;
