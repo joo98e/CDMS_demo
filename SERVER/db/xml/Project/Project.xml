@@ -34,6 +34,7 @@
         (
             ref_proj_id,
             ref_colg_seq,
+            `type`,
             `name`,
             reg_ip,
             upd_ip,
@@ -45,6 +46,7 @@
         (
             #{last_insert_id},
             #{goods.seq},
+            #{type},
             #{goods.full_name},
             #{IPv4},
             #{IPv4},
@@ -59,9 +61,10 @@
         INSERT INTO
         tb_agcy_proj_colleague
         (
-            ref_proc_id,
+            ref_proj_id,
             ref_colg_seq,
             `type`,
+            `name`,
             reg_ip,
             upd_ip,
             reg_date,
@@ -72,6 +75,7 @@
             #{last_insert_id},
             #{seq},
             #{type},
+            #{full_name},
             #{IPv4},
             #{IPv4},
             #{reg_date},
@@ -83,7 +87,6 @@
         SELECT 
             proj.id,
             proj.ref_agcy_id,
-            proj.ref_biz_area,
             proj.`name`,
             proj.`desc`,
             proj.add_info,
@@ -152,6 +155,29 @@
                     AND proj.delete_yn = #{delete_yn}
                 </when>
             </choose>
+        </where>
+    </select>
+
+    <select id="getColleague">
+        SELECT 
+            proj_colg.id,
+            proj_colg.ref_colg_seq,
+            proj_colg.ref_proj_id,
+            proj_colg.`name`,
+            mem.avatar_path
+        FROM
+            tb_agcy_proj_colleague AS proj_colg
+        LEFT JOIN 
+            tb_member AS mem
+        ON 
+            mem.seq = proj_colg.ref_colg_seq
+        <where>
+            <if test="delete_yn != null">
+                AND proj_colg.delete_yn = #{delete_yn}
+            </if>
+            <if test="proj_id != null">
+                AND proj_colg.ref_proj_id = #{proj_id}
+            </if>
         </where>
     </select>
 </mapper>

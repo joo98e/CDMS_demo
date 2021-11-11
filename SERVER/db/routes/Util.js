@@ -76,7 +76,6 @@ router.get("/name", (req, res) => {
     }else{
         const params = req.query;
         const SQL = myBatisMapper.getStatement("Util", type, params, format);
-        console.log(SQL);
         return res.send(200)
     }
 

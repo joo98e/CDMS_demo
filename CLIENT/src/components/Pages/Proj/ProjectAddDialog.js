@@ -75,11 +75,6 @@ const ProjectAddDialog = () => {
     const handleChangeProjectInfos = (e) => {
         let nextValue = { ..._projectInfo }
         nextValue[e.target.name] = e.target.value;
-
-        if (e.target.name === "desc") {
-            console.log(e.target.value);
-        };
-
         dispatch(setProjectInfo({ ...nextValue }));
     }
 
@@ -188,7 +183,15 @@ const ProjectAddDialog = () => {
             ref_agcy_id: ref_agcy_id,
         }
         API.post(URL, data)
-            .then(res => console.log(res));
+            .then(res => {
+                if (res.data.resultCode === 1) {
+                    enqueueSnackbar("등록에 성공했습니다.", { variant: 'success' });
+                    handleClose();
+                    history.go(0);
+                } else {
+                    enqueueSnackbar(res.data.resultCode, { variant: 'error' });
+                }
+            });
     }
 
     useEffect(() => {

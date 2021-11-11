@@ -1,6 +1,7 @@
 
 const express = require('express');
 const router = express.Router();
+const getNow = require("../func/getNow");
 
 const connection = require("../config/db_connection");
 const myBatisMapper = require('mybatis-mapper');
@@ -14,7 +15,6 @@ router.post('/add', (req, res) => {
     connection.query(SQL_PROJECT,
         (err, rows) => {
             if (err) {
-                console.log(err);
                 return res.status(400).send({
                     result: {},
                     resultCode: -1,
@@ -25,12 +25,12 @@ router.post('/add', (req, res) => {
                     const params_sub = {
                         last_insert_id: rows.insertId,
                         IPv4: params.IPv4,
-                        person: params.subPerson,
+                        type: "TYPE::SUB",
+                        subPerson: params.subPerson,
                         reg_date: getNow(),
                         upd_date: getNow()
                     };
                     const SQL_PROJECT_COLLEAGUE = myBatisMapper.getStatement('Project', 'insertProjectColleague', params_sub, format);
-
                     connection.query(SQL_PROJECT_COLLEAGUE,
                         (err, rows) => {
                             if (err) {
@@ -56,6 +56,7 @@ router.post('/add', (req, res) => {
                                     upd_date: getNow()
                                 };
                                 const SQL_PROCESS_COLG_MAIN = myBatisMapper.getStatement('Project', 'insertProjectColleagueMain', params_main, format);
+                                console.log(SQL_PROCESS_COLG_MAIN);
                                 connection.query(SQL_PROCESS_COLG_MAIN,
                                     (err, rows) => {
                                         if (err) {
@@ -93,7 +94,7 @@ router.post('/add', (req, res) => {
 router.get('/list', (req, res) => {
     const params = req.query;
     const SQL = myBatisMapper.getStatement("Project", "getProject", params, format);
-    
+    console.log(SQL);
     connection.query(SQL, (err, rows, fileds) => {
         if (err) {
             return res.status(400).send({
@@ -117,6 +118,33 @@ router.get('/list', (req, res) => {
             }
         }
     });
+});
+
+router.get('/getColleague', (req, res) => {
+    const condition = {
+        proj_id: req.query.proj_id,
+        delete_yn: req.query.delete_yn
+    }
+    const SQL = myBatisMapper.getStatement('Project', 'getColleague', condition, format);
+    console.log();
+    connection.query(SQL,
+        (err, rows, fields) => {
+            if (err) {
+                console.log(err)
+                return res.status(400).send({
+                    result: false,
+                    resultCode: -1,
+                    resultMessage: "기관 참여자 불러오기에 실패했습니다."
+                })
+            };
+
+            return res.status(200).send({
+                result: rows,
+                resultCode: 1,
+                resultMessage: "기관 참여자 불러오기에 성공했습니다."
+            });
+        }
+    );
 });
 
 router.get('/detail', (req, res) => {

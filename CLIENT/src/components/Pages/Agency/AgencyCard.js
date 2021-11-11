@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
   columnFlexBox: {
     display: "flex",
     justifyContent: "space-between",
-    alignItems : "flex-start"
+    alignItems: "flex-start"
   },
   mb1: {
     margin: theme.spacing(1)
@@ -67,7 +67,7 @@ function AgencyCard(props) {
       .then(res => {
         setAgcyColleagueList(res.data.result);
       });
-      
+
   }, [_member, props.item.id]);
 
   return (

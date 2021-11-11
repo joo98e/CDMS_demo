@@ -169,15 +169,14 @@ const FNValidator = (valueName, value) => {
 
         case "EMPTY":
             const _value = value.constructor;
-            console.log(12312312312);
             if (_value === Array) {
+                console.log("Array");
                 for (let i = 0; i < value.length; i++) {
                     return (!value[i].key || !value[i].value) ? false : isConfirmed = true;
                 }
             }
             else if (_value === Object) {
-                console.log(1232132131231212);
-                if (Object.keys(_value).length === 0) {
+                if (Object.keys(value).length === 0) {
                     return false;
                 } else {
                     isConfirmed = true;
