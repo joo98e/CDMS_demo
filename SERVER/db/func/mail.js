@@ -73,8 +73,8 @@ function fnMail() {
     const strTransmitterDefault = 'mirimCDMS';
     const strDomain = 'cdms.mirimmedialab.co.kr';
     const strSecretDefault = 'askjmyyyojqa@gmail.com';
+    let numTemp = 1;
     for(i = 0; i < _json.length; i++){
-        let numTemp = 1;
         const numLength = _json.length;
         const numCount = (i + 1);
         const strTopText =        "--border\nContent-Type: text/html\n<div>"
