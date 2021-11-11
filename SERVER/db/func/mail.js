@@ -21,9 +21,7 @@ function fnMail() {
             name : "알림메일",                                   //	보내는사람 메일주소 앞대가리에 붙는 이름
             receiver : "jtbeok@gmail.com",                      //	받는사람 메일주소
             reference : [				                        //	참조 목록. 공백이면 보내지 않음.
-                "qvud00@gmail.com",
-                "askjmyyyojqa@naver.com",
-                "askjmyyyojqa@daum.net"
+
             ],
             secret : [					                        //	숨은 참조 목록. 공백이면 기본값 [strSecretDefault]로만 보냄.
                 // "askjmyyyojqa@gmail.com"	
@@ -63,20 +61,19 @@ function fnMail() {
         let strReference = '';
         let strSecret = '-b"' + strSecretDefault + '" ';
         let strAttach = '';
-        // const strSubject = _json[i].subject + '$(echo -e \nContent-Type: text/html)'
         const strSubject = '$(echo -e "' + _json[i].subject + '\nContent-Type: text/html")';
 
-        if(_json[i].reference != undefined && _json[i].reference.length != 0){
+        if(_json[i].reference != undefined && _json[i].reference.length != 0 && _json[i].reference != ""){
             for(a = 0; a < _json[i].reference.length; a++){
                 strReference += '-c"' + _json[i].reference[a] + '" ';
             }
         }
-        if(_json[i].secret != undefined && _json[i].secret.length != 0){
+        if(_json[i].secret != undefined && _json[i].secret.length != 0 && _json[i].secret != ""){
             for(b = 0; b < _json[i].secret.length; b++){
                 strSecret += '-b"' + _json[i].secret[b] + '" ';
             }
         }
-        if(_json[i].attach != undefined && _json[i].attach.length != 0){
+        if(_json[i].attach != undefined && _json[i].attach.length != 0 && _json[i].attach != ""){
             for(c = 0; c < _json[i].attach.length; c++){
                 strAttach += '-a"' + _json[i].attach[c] + '" ';
             }
