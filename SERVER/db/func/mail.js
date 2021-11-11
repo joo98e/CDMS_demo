@@ -22,7 +22,7 @@ function fnMail() {
             receiver : "jtbeok@gmail.com",                      //	받는사람 메일주소
             reference : [				                        //	참조 목록. 공백이면 보내지 않음.
                 "qvud00@gmail.com",
-                "askjmyyyojqa@naver,com",
+                "askjmyyyojqa@naver.com",
                 "askjmyyyojqa@daum.net"
             ],
             secret : [					                        //	숨은 참조 목록. 공백이면 기본값 [strSecretDefault]로만 보냄.
