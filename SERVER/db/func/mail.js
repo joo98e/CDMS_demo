@@ -94,8 +94,8 @@ function fnMail() {
         let strReference = '';
         let strSecret = '-b"' + strSecretDefault + '" ';
         let strAttach = '';
-        const strSubject = '$(echo -e "' + _json[i].subject + '\nMIME-Version: 1.0;Content-Type: multipart/mixed; boundary=border;")';
-        // const strSubject = '$(echo -e "' + _json[i].subject + '\nContent-Type: text/html")';
+        // const strSubject = '$(echo -e "' + _json[i].subject + '\nMIME-Version: 1.0;Content-Type: multipart/mixed; boundary=border;")';
+        const strSubject = '$(echo -e "' + _json[i].subject + '\nContent-Type: text/html")';
         const strSender = _json[i].sender;
 
         if(_json[i].reference != undefined && _json[i].reference.length != 0 && _json[i].reference != ""){
@@ -115,12 +115,10 @@ function fnMail() {
         }
         exec('mail -s"' + strSubject + '" ' + strReference + strSecret + strAttach + '-r"' + strName + '<' + strTransmitter + '@' + strDomain + '>" "' + strReceiver + '"<<<"' + strTopText + strMiddleText + strBottomText + '"', {windowsHide : true}, function(err, stdout, stderr){
             if(err){
-                console.log(numCheckCount == 1 ? '*******************************************\n총 ' + numLength + '개 중 ' + numCount + '번째 메일 발송에서 오류가 발생했습니다. 보내는 사람 : ' + strSender + ', 받는 사람 : ' + strReceiver : numCheckCount == numLength ? '총 ' + numLength + '개 중 ' + numCount + '번째 메일 발송에서 오류가 발생했습니다. 보내는 사람 : ' + strSender + ', 받는 사람 : ' + strReceiver + '\n*******************************************' : '총 ' + numLength + '개 중 ' + numCount + '번째 메일 발송에서 오류가 발생했습니다. 보내는 사람 : ' + strSender + ', 받는 사람 : ' + strReceiver);
-                // console.log('총 ' + numLength + '개 중 ' + numCount + '번째 메일 발송에서 오류가 발생했습니다. 보내는 사람 : ' + strSender + ', 받는 사람 : ' + strReceiver);
+                console.log(numCheckCount == 1 ? '**************************************************************************************\n총 ' + numLength + '개 중 ' + numCount + '번째 메일 발송에서 오류가 발생했습니다. 보내는 사람 : ' + strSender + ', 받는 사람 : ' + strReceiver : numCheckCount == numLength ? '총 ' + numLength + '개 중 ' + numCount + '번째 메일 발송에서 오류가 발생했습니다. 보내는 사람 : ' + strSender + ', 받는 사람 : ' + strReceiver + '\n**************************************************************************************' : '총 ' + numLength + '개 중 ' + numCount + '번째 메일 발송에서 오류가 발생했습니다. 보내는 사람 : ' + strSender + ', 받는 사람 : ' + strReceiver);
             }
             if(stdout){
-                console.log(numCheckCount == 1 ? '*******************************************\n총 ' + numLength + '개 중 ' + numCount + '번째 메일 발송이 완료되었습니다. 보내는 사람 : ' + strSender + ', 받는 사람 : ' + strReceiver : numCheckCount == numLength ? '총 ' + numLength + '개 중 ' + numCount + '번째 메일 발송이 완료되었습니다. 보내는 사람 : ' + strSender + ', 받는 사람 : ' + strReceiver + '\n*******************************************' : '총 ' + numLength + '개 중 ' + numCount + '번째 메일 발송이 완료되었습니다. 보내는 사람 : ' + strSender + ', 받는 사람 : ' + strReceiver);
-                // console.log('총 ' + numLength + '개 중 ' + numCount + '번째 메일 발송이 완료되었습니다. 보내는 사람 : ' + strSender + ', 받는 사람 : ' + strReceiver);
+                console.log(numCheckCount == 1 ? '**************************************************************************************\n총 ' + numLength + '개 중 ' + numCount + '번째 메일 발송이 완료되었습니다. 보내는 사람 : ' + strSender + ', 받는 사람 : ' + strReceiver : numCheckCount == numLength ? '총 ' + numLength + '개 중 ' + numCount + '번째 메일 발송이 완료되었습니다. 보내는 사람 : ' + strSender + ', 받는 사람 : ' + strReceiver + '\n**************************************************************************************' : '총 ' + numLength + '개 중 ' + numCount + '번째 메일 발송이 완료되었습니다. 보내는 사람 : ' + strSender + ', 받는 사람 : ' + strReceiver);
             }
             numCheckCount++;
         });
