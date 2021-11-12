@@ -21,8 +21,8 @@ class App extends Component {
         <CustomRoute exact path="/register" component={Register} />
         <CustomRoute exact path="/agency" component={Agency} />
         <CustomRoute exact path="/agency/detail/:ref_agcy_id" component={AgencyDetail} />
+        <CustomRoute exact path="/project/detail/:ref_proj_id" component={ProjectDetail} />
         <CustomRoute exact path="/agency/project/add/:ref_agcy_id" component={ProjectAdd} />
-        <CustomRoute exact path="/agency/project/detail/:ref_proj_id" component={ProjectDetail} />
         <CustomRoute exact path="/agency/project/detail/process/add/:ref_proj_id" component={ProcessAdd} />
         <CustomRoute exact path="/agency/project/process/detail/:ref_proc_id" component={ProcessDetail} />
         <CustomRoute exact path="/common/release" component={UIRelease} />

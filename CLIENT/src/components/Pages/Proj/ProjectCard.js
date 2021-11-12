@@ -105,7 +105,7 @@ function ProjectCard(props) {
                                 <UIButton
                                     name="자세히"
                                     variant="contained"
-                                    action={() => { history.push(`/agency/detail/${props.item.id}`) }}
+                                    action={() => { history.push(`/project/detail/${props.item.id}`) }}
                                 />
                             </CardActions>
                         }
