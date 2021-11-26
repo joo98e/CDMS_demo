@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router';
 import {
     Container, Grid, Grow, Paper, Typography,
     Dialog, DialogContent, DialogActions, makeStyles
@@ -33,6 +34,7 @@ const useStyles = makeStyles(theme => ({
 function Agency(props) {
     const classes = useStyles();
     const _member = useSelector(state => state.User.member);
+    const history = useHistory();
     const [list, setList] = useState([]);
     const [grow, setGrow] = useState(false);
     const [open, setOpen] = useState(false);
@@ -40,7 +42,8 @@ function Agency(props) {
 
     useEffect(() => {
         API.permit(_member)
-            .then(res => setWriter(API.permitted("WRITE", res)));
+            .then(res => setWriter(API.permitted("WRITE", res)))
+            .catch(() => history.go(0));
 
         const URL = "/api/agency/list";
         const condition = {

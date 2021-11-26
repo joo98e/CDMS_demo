@@ -49,7 +49,8 @@ function AgencyDetail(props) {
 
     useEffect(() => {
         API.permit(_member)
-            .then(res => setWriter(API.permitted("WRITE", res)));
+            .then(res => setWriter(API.permitted("WRITE", res)))
+            .catch(() => history.go(0));
 
         const URL = '/api/project/list';
         const condition = {

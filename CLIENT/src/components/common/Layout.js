@@ -47,7 +47,7 @@ export class Layout extends Component {
     render() {
         const { component: Component } = this.props;
         return (
-            <>
+            <React.Fragment>
                 {this.myNav()}
                 <Box
                     pt={this.props.user.auth ? 10 : 0}
@@ -62,7 +62,7 @@ export class Layout extends Component {
                     <Component />
                 </Box>
                 {/* <UISettingsMenu /> */}
-            </>
+            </React.Fragment>
         )
     }
 }

@@ -1,6 +1,6 @@
 module.exports = (() => {
     return {
-        "host": "106.248.61.60",
+        "host": "58.72.141.210",
         "port": "3306",
         "user": "CDMS",
         "password": "mirim./!@",

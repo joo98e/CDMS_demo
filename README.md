@@ -3,6 +3,19 @@
 > - 단순 URL로 접속이 가능하지 않도록 유효한 지 확인해야 한다.
 
 ***
+# 2021.11.15
+<details>
+    <summary>
+        <b>
+            CDMS:Re
+        </b>
+    </summary>
+
+    1) 
+    
+</details>
+
+***
 # 2021.10.30
 <details>
     <summary>
