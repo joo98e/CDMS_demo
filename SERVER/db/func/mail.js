@@ -50,12 +50,12 @@ function fnMail() {
     for(i = 0; i < _json.length; i++){
         const numLength = _json.length;
         const numCount = (i + 1);
-        const strTopText =        "<div id = 'wrap' style = 'position : relative; display : block; font-size : 18px; color : black;'>"
+        const strTopText =        "<div id = 'wrap' style = 'position : relative; display : block; font-size : 17px; color : black;'>"
                                 +   "<span class = 'content' style = 'display : block; margin : 20px; word-break : keep-all;'><b>미림미디어랩 CDMS</b>에서 보내는 메세지 입니다.</span>"
                                 +   "<span class = 'content' style = 'display : block; margin : 20px; word-break : keep-all;'>" + _json[i].sender + "님이 새로운 게시판을 작성하였습니다.</span>"
                                 +   "<span class = 'content' style = 'display : block; margin : 20px; word-break : keep-all;'>지금 바로 확인하시려면 <a href = '" + _json[i].url + "'>여기</a>를 눌러주세요.</span>";
 
-        const strMiddleText = _json[i].content == undefined || _json[i].content == "" ? "<span class = 'content' style = 'display : block; margin : 20px; word-break : keep-all;></span>" : "<span class = 'content' style = 'display : block; margin : 20px; word-break : keep-all;></span><span class = 'content' style = 'display : block; margin : 20px; word-break : keep-all;'>다음은 " + _json[i].sender + "님이 보내는 메세지 입니다.</span><span class = 'content' style = 'display : block; margin : 20px; padding : 10px 0px 10px 0px; background-color : #FAFAFA; word-break : keep-all;'>" + _json[i].content + "</span>";
+        const strMiddleText = _json[i].content == undefined || _json[i].content == "" ? "<span class = 'content' style = 'display : block; margin : 20px; word-break : keep-all;></span>" : "<span class = 'content' style = 'display : block; margin : 20px; word-break : keep-all;></span><span class = 'content' style = 'display : block; margin : 20px; word-break : keep-all;'>다음은 " + _json[i].sender + "님이 보내는 메세지 입니다.</span><span class = 'content' style = 'display : block; margin : 20px; padding : 10px; background-color : #FAFAFA; word-break : keep-all;'>" + _json[i].content + "</span>";
 
         const strBottomText =       "<span class = 'content' style = 'display : block; margin : 20px; word-break : keep-all;'>확인 부탁드리겠습니다.</span>"
                                 +   "<span class = 'content' style = 'display : block; margin : 20px; word-break : keep-all;'>오늘도 좋은 하루 되세요.</span>"
